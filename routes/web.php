@@ -22,3 +22,16 @@ Route::get('/admin', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+/*
+|--------------------------------------------------------------------------
+| Business Routes
+|--------------------------------------------------------------------------
+|
+| Routes for all the business activities.
+|
+*/
+
+Route::post('/business', 'BusinessesController@store');
+Route::get('/business/{business}', 'BusinessesController@show');
