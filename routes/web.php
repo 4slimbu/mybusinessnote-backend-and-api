@@ -33,5 +33,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 |
 */
 
-Route::post('/business', 'BusinessesController@store');
-Route::get('/business/{business}', 'BusinessesController@show');
+Route::post('/business', 'BusinessController@store');
+Route::get('/businesses', 'BusinessController@index');
+Route::get('/business/{business}', 'BusinessController@show');

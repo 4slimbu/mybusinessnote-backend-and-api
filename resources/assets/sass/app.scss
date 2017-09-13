@@ -49,10 +49,21 @@ ul {
     &.bg-inverse {
              border-bottom: 2px solid $brand-primary;
     }
+    &.bg-dark {
+        background-color: $brand-info !important;
+    }
 }
 
 .bg-inverse {
     background-color: $brand-info!important;
+}
+
+.bg-dark {
+    background-color: $brand-primary !important;
+}
+
+.navbar {
+    padding: 1.5rem 1rem;
 }
 
 
@@ -93,12 +104,12 @@ ul {
     &.panel-default {
          margin-bottom: 40px;
     }
-    .nav-pills .nav-item .nav-link { 
+    .nav-pills .nav-item .nav-link {
         color: #fff;
         cursor: default;
         background-color: #ccc;
         margin-right: 0.8rem;
-        
+
         &:hover {
             cursor: pointer;
             color: #fff;
@@ -114,6 +125,11 @@ ul {
 }
 
 /* alert */
+
+.help-block {
+
+    color: $brand-danger;
+}
 
 .alert {
     position: fixed;
@@ -132,6 +148,19 @@ ul {
     color: #fff;
     background-color: $brand-success;
     border-color: $brand-success;
+}
+
+
+/* Businesses */
+
+.panel-business-list {
+
+    .card {
+
+        margin-bottom: 50px;
+
+    }
+
 }
 
 

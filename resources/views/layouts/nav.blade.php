@@ -31,12 +31,12 @@
       @else
           <li class="nav-item dropdown">
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                  {{ Auth::user()->name }} <span class="caret"></span>
+                  My Account <span class="caret"></span>
               </a>
 
               <ul class="dropdown-menu" role="menu">
                   <li><a class="dropdown-item" href="/home">My Dashboard</a></li>
-                  <li><a class="dropdown-item" href="/profiles/{{ Auth::user()->name }}">My Profile</a></li>
+                  <li><a class="dropdown-item" href="/profiles/{{ Auth::user()->first_name }}">My Profile</a></li>
                   <li>
                       <a class="dropdown-item" href="{{ route('logout') }}"
                           onclick="event.preventDefault();
@@ -50,8 +50,9 @@
                   </li>
               </ul>
           </li>
-      @endif
 
+      @endif
+      <li class="nav-item"><a class="nav-link" href="/businesses">Business Directory</a></li>
   </nav>
 
 

@@ -9562,11 +9562,23 @@ ul {
 /* nav */
 
 #navbarHeader.bg-inverse {
-  border-bottom: 2px solid #f4645f;
+  border-bottom: 2px solid #231f20;
+}
+
+#navbarHeader.bg-dark {
+  background-color: #231f20 !important;
 }
 
 .bg-inverse {
-  background-color: #4d545d !important;
+  background-color: #231f20 !important;
+}
+
+.bg-dark {
+  background-color: #231f20 !important;
+}
+
+.navbar {
+  padding: 1.5rem 1rem;
 }
 
 .user-nav.navbar-nav {
@@ -9605,16 +9617,20 @@ ul {
 .panel .nav-pills .nav-item .nav-link:hover {
   cursor: pointer;
   color: #fff;
-  background-color: #f4645f;
+  background-color: #231f20;
 }
 
 .panel .nav-pills .nav-item .nav-link.active {
   color: #fff;
   cursor: default;
-  background-color: #f4645f;
+  background-color: #231f20;
 }
 
 /* alert */
+
+.help-block {
+  color: #bf5329;
+}
 
 .alert {
   position: fixed;
@@ -9634,6 +9650,12 @@ ul {
   color: #fff;
   background-color: #5bc0de;
   border-color: #5bc0de;
+}
+
+/* Businesses */
+
+.panel-business-list .card {
+  margin-bottom: 50px;
 }
 
 /* Pagination */
