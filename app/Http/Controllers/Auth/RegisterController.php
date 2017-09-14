@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Illuminate\Http\Request;
+use App\Mail\EmailVerification;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use App\Mail\EmailVerification;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
@@ -57,6 +58,33 @@ class RegisterController extends Controller
         ]);
     }
 
+
+    /**
+     *  Over-ridden the register method from the "RegistersUsers" trait
+     *  Remember to take care while upgrading laravel
+     */
+    public function register(Request $request)
+    {
+        // Laravel validation
+        $validator = $this->validator($request->all());
+        if ($validator->fails())
+        {
+            $this->throwValidationException($request, $validator);
+        }
+
+        $user = $this->create($request->all());
+        // After creating the user send an email with the random token generated in the create method above
+        $email = new EmailVerification(new User(['token' => $user->token, 'name' => $user->first_name]));
+        \Mail::to($user->email)->send($email);
+
+        session()->flash('message', 'A verification email has been sent to your email account. Please verify your email address before you could login. Thanks!');
+
+        return back();
+
+    }
+
+
+
     /**
      * Create a new user instance after a valid registration.
      *
@@ -74,13 +102,7 @@ class RegisterController extends Controller
             'token' => str_random(10),
         ]);
 
-        // After creating the user send an email with the random token generated in the create method above
-        $email = new EmailVerification(new User(['token' => $user->token, 'name' => $user->first_name]));
-        \Mail::to($user->email)->send($email);
-
-        session()->flash('message', 'Thanks so much for signing up!');
-
-        return back();
+        return $user;
 
     }
 }

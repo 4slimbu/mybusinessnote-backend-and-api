@@ -1,16 +1,13 @@
 @component('mail::message')
+    Hello {{ $user->name }},
 
-    <h1>
-        Hello {{ $user->first_name }},
-    </h1>
-
-    <p>Click on the below button to verify your email address</p>
-
-    @component('mail::button', ['url' => 'url("register/verify/".{{ $user->token }})'])
-        Verify Now
-    @endcomponent
+The body of your message.
 
 
-    <p>Regards,<br>{{ config('app.name') }} </p>
+@component('mail::button', ['url' => 'url("register/verify/".{{ $user->token }})'])
+Verify Now
+@endcomponent
 
+Thanks,<br>
+{{ config('app.name') }}
 @endcomponent
