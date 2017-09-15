@@ -23,10 +23,12 @@ $factory->define(App\User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'verified' => true,
-        'user_type' => 2,
+        'role_id' => 2,
         'remember_token' => str_random(10),
     ];
 });
+
+
 
 
 $factory->define(App\Business::class, function( Faker $faker) {

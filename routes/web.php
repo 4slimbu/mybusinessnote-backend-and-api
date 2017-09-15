@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Web General Routes
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
@@ -15,13 +15,37 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Admin Routes
+|--------------------------------------------------------------------------
+|
+| Routes for all the business activities.
+|
+*/
+
 Route::get('/admin', function () {
     return view('admin/home');
 });
 
-Auth::routes();
 
+/*
+|--------------------------------------------------------------------------
+| User Routes
+|--------------------------------------------------------------------------
+|
+| Routes for all the business activities.
+|
+*/
+
+Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/register/verify/{token}', 'Auth\RegisterController@verify');
+
+
 
 
 /*

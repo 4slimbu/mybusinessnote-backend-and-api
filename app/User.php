@@ -26,4 +26,17 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Update verified user status.
+     *
+     *
+     */
+    public function verified()
+    {
+        $this->verified = 1;
+        $this->token = null;
+        $this->save();
+    }
+
 }

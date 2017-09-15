@@ -45,6 +45,8 @@ class BusinessController extends Controller
     public function store(Request $request)
     {
 
+
+
        $business =  Business::create([
 
             'business_category_id' => 1,

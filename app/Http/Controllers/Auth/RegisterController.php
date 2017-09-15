@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use Illuminate\Http\Request;
-use App\Mail\EmailVerification;
+use App\Mail\WelcomeEmail;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
+use Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
@@ -69,12 +69,14 @@ class RegisterController extends Controller
         $validator = $this->validator($request->all());
         if ($validator->fails())
         {
-            $this->throwValidationException($request, $validator);
+            return redirect('/register')
+                ->withErrors($validator)
+                ->withInput();
         }
 
         $user = $this->create($request->all());
         // After creating the user send an email with the random token generated in the create method above
-        $email = new EmailVerification(new User(['token' => $user->token, 'name' => $user->first_name]));
+        $email = new WelcomeEmail(new User(['token' => $user->token, 'first_name' => $user->first_name]));
         \Mail::to($user->email)->send($email);
 
         session()->flash('message', 'A verification email has been sent to your email account. Please verify your email address before you could login. Thanks!');
@@ -105,4 +107,19 @@ class RegisterController extends Controller
         return $user;
 
     }
+
+    /**
+     * Handles email validation request.
+     *
+     * @param  string  $token
+     * @return string
+     */
+    public function verify($token)
+    {
+
+        User::where('token',$token)->firstOrFail()->verified();
+        return redirect('login');
+
+    }
+
 }

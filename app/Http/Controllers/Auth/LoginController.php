@@ -39,6 +39,21 @@ class LoginController extends Controller
     }
 
     /**
+     * Override validateLogin method from the authenticateUsers
+     *
+     * @return void
+     */
+    protected function validateLogin()
+    {
+
+        $this->validate(request(), [
+            'email' => 'required|exists:users,email,verified,1', 'password' => 'required'
+        ], [
+            'email.exists' => 'The selected email is invalid or the account has not been activated.'
+        ]);
+    }
+
+    /**
      * Override credentials method from the authenticateUsers
      *
      * @return void
@@ -51,6 +66,21 @@ class LoginController extends Controller
             'password' => $request->password,
             'verified' => 1,
         ];
+    }
+
+    /**
+     * Where to redirect users after login.
+     *
+     * @return string
+     */
+    protected function redirectTo()
+    {
+        // if user have role
+       /* if (auth()->user()->isAdmin()) {
+            return $this->redirectTo = '/dashboard';
+        }
+
+        return $this->redirectTo = '/home'; */
     }
 
 
