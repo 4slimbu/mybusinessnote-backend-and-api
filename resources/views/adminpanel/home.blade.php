@@ -1,4 +1,4 @@
-@extends('admin/layouts/master')
+@extends('adminpanel/layouts/master')
 
 @section('content')
 <div class="row">

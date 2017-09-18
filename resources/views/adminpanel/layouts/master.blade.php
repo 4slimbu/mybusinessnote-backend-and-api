@@ -16,14 +16,14 @@
 
   <body>
 
-    @include('admin.layouts.nav')
+    @include('adminpanel.layouts.nav')
     <div id="app" class="container-fluid">
       
              @yield('content')
        
     </div>
     
-    @include('admin.layouts.footer')
+    @include('adminpanel.layouts.footer')
     
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>

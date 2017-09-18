@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
 
         $this->seedUserRoles();
         $this->seedDefaultUser();
+        $this->seedBusinessCategory();
     }
 
 
@@ -32,6 +33,28 @@ class DatabaseSeeder extends Seeder
 
 
         DB::table('roles')->insert($data);
+
+    }
+
+    /**
+     * Seed business category data
+     *
+     * @return void
+     */
+    private function seedBusinessCategory(){
+
+        $data = array(
+            array('title'=>'General'),
+            array('title'=>'Tradie'),
+            array('title'=>'Professional Services'),
+            array('title'=>'Online Shop / E-commerce'),
+            array('title'=>'Hospitality'),
+            array('title'=>'Retail'),
+            array('title'=>'Sole Trader')
+        );
+
+
+        DB::table('business_categories')->insert($data);
 
     }
 

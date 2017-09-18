@@ -16,8 +16,6 @@ Route::get('/', function () {
 });
 
 
-
-
 /*
 |--------------------------------------------------------------------------
 | Admin Routes
@@ -27,8 +25,11 @@ Route::get('/', function () {
 |
 */
 
-Route::get('/admin', function () {
-    return view('admin/home');
+
+Route::group(['middleware' => 'can:accessAdminPanel'], function() {
+
+    Route::get('/admin', 'AdminPanel\Dashboard@index');
+
 });
 
 
@@ -44,8 +45,6 @@ Route::get('/admin', function () {
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/register/verify/{token}', 'Auth\RegisterController@verify');
-
-
 
 
 /*
