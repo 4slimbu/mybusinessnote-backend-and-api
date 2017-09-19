@@ -43,16 +43,16 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Business Categories <span class="caret"></span></a>
                             <ul>
-                                <li class="nav-item"><a class="nav-link" href="/admin/businesscategory/">View All</a></li>
-                                <li class="nav-item"><a class="nav-link" href="/admin/businesscategory/create">Add New</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{url('admin/businesscategory')}}">View All</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{url('admin/businesscategory/create')}}">Add New</a></li>
                             </ul>
                         </li>
 
                         <li class="nav-item">
                             <a class="nav-link" href="#">Business Badges <span class="caret"></span></a>
                             <ul>
-                                <li class="nav-item"><a class="nav-link" href="/admin/badges/">View All</a></li>
-                                <li class="nav-item"><a class="nav-link" href="/admin/badge/create">Add New</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{url('admin/badges')}}">View All</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{url('admin/badge/create')}}">Add New</a></li>
                             </ul>
                         </li>
 

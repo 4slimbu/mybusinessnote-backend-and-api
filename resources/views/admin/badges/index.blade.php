@@ -31,12 +31,26 @@
                             <td>
 
                                 <div class="">
-                                    <a href="/admin/badge/edit/{{ $badge->id }}" class="btn btn-primary">Edit</a>
-                                    <form class="form-inline" method="POST" action="/admin/badge/{{ $badge->id }}">
-                                        {{ csrf_field() }}
-                                        {{ method_field('DELETE') }}
-                                        <button onclick="javascript: return confirm('Are you sure?');" type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
+                                    <a href="{{url('admin/badge/edit')}}/{{$badge->id}}" class="btn btn-primary">Edit</a>
+                                     <a href="" data-toggle="modal" data-target="#modal-default{{$badge->id}}" class="btn btn-danger fa fa-trash-o"> Delete</a>
+                        <div class="modal fade" id="modal-default{{$badge->id}}">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                
+                  
+                <h4 class="modal-title"><strong>Warning !</strong></h4>
+              </div>
+              <div class="modal-body">
+                <p>Are You sure you want to delete level: <b>{{$badge->name}}</b> </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <a href="{{url('admin/badge/delete')}}/{{$badge->id}}"><button type="button" class="btn btn-danger">Delete</button></a>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
                                 </div>
 
                             </td>
