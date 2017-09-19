@@ -5,3 +5,36 @@
 }
 
 
+.admin-sidebar {
+
+  &.sidebar {
+    margin-top: 1rem;
+  }
+
+  .card {
+    margin-bottom: 0.25rem;
+  }
+
+  .nav {
+
+    .nav-link {
+
+      font-weight: bold;
+
+    }
+    ul {
+
+      margin-left: 1rem;
+
+      .nav-link {
+
+        font-weight: normal;
+
+      }
+
+    }
+
+  }
+
+
+}

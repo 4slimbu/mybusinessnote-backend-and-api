@@ -1,31 +1,84 @@
-<nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
-    <ul class="nav nav-pills flex-column">
-        <li class="nav-item">
-            <a class="nav-link active" href="#">Overview <span class="sr-only">(current)</span></a>
-        </li>
+<nav class="col-sm-3 col-md-2 d-none d-sm-block admin-sidebar sidebar">
+    <div id="accordion" role="tablist">
+        <div class="card">
+            <div class="card-header" role="tab" id="headingOne">
+                <h5 class="mb-0">
+                    <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Dashboard
+                    </a>
+                </h5>
+            </div>
+
+            <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Businesses</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Partners</a>
+                        </li>
 
 
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Business Categories
-                <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li><a href="/admin/businesscategory/">View All</a></li>
-                <li><a href="/admin/businesscategory/create">Add New</a></li>
-
-            </ul>
-        </li>
-
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Business Badges
-                <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li><a href="/admin/badges/">View All</a></li>
-                <li><a href="/admin/badge/create">Add New</a></li>
-
-            </ul>
-        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" role="tab" id="headingTwo">
+                <h5 class="mb-0">
+                    <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Business
+                    </a>
+                </h5>
+            </div>
+            <div id="collapseTwo" class="collapse show" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body">
 
 
-    </ul>
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Business Categories <span class="caret"></span></a>
+                            <ul>
+                                <li class="nav-item"><a class="nav-link" href="/admin/businesscategory/">View All</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/admin/businesscategory/create">Add New</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Business Badges <span class="caret"></span></a>
+                            <ul>
+                                <li class="nav-item"><a class="nav-link" href="/admin/badges/">View All</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/admin/badge/create">Add New</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" role="tab" id="headingThree">
+                <h5 class="mb-0">
+                    <a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Users
+                    </a>
+                </h5>
+            </div>
+            <div id="collapseThree" class="collapse show" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
+                <div class="card-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 
 </nav>
+
