@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBusinessCategoriesTable extends Migration
+class CreateBadgesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateBusinessCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('business_categories', function (Blueprint $table) {
+        Schema::create('badges', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->text('tooltip')->nullable();
+            $table->string('name');
+            $table->string('icon')->nullable();
+            $table->text('message');
         });
     }
 
@@ -27,6 +28,6 @@ class CreateBusinessCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('business_categories');
+        Schema::dropIfExists('badges');
     }
 }

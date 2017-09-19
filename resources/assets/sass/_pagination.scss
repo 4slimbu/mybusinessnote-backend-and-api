@@ -1,0 +1,20 @@
+/* pagination */
+
+.page-item {
+
+  &.active {
+
+    .page-link {
+      z-index: 2;
+      color: #fff;
+      background-color: $brand-success;
+      border-color: $brand-success;
+    }
+
+  }
+
+  .page-link {
+    color: $brand-success;
+  }
+
+}

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Role;
+use App\Admin\Role;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller

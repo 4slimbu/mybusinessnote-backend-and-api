@@ -61,7 +61,6 @@ class BusinessController extends Controller
             'address' => request('address'),
 
 
-
         ]);
 
        return redirect($business->path());

@@ -1,4 +1,3 @@
-
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,600");
 
@@ -8,7 +7,13 @@
 // Bootstrap
 @import "~bootstrap/dist/css/bootstrap.min";
 
-
+// Modules
+@import "alerts";
+@import "buttons";
+@import "nav";
+@import "pagination";
+@import "panels";
+@import "sidebar";
 
 html, body {
 	background-color: #fff;
@@ -31,156 +36,17 @@ ul {
 }
 
 
-
-
-
-
-/* sidebar */
-
-.sidebar-module {
-    padding: 0 1rem;
-}
-
-
-/* nav */
-
-
-#navbarHeader {
-    &.bg-inverse {
-             border-bottom: 2px solid $brand-primary;
-    }
-    &.bg-dark {
-        background-color: $brand-info !important;
-    }
-}
-
-.bg-inverse {
-    background-color: $brand-info!important;
-}
-
-.bg-dark {
-    background-color: $brand-primary !important;
-}
-
-.navbar {
-    padding: 1.5rem 1rem;
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+	margin-bottom: 2rem;
+	font-family: inherit;
+	font-weight: 600;
+	line-height: 1.1;
+	color: inherit;
 }
 
 
 
-.user-nav {
-
-    &.navbar-nav {
-        -webkit-box-orient: horizontal;
-        -webkit-box-direction: normal;
-        -webkit-flex-direction: row;
-        -ms-flex-direction: row;
-        flex-direction: row;
-    }
-
-    .nav-link {
-        position: relative;
-        color: #fff;
-    }
-    .nav-link {
-        &.active {
-
-             color: #fff;
-        }
-    }
-
-}
 
 
-/* dashboard */
 
 
-.panel {
-
-    .panel-heading {
-        font-size: 34px;
-    }
-
-    &.panel-default {
-         margin-bottom: 40px;
-    }
-    .nav-pills .nav-item .nav-link {
-        color: #fff;
-        cursor: default;
-        background-color: #ccc;
-        margin-right: 0.8rem;
-
-        &:hover {
-            cursor: pointer;
-            color: #fff;
-            background-color: $brand-primary;
-        }
-        &.active {
-            color: #fff;
-            cursor: default;
-            background-color: $brand-primary;
-        }
-
-    }
-}
-
-/* alert */
-
-.help-block {
-
-    color: $brand-danger;
-}
-
-.alert {
-    position: fixed;
-    bottom: 20px;
-    z-index: 10;
-    right: 20px;
-    padding: 1rem 2rem;
-    ul {
-        margin-bottom: 0;
-    }
-}
-
-/* Buttons */
-
-.btn-primary {
-    color: #fff;
-    background-color: $brand-success;
-    border-color: $brand-success;
-}
-
-
-/* Businesses */
-
-.panel-business-list {
-
-    .card {
-
-        margin-bottom: 50px;
-
-    }
-
-}
-
-
-/* Pagination */
-
-.page-item {
-    
-    &.active {
-
-        .page-link {
-            z-index: 2;
-            color: #fff;
-            background-color: $brand-success;
-            border-color: $brand-success;
-        }
-
-    } 
-
-    .page-link {
-        color: $brand-success;
-    }
-
-}

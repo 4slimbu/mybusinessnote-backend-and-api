@@ -1,9 +1,11 @@
 <?php
+namespace App\Http\Controllers\Admin;
 
-namespace App\Http\Controllers;
 
-use App\BusinessCategory;
+use App\Admin\BusinessCategory;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 
 class BusinessCategoryController extends Controller
 {
@@ -14,7 +16,8 @@ class BusinessCategoryController extends Controller
      */
     public function index()
     {
-        //
+        $businessCategories = BusinessCategory::all();
+        return view('admin/business_category/index', compact('businessCategories'));
     }
 
     /**
@@ -24,7 +27,7 @@ class BusinessCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin/business_category.create');
     }
 
     /**
@@ -35,7 +38,21 @@ class BusinessCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+       // dd(request('title'));
+
+        $this->validate($request, [
+            'title' => 'required'
+        ]);
+
+        BusinessCategory::create([
+
+            'title' => request('title'),
+            'tooltip' => request('tooltip')
+
+        ]);
+        return back()->with('success','New business category has been created!');
+
     }
 
     /**
@@ -57,7 +74,8 @@ class BusinessCategoryController extends Controller
      */
     public function edit(BusinessCategory $businessCategory)
     {
-        //
+        return view('admin/business_category.edit', compact('businessCategory'));
+
     }
 
     /**
@@ -69,7 +87,14 @@ class BusinessCategoryController extends Controller
      */
     public function update(Request $request, BusinessCategory $businessCategory)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required'
+        ]);
+
+        $input = $request->all();
+        $businessCategory->fill($input)->save();
+
+        return redirect()->back()->with('success','Business category successfully updated!');
     }
 
     /**
@@ -80,6 +105,8 @@ class BusinessCategoryController extends Controller
      */
     public function destroy(BusinessCategory $businessCategory)
     {
-        //
+
+        $result = $businessCategory->delete();
+        return back()->with('success','Business category removed!');
     }
 }
