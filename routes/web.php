@@ -76,3 +76,17 @@ Route::get('/register/verify/{token}', 'Auth\RegisterController@verify');
 Route::post('/business', 'BusinessController@store');
 Route::get('/businesses', 'BusinessController@index');
 Route::get('/business/{business}', 'BusinessController@show');
+
+
+/*
+|--------------------------------------------------------------------------
+| Registration Routes
+|--------------------------------------------------------------------------
+|
+| Routes for all the registration activities.
+|
+*/
+
+Route::get('/start', function () {
+    return view('start');
+});

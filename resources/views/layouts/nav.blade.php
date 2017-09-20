@@ -22,7 +22,7 @@
 
 
 
-  <nav class="nav user-nav mr-auto">
+  <nav class="nav user-nav">
     
       <!-- Authentication Links -->
       @if (Auth::guest())
@@ -52,7 +52,7 @@
           </li>
 
       @endif
-      <li class="nav-item"><a class="nav-link" href="/businesses">Business Directory</a></li>
+      <li class="nav-item"><a class="nav-link" href="/start">Start Journey</a></li>
   </nav>
 
 
