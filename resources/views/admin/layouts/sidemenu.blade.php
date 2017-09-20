@@ -19,7 +19,7 @@
                             <a class="nav-link" href="#">Businesses</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Partners</a>
+                            <a class="nav-link" href="{{url('admin/partners')}}">Partners</a>
                         </li>
 
 
