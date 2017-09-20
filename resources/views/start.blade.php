@@ -235,46 +235,132 @@
                             </div>
                             <h1 class="head text-center">Setting the Foundations</h1>
                             <p class="lead text-center">
-                                What industry is your business idea in - select the best fit below. Don’t worry you can always change your selection later.
+                                Which area would you like to work on first?
                             </p>
                             <div class="row justify-content-center">
                                 <div class="col-md-6">
                                     <div class="card">
                                         <div class="card-header">
-                                            Step 1
+                                            Choose where to start
                                         </div>
-                                        <div class="card-body text-center">
+                                        <div class="card-body text-left">
 
                                             <form>
 
                                                 <div class="form-group">
-                                                    <label for="businessCategory"><h4 class="card-title">Select a Category</h4></label>
+                                                    
                                                     <select class="form-control custom-select" id="businessCategory">
-                                                        <option>General</option>
-                                                        <option>Tradie</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
+                                                        <option>Marketing</option>
+                                                        <option>Operation</option>
+                                                        <option>Finance</option>
                                                     </select>
                                                 </div>
 
-                                                <div class="form-group">
-                                                    <p>Will you also be selling goods online?</p>
-                                                    <label class="custom-control custom-radio">
-                                                        <input id="selling_goods_online1" name="selling_goods_online" type="radio" class="custom-control-input">
-                                                        <span class="custom-control-indicator"></span>
-                                                        <span class="custom-control-description">Yes</span>
-                                                    </label>
-                                                    <label class="custom-control custom-radio">
-                                                        <input id="selling_goods_online2" name="selling_goods_online" type="radio" class="custom-control-input">
-                                                        <span class="custom-control-indicator"></span>
-                                                        <span class="custom-control-description">No</span>
-                                                    </label>
+                                                <div class="options" id="option1">
+
+                                                    <h4 class="card-title">Marketing</h4>
+                                                    <div class="form-group">
+                                                        <h5 class="card-title">Branding</h5>
+                                                        <label class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input" required>
+                                                            <span class="custom-control-indicator"></span>
+                                                            <span class="custom-control-description">Logo + Tag line</span>
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input" required>
+                                                            <span class="custom-control-indicator"></span>
+                                                            <span class="custom-control-description">Theme Colors to be used</span>
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input" required>
+                                                            <span class="custom-control-indicator"></span>
+                                                            <span class="custom-control-description">Website (landing page to begin)</span>
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <h5 class="card-title">Social Media Integration</h5>
+                                                        <label class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input" required>
+                                                            <span class="custom-control-indicator"></span>
+                                                            <span class="custom-control-description">Twitter</span>
+                                                        </label>
+                                                        <label class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input" required>
+                                                            <span class="custom-control-indicator"></span>
+                                                            <span class="custom-control-description">Facebook</span>
+                                                        </label>
+                                                        <label class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input" required>
+                                                            <span class="custom-control-indicator"></span>
+                                                            <span class="custom-control-description">LinkedIn</span>
+                                                        </label>
+                                                        <label class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input" required>
+                                                            <span class="custom-control-indicator"></span>
+                                                            <span class="custom-control-description">Instagram</span>
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="form-group">
+
+                                                        <label class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input" required>
+                                                            <span class="custom-control-indicator"></span>
+                                                            <span class="custom-control-description">Business Cards</span>
+                                                        </label>
+
+                                                    </div>
+
+                                                </div>
+                                                <hr>
+                                                <div class="options" id="option2">
+
+                                                    <h4 class="card-title">Operations</h4>
+                                                    <div class="form-group">
+
+                                                        <label class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input" required>
+                                                            <span class="custom-control-indicator"></span>
+                                                            <span class="custom-control-description">Email Setup</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-group">
+
+                                                        <label class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input" required>
+                                                            <span class="custom-control-indicator"></span>
+                                                            <span class="custom-control-description">Phone Setup</span>
+                                                        </label>
+                                                    </div>
+
+
+                                                </div>
+                                                <hr>
+                                                <div class="options" id="option3">
+
+                                                    <h4 class="card-title">Finance</h4>
+                                                    <div class="form-group">
+                                                        <select class="form-control custom-select" id="businessCategory">
+                                                            <option>Financing Options</option>
+                                                            <option>Initial Accounting Software</option>
+                                                            <option>Business Banking</option>
+                                                            <option>Merchant Facilities</option>
+                                                        </select>
+                                                    </div>
 
                                                 </div>
 
+
+
                                                 <div class="form-group mb-0">
-                                                    <a href="" class="btn btn-success btn-outline-rounded"> Next Step <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                                    <a href="" class="btn btn-success btn-outline-rounded"> Next Step <i class="fa fa-cube" aria-hidden="true"></i>
                                                     </a>
                                                 </div>
 
@@ -296,26 +382,26 @@
                             </div>
                             <h1 class="head text-center">Building up the Business</h1>
                             <p class="lead text-center">
-                                What industry is your business idea in - select the best fit below. Don’t worry you can always change your selection later.
+                                Which area would you like to work on first?
                             </p>
                             <div class="row justify-content-center">
                                 <div class="col-md-6">
                                     <div class="card">
                                         <div class="card-header">
-                                            Step 1
+                                            Choose where to start
                                         </div>
                                         <div class="card-body text-center">
 
                                             <form>
 
                                                 <div class="form-group">
-                                                    <label for="businessCategory"><h4 class="card-title">Select a Category</h4></label>
+
                                                     <select class="form-control custom-select" id="businessCategory">
-                                                        <option>General</option>
-                                                        <option>Tradie</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
+                                                        <option>Marketing</option>
+                                                        <option>Legal</option>
+                                                        <option>Human Resources</option>
+                                                        <option>Finance</option>
+                                                        <option>Operations</option>
                                                     </select>
                                                 </div>
 
