@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Admin\Badge;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Input;
 
 class BadgeController extends Controller
 {
@@ -37,20 +38,34 @@ class BadgeController extends Controller
      */
     public function store(Request $request)
     {
-
         $this->validate($request, [
             'name' => 'required',
+            'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'message' => 'required'
         ]);
 
-        Badge::create([
+        
 
-            'name' => request('name'),
-            'message' => request('message')
+        //Image Upload
+        $icon = $request->file('icon');
+       if($icon != "")
+       {
+        $destination_path = 'badges/icons/';
+        $imagename = str_random(32).$icon->getClientOriginalName();
+        $icon->move($destination_path,$imagename); 
+        
+       }
 
-        ]);
+       Badge::create([
+        'name' =>request('name'),
+        'icon' => $imagename,
+        'message' => request('message')
+       ]);
+
         return back()->with('success','New badge has been added!');
+
     }
+    
 
     /**
      * Display the specified resource.
@@ -69,8 +84,10 @@ class BadgeController extends Controller
      * @param  \App\Admin\Badge  $badge
      * @return \Illuminate\Http\Response
      */
-    public function edit(Badge $badge)
+    public function edit($badge)
     {
+        $badge = Badge::find($badge);
+        //$badge = Badge::where('id','=',$id)->first();
         return view('admin.badges.edit', compact('badge'));
     }
 
@@ -81,17 +98,40 @@ class BadgeController extends Controller
      * @param  \App\Admin\Badge  $badge
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Badge $badge)
+    public function update(Request $request ,$badge)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'message' => 'required'
-        ]);
+            'icon' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]); 
 
-        $input = $request->all();
-        $badge->fill($input)->save();
+        //$data = Input::except('_token','submit');
+        $badges = Badge::find($badge);
+        $img = $request->file('icon');
+        if($img != "")
+       {
+            $file = $img;
+            $name = str_random(32).$file->getClientOriginalName();
+            $file->move(public_path().'badges\icons',$name);
 
-        return redirect()->back()->with('success','Business badge successfully updated!');
+       $badges->name = request('name');
+       $badges->message = request('message');
+       $badges->icon = $name;
+
+       $badges->save();
+
+        return redirect('admin/badges')->with('success','Business badge successfully updated!');
+           
+       }
+       else
+       {
+        $badges->name = request('name');
+       $badges->message = request('message');
+
+       $badges->save();
+
+        return redirect('admin/badges')->with('success','Business badge successfully updated!');
+       }
+      
     }
 
     /**
@@ -100,9 +140,9 @@ class BadgeController extends Controller
      * @param  \App\Admin\Badge  $badge
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Badge $badge)
+    public function destroy( $badge)
     {
-        $result = $badge->delete();
+        Badge::destroy($badge);
         return back()->with('success','Business badge removed!');
     }
 }

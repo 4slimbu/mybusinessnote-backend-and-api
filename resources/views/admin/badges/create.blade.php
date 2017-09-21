@@ -10,18 +10,24 @@
 
             <h2>Add New Business Badge</h2>
 
-            <form class="col-sm-6" method="POST" action="/admin/badges/">
+            <form class="col-sm-6"  action="{{url('admin/badges')}}" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="form-group">
-                    <label for="name">Title</label>
+                    <label for="name">Title</label> {!! $errors->first('name') !!}
                     <input type="text" class="form-control" id="name" name="name" placeholder="Enter badge name">
                 </div>
 
 
                 <div class="form-group">
-                    <label for="tooltip">Message</label>
+                    <label for="tooltip">Message</label> {!! $errors->first('message') !!}
                     <textarea class="form-control" id="message" name="message" rows="3" placeholder="Enter business badge earn message"></textarea>
                     <small id="toolTipHelp" class="form-text text-muted">Message to the user when they complete this level.</small>
+                    
+                </div>
+
+                <div class="form-group">
+                    <label for="tooltip">Badge Icon</label> {!! $errors->first('icon') !!}
+                    <input class="form-control" type="file" name="icon"></input>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Submit</button>

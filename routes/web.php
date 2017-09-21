@@ -43,9 +43,14 @@ Route::group(['middleware' => 'can:accessAdminPanel'], function() {
     Route::get('/admin/badges', 'Admin\BadgeController@index');
     Route::get('/admin/badge/create', 'Admin\BadgeController@create');
     Route::get('/admin/badge/edit/{badge}', 'Admin\BadgeController@edit');
-    Route::post('/admin/badges', 'Admin\BadgeController@store');
+    Route::post('admin/badges', 'Admin\BadgeController@store');
     Route::post('/admin/badge/update/{badge}', 'Admin\BadgeController@update');
-    Route::delete('/admin/badge/{badge}', 'Admin\BadgeController@destroy');
+    Route::get('/admin/badge/delete/{badge}', 'Admin\BadgeController@destroy');
+
+    //Partner Category
+
+    Route::get('/admin/partners/','Admin\PartnerController@index');
+    Route::post('/admin/partners/create','Admin\PartnerController@store');
 
 });
 
