@@ -17,6 +17,21 @@ window.Vue = require('vue');
 
 Vue.component('example', require('./components/Example.vue'));
 
-const app = new Vue({
+/*const app = new Vue({
     el: '#app'
+});*/
+
+
+new Vue({
+    el: '#pills-foundation',
+    data: {
+        selected: 'marketing'
+    }
 });
+
+
+// Add tooltips
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})

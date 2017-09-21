@@ -50,7 +50,7 @@
                                             <h4 class="card-title">Select a Category</h4>
                                             <form>
 
-                                                <div class="form-group">
+                                                <div class="form-group input-group input-group-unstyled">
 
                                                     <select class="form-control custom-select" id="businessCategory">
                                                         <option>General</option>
@@ -59,6 +59,8 @@
                                                         <option>4</option>
                                                         <option>5</option>
                                                     </select>
+                                                    <span class="input-group-addon"><i class="fa fa-info" data-toggle="tooltip" data-placement="top" title="Tooltip on top"></i></span>
+
                                                 </div>
 
                                                 <div class="form-group">
@@ -238,7 +240,7 @@
                                 Which area would you like to work on first?
                             </p>
                             <div class="row justify-content-center">
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     <div class="card">
                                         <div class="card-header">
                                             Choose where to start
@@ -248,15 +250,15 @@
                                             <form>
 
                                                 <div class="form-group">
-                                                    
-                                                    <select class="form-control custom-select" id="businessCategory">
-                                                        <option>Marketing</option>
-                                                        <option>Operation</option>
-                                                        <option>Finance</option>
+
+                                                    <select class="form-control custom-select" id="businessCategory" v-model="selected">
+                                                        <option value="marketing" selected>Marketing</option>
+                                                        <option value="operation">Operation</option>
+                                                        <option value="finance">Finance</option>
                                                     </select>
                                                 </div>
 
-                                                <div class="options" id="option1">
+                                                <div v-if="selected === 'marketing'" class="options" id="option1">
 
                                                     <h4 class="card-title">Marketing</h4>
                                                     <div class="form-group">
@@ -319,8 +321,8 @@
                                                     </div>
 
                                                 </div>
-                                                <hr>
-                                                <div class="options" id="option2">
+
+                                                <div v-if="selected === 'operation'" class="options" id="option2">
 
                                                     <h4 class="card-title">Operations</h4>
                                                     <div class="form-group">
@@ -342,17 +344,30 @@
 
 
                                                 </div>
-                                                <hr>
-                                                <div class="options" id="option3">
+
+                                                <div v-if="selected === 'finance'" class="options" id="option3">
 
                                                     <h4 class="card-title">Finance</h4>
                                                     <div class="form-group">
-                                                        <select class="form-control custom-select" id="businessCategory">
-                                                            <option>Financing Options</option>
-                                                            <option>Initial Accounting Software</option>
-                                                            <option>Business Banking</option>
-                                                            <option>Merchant Facilities</option>
-                                                        </select>
+                                                        <label class="custom-control custom-checkbox">
+                                                            <input id="selling_goods_online1" name="selling_goods_online" type="checkbox" class="custom-control-input">
+                                                            <span class="custom-control-indicator"></span>
+                                                            <span class="custom-control-description">Initial Accounting Software</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="custom-control custom-checkbox">
+                                                            <input id="selling_goods_online1" name="selling_goods_online" type="checkbox" class="custom-control-input">
+                                                            <span class="custom-control-indicator"></span>
+                                                            <span class="custom-control-description">Business Banking</span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="custom-control custom-checkbox">
+                                                            <input id="selling_goods_online1" name="selling_goods_online" type="checkbox" class="custom-control-input">
+                                                            <span class="custom-control-indicator"></span>
+                                                            <span class="custom-control-description">Merchant Facilities</span>
+                                                        </label>
                                                     </div>
 
                                                 </div>
@@ -385,7 +400,7 @@
                                 Which area would you like to work on first?
                             </p>
                             <div class="row justify-content-center">
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     <div class="card">
                                         <div class="card-header">
                                             Choose where to start
@@ -397,27 +412,19 @@
                                                 <div class="form-group">
 
                                                     <select class="form-control custom-select" id="businessCategory">
-                                                        <option>Marketing</option>
-                                                        <option>Legal</option>
-                                                        <option>Human Resources</option>
-                                                        <option>Finance</option>
-                                                        <option>Operations</option>
+                                                        <option value="marketing">Marketing</option>
+                                                        <option value="Legal">Legal</option>
+                                                        <option value="Human Resources">Human Resources</option>
+                                                        <option value="Finance">Finance</option>
+                                                        <option value="Operations">Operations</option>
                                                     </select>
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <p>Will you also be selling goods online?</p>
-                                                    <label class="custom-control custom-radio">
-                                                        <input id="selling_goods_online1" name="selling_goods_online" type="radio" class="custom-control-input">
-                                                        <span class="custom-control-indicator"></span>
-                                                        <span class="custom-control-description">Yes</span>
-                                                    </label>
-                                                    <label class="custom-control custom-radio">
-                                                        <input id="selling_goods_online2" name="selling_goods_online" type="radio" class="custom-control-input">
-                                                        <span class="custom-control-indicator"></span>
-                                                        <span class="custom-control-description">No</span>
-                                                    </label>
-
+                                                    <textarea placeholder="SWOT" class="form-control" id="swot" rows="3"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea placeholder="Customer Analysis" class="form-control" id="customerAnalysis" rows="3"></textarea>
                                                 </div>
 
                                                 <div class="form-group mb-0">

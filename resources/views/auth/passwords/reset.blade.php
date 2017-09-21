@@ -1,10 +1,10 @@
 @extends('layouts/master')
 
 @section('content')
-    <div class="row">
+    <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">Reset Password</div>
+            <h1 class="panel panel-default">
+                <h1 class="head text-center">Reset Password</h1>
 
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('password.request') }}">
