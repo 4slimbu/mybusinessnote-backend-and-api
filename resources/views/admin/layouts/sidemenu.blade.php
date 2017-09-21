@@ -48,12 +48,10 @@
             </div>
             <div id="collapseThree" class="collapse show" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
                 <div class="card-body">
-                    <ul class="nav nav-pills flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Customers<span class="caret"></span></a>
-                            <ul>
-                                <li class="nav-item"><a class="nav-link" href="{{url('admin/users')}}">View All</a></li>
-                            </ul>
+                    <ul class="nav nav-pills">
+
+                                <li class="nav-item"><a class="nav-link" href="{{url('admin/users')}}">View All Customers</a></li>
+
                         </li>
 
                         <li class="nav-item">

@@ -17,10 +17,8 @@
   <body>
 
     @include('layouts.nav')
-    <div id="app" class="container">
-        <div class="main-content">
-             @yield('content')
-        </div>
+    <div id="app">
+        @yield('content')
     </div>
     
     @include('layouts.footer')

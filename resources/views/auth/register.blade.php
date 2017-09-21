@@ -1,7 +1,8 @@
 @extends('layouts/master')
 
 @section('content')
-
+<div class="container">
+    <div class="main-content">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="panel panel-default">
@@ -104,5 +105,6 @@
             </div>
         </div>
     </div>
+</div>
 @endsection
 
