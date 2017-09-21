@@ -21,7 +21,7 @@ Route::get('/', function () {
 | Admin Routes
 |--------------------------------------------------------------------------
 |
-| Routes for all the business activities.
+| Routes for all the admin activities.
 |
 */
 
@@ -49,8 +49,8 @@ Route::group(['middleware' => 'can:accessAdminPanel'], function() {
 
     //Partner Category
 
-    Route::get('/admin/partners/','Admin\PartnerController@index');
-    Route::post('/admin/partners/create','Admin\PartnerController@store');
+    Route::get('/admin/partner/create','Admin\PartnerController@index');
+    Route::post('/admin/partners','Admin\PartnerController@store');
 
 });
 

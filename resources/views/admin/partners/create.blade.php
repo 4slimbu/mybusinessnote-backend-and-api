@@ -10,7 +10,7 @@
 
             <h2>Add New Partners</h2>
 
-            <form class="col-sm-6"  action="{{url('admin/partners/create')}}" method="POST">
+            <form class="col-sm-6"  action="{{url('admin/partners')}}" method="POST">
                 {{ csrf_field() }}
 
                 <input type="hidden" name="role" value="3">
@@ -78,7 +78,7 @@
                     <input type="text" class="form-control" id="billing_country" name="billing_country" placeholder="Enter Billing Country Name">
                 </div>
                 </div>
-<p><a href="javascript:void(0)" class="show-more" > Click here to add residential address details &raquo;</a></p>
+                <p><a href="javascript:void(0)" class="show-more" > Click here to add residential address details &raquo;</a></p>
                 <div class="form-group more-inputs" style="display:none;">
                     <label>Residential Address</label>
                     <div class="form-group">

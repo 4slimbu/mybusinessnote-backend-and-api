@@ -35,3 +35,12 @@ new Vue({
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 })
+
+
+// @admin Show hide inputs Note: To be moved to admin script later and use Vue instead of jQuery
+
+$(document).ready(function(){
+    $('.show-more').click(function(){
+        $('.more-inputs').toggle();
+    });
+});

@@ -11,7 +11,7 @@ class PartnerController extends Controller
 {
     public function index()
     {
-    	return view('admin.partners.partner-create');
+    	return view('admin.partners.create');
     }
 
     public function store(Request $request)
@@ -66,7 +66,7 @@ class PartnerController extends Controller
             	'verified' => request('verified')
         	]);
 
-        	  return back()->with('success','New badge has been added!');
+        	  return back()->with('success','New partner has been created!');
         }
         else
         {
@@ -93,7 +93,7 @@ class PartnerController extends Controller
             	'role_id' => request('role'),
             	'verified' => request('verified')
         	]);
-        	  return back()->with('success','New badge has been added!');
+        	  return back()->with('success','New badge has been created!');
         }
 
         

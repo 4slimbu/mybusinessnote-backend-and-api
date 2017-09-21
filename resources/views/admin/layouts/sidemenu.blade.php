@@ -1,32 +1,6 @@
 <nav class="col-sm-3 col-md-2 d-none d-sm-block admin-sidebar sidebar">
     <div id="accordion" role="tablist">
-        <div class="card">
-            <div class="card-header" role="tab" id="headingOne">
-                <h5 class="mb-0">
-                    <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Dashboard
-                    </a>
-                </h5>
-            </div>
 
-            <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
-                <div class="card-body">
-                    <ul class="nav nav-pills flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Users</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Businesses</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url('admin/partners')}}">Partners</a>
-                        </li>
-
-
-                    </ul>
-                </div>
-            </div>
-        </div>
         <div class="card">
             <div class="card-header" role="tab" id="headingTwo">
                 <h5 class="mb-0">
@@ -40,6 +14,10 @@
 
 
                     <ul class="nav nav-pills flex-column">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url('admin/businesses')}}">View All Businesses</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Business Categories <span class="caret"></span></a>
                             <ul>
@@ -70,7 +48,23 @@
             </div>
             <div id="collapseThree" class="collapse show" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
                 <div class="card-body">
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Customers<span class="caret"></span></a>
+                            <ul>
+                                <li class="nav-item"><a class="nav-link" href="{{url('admin/users')}}">View All</a></li>
+                            </ul>
+                        </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Partners<span class="caret"></span></a>
+                            <ul>
+                                <li class="nav-item"><a class="nav-link" href="{{url('admin/partners')}}">View All</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{url('admin/partner/create')}}">Add New</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
                 </div>
             </div>
         </div>
