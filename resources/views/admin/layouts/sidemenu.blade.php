@@ -50,7 +50,7 @@
                 <div class="card-body">
                     <ul class="nav nav-pills">
 
-                                <li class="nav-item"><a class="nav-link" href="{{url('admin/users')}}">View All Customers</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{url('admin/customers')}}">View All Customers</a></li>
 
                         </li>
 
