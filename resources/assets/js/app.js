@@ -43,4 +43,10 @@ $(document).ready(function(){
     $('.show-more').click(function(){
         $('.more-inputs').toggle();
     });
+
+    $('.steps-carousel').owlCarousel({
+        nav: true,
+        items: 1
+    })
+
 });
