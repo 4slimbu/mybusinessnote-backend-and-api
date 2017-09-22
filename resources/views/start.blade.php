@@ -42,6 +42,7 @@
 
 
                                 <div class="row justify-content-center">
+
                                     <div class="col-md-6 col-sm-12">
                                         <div class="card">
                                             <div class="card-header">
@@ -60,7 +61,7 @@
                                                             <option>4</option>
                                                             <option>5</option>
                                                         </select>
-                                                        <span class="input-group-addon"><i class="fa fa-info" data-toggle="tooltip" data-placement="top" title="Tooltip on top"></i></span>
+                                                        <span class="input-group-addon"><i class="fa fa-question" data-toggle="tooltip" data-placement="top" title="Tooltip on top"></i></span>
 
                                                     </div>
 
@@ -171,8 +172,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
                                     <div class="col-md-6 col-sm-12">
                                         <div class="card">
                                             <div class="card-header">
@@ -206,8 +205,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
                                     <div class="col-md-6 col-sm-12">
                                         <div class="card">
                                             <div class="card-header">
@@ -218,7 +215,40 @@
                                                 <form class="form-horizontal" method="POST" action="">
                                                     {{ csrf_field() }}
                                                     <div class="form-group">
-                                                        <a target="_blank" href="https://register.business.gov.au/registration/type" class="btn btn-success btn-outline-rounded"> Register Now <i class="fa fa-paper-plane" aria-hidden="true"></i></a>
+                                                        <a target="_blank" href="https://register.business.gov.au/registration/type" class="btn btn-link"> Register Now <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                                                    </div>
+                                                    <div class="form-group{{ $errors->has('abn') ? ' has-error' : '' }}">
+
+                                                        <input placeholder="ABN" id="abn" type="text" class="form-control" name="abn" value="{{ old('abn') }}" required autofocus>
+
+                                                        @if ($errors->has('abn'))
+                                                            <span class="help-block">
+                                                            <strong>{{ $errors->first('abn') }}</strong>
+                                                        </span>
+                                                        @endif
+                                                    </div>
+                                                    <div class="form-group{{ $errors->has('acr') ? ' has-error' : '' }}">
+
+                                                        <input placeholder="ACR" id="abn" type="text" class="form-control" name="acr" value="{{ old('acr') }}" required autofocus>
+
+                                                        @if ($errors->has('acr'))
+                                                            <span class="help-block">
+                                                            <strong>{{ $errors->first('acr') }}</strong>
+                                                        </span>
+                                                        @endif
+                                                    </div>
+                                                    <div class="form-group{{ $errors->has('registered_business_name') ? ' has-error' : '' }}">
+
+                                                        <input placeholder="Registered Business Name" id="registered_business_name" type="text" class="form-control" name="acr" value="{{ old('registered_business_name') }}" required autofocus>
+
+                                                        @if ($errors->has('registered_business_name'))
+                                                            <span class="help-block">
+                                                            <strong>{{ $errors->first('registered_business_name') }}</strong>
+                                                        </span>
+                                                        @endif
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <a target="_blank" href="#" class="btn btn-success btn-outline-rounded"> Setting the Foundation <i class="fa fa-cube" aria-hidden="true"></i></a>
                                                     </div>
                                                 </form>
                                             </div>
