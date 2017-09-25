@@ -50,7 +50,7 @@ class BadgeController extends Controller
         $icon = $request->file('icon');
        if($icon != "")
        {
-        $destination_path = 'images/badges/';
+        $destination_path = 'public/images/badges/';
         $imagename = str_random(32).$icon->getClientOriginalName();
         $icon->move($destination_path,$imagename); 
         
@@ -109,13 +109,13 @@ class BadgeController extends Controller
         $img = $request->file('icon');
         if($img != "")
        {
-            $file = $img;
-            $name = str_random(32).$file->getClientOriginalName();
-            $file->move(public_path().'\images\badges',$name);
+            $destination_path = 'public/images/badges/';
+            $imagename = str_random(32).$img->getClientOriginalName();
+            $img->move($destination_path,$imagename); 
 
        $badges->name = request('name');
        $badges->message = request('message');
-       $badges->icon = $name;
+       $badges->icon = $imagename;
 
        $badges->save();
 
