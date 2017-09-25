@@ -28,13 +28,13 @@
                             <td>{{ $badge->name }}</td>
                             <td>{{ $badge->message }}</td>
                                                         <td>@if($badge->icon != "")
-                            <img src="{{url('images/badges')}}/{{ $badge->icon }}" height="150px" width="150px">
+                            <img src="{{url('public/images/badges')}}/{{ $badge->icon }}" height="150px" width="150px">
                         @endif</td>
 
                             <td>
 
                                 <div class="">
-                                    <a href="{{url('public/admin/badge/edit')}}/{{$badge->id}}" class="btn btn-primary">Edit</a>
+                                    <a href="{{url('admin/badge/edit')}}/{{$badge->id}}" class="btn btn-primary">Edit</a>
                                      <a href="" data-toggle="modal" data-target="#modal-default{{$badge->id}}" class="btn btn-danger fa fa-trash-o"> Delete</a>
                         <div class="modal fade" id="modal-default{{$badge->id}}">
           <div class="modal-dialog">
