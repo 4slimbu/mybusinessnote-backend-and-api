@@ -17,7 +17,7 @@ class CreateBusinessesTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('business_category_id');
-            $table->integer('badge_id');
+            $table->enum('badge_id', [1,2,3])->default(1);
             $table->string('business_name');
             $table->string('website');
             $table->string('abn');
