@@ -29,7 +29,8 @@
                     <label for="tooltip">Badge Icon</label> {!! $errors->first('icon') !!}
                     <input class="form-control" type="file" name="icon"></input>
                     <p>Old Icon:</p>
-                    <p><img src="{{url('badges\icons')}}/{{$badge->icon}}" width="150px" height="150px"></p>
+                                        <p><img src="{{url('images\badges')}}/{{$badge->icon}}" width="150px" height="150px"></p>
+
                 </div>
 
                 <button type="submit" class="btn btn-primary">Update</button>

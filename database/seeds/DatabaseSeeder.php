@@ -93,7 +93,7 @@ class DatabaseSeeder extends Seeder
      */
     private function seedDefaultUser(){
 
-        $data = array(
+        $datas = array(
             array(
                 'first_name'=>'Rameshwor',
                 'last_name'=>'Maharjan',
@@ -118,7 +118,7 @@ class DatabaseSeeder extends Seeder
             ));
 
 
-        DB::table('users')->insert($data);
+        DB::table('users')->insert($datas);
 
     }
 
