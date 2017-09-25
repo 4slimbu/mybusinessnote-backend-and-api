@@ -27,9 +27,7 @@
                             <td>{{ $badge->id }}</td>
                             <td>{{ $badge->name }}</td>
                             <td>{{ $badge->message }}</td>
-                            <td>@if($badge->icon != "")
-                            <img src="{{url('images/badges')}}/{{ $badge->icon }}" height="150px" width="150px">
-                        @endif</td>
+                            <td>{{ $badge->icon }}</td>
                             <td>
 
                                 <div class="">

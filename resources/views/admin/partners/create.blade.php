@@ -78,9 +78,9 @@
                     <input type="text" class="form-control" id="billing_country" name="billing_country" placeholder="Enter Billing Country Name">
                 </div>
                 </div>
-                <p>Is it same as business address? <a href="javascript:void(0)" class="show-more" > <input  type="checkbox"></input> </a></p>
-                <div class="form-group more-inputs" >
-                    <label>Physical Address</label>
+                <p><a href="javascript:void(0)" class="show-more" > Click here to add residential address details &raquo;</a></p>
+                <div class="form-group more-inputs" style="display:none;">
+                    <label>Residential Address</label>
                     <div class="form-group">
                     <label for="residential_street1">Street Address 1</label> {!! $errors->first('residential_street1') !!}
                     <input type="text" class="form-control" id="residential_street1" name="residential_street1" placeholder="Enter Street Address 1" value="0" >
