@@ -28,13 +28,5 @@
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
 
-<script>
-    $(document).ready(function(){
-        $('.show-more').click(function(){
-                $('.more-inputs').toggle();
-        });
-    });
-</script>
-
   </body>
 </html>

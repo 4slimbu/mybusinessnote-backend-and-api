@@ -21,7 +21,7 @@ Route::get('/', function () {
 | Admin Routes
 |--------------------------------------------------------------------------
 |
-| Routes for all the business activities.
+| Routes for all the admin activities.
 |
 */
 
@@ -48,9 +48,25 @@ Route::group(['middleware' => 'can:accessAdminPanel'], function() {
     Route::get('/admin/badge/delete/{badge}', 'Admin\BadgeController@destroy');
 
     //Partner Category
+        Route::get('/admin/partners','Admin\PartnerController@view');
+    Route::get('/admin/partners/edit/{partner}','Admin\PartnerController@edit');
+    Route::post('/admin/partners/update/{partner}','Admin\PartnerController@update');
 
-    Route::get('/admin/partners/','Admin\PartnerController@index');
-    Route::post('/admin/partners/create','Admin\PartnerController@store');
+    Route::get('/admin/partner/create','Admin\PartnerController@index');
+    Route::post('/admin/partners','Admin\PartnerController@store');
+
+        //Customer Category
+    Route::get('/admin/customers','Admin\CustomerController@index');
+    Route::get('/admin/customers/edit/{customer}','Admin\CustomerController@edit');
+    Route::post('admin/customers/update/{customer}','Admin\CustomerController@update');
+
+    //Business
+
+    Route::get('admin/businesses','Admin\AdminBusinessController@index');
+    Route::get('admin/businesses/edit/{business}','Admin\AdminBusinessController@edit');
+    Route::post('admin/businesses/update/{business}','Admin\AdminBusinessController@update');
+
+
 
 });
 
@@ -81,3 +97,17 @@ Route::get('/register/verify/{token}', 'Auth\RegisterController@verify');
 Route::post('/business', 'BusinessController@store');
 Route::get('/businesses', 'BusinessController@index');
 Route::get('/business/{business}', 'BusinessController@show');
+
+
+/*
+|--------------------------------------------------------------------------
+| Registration Routes
+|--------------------------------------------------------------------------
+|
+| Routes for all the registration activities.
+|
+*/
+
+Route::get('/start', function () {
+    return view('start');
+});

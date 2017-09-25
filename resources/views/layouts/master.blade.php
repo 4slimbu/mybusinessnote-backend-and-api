@@ -17,16 +17,15 @@
   <body>
 
     @include('layouts.nav')
-    <div id="app" class="container">
-        <div class="main-content">
-             @yield('content')
-        </div>
+    <div id="app">
+        @yield('content')
     </div>
     
     @include('layouts.footer')
     
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://use.fontawesome.com/d94e52ff8c.js"></script>
 
 
   </body>

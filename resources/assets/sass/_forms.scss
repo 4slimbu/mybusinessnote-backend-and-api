@@ -1,0 +1,41 @@
+/* buttons */
+
+.btn-success {
+  color: #fff;
+  background-color: $brand-success;
+  border-color: darken($brand-success, 20%);
+}
+
+.btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .open .dropdown-toggle.btn-success {
+  color: #fff;
+  background-color: $brand-success;
+  border-color: darken($brand-success, 20%);
+}
+
+.btn-outline-rounded {
+  padding: 14px 64px;
+  border: 2px solid transparent;
+  border-radius: 25px;
+}
+
+.form-control, select.form-control:not([size]):not([multiple]) {
+  height: 4rem;
+}
+
+.btn {
+  i.fa{
+    margin-left: 0.35rem;
+  }
+
+}
+
+.table {
+
+  .btn {
+
+      float: left;
+      margin-right: 0.5rem;
+
+  }
+
+}

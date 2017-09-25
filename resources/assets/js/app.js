@@ -17,6 +17,30 @@ window.Vue = require('vue');
 
 Vue.component('example', require('./components/Example.vue'));
 
-const app = new Vue({
+/*const app = new Vue({
     el: '#app'
+});*/
+
+
+new Vue({
+    el: '#pills-foundation',
+    data: {
+        selected: 'marketing'
+    }
+});
+
+
+// Add tooltips
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
+
+
+// @admin Show hide inputs Note: To be moved to admin script later and use Vue instead of jQuery
+
+$(document).ready(function(){
+    $('.show-more').click(function(){
+        $('.more-inputs').toggle();
+    });
 });

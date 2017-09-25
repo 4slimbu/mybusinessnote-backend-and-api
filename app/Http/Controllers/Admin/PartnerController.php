@@ -11,7 +11,7 @@ class PartnerController extends Controller
 {
     public function index()
     {
-    	return view('admin.partners.partner-create');
+    	return view('admin.partners.create');
     }
 
     public function store(Request $request)
@@ -66,7 +66,7 @@ class PartnerController extends Controller
             	'verified' => request('verified')
         	]);
 
-        	  return back()->with('success','New badge has been added!');
+        	  return back()->with('success','New partner has been created!');
         }
         else
         {
@@ -93,9 +93,50 @@ class PartnerController extends Controller
             	'role_id' => request('role'),
             	'verified' => request('verified')
         	]);
-        	  return back()->with('success','New badge has been added!');
+        	  return back()->with('success','New badge has been created!');
         }
 
         
     }
+
+    
+    public function view()
+    {
+        $partner = User::where('role_id',3)->get();
+        return view('admin.partners.index',compact('partner'));
+    }
+
+    public function edit($partner)
+    {
+        $partner = User::find($partner);
+        return view('admin.partners.edit',compact('partner'));
+    }
+
+    public function update($partner)
+    {
+        $partner = User::find($partner);
+
+        $partner->first_name = request('first_name');
+        $partner->last_name = request('last_name');
+        $partner->phone_number = request('phone_number');
+        $partner->email = request('email');
+        $partner->company = request('company');
+        $partner->billing_street1 = request('billing_street1');
+        $partner->billing_street2 = request('billing_street2');
+        $partner->billing_postcode = request('billing_postcode');
+        $partner->billing_state = request('billing_state');
+        $partner->billing_suburb = request('billing_suburb');
+        $partner->billing_country = request('billing_country');
+        $partner->residential_street1 = request('residential_street1');
+        $partner->residential_street2 = request('residential_street2');
+        $partner->residential_postcode = request('residential_postcode');
+        $partner->residential_state = request('residential_state');
+        $partner->residential_suburb = request('residential_suburb');
+        $partner->residential_country = request('residential_country');
+
+        $partner->save();
+
+        return redirect('admin/partners')->with('success','Partner Data is updated');
+    }
+
 }
