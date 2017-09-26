@@ -34,6 +34,14 @@
                             </ul>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Third Party Integration <span class="caret"></span></a>
+                            <ul>
+                                <li class="nav-item"><a class="nav-link" href="{{url('admin/third-party-integration')}}">View All</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{{url('admin/third-party-integration/create')}}">Add New</a></li>
+                            </ul>
+                        </li>
+
                     </ul>
                 </div>
             </div>
