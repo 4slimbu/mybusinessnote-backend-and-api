@@ -85,32 +85,32 @@
                   
                     <div class="form-group">
                     <label for="residential_street1">Street Address 1</label> {!! $errors->first('residential_street1') !!}
-                    <input type="text" class="form-control" id="residential_street1" name="residential_street1" placeholder="Enter Street Address 1" value="0" >
+                    <input type="text" class="form-control" id="residential_street1" name="residential_street1" placeholder="Enter Street Address 1" value="{{Request::old('residential_street1')}}" >
                 </div>
 
                 <div class="form-group">
                     <label for="residential_street2">Street Address 2</label> {!! $errors->first('residential_street2') !!}
-                    <input type="text" class="form-control" id="residential_street2" name="residential_street2" placeholder="Enter Street Address 2" value="0" >
+                    <input type="text" class="form-control" id="residential_street2" name="residential_street2" placeholder="Enter Street Address 2" value="{{Request::old('residential_street2')}}" >
                 </div>
 
                 <div class="form-group">
                     <label for="residential_postcode">Postcode/Zipcode</label> {!! $errors->first('residential_postcode') !!}
-                    <input type="text" class="form-control" id="residential_postcode" name="residential_postcode" placeholder="Enter residential Postcode/Zipcode" value="0" >
+                    <input type="text" class="form-control" id="residential_postcode" name="residential_postcode" placeholder="Enter residential Postcode/Zipcode" value="{{Request::old('residential_postcode')}}" >
                 </div>
 
                 <div class="form-group">
                     <label for="residential_state">State Name</label> {!! $errors->first('residential_state') !!}
-                    <input type="text" class="form-control" id="residential_state" name="residential_state" placeholder="Enter residential State Name" value="0" >
+                    <input type="text" class="form-control" id="residential_state" name="residential_state" placeholder="Enter residential State Name" value="{{Request::old('residential_state')}}" >
                 </div>
 
                 <div class="form-group">
                     <label for="residential_suburb">Suburb Name</label> {!! $errors->first('residential_suburb') !!}
-                    <input type="text" class="form-control" id="residential_suburb" name="residential_suburb" placeholder="Enter residential Suburb Name" value="0" >
+                    <input type="text" class="form-control" id="residential_suburb" name="residential_suburb" placeholder="Enter residential Suburb Name" value="{{Request::old('residential_suburb')}}" >
                 </div>
 
                 <div class="form-group">
                     <label for="residential_country">Country Name</label> {!! $errors->first('residential_country') !!}
-                    <input type="text" class="form-control" id="residential_country" name="residential_country" placeholder="Enter residential Country Name" value="0" >
+                    <input type="text" class="form-control" id="residential_country" name="residential_country" placeholder="Enter residential Country Name" value="{{Request::old('residential_country')}}" >
                 </div>
                 </div>
                 

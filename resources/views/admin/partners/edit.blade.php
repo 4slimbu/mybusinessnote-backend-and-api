@@ -98,4 +98,14 @@
                     <input type="text" class="form-control" id="residential_state" name="residential_state" placeholder="Enter residential State Name"   value="{{$partner->residential_state}}" >
                 </div>
 
+                <div class="form-group">
+                    <label for="residential_suburb">Suburb Name</label> {!! $errors->first('residential_suburb') !!}
+                    <input type="text" class="form-control" id="residential_suburb" name="residential_suburb"    value="{{$partner->residential_suburb}}" >
+                </div>
+
+                <div class="form-group">
+                    <label for="residential_country">Country Name</label> {!! $errors->first('residential_country') !!}
+                    <input type="text" class="form-control" id="residential_country" name="residential_country"    value="{{$partner->residential_country}}" >
+                </div>
+
 @endsection
