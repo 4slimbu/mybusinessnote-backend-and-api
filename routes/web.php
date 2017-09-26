@@ -66,6 +66,12 @@ Route::group(['middleware' => 'can:accessAdminPanel'], function() {
     Route::get('admin/businesses/edit/{business}','Admin\AdminBusinessController@edit');
     Route::post('admin/businesses/update/{business}','Admin\AdminBusinessController@update');
 
+    //Third Party Integration
+
+    Route::get('admin/third-party-integration','Admin\ThirdPartyController@index');
+    Route::get('admin/third-party-integration/create','Admin\ThirdPartyController@create');
+    Route::post('admin/third-party-integration','Admin\ThirdPartyController@post');
+
 
 
 });
