@@ -88,6 +88,10 @@ Route::group(['middleware' => 'can:accessAdminPanel'], function() {
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('profiles/{user}','HomeController@profile');
+Route::get('user/{businessid}','HomeController@business');
+Route::get('business/edit/{business}','HomeController@businessEdit');
+Route::post('business/update/{business}','HomeController@businessUpdate');
 Route::get('/register/verify/{token}', 'Auth\RegisterController@verify');
 
 

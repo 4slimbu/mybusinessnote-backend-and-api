@@ -35,8 +35,8 @@
               </a>
 
               <ul class="dropdown-menu" role="menu">
-                  <li><a class="dropdown-item" href="/home">My Dashboard</a></li>
-                  <li><a class="dropdown-item" href="/profiles/{{ Auth::user()->first_name }}">My Profile</a></li>
+                  <li><a class="dropdown-item" href="{{url('home')}}">My Dashboard</a></li>
+                  <li><a class="dropdown-item" href="{{url('profiles')}}/{{ Auth::user()->id }}">My Profile</a></li>
                   <li>
                       <a class="dropdown-item" href="{{ route('logout') }}"
                           onclick="event.preventDefault();
@@ -55,7 +55,7 @@
       <li class="nav-item"><a class="nav-link" href="/start">Start Journey</a></li>
   </nav>
 
-
+ 
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
   <span class="navbar-toggler-icon"></span>
 </button>
