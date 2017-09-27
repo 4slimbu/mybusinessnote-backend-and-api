@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateThirdPartyBusinessCategoriesTable extends Migration
+class CreateBusinessCategoriesOptionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateThirdPartyBusinessCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('third_party_business_categories', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('third_party_integration_id');
+        Schema::create('business_categories_options', function (Blueprint $table) {
+
+            $table->integer('business_option_id');
             $table->integer('business_category_id');
-            $table->timestamps();
+
         });
     }
 
@@ -28,6 +28,6 @@ class CreateThirdPartyBusinessCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('third_party_business_categories');
+        Schema::dropIfExists('business_categories_options');
     }
 }

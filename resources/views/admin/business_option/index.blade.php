@@ -8,7 +8,7 @@
         <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
             <h1>Admin Dashboard</h1>
 
-            <h2>Manage Third Party Integrations</h2>
+            <h2>Manage Business Options</h2>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -23,16 +23,16 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach ($thirdparty as $thirdparty)
+                    @foreach ($businessOptions as $businessOption)
                         <tr>
-                            <td>{{ $thirdparty->id }}</td>
-                            <td>{{ $thirdparty->name }}</td>
-                            <td>{{ $thirdparty->tooltip }}</td>
+                            <td>{{ $businessOption->id }}</td>
+                            <td>{{ $businessOption->name }}</td>
+                            <td>{{ $businessOption->tooltip }}</td>
                             
                             
                             <td>
 
-                                <a href="<!-- {{url('admin/third-party-integration/edit')}}/{{$thirdparty->id}} -->" class="btn btn-primary">Edit</a>
+                                <a href="<!-- {{url('admin/business_option/edit')}}/{{$businessOption->id}} -->" class="btn btn-primary">Edit</a>
 
                             </td>
                         </tr>

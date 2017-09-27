@@ -26,8 +26,15 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="tooltip">Badge Icon</label> {!! $errors->first('icon') !!}
-                    <input class="form-control" type="file" name="icon"></input>
+                    <label for="tooltip">Badge Icon</label>{!! $errors->first('icon') !!}
+                </div>
+
+                <div class="form-group">
+
+                    <label class="custom-file">
+                        <input type="file" id="file" class="custom-file-input" name="icon" required>
+                        <span class="custom-file-control"></span>
+                    </label>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Submit</button>

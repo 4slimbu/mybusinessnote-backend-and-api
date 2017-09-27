@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateThirdPartyPatrnersTable extends Migration
+class CreateBusinessOptionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateThirdPartyPatrnersTable extends Migration
      */
     public function up()
     {
-        Schema::create('third_party_patrners', function (Blueprint $table) {
+        Schema::create('business_options', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('third_party_integration_id');
-            $table->integer('user_id');
+            $table->integer('parent_id')->default(0);
+            $table->string('name');
+            $table->text('tooltip');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateThirdPartyPatrnersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('third_party_patrners');
+        Schema::dropIfExists('business_options');
     }
 }

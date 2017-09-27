@@ -17,7 +17,6 @@
                     <input type="text" class="form-control" id="title" name="title" value="{{ $businessCategory->title }}" placeholder="Enter category title">
                 </div>
 
-
                 <div class="form-group">
                     <label for="tooltip">Tooltip</label>
                     <textarea class="form-control" id="tooltip" name="tooltip" rows="3" placeholder="Enter category tooltip">{{ $businessCategory->tooltip }}</textarea>
@@ -30,7 +29,4 @@
 
         </main>
     </div>
-
-
-
 @endsection

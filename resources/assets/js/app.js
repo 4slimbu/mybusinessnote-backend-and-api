@@ -10,43 +10,54 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 /**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
+ * Global flash vue component
  */
 
-Vue.component('example', require('./components/Example.vue'));
+window.events = new Vue();
 
-/*const app = new Vue({
+window.flash = function (message) {
+    window.events.$emit('flash', message);
+};
+
+Vue.component('flash', require('./components/Flash.vue'));
+
+
+const app = new Vue({
     el: '#app'
-});*/
+});
 
-
+/*
 new Vue({
     el: '#pills-foundation',
     data: {
         selected: 'marketing'
     }
-});
+});*/
 
 
 // Add tooltips
 
 $(function () {
+
     $('[data-toggle="tooltip"]').tooltip()
+
 })
 
 
 // @admin Show hide inputs Note: To be moved to admin script later and use Vue instead of jQuery
 
 $(document).ready(function(){
+
     $('.show-more').click(function(){
         $('.more-inputs').toggle();
     });
+/*
+    $('.carousel').carousel({
 
-    $('.steps-carousel').owlCarousel({
-        nav: true,
-        items: 1
-    })
+        interval: false
+
+    });*/
 
 });
+
+

@@ -9,7 +9,7 @@ window._ = require('lodash');
 try {
     window.$ = window.jQuery = require('jquery');
     window.Popper = require('popper.js').default;
-    window.owlCarousel = require('owl.carousel')
+    window.slickCarousel = require('slick-carousel');
     require('bootstrap');
 } catch (e) {}
 
@@ -50,3 +50,5 @@ if (token) {
 //     broadcaster: 'pusher',
 //     key: 'your-pusher-key'
 // });
+
+
