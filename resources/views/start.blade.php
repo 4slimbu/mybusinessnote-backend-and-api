@@ -402,8 +402,6 @@
 
                                               </div>
 
-
-
                                               <div class="form-group mb-0">
                                                   <a href="" class="btn btn-success btn-outline-rounded"> Next Step <i class="fa fa-cube" aria-hidden="true"></i>
                                                   </a>
