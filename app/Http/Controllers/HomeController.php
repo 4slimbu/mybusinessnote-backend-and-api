@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Business;
 use Auth;
+use Hash;
 
 class HomeController extends Controller
 {
@@ -65,5 +66,26 @@ class HomeController extends Controller
         $business->save();
 
         return redirect('/home')->with('success','Business Info has been updated');
+    }
+
+    public function passwordChange()
+    {
+        return view('password-change');
+    }
+
+    public function passwordReset(Request $request)
+    {
+        $this->validate($request , [
+            'password'=>'required',
+            'repeat'=>'required|same:password'
+        ]);
+
+        $user = User::find(Auth::user()->id);
+
+        $user->password = Hash::make(request('password'));
+
+        $user->save();
+
+        return back()->with('success','password changed');
     }
 }

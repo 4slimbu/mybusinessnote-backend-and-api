@@ -95,6 +95,10 @@ Route::get('business/edit/{business}','HomeController@businessEdit');
 Route::post('business/update/{business}','HomeController@businessUpdate');
 Route::get('/register/verify/{token}', 'Auth\RegisterController@verify');
 
+Route::get('password-change','HomeController@passwordChange');
+
+Route::post('password-change','HomeController@passwordReset');
+
 
 /*
 |--------------------------------------------------------------------------
