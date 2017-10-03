@@ -48,7 +48,8 @@ Route::group(['middleware' => 'can:accessAdminPanel'], function() {
     Route::get('/admin/badge/delete/{badge}', 'Admin\BadgeController@destroy');
 
     //Partner Category
-        Route::get('/admin/partners','Admin\PartnerController@view');
+    Route::get('/admin/partners','Admin\PartnerController@view');
+    Route::get('/admin/partners/list','Admin\PartnerController@list');
     Route::get('/admin/partners/edit/{partner}','Admin\PartnerController@edit');
     Route::post('/admin/partners/update/{partner}','Admin\PartnerController@update');
 

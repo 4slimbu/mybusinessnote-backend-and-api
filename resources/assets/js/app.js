@@ -21,20 +21,25 @@ window.flash = function (message) {
 };
 
 Vue.component('flash', require('./components/Flash.vue'));
+Vue.component('autocomplete', require('./components/Autocomplete.vue'));
 
 const app = new Vue({
     el: '#app',
     data: {
         selected: 'marketing'
+
     }
 });
+
+
+
 
 // Add tooltips
 $(function () {
 
     $('[data-toggle="tooltip"]').tooltip()
 
-})
+});
 
 // @admin Show hide inputs Note: To be moved to admin script later and use Vue instead of jQuery
 $(document).ready(function(){

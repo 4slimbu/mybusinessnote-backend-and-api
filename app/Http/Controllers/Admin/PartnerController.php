@@ -99,10 +99,25 @@ class PartnerController extends Controller
         
     }
 
+
+    public function list(){
+
+
+    }
+
     
-    public function view()
+    public function view(Request $request)
     {
+
+
         $partner = User::where('role_id',3)->get();
+
+        if( $request->ajax() ) {
+
+            return $partner;
+
+        }
+
         return view('admin.partners.index',compact('partner'));
     }
 

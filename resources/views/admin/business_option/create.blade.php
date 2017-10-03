@@ -35,6 +35,13 @@
                     @endforeach
                 </div>
 
+                <div class="form-group" id="partners-app">
+                    <label for="title">Choose Partner</label><br>
+                    <autocomplete></autocomplete>
+                </div>
+
+
+
                 <div class="form-group">
                     <label for="tooltip">Tooltip</label>
                     <textarea class="form-control" id="tooltip" name="tooltip" rows="3" placeholder=""></textarea>
