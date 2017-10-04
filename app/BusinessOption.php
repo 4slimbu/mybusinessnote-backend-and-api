@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Admin;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,7 +18,7 @@ class BusinessOption extends Model
 
     public function partners()
     {
-        return $this->belongsToMany(BusinessCategory::class);
+        return $this->belongsToMany(User::class);
     }
 
 }

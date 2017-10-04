@@ -109,16 +109,21 @@ class PartnerController extends Controller
     public function view(Request $request)
     {
 
-
-        $partner = User::where('role_id',3)->get();
-
         if( $request->ajax() ) {
+
+            $search = request('q');
+            $partner = User::where('role_id', '=', 3)
+                            ->where('company', 'LIKE', "$search%")
+                            ->get();
 
             return $partner;
 
         }
 
+        $partner = User::where('role_id',3)->get();
+
         return view('admin.partners.index',compact('partner'));
+
     }
 
     public function edit($partner)

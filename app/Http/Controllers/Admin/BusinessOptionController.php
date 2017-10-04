@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Admin\ThirdPartyBusinessCategory;
-use App\Admin\BusinessOption;
-use App\Admin\ThirdPartyPartner;
+
+use App\BusinessOption;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Hash;
 use App\User;
-use App\Admin\BusinessCategory;
+use App\BusinessCategory;
 use DB;
 
 class BusinessOptionController extends Controller
@@ -35,12 +34,16 @@ class BusinessOptionController extends Controller
             'business_category_id' => 'required'
         ]);
         
-        BusinessOption::create([
+       $businessOption = BusinessOption::create([
                 'name'=>request('name'),
                 'parent_id'=>request('parent_id'),
-                'tooltip'=>request('tooltip'),
+                'tooltip'=>request('tooltip')
+       ]);
 
-        ]);
+
+        $businessOption->categories()->attach(request('business_category_id'));
+        $businessOption->partners()->attach(request('user_id'));
+
 
         return back()->with('success','Business option successfully added');
 

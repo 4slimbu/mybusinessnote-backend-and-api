@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Admin;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Badge extends Model
+class BusinessCategory extends Model
 {
-    protected $fillable = ['name', 'message', 'icon'];
-
+    protected $fillable = ['title', 'tooltip'];
     public $timestamps = false;
 
     public function businesses()

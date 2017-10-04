@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Business;
-use App\Admin\BusinessCategory;
-use App\Admin\Badge;
-use App\Admin\Role;
+use App\BusinessCategory;
+use App\Badge;
+use App\Role;
 
 class AdminBusinessController extends Controller
 {

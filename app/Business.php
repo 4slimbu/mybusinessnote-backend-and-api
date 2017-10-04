@@ -13,19 +13,19 @@ class Business extends Model
 
         public function businessCategory()
 {
-    return $this->belongsTo(Admin\BusinessCategory::class);
+    return $this->belongsTo(BusinessCategory::class);
 
 }
 
 public function badge()
 {
-    return $this->belongsTo(Admin\Badge::class);
+    return $this->belongsTo(Badge::class);
 
 }
 
 public function role()
 {
-    return $this->belongsTo(Admin\Role::class);
+    return $this->belongsTo(Role::class);
 
 }
 

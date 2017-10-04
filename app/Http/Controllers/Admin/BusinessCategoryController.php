@@ -2,7 +2,7 @@
 namespace App\Http\Controllers\Admin;
 
 
-use App\Admin\BusinessCategory;
+use App\BusinessCategory;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 

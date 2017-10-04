@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Admin\Badge;
+use App\Badge;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Input;

@@ -50,11 +50,11 @@ class User extends Authenticatable
         return in_array($this->role_id, $role);
     }
 
-        public function businesses()
-{
-    return $this->hasMany(Business::class);
+    public function businesses()
+    {
+        return $this->hasMany(Business::class);
 
-}
+    }
 
 
 

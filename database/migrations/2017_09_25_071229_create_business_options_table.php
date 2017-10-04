@@ -20,6 +20,21 @@ class CreateBusinessOptionsTable extends Migration
             $table->text('tooltip');
             $table->timestamps();
         });
+
+
+        Schema::create('business_category_business_option', function (Blueprint $table) {
+            $table->integer('business_option_id');
+            $table->integer('business_category_id');
+
+        });
+
+        Schema::create('business_option_user', function (Blueprint $table) {
+            $table->integer('business_option_id');
+            $table->integer('user_id');
+
+        });
+
+
     }
 
     /**
@@ -30,5 +45,7 @@ class CreateBusinessOptionsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('business_options');
+        Schema::dropIfExists('business_options_categories');
+        Schema::dropIfExists('business_options_partners');
     }
 }

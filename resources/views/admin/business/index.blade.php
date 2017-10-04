@@ -34,8 +34,8 @@
 
                                 <div class="">
                                     <a href="{{url('admin/businesses/edit')}}/{{$bus->id}}" class="btn btn-primary">Edit</a>
-                                     
-                        
+
+
                             </td>
                         </tr>
                     @endforeach
