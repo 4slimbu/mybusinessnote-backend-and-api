@@ -73,6 +73,9 @@ Route::group(['middleware' => 'can:accessAdminPanel'], function() {
     Route::get('admin/businessoption/create','Admin\BusinessOptionController@create');
     Route::post('admin/businessoption','Admin\BusinessOptionController@store');
 
+    Route::get('admin/businessoption/edit/{businessoption}','Admin\BusinessOptionController@edit');
+    Route::post('admin/businessoption/update/{option}','Admin\BusinessOptionController@update');
+
 
 
 });
