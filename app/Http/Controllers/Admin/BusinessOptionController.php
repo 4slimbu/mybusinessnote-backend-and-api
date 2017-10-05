@@ -21,9 +21,9 @@ class BusinessOptionController extends Controller
 
     public function create()
     {
-    	$businessCategories = BusinessCategory::all();
+        $businessCategories = BusinessCategory::all();
         $businessOptions = BusinessOption::all();
-    	return view('admin.business_option.create',compact('businessCategories','businessOptions'));
+        return view('admin.business_option.create',compact('businessCategories','businessOptions'));
     }
 
     public function store(Request $request)
