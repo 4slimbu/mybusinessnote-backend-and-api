@@ -49,5 +49,40 @@ class BusinessOptionController extends Controller
 
     }
 
+    public function edit(Request $request , $businessOption)
+    {
+        $businessOption = BusinessOption::find($businessOption);
+
+
+        $businessOptions = BusinessOption::all();
+        $businessCategories = BusinessCategory::all();
+
+        $selectedCategory = [];
+
+        foreach($businessOption->categories as $busCat)
+        {
+            $selectedCategory[]=$busCat->id;
+        }
+
+        return view('admin.business_option.edit',compact('businessOption','businessOptions','businessCategories','selectedCategory'));
+    }
+
+    public function update(Request $request , $option)
+    {
+        $businessOption = BusinessOption::find($option);
+
+        $businessOption->name = request('name');
+        $businessOption->tooltip = request('tooltip');
+
+        
+        $businessOption->save();
+
+        $businessOption->categories()->sync(request('business_category_id'));
+        $businessOption->partners()->sync(request('user_id'));
+
+        return redirect('admin/businessoption')->with('success','data updated');
+
+    }
+
 
 }

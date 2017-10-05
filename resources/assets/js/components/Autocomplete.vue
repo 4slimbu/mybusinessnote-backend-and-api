@@ -1,6 +1,6 @@
 <template>
     <div style="position:relative">
-        <input class="form-control" type="text" @input = 'change' v-model='searchQuery'>
+            <input class="form-control" type="text" @input = 'change' v-model='searchQuery'>
         <input class="form-control" name="user_id" type="hidden" v-model='selectedId'>
         <div class="auto-suggest-wrapper" v-if="showSuggestion === true">
             <ul class="list-group auto-suggest">
@@ -12,19 +12,30 @@
             </ul>
         </div>
     </div>
+    
 </template>
 
 
 <script>
 export default {
 
+   props: [
+      'partner',
+    ],
+
    data: function () {
        return {
          suggestions: [],
          showSuggestion: false,
          searchQuery: '',
-         selectedId: ''
+         selectedId: '',
+         partnerObj:''
         }
+     },
+     created(){
+      this.partnerObj=JSON.parse(this.partner);
+      this.searchQuery=this.partnerObj.company;
+      this.selectedId=this.partnerObj.id;
      },
     mounted() {
 
@@ -41,7 +52,7 @@ export default {
                 axios({
 
                  method:'get',
-                 url:'/admin/partners?q='+this.searchQuery,
+                 url:'/mbjlocal/public/admin/partners?q='+this.searchQuery,
                  responseType:'json',
 
                 }).then(function (response) {
