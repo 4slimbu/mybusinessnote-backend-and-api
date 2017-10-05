@@ -70,7 +70,7 @@ class BusinessOptionController extends Controller
     public function update(Request $request , $option)
     {
         $businessOption = BusinessOption::find($option);
-
+        
         $businessOption->name = request('name');
         $businessOption->tooltip = request('tooltip');
 

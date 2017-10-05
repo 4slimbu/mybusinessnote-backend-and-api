@@ -4,7 +4,6 @@
         <input class="form-control" name="user_id" type="hidden" v-model='selectedId'>
         <div class="auto-suggest-wrapper" v-if="showSuggestion === true">
             <ul class="list-group auto-suggest">
-
                 <li v-on:click="selectItem(item)" class="list-group-item" v-for="(item, index) in suggestions">
                   {{ item.company }}
                 </li>
@@ -12,7 +11,6 @@
             </ul>
         </div>
     </div>
-    
 </template>
 
 

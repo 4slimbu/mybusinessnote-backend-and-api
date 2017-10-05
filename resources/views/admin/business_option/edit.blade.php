@@ -26,7 +26,6 @@
                            @endforeach
                     </select>
                 </div>
-
                 <div class="form-group">
                     <label for="title">Business Category(Choose which business type/categories this option belongs to)</label><br>
                     @foreach($businessCategories as $bc)
@@ -41,9 +40,6 @@
                     <label for="title">Choose Partner</label><br>
                     <autocomplete partner='{{$businessOption->partners[0]}}' ></autocomplete>
                 </div>
-
-
-
                 <div class="form-group">
                     <label for="tooltip">Tooltip</label>
                     <textarea class="form-control" id="tooltip" name="tooltip" rows="3" placeholder=""> {{$businessOption->tooltip}} </textarea>
