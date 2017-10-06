@@ -21,24 +21,26 @@
                     <label for="title">Parent Business Option (Leave blank for the top level)</label>
                     <select name="parent_id" class="form-control">
                         <option value="0">Choose a Parent</option>
-                           @foreach($businessOptions as $bo)
-                           <option value="{{$bo->id}}"@if($businessOption->parent_id == $bo->id) selected='selected' @endif>{{$bo->name}}</option>
+                           @foreach($businessOptions as $businessoption)
+                           <option value="{{$businessoption->id}}"@if($businessOption->parent_id == $businessoption->id) selected='selected' @endif>{{$businessoption->name}}</option>
                            @endforeach
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="title">Business Category(Choose which business type/categories this option belongs to)</label><br>
-                    @foreach($businessCategories as $bc)
-                   
-                        <input type="checkbox" name="business_category_id[]"  value="{{$bc->id}}" @if(in_array($bc->id,$selectedCategory)) checked='checked' @endif  > {{$bc->title}}
+                     
+                    @foreach($businessCategories as $businesscategory)
+
+                        <input type="checkbox" name="business_category_id[]"  value="{{$businesscategory->id}}" @if($businessOption->categories->contains($businesscategory->id)) checked='checked' @endif  > {{$businesscategory->title}}
                         <br> 
                        
+                    
                     @endforeach
                 </div>
 
                 <div class="form-group" id="partners-app">
                     <label for="title">Choose Partner</label><br>
-                    <autocomplete partner='{{$businessOption->partners[0]}}' ></autocomplete>
+                    <autoedit partner='{{$businessOption->partners[0]}}' ></autoedit>
                 </div>
                 <div class="form-group">
                     <label for="tooltip">Tooltip</label>

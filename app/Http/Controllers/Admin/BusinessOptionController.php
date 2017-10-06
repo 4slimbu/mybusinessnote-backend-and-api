@@ -59,12 +59,9 @@ class BusinessOptionController extends Controller
 
         $selectedCategory = [];
 
-        foreach($businessOption->categories as $busCat)
-        {
-            $selectedCategory[]=$busCat->id;
-        }
+        
 
-        return view('admin.business_option.edit',compact('businessOption','businessOptions','businessCategories','selectedCategory'));
+        return view('admin.business_option.edit',compact('businessOption','businessOptions','businessCategories'));
     }
 
     public function update(Request $request , $option)
