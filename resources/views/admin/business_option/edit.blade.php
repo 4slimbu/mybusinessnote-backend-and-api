@@ -38,7 +38,7 @@
 
                 <div class="form-group" id="partners-app">
                     <label for="title">Choose Partner</label><br>
-                    <autocomplete partner='{{$businessOption->partners[0]}}' ></autocomplete>
+                    <autoedit partner='{{$businessOption->partners[0]}}' ></autoedit>
                 </div>
                 <div class="form-group">
                     <label for="tooltip">Tooltip</label>
