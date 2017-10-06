@@ -28,11 +28,15 @@
                 </div>
                 <div class="form-group">
                     <label for="title">Business Category(Choose which business type/categories this option belongs to)</label><br>
+                     @foreach($businessOption->categories as $busCat)
+                      @php $selectedCategory[]=$busCat->id; @endphp
+                      @endforeach
                     @foreach($businessCategories as $bc)
-                   
+
                         <input type="checkbox" name="business_category_id[]"  value="{{$bc->id}}" @if(in_array($bc->id,$selectedCategory)) checked='checked' @endif  > {{$bc->title}}
                         <br> 
                        
+                    
                     @endforeach
                 </div>
 
