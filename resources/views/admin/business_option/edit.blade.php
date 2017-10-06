@@ -21,8 +21,8 @@
                     <label for="title">Parent Business Option (Leave blank for the top level)</label>
                     <select name="parent_id" class="form-control">
                         <option value="0">Choose a Parent</option>
-                           @foreach($businessOptions as $bo)
-                           <option value="{{$bo->id}}"@if($businessOption->parent_id == $bo->id) selected='selected' @endif>{{$bo->name}}</option>
+                           @foreach($businessOptions as $businessoption)
+                           <option value="{{$businessoption->id}}"@if($businessOption->parent_id == $businessoption->id) selected='selected' @endif>{{$businessoption->name}}</option>
                            @endforeach
                     </select>
                 </div>
@@ -31,9 +31,9 @@
                      @foreach($businessOption->categories as $businessCategory)
                       @php $selectedCategory[]=$businessCategory->id; @endphp
                       @endforeach
-                    @foreach($businessCategories as $bc)
+                    @foreach($businessCategories as $businesscategory)
 
-                        <input type="checkbox" name="business_category_id[]"  value="{{$bc->id}}" @if(in_array($bc->id,$selectedCategory)) checked='checked' @endif  > {{$bc->title}}
+                        <input type="checkbox" name="business_category_id[]"  value="{{$businesscategory->id}}" @if(in_array($businesscategory->id,$selectedCategory)) checked='checked' @endif  > {{$businesscategory->title}}
                         <br> 
                        
                     
