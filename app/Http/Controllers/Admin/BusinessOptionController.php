@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Hash;
 use App\User;
 use App\BusinessCategory;
+use App\Badge;
 use DB;
 
 class BusinessOptionController extends Controller
@@ -23,7 +24,8 @@ class BusinessOptionController extends Controller
     {
     	$businessCategories = BusinessCategory::all();
         $businessOptions = BusinessOption::all();
-    	return view('admin.business_option.create',compact('businessCategories','businessOptions'));
+        $badges = Badge::all();
+    	return view('admin.business_option.create',compact('businessCategories','businessOptions','badges'));
     }
 
     public function store(Request $request)
@@ -31,13 +33,15 @@ class BusinessOptionController extends Controller
 
         $this->validate($request, [
             'name' => 'required',
+            'badge_id' => 'required',
             'business_category_id' => 'required'
         ]);
         
        $businessOption = BusinessOption::create([
-                'name'=>request('name'),
-                'parent_id'=>request('parent_id'),
-                'tooltip'=>request('tooltip')
+            'badge_id'=>request('badge_id'),
+            'name'=>request('name'),
+            'parent_id'=>request('parent_id'),
+            'tooltip'=>request('tooltip')
        ]);
 
 

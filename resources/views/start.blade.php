@@ -291,64 +291,148 @@
                                               <div v-if="selected === 'marketing'" class="options" id="option1">
 
                                                   <h4 class="card-title">Marketing</h4>
-                                                  <div class="form-group">
-                                                      <h5 class="card-title">Branding</h5>
-                                                      <label class="custom-control custom-checkbox">
-                                                          <input type="checkbox" class="custom-control-input" required>
-                                                          <span class="custom-control-indicator"></span>
-                                                          <span class="custom-control-description">Logo + Tag line</span>
-                                                      </label>
-                                                  </div>
 
                                                   <div class="form-group">
-                                                      <label class="custom-control custom-checkbox">
-                                                          <input type="checkbox" class="custom-control-input" required>
+                                                      <p>Do you have a logo?</p>
+                                                      <label class="custom-control custom-radio">
+                                                          <input id="selling_goods_online1" name="selling_goods_online" type="radio" class="custom-control-input">
                                                           <span class="custom-control-indicator"></span>
-                                                          <span class="custom-control-description">Theme Colors to be used</span>
+                                                          <span class="custom-control-description">Yes</span>
                                                       </label>
-                                                  </div>
-
-                                                  <div class="form-group">
-                                                      <label class="custom-control custom-checkbox">
-                                                          <input type="checkbox" class="custom-control-input" required>
+                                                      <label class="custom-control custom-radio">
+                                                          <input id="selling_goods_online2" name="selling_goods_online" type="radio" class="custom-control-input">
                                                           <span class="custom-control-indicator"></span>
-                                                          <span class="custom-control-description">Website (landing page to begin)</span>
-                                                      </label>
-                                                  </div>
-
-                                                  <div class="form-group">
-                                                      <h5 class="card-title">Social Media Integration</h5>
-                                                      <label class="custom-control custom-checkbox">
-                                                          <input type="checkbox" class="custom-control-input" required>
-                                                          <span class="custom-control-indicator"></span>
-                                                          <span class="custom-control-description">Twitter</span>
-                                                      </label>
-                                                      <label class="custom-control custom-checkbox">
-                                                          <input type="checkbox" class="custom-control-input" required>
-                                                          <span class="custom-control-indicator"></span>
-                                                          <span class="custom-control-description">Facebook</span>
-                                                      </label>
-                                                      <label class="custom-control custom-checkbox">
-                                                          <input type="checkbox" class="custom-control-input" required>
-                                                          <span class="custom-control-indicator"></span>
-                                                          <span class="custom-control-description">LinkedIn</span>
-                                                      </label>
-                                                      <label class="custom-control custom-checkbox">
-                                                          <input type="checkbox" class="custom-control-input" required>
-                                                          <span class="custom-control-indicator"></span>
-                                                          <span class="custom-control-description">Instagram</span>
-                                                      </label>
-                                                  </div>
-
-                                                  <div class="form-group">
-
-                                                      <label class="custom-control custom-checkbox">
-                                                          <input type="checkbox" class="custom-control-input" required>
-                                                          <span class="custom-control-indicator"></span>
-                                                          <span class="custom-control-description">Business Cards</span>
+                                                          <span class="custom-control-description">No</span>
                                                       </label>
 
                                                   </div>
+                                                  <div class="form-group">
+                                                      <p>Do you have a tagline?</p>
+                                                      <label class="custom-control custom-radio">
+                                                          <input id="selling_goods_online1" name="selling_goods_online" type="radio" class="custom-control-input">
+                                                          <span class="custom-control-indicator"></span>
+                                                          <span class="custom-control-description">Yes</span>
+                                                      </label>
+                                                      <label class="custom-control custom-radio">
+                                                          <input id="selling_goods_online2" name="selling_goods_online" type="radio" class="custom-control-input">
+                                                          <span class="custom-control-indicator"></span>
+                                                          <span class="custom-control-description">No</span>
+                                                      </label>
+
+                                                  </div>
+
+                                                  <div class="form-group">
+                                                      <p>Do you have a Theme Colors to be used?</p>
+                                                      <label class="custom-control custom-radio">
+                                                          <input id="selling_goods_online1" name="selling_goods_online" type="radio" class="custom-control-input">
+                                                          <span class="custom-control-indicator"></span>
+                                                          <span class="custom-control-description">Yes</span>
+                                                      </label>
+                                                      <label class="custom-control custom-radio">
+                                                          <input id="selling_goods_online2" name="selling_goods_online" type="radio" class="custom-control-input">
+                                                          <span class="custom-control-indicator"></span>
+                                                          <span class="custom-control-description">No</span>
+                                                      </label>
+
+                                                  </div>
+
+                                                  <div class="form-group">
+                                                      <p>Do you have a Website (landing page to begin)?</p>
+                                                      <label class="custom-control custom-radio">
+                                                          <input id="selling_goods_online1" name="selling_goods_online" type="radio" class="custom-control-input">
+                                                          <span class="custom-control-indicator"></span>
+                                                          <span class="custom-control-description">Yes</span>
+                                                      </label>
+                                                      <label class="custom-control custom-radio">
+                                                          <input id="selling_goods_online2" name="selling_goods_online" type="radio" class="custom-control-input">
+                                                          <span class="custom-control-indicator"></span>
+                                                          <span class="custom-control-description">No</span>
+                                                      </label>
+
+                                                  </div>
+
+
+
+
+                                                  <div class="form-group">
+                                                      <h5 class="card-title">Social Media</h5>
+
+                                                      <div class="form-group">
+                                                          <p>Do you have a Twitter account?</p>
+                                                          <label class="custom-control custom-radio">
+                                                              <input id="selling_goods_online1" name="selling_goods_online" type="radio" class="custom-control-input">
+                                                              <span class="custom-control-indicator"></span>
+                                                              <span class="custom-control-description">Yes</span>
+                                                          </label>
+                                                          <label class="custom-control custom-radio">
+                                                              <input id="selling_goods_online2" name="selling_goods_online" type="radio" class="custom-control-input">
+                                                              <span class="custom-control-indicator"></span>
+                                                              <span class="custom-control-description">No</span>
+                                                          </label>
+
+                                                      </div>
+                                                      <div class="form-group">
+                                                          <p>Do you have a Facebook account?</p>
+                                                          <label class="custom-control custom-radio">
+                                                              <input id="selling_goods_online1" name="selling_goods_online" type="radio" class="custom-control-input">
+                                                              <span class="custom-control-indicator"></span>
+                                                              <span class="custom-control-description">Yes</span>
+                                                          </label>
+                                                          <label class="custom-control custom-radio">
+                                                              <input id="selling_goods_online2" name="selling_goods_online" type="radio" class="custom-control-input">
+                                                              <span class="custom-control-indicator"></span>
+                                                              <span class="custom-control-description">No</span>
+                                                          </label>
+
+                                                      </div>
+                                                      <div class="form-group">
+                                                          <p>Do you have a LinkedIn account?</p>
+                                                          <label class="custom-control custom-radio">
+                                                              <input id="selling_goods_online1" name="selling_goods_online" type="radio" class="custom-control-input">
+                                                              <span class="custom-control-indicator"></span>
+                                                              <span class="custom-control-description">Yes</span>
+                                                          </label>
+                                                          <label class="custom-control custom-radio">
+                                                              <input id="selling_goods_online2" name="selling_goods_online" type="radio" class="custom-control-input">
+                                                              <span class="custom-control-indicator"></span>
+                                                              <span class="custom-control-description">No</span>
+                                                          </label>
+
+                                                      </div>
+                                                      <div class="form-group">
+                                                          <p>Do you have a Instagram account?</p>
+                                                          <label class="custom-control custom-radio">
+                                                              <input id="selling_goods_online1" name="selling_goods_online" type="radio" class="custom-control-input">
+                                                              <span class="custom-control-indicator"></span>
+                                                              <span class="custom-control-description">Yes</span>
+                                                          </label>
+                                                          <label class="custom-control custom-radio">
+                                                              <input id="selling_goods_online2" name="selling_goods_online" type="radio" class="custom-control-input">
+                                                              <span class="custom-control-indicator"></span>
+                                                              <span class="custom-control-description">No</span>
+                                                          </label>
+
+                                                      </div>
+
+
+                                                  </div>
+
+                                                  <div class="form-group">
+                                                      <p>Do you have a Business Card?</p>
+                                                      <label class="custom-control custom-radio">
+                                                          <input id="selling_goods_online1" name="selling_goods_online" type="radio" class="custom-control-input">
+                                                          <span class="custom-control-indicator"></span>
+                                                          <span class="custom-control-description">Yes</span>
+                                                      </label>
+                                                      <label class="custom-control custom-radio">
+                                                          <input id="selling_goods_online2" name="selling_goods_online" type="radio" class="custom-control-input">
+                                                          <span class="custom-control-indicator"></span>
+                                                          <span class="custom-control-description">No</span>
+                                                      </label>
+
+                                                  </div>
+
+
 
                                               </div>
 
@@ -356,20 +440,32 @@
 
                                                   <h4 class="card-title">Operations</h4>
                                                   <div class="form-group">
-
-                                                      <label class="custom-control custom-checkbox">
-                                                          <input type="checkbox" class="custom-control-input" required>
+                                                      <p>Do you have a Phone setup?</p>
+                                                      <label class="custom-control custom-radio">
+                                                          <input id="selling_goods_online1" name="selling_goods_online" type="radio" class="custom-control-input">
                                                           <span class="custom-control-indicator"></span>
-                                                          <span class="custom-control-description">Email Setup</span>
+                                                          <span class="custom-control-description">Yes</span>
                                                       </label>
+                                                      <label class="custom-control custom-radio">
+                                                          <input id="selling_goods_online2" name="selling_goods_online" type="radio" class="custom-control-input">
+                                                          <span class="custom-control-indicator"></span>
+                                                          <span class="custom-control-description">No</span>
+                                                      </label>
+
                                                   </div>
                                                   <div class="form-group">
-
-                                                      <label class="custom-control custom-checkbox">
-                                                          <input type="checkbox" class="custom-control-input" required>
+                                                      <p>Do you have a Email setup?</p>
+                                                      <label class="custom-control custom-radio">
+                                                          <input id="selling_goods_online1" name="selling_goods_online" type="radio" class="custom-control-input">
                                                           <span class="custom-control-indicator"></span>
-                                                          <span class="custom-control-description">Phone Setup</span>
+                                                          <span class="custom-control-description">Yes</span>
                                                       </label>
+                                                      <label class="custom-control custom-radio">
+                                                          <input id="selling_goods_online2" name="selling_goods_online" type="radio" class="custom-control-input">
+                                                          <span class="custom-control-indicator"></span>
+                                                          <span class="custom-control-description">No</span>
+                                                      </label>
+
                                                   </div>
 
 
@@ -379,25 +475,48 @@
 
                                                   <h4 class="card-title">Finance</h4>
                                                   <div class="form-group">
-                                                      <label class="custom-control custom-checkbox">
-                                                          <input id="selling_goods_online1" name="selling_goods_online" type="checkbox" class="custom-control-input">
+                                                      <p>Do you have a Initial Accounting Software?</p>
+                                                      <label class="custom-control custom-radio">
+                                                          <input id="selling_goods_online1" name="selling_goods_online" type="radio" class="custom-control-input">
                                                           <span class="custom-control-indicator"></span>
-                                                          <span class="custom-control-description">Initial Accounting Software</span>
+                                                          <span class="custom-control-description">Yes</span>
                                                       </label>
+                                                      <label class="custom-control custom-radio">
+                                                          <input id="selling_goods_online2" name="selling_goods_online" type="radio" class="custom-control-input">
+                                                          <span class="custom-control-indicator"></span>
+                                                          <span class="custom-control-description">No</span>
+                                                      </label>
+
                                                   </div>
+
                                                   <div class="form-group">
-                                                      <label class="custom-control custom-checkbox">
-                                                          <input id="selling_goods_online1" name="selling_goods_online" type="checkbox" class="custom-control-input">
+                                                      <p>Do you have a Business Banking?</p>
+                                                      <label class="custom-control custom-radio">
+                                                          <input id="selling_goods_online1" name="selling_goods_online" type="radio" class="custom-control-input">
                                                           <span class="custom-control-indicator"></span>
-                                                          <span class="custom-control-description">Business Banking</span>
+                                                          <span class="custom-control-description">Yes</span>
                                                       </label>
+                                                      <label class="custom-control custom-radio">
+                                                          <input id="selling_goods_online2" name="selling_goods_online" type="radio" class="custom-control-input">
+                                                          <span class="custom-control-indicator"></span>
+                                                          <span class="custom-control-description">No</span>
+                                                      </label>
+
                                                   </div>
+
                                                   <div class="form-group">
-                                                      <label class="custom-control custom-checkbox">
-                                                          <input id="selling_goods_online1" name="selling_goods_online" type="checkbox" class="custom-control-input">
+                                                      <p>Do you have a Merchant Facilities?</p>
+                                                      <label class="custom-control custom-radio">
+                                                          <input id="selling_goods_online1" name="selling_goods_online" type="radio" class="custom-control-input">
                                                           <span class="custom-control-indicator"></span>
-                                                          <span class="custom-control-description">Merchant Facilities</span>
+                                                          <span class="custom-control-description">Yes</span>
                                                       </label>
+                                                      <label class="custom-control custom-radio">
+                                                          <input id="selling_goods_online2" name="selling_goods_online" type="radio" class="custom-control-input">
+                                                          <span class="custom-control-indicator"></span>
+                                                          <span class="custom-control-description">No</span>
+                                                      </label>
+
                                                   </div>
 
                                               </div>

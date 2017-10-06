@@ -15,9 +15,10 @@ class CreateBusinessOptionsTable extends Migration
     {
         Schema::create('business_options', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('badge_id');
             $table->integer('parent_id')->default(0);
             $table->string('name');
-            $table->text('tooltip');
+            $table->text('tooltip')->nullable();
             $table->timestamps();
         });
 

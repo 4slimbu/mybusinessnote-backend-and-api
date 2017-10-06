@@ -1,6 +1,6 @@
 <template>
     <div style="position:relative">
-        <input class="form-control" type="text" @input = 'change' v-model='searchQuery'>
+        <input class="form-control" type="text" @input = 'change' v-model='searchQuery' placeholder="Type here for auto suggestion">
         <input class="form-control" name="user_id" type="hidden" v-model='selectedId'>
         <div class="auto-suggest-wrapper" v-if="showSuggestion === true">
             <ul class="list-group auto-suggest">

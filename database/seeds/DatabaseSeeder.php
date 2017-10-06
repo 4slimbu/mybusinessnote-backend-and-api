@@ -78,8 +78,10 @@ class DatabaseSeeder extends Seeder
             array('name'=>'Building up a Business',
                 'message'=>'Level 3 Complete, congratulations! [Badge Earned - “Building up a Business”]'),
 
-        );
+            array('name'=>'Running the Business',
+                'message'=>'Level 4 Complete, congratulations! [Badge Earned - “Running the Business”]'),
 
+        );
 
         DB::table('badges')->insert($data);
 
