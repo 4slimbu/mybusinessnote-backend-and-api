@@ -28,8 +28,8 @@
                 </div>
                 <div class="form-group">
                     <label for="title">Business Category(Choose which business type/categories this option belongs to)</label><br>
-                     @foreach($businessOption->categories as $busCat)
-                      @php $selectedCategory[]=$busCat->id; @endphp
+                     @foreach($businessOption->categories as $businessCategory)
+                      @php $selectedCategory[]=$businessCategory->id; @endphp
                       @endforeach
                     @foreach($businessCategories as $bc)
 
