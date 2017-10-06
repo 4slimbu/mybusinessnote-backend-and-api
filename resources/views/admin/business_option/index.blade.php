@@ -30,7 +30,11 @@
                             <td>{{ $businessOption->tooltip }}</td>
                             
                             
-                            <td><a href="<!-- {{url('admin/business_option/edit')}}/{{$businessOption->id}} -->" class="btn btn-primary">Edit</a>
+
+                            <td>
+
+                                <a href="{{url('admin/businessoption/edit')}}/{{$businessOption->id}}" class="btn btn-primary">Edit</a>
+
 
                             </td>
                         </tr>

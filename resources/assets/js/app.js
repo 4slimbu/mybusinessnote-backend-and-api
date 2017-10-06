@@ -22,6 +22,7 @@ window.flash = function (message) {
 
 Vue.component('flash', require('./components/Flash.vue'));
 Vue.component('autocomplete', require('./components/Autocomplete.vue'));
+Vue.component('autoedit', require('./components/Autoedit.vue'));
 
 const app = new Vue({
     el: '#app',

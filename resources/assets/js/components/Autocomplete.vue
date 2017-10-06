@@ -41,7 +41,7 @@ export default {
                 axios({
 
                  method:'get',
-                 url:'/admin/partners?q='+this.searchQuery,
+                 url:'/mbjlocal/public/admin/partners?q='+this.searchQuery,
                  responseType:'json',
 
                 }).then(function (response) {
