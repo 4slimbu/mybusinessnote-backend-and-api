@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 
-use App\BusinessOption;
+use App\Models\BusinessOption;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Hash;
-use App\User;
-use App\BusinessCategory;
-use App\Badge;
+use App\Models\User;
+use App\Models\BusinessCategory;
+use App\Models\Badge;
 use DB;
 
 class BusinessOptionController extends Controller

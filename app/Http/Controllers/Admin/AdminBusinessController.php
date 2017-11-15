@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Business;
-use App\BusinessCategory;
-use App\Badge;
-use App\Role;
+use App\Models\Business;
+use App\Models\BusinessCategory;
+use App\Models\Badge;
+use App\Models\Role;
 
 class AdminBusinessController extends Controller
 {

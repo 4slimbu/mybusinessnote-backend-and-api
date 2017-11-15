@@ -2,7 +2,7 @@
 namespace App\Http\Controllers\Admin;
 
 
-use App\BusinessCategory;
+use App\Models\BusinessCategory;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -58,7 +58,7 @@ class BusinessCategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\BusinessCategory  $businessCategory
+     * @param  \App\Models\BusinessCategory  $businessCategory
      * @return \Illuminate\Http\Response
      */
     public function show(BusinessCategory $businessCategory)
@@ -69,7 +69,7 @@ class BusinessCategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\BusinessCategory  $businessCategory
+     * @param  \App\Models\BusinessCategory  $businessCategory
      * @return \Illuminate\Http\Response
      */
     public function edit(BusinessCategory $businessCategory)
@@ -82,7 +82,7 @@ class BusinessCategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\BusinessCategory  $businessCategory
+     * @param  \App\Models\BusinessCategory  $businessCategory
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, BusinessCategory $businessCategory)
@@ -100,7 +100,7 @@ class BusinessCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\BusinessCategory  $businessCategory
+     * @param  \App\Models\BusinessCategory  $businessCategory
      * @return \Illuminate\Http\Response
      */
     public function destroy(BusinessCategory $businessCategory)

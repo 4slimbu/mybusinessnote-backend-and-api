@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Business;
+use App\Models\Business;
 
 class BusinessController extends Controller
 {
