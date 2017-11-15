@@ -7,8 +7,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Input;
 
-class BadgeController extends Controller
+class BadgeController extends AdminBaseController
 {
+    protected $base_route = 'admin.employee-count';
+    protected $view_path = 'admin.employee-count';
+    protected $panel_group = 'Database';
+    protected $panel = 'EmployeeCount';
+    protected $query_params = [];
+
+
     /**
      * Display a listing of the resource.
      *

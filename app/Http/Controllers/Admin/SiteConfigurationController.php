@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\SiteConfiguration;
 use Illuminate\Http\Request;
 
-class SiteConfigurationController extends Controller
+class SiteConfigurationController extends AdminBaseController
 {
     /**
      * Display a listing of the resource.

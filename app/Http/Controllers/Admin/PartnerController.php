@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Hash;
 
-class PartnerController extends Controller
+class PartnerController extends AdminBaseController
 {
     public function index()
     {

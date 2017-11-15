@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class BusinessOption extends BaseController
+class BaseController extends Controller
 {
     //
 }

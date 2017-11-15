@@ -12,7 +12,7 @@ use App\Models\BusinessCategory;
 use App\Models\Badge;
 use DB;
 
-class BusinessOptionController extends Controller
+class BusinessOptionController extends AdminBaseController
 {
      public function index()
     {

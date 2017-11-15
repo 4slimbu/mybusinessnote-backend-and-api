@@ -9,7 +9,7 @@ use App\Models\BusinessCategory;
 use App\Models\Badge;
 use App\Models\Role;
 
-class AdminBusinessController extends Controller
+class AdminBusinessController extends AdminBaseController
 {
     public function index()
     {
