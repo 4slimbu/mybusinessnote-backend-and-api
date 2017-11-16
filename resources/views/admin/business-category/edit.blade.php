@@ -2,8 +2,9 @@
 
 @section('content')
     <div class="content-wrapper">
+
         <h2>
-            Edit {{ $panel_name }} : {{ $data['row']->business_name }}
+            Edit {{ $panel_name }} : {{ $data['row']->title }}
         </h2>
 
         <div class="col-md-10">

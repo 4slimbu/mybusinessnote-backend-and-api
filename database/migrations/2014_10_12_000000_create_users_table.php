@@ -33,6 +33,7 @@ class CreateUsersTable extends Migration
             $table->string('residential_state')->nullable();;
             $table->string('residential_suburb')->nullable();;
             $table->string('residential_country')->nullable();;
+            $table->string('website')->nullable();;
             $table->string('password');
             $table->boolean('verified')->default(false);
             $table->string('token')->nullable();

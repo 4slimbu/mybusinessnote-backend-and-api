@@ -14,26 +14,28 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Customer Full Name</th>
-                        <th>E-Mail</th>
-                        <th>Phone Number</th>
+                        <th>Business Name</th>
+                        <th>Business E-Mail</th>
+                        <th>Badge Image</th>
+                        <th>User Name</th>
                         <th>Actions</th>
 
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach ($customer as $cus)
+                    @foreach ($business as $bus)
                         <tr>
-                            <td>{{ $cus->id }}</td>
-                            <td>{{ $cus->first_name }} {{ $cus->last_name }}</td>
-                            <td>{{ $cus->email }}</td>
-                            <td>{{$cus->phone_number}}</td>
+                            <td>{{ $bus->id }}</td>
+                            <td>{{ $bus->business_name }} </td>
+                            <td>{{ $bus->business_email }}</td>
+                            <td><img src="{{url('images/badges/')}}/{{$bus->badge->icon}}" alt="{{$bus->badge->name}}" width="150px" height="150px"></td>
+                            <td>{{$bus->user->first_name}} {{$bus->user->last_name}}</td>
                             <td>
 
                                 <div class="">
-                                    <a href="{{url('admin/customers/edit')}}/{{$cus->id}}" class="btn btn-primary">Edit</a>
-                                     
-                        
+                                    <a href="{{url('admin/businesses/edit')}}/{{$bus->id}}" class="btn btn-primary">Edit</a>
+
+
                             </td>
                         </tr>
                     @endforeach

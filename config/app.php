@@ -182,6 +182,8 @@ return [
          */
         App\Providers\HelperClassServiceProvider::class,
 
+        Collective\Html\HtmlServiceProvider::class,
+
     ],
 
     /*
@@ -238,6 +240,8 @@ return [
         'ViewHelper' => App\Facade\ViewHelperFacade::class,
         'AppHelper' => App\Facade\AppHelperFacade::class,
 
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
     ],
 
 ];

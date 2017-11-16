@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 
 use App\Models\BusinessOption;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Hash;
-use App\Models\User;
 use App\Models\BusinessCategory;
 use App\Models\Badge;
 use DB;
@@ -17,7 +15,7 @@ class BusinessOptionController extends AdminBaseController
      public function index()
     {
         $businessOptions = BusinessOption::all();
-        return view('admin.business_option.index',compact('businessOptions'));
+        return view('admin.business-option.index',compact('businessOptions'));
     }
 
     public function create()
@@ -25,7 +23,7 @@ class BusinessOptionController extends AdminBaseController
         $businessCategories = BusinessCategory::all();
         $businessOptions = BusinessOption::all();
         $badges = Badge::all();
-    	return view('admin.business_option.create',compact('businessCategories','businessOptions','badges'));
+    	return view('admin.business-option.create',compact('businessCategories','businessOptions','badges'));
 
     }
 
@@ -66,7 +64,7 @@ class BusinessOptionController extends AdminBaseController
 
         
 
-        return view('admin.business_option.edit',compact('businessOption','businessOptions','businessCategories'));
+        return view('admin.business-option.edit',compact('businessOption','businessOptions','businessCategories'));
     }
 
     public function update(Request $request , $option)

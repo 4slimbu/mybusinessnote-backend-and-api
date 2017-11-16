@@ -3,20 +3,55 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Hash;
 
 class PartnerController extends AdminBaseController
 {
-    public function index()
+    /**
+     * Display a listing of the Partner.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
     {
-    	return view('admin.partners.create');
+        if( $request->ajax() ) {
+
+            $search = request('q');
+            $partner = User::where('role_id', '=', 3)
+                ->where('company', 'LIKE', "$search%")
+                ->get();
+
+            return $partner;
+
+        }
+
+        $partner = User::where('role_id',3)->get();
+
+        return view('admin.partners.index',compact('partner'));
+
     }
 
+    /**
+     * Show the form for creating a new Partner.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('admin.partners.create');
+    }
+
+    /**
+     * Store a newly created Partner in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
-    	$this->validate($request, [
+        $this->validate($request, [
             'first_name' => 'required',
             'last_name' => 'required',
             'phone_number' => 'required',
@@ -35,106 +70,101 @@ class PartnerController extends AdminBaseController
 
         if(request('residential_street1') == 0)
         {
-        	$bill_street1 = request('billing_street1');
-        	$bill_street2 = request('billing_street2');
-        	$bill_post = request('billing_postcode');
-        	$bill_state = request('billing_state');
-        	$bill_sub = request('billing_suburb');
-        	$bill_con = request('billing_country');
-        	$pass = Hash::make(request('password'));
+            $bill_street1 = request('billing_street1');
+            $bill_street2 = request('billing_street2');
+            $bill_post = request('billing_postcode');
+            $bill_state = request('billing_state');
+            $bill_sub = request('billing_suburb');
+            $bill_con = request('billing_country');
+            $pass = Hash::make(request('password'));
 
-        	User::create([
-        		'first_name' => request('first_name'),
-            	'last_name' => request('last_name'),
-            	'phone_number' => request('phone_number'),
-            	'email' => request('email'),
-            	'company' => request('company'),
-            	'billing_street1' => request('billing_street1'),
-            	'billing_street2' => request('billing_street2'),
-            	'billing_postcode' => request('billing_postcode'),
-            	'billing_state' => request('billing_state'),
-            	'billing_suburb' => request('billing_suburb'),
-            	'billing_country' => request('billing_country'),
-            	'residential_street1' => $bill_street1,
-            	'residential_street2' => $bill_street2,
-            	'residential_postcode' => $bill_post,
-            	'residential_state' => $bill_state,
-            	'residential_suburb' => $bill_sub,
-            	'residential_country' => $bill_con, 
-            	'password' => $pass,
-            	'role_id' => request('role'),
-            	'verified' => request('verified')
-        	]);
+            User::create([
+                'first_name' => request('first_name'),
+                'last_name' => request('last_name'),
+                'phone_number' => request('phone_number'),
+                'email' => request('email'),
+                'company' => request('company'),
+                'billing_street1' => request('billing_street1'),
+                'billing_street2' => request('billing_street2'),
+                'billing_postcode' => request('billing_postcode'),
+                'billing_state' => request('billing_state'),
+                'billing_suburb' => request('billing_suburb'),
+                'billing_country' => request('billing_country'),
+                'residential_street1' => $bill_street1,
+                'residential_street2' => $bill_street2,
+                'residential_postcode' => $bill_post,
+                'residential_state' => $bill_state,
+                'residential_suburb' => $bill_sub,
+                'residential_country' => $bill_con,
+                'password' => $pass,
+                'role_id' => request('role'),
+                'verified' => request('verified')
+            ]);
 
-        	  return back()->with('success','New partner has been created!');
+            return back()->with('success','New partner has been created!');
         }
         else
         {
-        	$pass = Hash::make(request('password'));
-        	User::create([
-        		'first_name' => request('first_name'),
-            	'last_name' => request('last_name'),
-            	'phone_number' => request('phone_number'),
-            	'email' => request('email'),
-            	'company' => request('company'),
-            	'billing_street1' => request('billing_street1'),
-            	'billing_street2' => request('billing_street2'),
-            	'billing_postcode' => request('billing_postcode'),
-            	'billing_state' => request('billing_state'),
-            	'billing_suburb' => request('billing_suburb'),
-            	'billing_country' => request('billing_country'),
-            	'residential_street1' => request('residential_street1'),
-            	'residential_street2' => request('residential_street2'),
-            	'residential_postcode' => request('residential_postcode'),
-            	'residential_state' => request('residential_state'),
-            	'residential_suburb' => request('residential_suburb'),
-            	'residential_country' => request('residential_country'), 
-            	'password' => $pass,
-            	'role_id' => request('role'),
-            	'verified' => request('verified')
-        	]);
-        	  return back()->with('success','New badge has been created!');
+            $pass = Hash::make(request('password'));
+            User::create([
+                'first_name' => request('first_name'),
+                'last_name' => request('last_name'),
+                'phone_number' => request('phone_number'),
+                'email' => request('email'),
+                'company' => request('company'),
+                'billing_street1' => request('billing_street1'),
+                'billing_street2' => request('billing_street2'),
+                'billing_postcode' => request('billing_postcode'),
+                'billing_state' => request('billing_state'),
+                'billing_suburb' => request('billing_suburb'),
+                'billing_country' => request('billing_country'),
+                'residential_street1' => request('residential_street1'),
+                'residential_street2' => request('residential_street2'),
+                'residential_postcode' => request('residential_postcode'),
+                'residential_state' => request('residential_state'),
+                'residential_suburb' => request('residential_suburb'),
+                'residential_country' => request('residential_country'),
+                'password' => $pass,
+                'role_id' => request('role'),
+                'verified' => request('verified')
+            ]);
+            return back()->with('success','New badge has been created!');
         }
-
-        
     }
 
-
-    public function list(){
-
-
-    }
-
-    
-    public function view(Request $request)
+    /**
+     * Display the specified Partner.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
     {
-
-        if( $request->ajax() ) {
-
-            $search = request('q');
-            $partner = User::where('role_id', '=', 3)
-                            ->where('company', 'LIKE', "$search%")
-                            ->get();
-
-            return $partner;
-
-        }
-
-        $partner = User::where('role_id',3)->get();
-
-        return view('admin.partners.index',compact('partner'));
-
+        //
     }
 
-    public function edit($partner)
+    /**
+     * Show the form for editing the specified Partner.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
     {
-        $partner = User::find($partner);
+        $partner = User::find($id);
         return view('admin.partners.edit',compact('partner'));
     }
 
-    public function update($partner)
+    /**
+     * Update the specified Partner in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
     {
-        $partner = User::find($partner);
+        $partner = User::find($id);
 
         $partner->first_name = request('first_name');
         $partner->last_name = request('last_name');
@@ -158,5 +188,17 @@ class PartnerController extends AdminBaseController
 
         return redirect('admin/partners')->with('success','Partner Data is updated');
     }
+
+    /**
+     * Remove the specified Partner from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+
 
 }

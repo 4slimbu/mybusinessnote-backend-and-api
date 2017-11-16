@@ -1,16 +1,16 @@
-@extends('admin/layouts/master')
+@extends('admin.layouts.default')
 
 @section('content')
     <div class="row">
 
-        @include('admin.layouts.sidemenu')
+        @include('admin.layouts.partials.side-menu')
 
         <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
             <h1>Admin Dashboard</h1>
 
             <h2>Add New Business Badge</h2>
 
-            <form class="col-sm-6"  action="{{url('admin/badges')}}" method="POST" enctype="multipart/form-data">
+            <form class="col-sm-6"  action="{{url('admin/badge')}}" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="name">Title</label> {!! $errors->first('name') !!}

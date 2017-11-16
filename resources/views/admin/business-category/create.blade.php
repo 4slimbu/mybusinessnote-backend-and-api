@@ -3,11 +3,11 @@
 @section('content')
     <div class="content-wrapper">
         <h2>
-            Edit {{ $panel_name }} : {{ $data['row']->business_name }}
+            Create New {{ $panel_name }}
         </h2>
 
         <div class="col-md-10">
-            {{ Form::model($data['row'], ['method' => 'POST', 'route' => [$base_route.'.update', $data['row']->id]]) }}
+            {{ Form::open(['method' => 'POST', 'route' => [$base_route.'.store']]) }}
             <div class="panel panel-flat">
 
                 <div class="panel-body">
