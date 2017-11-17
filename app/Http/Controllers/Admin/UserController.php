@@ -3,32 +3,32 @@
 namespace App\Http\Controllers\Admin;
 
 
-use App\Http\Requests\Admin\PartnerValidation\CreateFormValidation;
-use App\Http\Requests\Admin\PartnerValidation\UpdateFormValidation;
+use App\Http\Requests\Admin\UserValidation\CreateFormValidation;
+use App\Http\Requests\Admin\UserValidation\UpdateFormValidation;
 use App\Models\Role;
 use App\Models\User;
 use Session, AppHelper;
 
 
-class PartnerController extends AdminBaseController
+class UserController extends AdminBaseController
 {
     /**
      * Path to base view folder
      * @var string
      */
-    protected $view_path = 'admin.partner';
+    protected $view_path = 'admin.user';
 
     /**
      * Base route
      * @var string
      */
-    protected $base_route = 'admin.partner';
+    protected $base_route = 'admin.user';
 
     /**
      * Title of page using this controller
      * @var string
      */
-    protected $panel_name = 'Partner';
+    protected $panel_name = 'User';
 
     /**
      * Display a listing of the business option.
@@ -41,7 +41,7 @@ class PartnerController extends AdminBaseController
         $data = [];
 
         //get data
-        $data['rows'] = User::partner()->orderBy('id', 'desc')
+        $data['rows'] = User::with('role')->orderBy('id', 'desc')
             ->paginate(AppHelper::getSystemConfig('pagination'));
 
         return view(parent::loadViewData($this->view_path . '.index'), compact('data'));
@@ -81,7 +81,6 @@ class PartnerController extends AdminBaseController
             $inputs['residential_country'] = $inputs['billing_country'];
         }
 
-        $inputs['role_id'] = 3;
         User::create($inputs);
 
         Session::flash('success', $this->panel_name.' created successfully.');
@@ -92,10 +91,10 @@ class PartnerController extends AdminBaseController
     /**
      * Display the specified business option.
      *
-     * @param User $partner
+     * @param  \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $partner)
+    public function show(User $user)
     {
         //
     }
@@ -103,17 +102,16 @@ class PartnerController extends AdminBaseController
     /**
      * Show the form for editing the specified business option.
      *
-     * @param User $partner
+     * @param  \App\Models\User $user
      * @return \Illuminate\Http\Response
-     * @internal param \App\Models\Partner $partner
      */
-    public function edit(User $partner)
+    public function edit(User $user)
     {
         //initialize
         $data = [];
 
         //get data
-        $data['row'] = $partner;
+        $data['row'] = $user;
         $data['roles'] = Role::pluck('name', 'id');
 
         return view(parent::loadViewData($this->view_path . '.edit'), compact('data'));
@@ -122,15 +120,15 @@ class PartnerController extends AdminBaseController
     /**
      * Update the specified business option in storage.
      *
-     * @param UpdateFormValidation $request
-     * @param User $partner
+     * @param UpdateFormValidation|\Illuminate\Http\Request $request
+     * @param  \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateFormValidation $request, User $partner)
+    public function update(UpdateFormValidation $request, User $user)
     {
-        $request->offsetUnset('role_id');
+
         $input = $request->all();
-        $partner->fill($input)->save();
+        $user->fill($input)->save();
 
         Session::flash('success', $this->panel_name.' updated successfully.');
         return redirect()->route($this->base_route);
@@ -139,12 +137,12 @@ class PartnerController extends AdminBaseController
     /**
      * Remove the specified business option from storage.
      *
-     * @param  \App\Models\User $partner
+     * @param  \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $partner)
+    public function destroy(User $user)
     {
-        $partner->delete();
+        $user->delete();
 
         Session::flash('success', $this->panel_name.' deleted successfully.');
         return redirect()->route($this->base_route);

@@ -91,6 +91,33 @@ Route::group([
         'uses' => 'BadgeController@destroy'
     ]);
 
+    /* User */
+    Route::get('user', [
+        'as' => 'user',
+        'uses' => 'UserController@index',
+    ]);
+    Route::get('user/create', [
+        'as' => 'user.create',
+        'uses' => 'UserController@create',
+    ]);
+    Route::post('user/store', [
+        'as' => 'user.store',
+        'uses' => 'UserController@store',
+    ]);
+    Route::get('user/edit/{user}', [
+        'as' => 'user.edit',
+        'uses' => 'UserController@edit'
+    ]);
+    Route::post('user/update/{user}', [
+        'as' => 'user.update',
+        'uses' => 'UserController@update',
+    ]);
+    Route::delete('user/destroy/{user}', [
+        'as' => 'user.destroy',
+        'uses' => 'UserController@destroy'
+    ]);
+
+
     /* Partner */
     Route::get('partner', [
         'as' => 'partner',
