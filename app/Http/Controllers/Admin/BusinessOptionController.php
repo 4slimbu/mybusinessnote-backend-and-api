@@ -3,86 +3,146 @@
 namespace App\Http\Controllers\Admin;
 
 
-use App\Models\BusinessOption;
-use Illuminate\Http\Request;
-use Hash;
-use App\Models\BusinessCategory;
+use App\Http\Requests\Admin\BusinessOptionValidation\CreateFormValidation;
+use App\Http\Requests\Admin\BusinessOptionValidation\UpdateFormValidation;
 use App\Models\Badge;
-use DB;
+use App\Models\BusinessOption;
+use App\Models\BusinessCategory;
+use App\Models\User;
+use Session, AppHelper;
+
 
 class BusinessOptionController extends AdminBaseController
 {
-     public function index()
+    /**
+     * Path to base view folder
+     * @var string
+     */
+    protected $view_path = 'admin.business-option';
+
+    /**
+     * Base route
+     * @var string
+     */
+    protected $base_route = 'admin.business-option';
+
+    /**
+     * Title of page using this controller
+     * @var string
+     */
+    protected $panel_name = 'Business Option';
+
+    /**
+     * Display a listing of the business option.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        $businessOptions = BusinessOption::all();
-        return view('admin.business-option.index',compact('businessOptions'));
+        //initialize
+        $data = [];
+
+        //get data
+        $data['rows'] = BusinessOption::with('badge', 'parent')
+            ->orderBy('id', 'desc')
+            ->paginate(AppHelper::getSystemConfig('pagination'));
+
+        return view(parent::loadViewData($this->view_path . '.index'), compact('data'));
     }
 
+    /**
+     * Show the form for creating a new business option.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
-        $businessCategories = BusinessCategory::all();
-        $businessOptions = BusinessOption::all();
-        $badges = Badge::all();
-    	return view('admin.business-option.create',compact('businessCategories','businessOptions','badges'));
+        //initialize
+        $data = [];
+
+        //get data
+        $data['badges'] = Badge::pluck('name', 'id');
+        $data['businessOptions'] = BusinessOption::pluck('name', 'id');
+        $data['businessCategories'] = BusinessCategory::pluck('title', 'id');
+
+
+        return view(parent::loadViewData($this->view_path . '.create'), compact('data'));
+    }
+
+    /**
+     * Store a newly created business option in storage.
+     *
+     * @param CreateFormValidation|\Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(CreateFormValidation $request)
+    {
+        BusinessOption::create($request->all());
+
+        Session::flash('success', $this->panel_name.' created successfully.');
+        return redirect()->route($this->base_route);
 
     }
 
-    public function store(Request $request)
+    /**
+     * Display the specified business option.
+     *
+     * @param  \App\Models\BusinessOption $businessOption
+     * @return \Illuminate\Http\Response
+     */
+    public function show(BusinessOption $businessOption)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified business option.
+     *
+     * @param  \App\Models\BusinessOption $businessOption
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(BusinessOption $businessOption)
+    {
+        //initialize
+        $data = [];
+
+        //get data
+        $data['row'] = $businessOption;
+        $data['badges'] = Badge::pluck('name', 'id');
+        $data['businessOptions'] = BusinessOption::where('id', '!=', $businessOption->id)->pluck('name', 'id');
+        $data['businessCategories'] = BusinessCategory::pluck('title', 'id');
+
+        return view(parent::loadViewData($this->view_path . '.edit'), compact('data'));
+    }
+
+    /**
+     * Update the specified business option in storage.
+     *
+     * @param UpdateFormValidation|\Illuminate\Http\Request $request
+     * @param  \App\Models\BusinessOption $businessOption
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UpdateFormValidation $request, BusinessOption $businessOption)
     {
 
-        $this->validate($request, [
-            'name' => 'required',
-            'badge_id' => 'required',
-            'business_category_id' => 'required'
-        ]);
-        
-       $businessOption = BusinessOption::create([
-            'badge_id'=>request('badge_id'),
-            'name'=>request('name'),
-            'parent_id'=>request('parent_id'),
-            'tooltip'=>request('tooltip')
-       ]);
+        $input = $request->all();
+        $businessOption->fill($input)->save();
 
-
-        $businessOption->categories()->attach(request('business_category_id'));
-        $businessOption->partners()->attach(request('user_id'));
-
-
-        return back()->with('success','Business option successfully added');
-
+        Session::flash('success', $this->panel_name.' updated successfully.');
+        return redirect()->route($this->base_route);
     }
 
-    public function edit(Request $request , $businessOption)
+    /**
+     * Remove the specified business option from storage.
+     *
+     * @param  \App\Models\BusinessOption $businessOption
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(BusinessOption $businessOption)
     {
-        $businessOption = BusinessOption::find($businessOption);
+        $businessOption->delete();
 
-
-        $businessOptions = BusinessOption::all();
-        $businessCategories = BusinessCategory::all();
-
-        $selectedCategory = [];
-
-        
-
-        return view('admin.business-option.edit',compact('businessOption','businessOptions','businessCategories'));
+        Session::flash('success', $this->panel_name.' deleted successfully.');
+        return redirect()->route($this->base_route);
     }
-
-    public function update(Request $request , $option)
-    {
-        $businessOption = BusinessOption::find($option);
-        
-        $businessOption->name = request('name');
-        $businessOption->tooltip = request('tooltip');
-
-        
-        $businessOption->save();
-
-        $businessOption->categories()->sync(request('business_category_id'));
-        $businessOption->partners()->sync(request('user_id'));
-
-        return redirect('admin/businessoption')->with('success','data updated');
-
-    }
-
-
 }

@@ -6,19 +6,31 @@ use Illuminate\Database\Eloquent\Model;
 
 class BusinessOption extends Model
 {
-    protected $guarded = [
-
+    protected $fillable = [
+        'badge_id',
+        'parent_id',
+        'name',
+        'tooltip'
     ];
 
+    public function setParentIdAttribute($value)
+    {
+        $this->attributes['parent_id'] = ($value)? $value : 0;
+    }
 
-	public function categories()
+    public function parent()
+    {
+        return $this->belongsTo(BusinessOption::class, 'parent_id');
+    }
+
+	public function businessCategories()
 	{
 		return $this->belongsToMany(BusinessCategory::class);
 	}
 
-    public function partners()
+    public function badge()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsTo(Badge::class);
     }
 
 }

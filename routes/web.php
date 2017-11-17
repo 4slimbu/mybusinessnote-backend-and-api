@@ -182,15 +182,15 @@ Route::group([
         'as' => 'business-option.store',
         'uses' => 'BusinessOptionController@store',
     ]);
-    Route::get('business-option/edit/{business-option}', [
+    Route::get('business-option/edit/{businessOption}', [
         'as' => 'business-option.edit',
         'uses' => 'BusinessOptionController@edit'
     ]);
-    Route::post('business-option/update/{business-option}', [
+    Route::post('business-option/update/{businessOption}', [
         'as' => 'business-option.update',
         'uses' => 'BusinessOptionController@update',
     ]);
-    Route::delete('business-option/destroy/{business-option}', [
+    Route::delete('business-option/destroy/{businessOption}', [
         'as' => 'business-option.destroy',
         'uses' => 'BusinessOptionController@destroy'
     ]);

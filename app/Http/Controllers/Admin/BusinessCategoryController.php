@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Http\Requests\Admin\BusinessCategoryValidation\CreateFormValidation;
+use App\Http\Requests\Admin\BusinessCategoryValidation\UpdateFormValidation;
 use App\Models\BusinessCategory;
 use Session, AppHelper;
 use Illuminate\Http\Request;
@@ -57,10 +59,10 @@ class BusinessCategoryController extends AdminBaseController
     /**
      * Store a newly created business category in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param CreateFormValidation|Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateFormValidation $request)
     {
 
         $this->validate($request, [
@@ -110,11 +112,11 @@ class BusinessCategoryController extends AdminBaseController
     /**
      * Update the specified business category in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param UpdateFormValidation|Request $request
      * @param  \App\Models\BusinessCategory $businessCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BusinessCategory $businessCategory)
+    public function update(UpdateFormValidation $request, BusinessCategory $businessCategory)
     {
         $this->validate($request, [
             'title' => 'required'

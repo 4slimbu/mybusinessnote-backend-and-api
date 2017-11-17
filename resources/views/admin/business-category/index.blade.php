@@ -26,11 +26,11 @@
                         <td>
 
                             <div class="">
-                                <a href="{{ route('admin.business-category.edit', $item->id) }}" class="btn btn-primary">Edit</a>
+                                <a href="{{ route('admin.business-category.edit', $item->id) }}" class="btn btn-sm btn-primary">Edit</a>
                                 <form class="form-inline" method="POST" action="{{ route('admin.business-category.destroy', $item->id) }}">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
-                                    <button onclick="javascript: return confirm('Are you sure?');" type="submit" class="btn btn-danger">Delete</button>
+                                    <button onclick="javascript: return confirm('Are you sure?');" type="submit" class="btn btn-sm btn-danger">Delete</button>
                                 </form>
                             </div>
 

@@ -14,6 +14,10 @@ class AdminBaseController extends Controller
             $view->with('base_route', $this->base_route);
             $view->with('view_path', $this->view_path);
             $view->with('panel_name', $this->panel_name);
+            if (property_exists($this, 'upload_directory')) {
+                $view->with('upload_directory', $this->upload_directory);
+            }
+
         });
 
         return $path;

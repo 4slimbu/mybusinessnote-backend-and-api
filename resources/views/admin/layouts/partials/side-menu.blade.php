@@ -16,12 +16,15 @@
 
 
                     <ul class="nav nav-pills flex-column">
-
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.business') }}">View All Businesses</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.business.create') }}">Add New Business</a>
+                            <a class="nav-link" href="#">Business <span class="caret"></span></a>
+                            <ul>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('admin.business') }}">View
+                                        All</a></li>
+                                <li class="nav-item"><a class="nav-link"
+                                                        href="{{ route('admin.business.create') }}">Add New</a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Business Categories <span class="caret"></span></a>
@@ -71,21 +74,26 @@
             <div id="collapseThree" class="collapse show" role="tabpanel" aria-labelledby="headingThree"
                  data-parent="#accordion">
                 <div class="card-body">
-                    <ul class="nav nav-pills">
-
-                        <li class="nav-item"><a class="nav-link" href="{{ route('admin.customer') }}">View All
-                                Customers</a></li>
-
-
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Customers<span class="caret"></span></a>
+                            <ul>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('admin.customer') }}">View
+                                        All</a></li>
+                                <li class="nav-item"><a class="nav-link"
+                                                        href="{{ route('admin.customer.create') }}">Add New</a>
+                                </li>
+                            </ul>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Partners<span class="caret"></span></a>
+                            <a class="nav-link" href="#">Partners <span class="caret"></span></a>
                             <ul>
                                 <li class="nav-item"><a class="nav-link" href="{{ route('admin.partner') }}">View
                                         All</a></li>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('admin.partner.create') }}">Add
-                                        New</a></li>
+                                <li class="nav-item"><a class="nav-link"
+                                                        href="{{ route('admin.partner.create') }}">Add New</a>
+                                </li>
                             </ul>
                         </li>
 
