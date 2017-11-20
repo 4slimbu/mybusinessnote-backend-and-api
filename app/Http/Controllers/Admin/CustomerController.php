@@ -31,7 +31,7 @@ class CustomerController extends AdminBaseController
     protected $panel_name = 'Customer';
 
     /**
-     * Display a listing of the business option.
+     * Display a listing of the customer.
      *
      * @return \Illuminate\Http\Response
      */
@@ -48,7 +48,7 @@ class CustomerController extends AdminBaseController
     }
 
     /**
-     * Show the form for creating a new business option.
+     * Show the form for creating a new customer.
      *
      * @return \Illuminate\Http\Response
      */
@@ -64,7 +64,7 @@ class CustomerController extends AdminBaseController
     }
 
     /**
-     * Store a newly created business option in storage.
+     * Store a newly created customer in storage.
      *
      * @param CreateFormValidation|\Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
@@ -82,7 +82,7 @@ class CustomerController extends AdminBaseController
     }
 
     /**
-     * Display the specified business option.
+     * Display the specified customer.
      *
      * @param User $customer
      * @return \Illuminate\Http\Response
@@ -93,7 +93,7 @@ class CustomerController extends AdminBaseController
     }
 
     /**
-     * Show the form for editing the specified business option.
+     * Show the form for editing the specified customer.
      *
      * @param User $customer
      * @return \Illuminate\Http\Response
@@ -112,7 +112,7 @@ class CustomerController extends AdminBaseController
     }
 
     /**
-     * Update the specified business option in storage.
+     * Update the specified customer in storage.
      *
      * @param UpdateFormValidation $request
      * @param User $customer
@@ -129,7 +129,7 @@ class CustomerController extends AdminBaseController
     }
 
     /**
-     * Remove the specified business option from storage.
+     * Remove the specified customer from storage.
      *
      * @param  \App\Models\User $customer
      * @return \Illuminate\Http\Response

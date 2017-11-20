@@ -31,7 +31,7 @@ class PartnerController extends AdminBaseController
     protected $panel_name = 'Partner';
 
     /**
-     * Display a listing of the business option.
+     * Display a listing of the partner.
      *
      * @return \Illuminate\Http\Response
      */
@@ -48,7 +48,7 @@ class PartnerController extends AdminBaseController
     }
 
     /**
-     * Show the form for creating a new business option.
+     * Show the form for creating a new partner.
      *
      * @return \Illuminate\Http\Response
      */
@@ -64,7 +64,7 @@ class PartnerController extends AdminBaseController
     }
 
     /**
-     * Store a newly created business option in storage.
+     * Store a newly created partner in storage.
      *
      * @param CreateFormValidation|\Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
@@ -90,7 +90,7 @@ class PartnerController extends AdminBaseController
     }
 
     /**
-     * Display the specified business option.
+     * Display the specified partner.
      *
      * @param User $partner
      * @return \Illuminate\Http\Response
@@ -101,7 +101,7 @@ class PartnerController extends AdminBaseController
     }
 
     /**
-     * Show the form for editing the specified business option.
+     * Show the form for editing the specified partner.
      *
      * @param User $partner
      * @return \Illuminate\Http\Response
@@ -120,7 +120,7 @@ class PartnerController extends AdminBaseController
     }
 
     /**
-     * Update the specified business option in storage.
+     * Update the specified partner in storage.
      *
      * @param UpdateFormValidation $request
      * @param User $partner
@@ -137,7 +137,7 @@ class PartnerController extends AdminBaseController
     }
 
     /**
-     * Remove the specified business option from storage.
+     * Remove the specified partner from storage.
      *
      * @param  \App\Models\User $partner
      * @return \Illuminate\Http\Response
