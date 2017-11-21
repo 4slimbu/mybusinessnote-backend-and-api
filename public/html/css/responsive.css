@@ -1,0 +1,150 @@
+@media only screen and (min-width: 1200px) and (max-width: 1257px) {
+	
+	ul.apps-icons li{
+		padding: 25px 25px;
+		min-height: 138px;
+		min-width: 145px;
+	}
+
+	ul.apps-icons li:first-child {
+    padding-top: 30px;
+	}
+
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1203px){
+
+	.news-block ul{
+		padding-left: 125px;
+	}
+
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px){
+
+
+	.news-block img {
+    width: 110px;
+	}
+
+	.news-block ul{
+	padding-left: 112px;
+	}
+
+	ul.apps-icons li{
+	min-height: 140px;
+	}
+
+	
+}
+
+@media only screen and (min-width: 864px) and (max-width: 991px){
+	
+	.menu-accordion .panel-group .panel-faq.active::after {
+    height: 192px;
+	}
+
+}
+
+@media only screen and (min-width: 768px) and (max-width: 863px){
+.menu-accordion .panel-group .panel-faq.active::after{
+    	height: 205px;
+    }
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 991px){
+
+	.right-sec p {
+    font-size: 11px;
+	}
+
+	.step-one a.btn-level-5 {
+		margin-top: 15px;
+	}
+
+	.find-web-span {
+    float: none;
+    position: static;
+    padding-right: 0;
+    display: block;
+	}
+	
+	ul.apps-icons li:first-child {
+    padding-top: 30px;
+	}
+
+
+	ul.apps-icons li{
+	padding: 20px 20px;
+	min-height: 129px;
+	min-width: 134px;
+	}
+
+	.news-block img {
+    width: 65px;
+	}
+
+	.news-block h5 {
+    font-size: 11px;
+    padding-left: 64px;
+	}
+
+	.news-block ul{
+	padding-left: 64px;	
+	}
+
+	.news-block i {
+    font-size: 10px;
+	}
+
+	.left-sec a.site-branding img,
+	.left-sec h3, #accordion2 .panel-title,
+	ul.getting-start-list {
+    margin-left: 11%;
+	}
+
+	.left-sec h3.tagline-head {
+    font-size: 15px;
+    line-height: 1.3;
+	}
+
+	.menu-accordion .panel-title figure {
+    height: 34px;
+    width: 34px;
+    line-height: 1.8;
+	}
+
+	.menu-accordion .panel-title figure img {
+    width: 17px;
+	}
+
+
+	ul.getting-start-list {
+    margin-top: 20px;
+	}
+
+	ul.getting-start-list li {
+    line-height: 13px;
+    }
+
+    span.circle-span{
+    	margin-bottom: 5px;
+    }
+
+    .menu-accordion .panel-title h6{
+    	font-size: 11px;
+    	top: 2px;
+    }
+
+    .panel-heading {
+    padding: 3px 12px;
+	}
+
+	.menu-accordion .panel-title figure.goldbadge-img{
+		width: 40px;
+	}
+
+}
+
+
