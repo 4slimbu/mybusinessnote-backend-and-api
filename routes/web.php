@@ -222,6 +222,32 @@ Route::group([
         'uses' => 'BusinessOptionController@destroy'
     ]);
 
+    /* Level */
+    Route::get('level', [
+        'as' => 'level',
+        'uses' => 'LevelController@index',
+    ]);
+    Route::get('level/create', [
+        'as' => 'level.create',
+        'uses' => 'LevelController@create',
+    ]);
+    Route::post('level/store', [
+        'as' => 'level.store',
+        'uses' => 'LevelController@store',
+    ]);
+    Route::get('level/edit/{level}', [
+        'as' => 'level.edit',
+        'uses' => 'LevelController@edit'
+    ]);
+    Route::post('level/update/{level}', [
+        'as' => 'level.update',
+        'uses' => 'LevelController@update',
+    ]);
+    Route::delete('level/destroy/{level}', [
+        'as' => 'level.destroy',
+        'uses' => 'LevelController@destroy'
+    ]);
+
 //        //Customer Category
 //    Route::get('/admin/customers','Admin\CustomerController@index');
 //    Route::get('/admin/customers/edit/{customer}','Admin\CustomerController@edit');

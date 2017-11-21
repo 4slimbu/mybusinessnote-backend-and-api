@@ -58,6 +58,17 @@
                             </ul>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Levels<span class="caret"></span></a>
+                            <ul>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('admin.level') }}">View
+                                        All</a></li>
+                                <li class="nav-item"><a class="nav-link"
+                                                        href="{{ route('admin.level.create') }}">Add New</a>
+                                </li>
+                            </ul>
+                        </li>
+
                     </ul>
                 </div>
             </div>
