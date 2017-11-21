@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\BusinessCategory;
 use Illuminate\Database\Seeder;
 
 class BusinessCategorySeeder extends Seeder
@@ -12,13 +13,13 @@ class BusinessCategorySeeder extends Seeder
     public function run()
     {
         $data = array(
-            array('title'=>'General'),
-            array('title'=>'Tradie'),
-            array('title'=>'Professional Services'),
-            array('title'=>'Online Shop / E-commerce'),
-            array('title'=>'Hospitality'),
-            array('title'=>'Retail'),
-            array('title'=>'Sole Trader')
+            array('name'=>'General', 'tooltip' => 'Normal category'),
+            array('name'=>'Tradie', 'tooltip' => 'Select this if you want to trade products'),
+            array('name'=>'Professional Services', 'tooltip' => 'Select this if want to sell your services'),
+            array('name'=>'Online Shop / E-commerce', 'tooltip' => 'Select this if you want to sell goods'),
+            array('name'=>'Hospitality', 'tooltip' => 'Select this if you want to sell hospitality services'),
+            array('name'=>'Retail', 'tooltip' => 'Select this if you want to act as retailer'),
+            array('name'=>'Sole Trader', 'tooltip' => 'Select this if you own a small trade')
         );
 
 

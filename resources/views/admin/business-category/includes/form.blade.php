@@ -1,9 +1,9 @@
-{{--Title--}}
+{{--Name--}}
 <div class="form-group">
-    <label>Title:</label>
-    {{ Form::text('title', null, ['placeholder' => 'Enter Title', 'class' => 'form-control']) }}
-    @if($errors->has('title'))
-        <span class="text-danger">{{ $errors->first('title') }}</span>
+    <label>Name:</label>
+    {{ Form::text('name', null, ['placeholder' => 'Enter Name', 'class' => 'form-control']) }}
+    @if($errors->has('name'))
+        <span class="text-danger">{{ $errors->first('name') }}</span>
     @endif
 </div>
 

@@ -113,8 +113,7 @@ class BadgeController extends AdminBaseController
         //get data
         $data['row'] = $badge;
         $data['badges'] = Badge::pluck('name', 'id');
-        $data['badges'] = Badge::where('id', '!=', $badge->id)->pluck('name', 'id');
-        $data['businessCategories'] = BusinessCategory::pluck('title', 'id');
+        $data['businessCategories'] = BusinessCategory::pluck('name', 'id');
 
         return view(parent::loadViewData($this->view_path . '.edit'), compact('data'));
     }

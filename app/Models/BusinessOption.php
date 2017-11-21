@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class BusinessOption extends Model
 {
     protected $fillable = [
-        'badge_id',
+        'level_id',
         'parent_id',
         'name',
-        'tooltip'
+        'description',
+        'tooltip',
+        'content'
     ];
 
     public function setParentIdAttribute($value)
@@ -28,9 +30,9 @@ class BusinessOption extends Model
 		return $this->belongsToMany(BusinessCategory::class);
 	}
 
-    public function badge()
+    public function level()
     {
-        return $this->belongsTo(Badge::class);
+        return $this->belongsTo(Level::class);
     }
 
 }

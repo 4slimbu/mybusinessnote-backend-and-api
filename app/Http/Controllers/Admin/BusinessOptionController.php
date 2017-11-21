@@ -43,7 +43,7 @@ class BusinessOptionController extends AdminBaseController
         $data = [];
 
         //get data
-        $data['rows'] = BusinessOption::with('badge', 'parent')
+        $data['rows'] = BusinessOption::with('level', 'parent')
             ->orderBy('id', 'desc')
             ->paginate(AppHelper::getSystemConfig('pagination'));
 
@@ -61,9 +61,9 @@ class BusinessOptionController extends AdminBaseController
         $data = [];
 
         //get data
-        $data['badges'] = Badge::pluck('name', 'id');
+        $data['levels'] = Badge::pluck('name', 'id');
         $data['businessOptions'] = BusinessOption::pluck('name', 'id');
-        $data['businessCategories'] = BusinessCategory::pluck('title', 'id');
+        $data['businessCategories'] = BusinessCategory::pluck('name', 'id');
 
 
         return view(parent::loadViewData($this->view_path . '.create'), compact('data'));
@@ -108,9 +108,9 @@ class BusinessOptionController extends AdminBaseController
 
         //get data
         $data['row'] = $businessOption;
-        $data['badges'] = Badge::pluck('name', 'id');
+        $data['levels'] = Badge::pluck('name', 'id');
         $data['businessOptions'] = BusinessOption::where('id', '!=', $businessOption->id)->pluck('name', 'id');
-        $data['businessCategories'] = BusinessCategory::pluck('title', 'id');
+        $data['businessCategories'] = BusinessCategory::pluck('name', 'id');
 
         return view(parent::loadViewData($this->view_path . '.edit'), compact('data'));
     }

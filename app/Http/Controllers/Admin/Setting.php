@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\SiteConfiguration;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
-class SiteConfigurationController extends AdminBaseController
+class SettingController extends AdminBaseController
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class SiteConfigurationController extends AdminBaseController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\SiteConfiguration  $siteConfiguration
+     * @param  \App\Models\Setting  $setting
      * @return \Illuminate\Http\Response
      */
-    public function show(SiteConfiguration $siteConfiguration)
+    public function show(Setting $setting)
     {
         //
     }
@@ -52,10 +52,10 @@ class SiteConfigurationController extends AdminBaseController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\SiteConfiguration  $siteConfiguration
+     * @param  \App\Models\Setting  $setting
      * @return \Illuminate\Http\Response
      */
-    public function edit(SiteConfiguration $siteConfiguration)
+    public function edit(Setting $setting)
     {
         //
     }
@@ -64,10 +64,10 @@ class SiteConfigurationController extends AdminBaseController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\SiteConfiguration  $siteConfiguration
+     * @param  \App\Models\Setting  $setting
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SiteConfiguration $siteConfiguration)
+    public function update(Request $request, Setting $setting)
     {
         //
     }
@@ -75,10 +75,10 @@ class SiteConfigurationController extends AdminBaseController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\SiteConfiguration  $siteConfiguration
+     * @param Setting $setting
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SiteConfiguration $siteConfiguration)
+    public function destroy(Setting $setting)
     {
         //
     }

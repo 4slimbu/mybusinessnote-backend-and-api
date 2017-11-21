@@ -21,7 +21,7 @@
                 @foreach ($data['rows'] as $item)
                     <tr>
                         <td>{{ $item->id }}</td>
-                        <td>{{ $item->title }}</td>
+                        <td>{{ $item->name }}</td>
                         <td>{{ $item->tooltip }}</td>
                         <td>
 

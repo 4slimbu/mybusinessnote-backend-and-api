@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SiteConfiguration extends Model
+class Setting extends Model
 {
     protected $fillable = [
-        'config_name', 'config_key', 'config_value', 'status'
+        'name', 'key', 'value', 'status'
     ];
 }

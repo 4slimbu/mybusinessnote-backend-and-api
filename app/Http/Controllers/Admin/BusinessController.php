@@ -43,7 +43,7 @@ class BusinessController extends AdminBaseController
         $data = [];
 
         //get data
-        $data['rows'] = Business::with('user', 'businessCategory', 'badge')
+        $data['rows'] = Business::with('user', 'businessCategory')
             ->orderBy('id', 'desc')
             ->paginate(AppHelper::getSystemConfig('pagination'));
 
@@ -66,9 +66,7 @@ class BusinessController extends AdminBaseController
             return [ $item->id => $item->first_name . ' ' . $item->last_name ];
         });
 
-        $data['businessCategories'] = BusinessCategory::pluck('title', 'id');
-
-        $data['badges'] = Badge::pluck('name', 'id');
+        $data['businessCategories'] = BusinessCategory::pluck('name', 'id');
 
         return view(parent::loadViewData($this->view_path . '.create'), compact('data'));
     }
@@ -118,9 +116,7 @@ class BusinessController extends AdminBaseController
             return [ $item->id => $item->first_name . ' ' . $item->last_name ];
         });
 
-        $data['businessCategories'] = BusinessCategory::pluck('title', 'id');
-
-        $data['badges'] = Badge::pluck('name', 'id');
+        $data['businessCategories'] = BusinessCategory::pluck('name', 'id');
 
         return view(parent::loadViewData($this->view_path . '.edit'), compact('data'));
     }

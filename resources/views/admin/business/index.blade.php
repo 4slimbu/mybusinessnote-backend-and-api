@@ -13,7 +13,6 @@
                     <th>Name</th>
                     <th>Owner</th>
                     <th>Category</th>
-                    <th>Badge</th>
                     <th>Actions</th>
 
                 </tr>
@@ -25,8 +24,7 @@
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->business_name }}</td>
                         <td>{{ $item->user->first_name }}</td>
-                        <td>{{ $item->businessCategory->title }}</td>
-                        <td>{{ $item->badge->name }}</td>
+                        <td>{{ $item->businessCategory->name }}</td>
                         <td>
 
                             <div class="">

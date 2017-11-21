@@ -65,16 +65,7 @@ class BusinessCategoryController extends AdminBaseController
     public function store(CreateFormValidation $request)
     {
 
-        $this->validate($request, [
-            'title' => 'required'
-        ]);
-
-        BusinessCategory::create([
-
-            'title' => request('title'),
-            'tooltip' => request('tooltip')
-
-        ]);
+        BusinessCategory::create($request->all());
 
         Session::flash('success', $this->panel_name.' created successfully.');
         return redirect()->route($this->base_route);
@@ -118,10 +109,6 @@ class BusinessCategoryController extends AdminBaseController
      */
     public function update(UpdateFormValidation $request, BusinessCategory $businessCategory)
     {
-        $this->validate($request, [
-            'title' => 'required'
-        ]);
-
         $input = $request->all();
         $businessCategory->fill($input)->save();
 

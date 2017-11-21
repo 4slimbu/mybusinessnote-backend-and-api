@@ -26,7 +26,7 @@
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->first_name }}  {{ $item->last_name }}</td>
                         <td>{{ $item->email }}</td>
-                        <td>{{ $item->company }}</td>
+                        <td>{{ $item->userProfile->company }}</td>
                         <td>{{ $item->phone_number }}</td>
                         <td>{{ $item->verified }}</td>
                         <td>

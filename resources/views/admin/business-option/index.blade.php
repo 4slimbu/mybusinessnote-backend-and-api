@@ -11,7 +11,7 @@
                 <tr>
                     <th>#</th>
                     <th>Name</th>
-                    <th>Badge</th>
+                    <th>Level</th>
                     <th>Parent Name</th>
                     <th>Actions</th>
 
@@ -23,7 +23,7 @@
                     <tr>
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->name }}</td>
-                        <td>{{ $item->badge->name or 'No Badge' }}</td>
+                        <td>{{ $item->level->name or 'No Level' }}</td>
                         <td>{{ $item->parent->name or 'No Parent'}}</td>
                         <td>
                             <div class="">

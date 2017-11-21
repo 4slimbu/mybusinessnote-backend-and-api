@@ -1,11 +1,11 @@
 <?php
 namespace App\Helpers;
 
-use App\Models\SiteConfiguration;
+use App\Models\Setting;
 
 class AppHelper
 {
-    protected $site_configuration;
+    protected $setting;
     protected $admin_config_path = 'mbj.admin';
 
     /**
@@ -27,17 +27,17 @@ class AppHelper
         }
 
         //return site config value from database if present
-        if (!$this->site_configuration) {
-            $this->site_configuration = SiteConfiguration::where('config_key', $config_key)->where('status', 1)->first();
+        if (!$this->setting) {
+            $this->setting = Setting::where('key', $config_key)->where('status', 1)->first();
         }
 
-        if (!empty($this->site_configuration->config_value)) {
-            return $this->site_configuration->config_value;
+        if (!empty($this->setting->config_value)) {
+            return $this->setting->config_value;
         }
 
         //return site config value from app config file if present
-        if (config($this->admin_config_path . '.system_configuration.'. $config_key . '.value')){
-            return config($this->admin_config_path . '.system_configuration.'. $config_key . '.value');
+        if (config($this->admin_config_path . '.settings.'. $config_key . '.value')){
+            return config($this->admin_config_path . '.settings.'. $config_key . '.value');
         }
 
         //return false

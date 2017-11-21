@@ -19,12 +19,10 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
     return [
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
-        'phone_number' => $faker->phoneNumber,
         'email' => $faker->unique()->safeEmail,
-        'company' => $faker->company,
-        'password' => $password ?: $password = bcrypt('secret'),
+        'password' => $password ?: $password = bcrypt('password'),
         'verified' => true,
-        'role_id' => 2,
+        'role_id' => $faker->randomElement([1, 2, 3]),
         'remember_token' => str_random(10),
     ];
 });

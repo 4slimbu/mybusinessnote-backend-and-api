@@ -20,20 +20,6 @@ class User extends Authenticatable
         'phone_number',
         'role_id',
         'email',
-        'company',
-        'billing_street1',
-        'billing_street2',
-        'billing_postcode',
-        'billing_state',
-        'billing_suburb',
-        'billing_country',
-        'residential_street1',
-        'residential_street2',
-        'residential_postcode',
-        'residential_state',
-        'residential_suburb',
-        'residential_country',
-        'website',
         'password',
         'verified',
         'token',
@@ -59,6 +45,11 @@ class User extends Authenticatable
         $this->verified = 1;
         $this->token = null;
         $this->save();
+    }
+
+    public function userProfile()
+    {
+        return $this->hasOne(UserProfile::class);
     }
 
     public function role()

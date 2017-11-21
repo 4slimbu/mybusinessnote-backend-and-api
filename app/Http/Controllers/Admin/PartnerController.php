@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\PartnerValidation\CreateFormValidation;
 use App\Http\Requests\Admin\PartnerValidation\UpdateFormValidation;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\UserProfile;
 use Session, AppHelper;
 
 
@@ -41,7 +42,7 @@ class PartnerController extends AdminBaseController
         $data = [];
 
         //get data
-        $data['rows'] = User::partner()->orderBy('id', 'desc')
+        $data['rows'] = User::with('userProfile')->partner()->orderBy('id', 'desc')
             ->paginate(AppHelper::getSystemConfig('pagination'));
 
         return view(parent::loadViewData($this->view_path . '.index'), compact('data'));
@@ -56,9 +57,7 @@ class PartnerController extends AdminBaseController
     {
         //initialize
         $data = [];
-
-        //get data
-        $data['roles'] = Role::pluck('name', 'id');
+        $data['userProfile'] = new UserProfile;
 
         return view(parent::loadViewData($this->view_path . '.create'), compact('data'));
     }
@@ -82,7 +81,12 @@ class PartnerController extends AdminBaseController
         }
 
         $inputs['role_id'] = 3;
-        User::create($inputs);
+
+        $user = User::create($inputs);
+        if (! $user->userProfile) {
+            $inputs['user_id'] = $user->id;
+            UserProfile::create($inputs);
+        }
 
         Session::flash('success', $this->panel_name.' created successfully.');
         return redirect()->route($this->base_route);
@@ -114,6 +118,7 @@ class PartnerController extends AdminBaseController
 
         //get data
         $data['row'] = $partner;
+        $data['userProfile'] = $partner->userProfile;
         $data['roles'] = Role::pluck('name', 'id');
 
         return view(parent::loadViewData($this->view_path . '.edit'), compact('data'));
@@ -130,7 +135,8 @@ class PartnerController extends AdminBaseController
     {
         $request->offsetUnset('role_id');
         $input = $request->all();
-        $partner->fill($input)->save();
+        $partner->update($input);
+        $partner->userProfile->update($input);
 
         Session::flash('success', $this->panel_name.' updated successfully.');
         return redirect()->route($this->base_route);
@@ -145,6 +151,7 @@ class PartnerController extends AdminBaseController
     public function destroy(User $partner)
     {
         $partner->delete();
+        $partner->userProfile->delete();
 
         Session::flash('success', $this->panel_name.' deleted successfully.');
         return redirect()->route($this->base_route);

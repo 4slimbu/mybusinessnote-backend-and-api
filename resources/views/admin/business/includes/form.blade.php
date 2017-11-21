@@ -25,15 +25,6 @@
     @endif
 </div>
 
-{{--Badge--}}
-<div class="form-group">
-    <label  class="display-block text-semibold">Badge:</label>
-    {{ Form::select('badge_id', $data['badges'], null, ['class' => 'form-control']) }}
-    @if($errors->has('badge_id'))
-        <span class="text-danger">{{ $errors->first('badge_id') }}</span>
-    @endif
-</div>
-
 {{--Website--}}
 <div class="form-group">
     <label>Website:</label>
