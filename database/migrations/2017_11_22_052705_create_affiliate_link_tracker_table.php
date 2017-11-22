@@ -16,7 +16,7 @@ class CreateAffiliateLinkTrackerTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('affiliate_link_id');
-			$table->string('browser')->nullable();
+			$table->string('browser', 191)->nullable();
 			$table->string('ip', 191)->nullable();
 			$table->timestamps();
 		});

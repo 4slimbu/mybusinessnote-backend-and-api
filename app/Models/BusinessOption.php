@@ -12,13 +12,10 @@ class BusinessOption extends Model
         'name',
         'description',
         'tooltip',
-        'content'
+        'content',
+        'show_everywhere',
+        'weight'
     ];
-
-    public function setParentIdAttribute($value)
-    {
-        $this->attributes['parent_id'] = ($value)? $value : 0;
-    }
 
     public function parent()
     {
@@ -29,6 +26,11 @@ class BusinessOption extends Model
 	{
 		return $this->belongsToMany(BusinessCategory::class);
 	}
+
+    public function affiliateLinks()
+    {
+        return $this->belongsToMany(AffiliateLink::class);
+    }
 
     public function level()
     {

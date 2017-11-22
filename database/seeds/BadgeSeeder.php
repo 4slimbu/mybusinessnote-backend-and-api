@@ -18,11 +18,6 @@ class BadgeSeeder extends Seeder
                 'message'=>'Start creating your awesome business, congratulations! [Badge Earned - "Getting Started"]'
             ],
             [
-                'name'=>'Getting down to Business',
-                'icon'=>'badge_placeholder.jpg',
-                'message'=>'Level 1 Complete, congratulations! [Badge Earned - "Getting down to business"]'
-            ],
-            [
                 'name'=>'Setting the Foundations',
                 'icon'=>'badge_placeholder.jpg',
                 'message'=>'Level 2 Complete, congratulations! [Badge Earned - "Setting the Foundations"]'
@@ -31,11 +26,6 @@ class BadgeSeeder extends Seeder
                 'name'=>'Building up a Business',
                 'icon'=>'badge_placeholder.jpg',
                 'message'=>'Level 3 Complete, congratulations! [Badge Earned - "Building up a Business"]'
-            ],
-            [
-                'name'=>'Running the Business',
-                'icon'=>'badge_placeholder.jpg',
-                'message'=>'Level 4 Complete, congratulations! [Badge Earned - "Running the Business"]'
             ]
         ];
 
