@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateBadgesUsersTable extends Migration {
+class CreateBadgeUserTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateBadgesUsersTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('badges_users', function(Blueprint $table)
+		Schema::create('badge_user', function(Blueprint $table)
 		{
 			$table->integer('badge_id')->unsigned();
 			$table->integer('user_id')->unsigned();
@@ -30,7 +30,7 @@ class CreateBadgesUsersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('badges_users');
+		Schema::drop('badge_user');
 	}
 
 }

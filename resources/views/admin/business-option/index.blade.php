@@ -13,6 +13,7 @@
                     <th>Name</th>
                     <th>Level</th>
                     <th>Parent Name</th>
+                    <th>Show On</th>
                     <th>Actions</th>
 
                 </tr>
@@ -25,6 +26,7 @@
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->level->name or 'No Level' }}</td>
                         <td>{{ $item->parent->name or 'No Parent'}}</td>
+                        <td>{{ ViewHelper::generateList($item->businessCategories) }}</td>
                         <td>
                             <div class="">
                                 <a href="{{ route('admin.business-option.edit', $item->id) }}" class="btn btn-sm btn-primary">Edit</a>

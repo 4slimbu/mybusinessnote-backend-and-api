@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateLevelsTable extends Migration {
+class CreateBusinessOptionsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,17 @@ class CreateLevelsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('levels', function(Blueprint $table)
+		Schema::create('business_options', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->integer('level_id');
+			$table->integer('parent_id')->nullable();
 			$table->string('name', 191);
 			$table->text('description', 65535)->nullable();
+			$table->text('tooltip', 65535)->nullable();
 			$table->text('content', 65535)->nullable();
+			$table->integer('weight')->nullable();
+            $table->boolean('show_everywhere')->default(true);
 			$table->timestamps();
 		});
 	}
@@ -30,7 +35,7 @@ class CreateLevelsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('levels');
+		Schema::drop('business_options');
 	}
 
 }

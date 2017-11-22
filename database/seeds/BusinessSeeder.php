@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Business;
+use App\Models\Busines;
 use Illuminate\Database\Seeder;
 
 class BusinessSeeder extends Seeder
@@ -12,6 +12,6 @@ class BusinessSeeder extends Seeder
      */
     public function run()
     {
-        factory(Business::class, 3)->create();
+        factory(Busines::class, 50)->create();
     }
 }

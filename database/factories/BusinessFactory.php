@@ -1,16 +1,18 @@
 <?php
 
+use App\Models\Busines;
+use App\Models\BusinessCategory;
+use App\Models\User;
 use Faker\Generator as Faker;
 
-$factory->define(App\Models\Business::class, function (Faker $faker) {
+$factory->define(Busines::class, function (Faker $faker) {
     return [
         'user_id' => function () {
-
-            return factory('App\Models\User')->create()->id;
-
+            return User::select('id')->get()->random()->id;
         },
-        'business_category_id' => 1,
-        'badge_id' => 1,
+        'business_category_id' => function () {
+            return BusinessCategory::select('id')->get()->random()->id;
+        },
         'business_name' => $faker->company,
         'website' => $faker->domainName,
         'abn' => $faker->ean13,

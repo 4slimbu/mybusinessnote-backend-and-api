@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateBusinessesBusinessOptionsTable extends Migration {
+class CreateBusinessBusinessOptionTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateBusinessesBusinessOptionsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('businesses_business_options', function(Blueprint $table)
+		Schema::create('business_business_option', function(Blueprint $table)
 		{
 			$table->integer('business_id')->unsigned();
 			$table->integer('business_option_id')->unsigned();
@@ -30,7 +30,7 @@ class CreateBusinessesBusinessOptionsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('businesses_business_options');
+		Schema::drop('business_business_option');
 	}
 
 }

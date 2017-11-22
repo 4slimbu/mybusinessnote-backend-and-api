@@ -16,7 +16,6 @@ class CreateUserProfilesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
-			$table->string('phone_number', 191)->nullable();
 			$table->string('company', 191)->nullable();
 			$table->string('billing_street1', 191)->nullable();
 			$table->string('billing_street2', 191)->nullable();

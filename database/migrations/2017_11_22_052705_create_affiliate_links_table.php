@@ -17,8 +17,8 @@ class CreateAffiliateLinksTable extends Migration {
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
 			$table->string('name', 191)->nullable();
-			$table->string('description', 255)->nullable();
-			$table->string('link', 255);
+			$table->string('description', 191)->nullable();
+			$table->string('link', 191)->nullable();
 			$table->timestamps();
 		});
 	}

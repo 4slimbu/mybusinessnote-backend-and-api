@@ -41,7 +41,9 @@ class LevelController extends AdminBaseController
         $data = [];
 
         //get data
-        $data['rows'] = Level::paginate(AppHelper::getSystemConfig('pagination'));
+        $data['rows'] = Level::with('parent', 'children')
+            ->where('parent_id', null)
+            ->paginate(AppHelper::getSystemConfig('pagination'));
 
         return view(parent::loadViewData($this->view_path . '.index'), compact('data'));
     }
@@ -58,6 +60,7 @@ class LevelController extends AdminBaseController
 
         //get data
         $data['roles'] = Role::pluck('name', 'id');
+        $data['levels'] = Level::pluck('name', 'id');
 
         return view(parent::loadViewData($this->view_path . '.create'), compact('data'));
     }
@@ -104,6 +107,7 @@ class LevelController extends AdminBaseController
         //get data
         $data['row'] = $level;
         $data['roles'] = Role::pluck('name', 'id');
+        $data['levels'] = Level::where('id', '!=', $level->id)->pluck('name', 'id');
 
         return view(parent::loadViewData($this->view_path . '.edit'), compact('data'));
     }

@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Admin\BusinessOptionValidation\CreateFormValidation;
 use App\Http\Requests\Admin\BusinessOptionValidation\UpdateFormValidation;
-use App\Models\Badge;
+use App\Models\AffiliateLink;
 use App\Models\BusinessOption;
 use App\Models\BusinessCategory;
-use App\Models\User;
+use App\Models\Level;
 use Session, AppHelper;
 
 
@@ -43,8 +43,7 @@ class BusinessOptionController extends AdminBaseController
         $data = [];
 
         //get data
-        $data['rows'] = BusinessOption::with('level', 'parent')
-            ->orderBy('id', 'desc')
+        $data['rows'] = BusinessOption::with('level', 'parent', 'businessCategories')
             ->paginate(AppHelper::getSystemConfig('pagination'));
 
         return view(parent::loadViewData($this->view_path . '.index'), compact('data'));
@@ -61,10 +60,22 @@ class BusinessOptionController extends AdminBaseController
         $data = [];
 
         //get data
-        $data['levels'] = Badge::pluck('name', 'id');
+        $levels = Level::with('parent')
+            ->where('parent_id', '!=', null)
+            ->get();
+        $data['levels'] = $levels->mapWithKeys(function ($item) {
+            return [ $item->id => $item->parent->name . ' - ' . $item->name ];
+        });
+
         $data['businessOptions'] = BusinessOption::pluck('name', 'id');
         $data['businessCategories'] = BusinessCategory::pluck('name', 'id');
+        $data['selectedBusinessCategories'] = []; //dynamic form is expecting this variable
+        $data['selectedAffiliateLinks'] = []; //dynamic form is expecting this variable
 
+        $affiliateLinks = AffiliateLink::with('partner', 'partner.userProfile')->get();
+        $data['affiliateLinks'] = $affiliateLinks->mapWithKeys(function ($item) {
+           return [ $item->id => $item->partner->userProfile->company . ' - ' . $item->name ];
+        });
 
         return view(parent::loadViewData($this->view_path . '.create'), compact('data'));
     }
@@ -77,7 +88,21 @@ class BusinessOptionController extends AdminBaseController
      */
     public function store(CreateFormValidation $request)
     {
-        BusinessOption::create($request->all());
+        $input = $request->all();
+        $input['show_everywhere'] = isset($input['show_everywhere']) ? 1 : 0;
+        $businessOption = BusinessOption::create($input);
+
+        if (isset($input['affiliate_link_id']) && $input['affiliate_link_id']) {
+            $businessOption->affiliateLinks()->sync(array_filter($input['affiliate_link_id']));
+        }
+
+        if ($input['show_everywhere']) {
+            $businessOption->businessCategories()->sync([]);
+        } else {
+            if (isset($input['business_category_id']) && $input['business_category_id']) {
+                $businessOption->businessCategories()->sync(array_filter($input['business_category_id']));
+            }
+        }
 
         Session::flash('success', $this->panel_name.' created successfully.');
         return redirect()->route($this->base_route);
@@ -108,9 +133,23 @@ class BusinessOptionController extends AdminBaseController
 
         //get data
         $data['row'] = $businessOption;
-        $data['levels'] = Badge::pluck('name', 'id');
+        $data['selectedBusinessCategories'] = $businessOption->businessCategories->pluck('id');
+        $data['selectedAffiliateLinks'] = $businessOption->affiliateLinks->pluck('id');
+
+        $levels = Level::with('parent')
+            ->where('parent_id', '!=', null)
+            ->get();
+        $data['levels'] = $levels->mapWithKeys(function ($item) {
+            return [ $item->id => $item->parent->name . ' - ' . $item->name ];
+        });
+
         $data['businessOptions'] = BusinessOption::where('id', '!=', $businessOption->id)->pluck('name', 'id');
         $data['businessCategories'] = BusinessCategory::pluck('name', 'id');
+
+        $affiliateLinks = AffiliateLink::with('partner', 'partner.userProfile')->get();
+        $data['affiliateLinks'] = $affiliateLinks->mapWithKeys(function ($item) {
+            return [ $item->id => $item->partner->userProfile->company . ' - ' . $item->name ];
+        });
 
         return view(parent::loadViewData($this->view_path . '.edit'), compact('data'));
     }
@@ -126,7 +165,20 @@ class BusinessOptionController extends AdminBaseController
     {
 
         $input = $request->all();
+        $input['show_everywhere'] = isset($input['show_everywhere']) ? 1 : 0;
         $businessOption->fill($input)->save();
+
+        if (isset($input['affiliate_link_id']) && $input['affiliate_link_id']) {
+            $businessOption->affiliateLinks()->sync(array_filter($input['affiliate_link_id']));
+        }
+
+        if ($input['show_everywhere']) {
+            $businessOption->businessCategories()->sync([]);
+        } else {
+            if (isset($input['business_category_id']) && $input['business_category_id']) {
+                $businessOption->businessCategories()->sync(array_filter($input['business_category_id']));
+            }
+        }
 
         Session::flash('success', $this->panel_name.' updated successfully.');
         return redirect()->route($this->base_route);
