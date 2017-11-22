@@ -1,8 +1,8 @@
-@extends('admin/layouts/master')
+@extends('admin.layouts.default')
 
 @section('content')
 <div class="row">
-        @include('admin.layouts.sidemenu')
+        @include('admin.layouts.partials.side-menu')
 
         <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
           <h1>Dashboard</h1>

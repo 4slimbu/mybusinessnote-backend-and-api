@@ -16,7 +16,7 @@ class BusinessesTest extends TestCase
     public function a_user_can_browse_businesses()
     {
 
-        $business = factory('App\Business')->create();
+        $business = factory('App\Models\Business')->create();
 
         $response = $this->get('/businesses');
         $response->assertSee($business->business_name);
@@ -26,7 +26,7 @@ class BusinessesTest extends TestCase
     /** @test */
     public function a_user_can_view_single_business()
     {
-        $business = factory('App\Business')->create();
+        $business = factory('App\Models\Business')->create();
 
         $response = $this->get($business->path());
         $response->assertSee($business->business_name);
@@ -38,7 +38,7 @@ class BusinessesTest extends TestCase
     public function a_guest_may_not_register_business()
     {
 
-        $business = factory('App\Business')->make();
+        $business = factory('App\Models\Business')->make();
         $this->post('/business', $business->toArray());
 
     }

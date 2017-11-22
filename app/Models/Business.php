@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Business extends Model
+{
+    protected $fillable = [
+        'user_id',
+        'business_category_id',
+        'business_name',
+        'tagline',
+        'logo',
+        'website',
+        'abn',
+        'acn',
+        'business_email',
+        'business_mobile',
+        'business_general_phone',
+        'address',
+        'sell_goods',
+    ];
+
+    public function businessCategory()
+    {
+        return $this->belongsTo(BusinessCategory::class);
+
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+
+    }
+
+}

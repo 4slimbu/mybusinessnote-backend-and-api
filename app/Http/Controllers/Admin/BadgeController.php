@@ -2,75 +2,96 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Badge;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Input;
 
-class BadgeController extends Controller
+use App\Http\Requests\Admin\BadgeValidation\CreateFormValidation;
+use App\Http\Requests\Admin\BadgeValidation\UpdateFormValidation;
+use App\Models\Badge;
+use App\Models\BusinessCategory;
+use Session, AppHelper;
+
+
+class BadgeController extends AdminBaseController
 {
     /**
-     * Display a listing of the resource.
+     * Path to base view folder
+     * @var string
+     */
+    protected $view_path = 'admin.badge';
+
+    /**
+     * Base route
+     * @var string
+     */
+    protected $base_route = 'admin.badge';
+
+    /**
+     * Title of page using this controller
+     * @var string
+     */
+    protected $panel_name = 'Badge';
+
+    /**
+     * Upload directory relative to public folder
+     * @var string
+     */
+    protected $upload_directory = 'images/badges/';
+
+    /**
+     * Display a listing of the badge.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $badges = Badge::all();
-        return view('admin.badges.index', compact('badges'));
+        //initialize
+        $data = [];
+
+        //get data
+        $data['rows'] = Badge::paginate(AppHelper::getSystemConfig('pagination'));
+
+        return view(parent::loadViewData($this->view_path . '.index'), compact('data'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new badge.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        return view('admin.badges.create');
+        return view(parent::loadViewData($this->view_path . '.create'), compact('data'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created badge in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param CreateFormValidation $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateFormValidation $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'message' => 'required'
-        ]);
-
-        
-
         //Image Upload
-        $icon = $request->file('icon');
-       if($icon != "")
-       {
-        $destination_path = 'images/badges/';
-        $imagename = str_random(32).$icon->getClientOriginalName();
-        $icon->move($destination_path,$imagename); 
-        
-       }
+        if ($request->file('icon')->isValid()) {
+            $file = $request->file('icon');
+            $destinationPath = public_path($this->upload_directory);
+            $fileName = str_random('32') . '.' . $file->getClientOriginalExtension();
+            $file->move($destinationPath, $fileName);
+        }
 
-       Badge::create([
-        'name' =>request('name'),
-        'icon' => $imagename,
-        'message' => request('message')
-       ]);
+        $input = $request->all();
+        $input['icon'] = $fileName;
 
-        return back()->with('success','New badge has been added!');
+        Badge::create($input);
+
+        Session::flash('success', $this->panel_name . ' created successfully.');
+        return redirect()->route($this->base_route);
 
     }
-    
 
     /**
-     * Display the specified resource.
+     * Display the specified badge.
      *
-     * @param  \App\Admin\Badge  $badge
+     * @param \App\Models\Badge $badge
      * @return \Illuminate\Http\Response
      */
     public function show(Badge $badge)
@@ -79,70 +100,70 @@ class BadgeController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified badge.
      *
-     * @param  \App\Admin\Badge  $badge
+     * @param \App\Models\Badge $badge
      * @return \Illuminate\Http\Response
      */
-    public function edit($badge)
+    public function edit(Badge $badge)
     {
-        $badge = Badge::find($badge);
-        //$badge = Badge::where('id','=',$id)->first();
-        return view('admin.badges.edit', compact('badge'));
+        //initialize
+        $data = [];
+
+        //get data
+        $data['row'] = $badge;
+        $data['badges'] = Badge::pluck('name', 'id');
+        $data['businessCategories'] = BusinessCategory::pluck('name', 'id');
+
+        return view(parent::loadViewData($this->view_path . '.edit'), compact('data'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified badge in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Admin\Badge  $badge
+     * @param UpdateFormValidation|\Illuminate\Http\Request $request
+     * @param  \App\Models\Badge $badge
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request ,$badge)
+    public function update(UpdateFormValidation $request, Badge $badge)
     {
-        $this->validate($request, [
-            'icon' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-        ]); 
+        $input = $request->all();
 
-        //$data = Input::except('_token','submit');
-        $badges = Badge::find($badge);
-        $img = $request->file('icon');
-        if($img != "")
-       {
-            $destination_path = 'images/badges/';
-            $imagename = str_random(32).$img->getClientOriginalName();
-            $img->move($destination_path,$imagename); 
+        //Image Upload
+        if ($request->file('icon') && $request->file('icon')->isValid()) {
+            $file = $request->file('icon');
+            $destinationPath = public_path($this->upload_directory);
+            $fileName = str_random('32') . '.' . $file->getClientOriginalExtension();
+            $file->move($destinationPath, $fileName);
+            $input['icon'] = $fileName;
 
-       $badges->name = request('name');
-       $badges->message = request('message');
-       $badges->icon = $imagename;
+            //Remove old image
+            if (!empty($badge->icon) && file_exists(public_path($this->upload_directory . $badge->icon))) {
+                unlink(public_path($this->upload_directory . $badge->icon));
+            }
+        }
 
-       $badges->save();
+        $badge->fill($input)->save();
 
-        return redirect('admin/badges')->with('success','Business badge successfully updated!');
-           
-       }
-       else
-       {
-        $badges->name = request('name');
-       $badges->message = request('message');
-
-       $badges->save();
-
-        return redirect('admin/badges')->with('success','Business badge successfully updated!');
-       }
-      
+        Session::flash('success', $this->panel_name . ' updated successfully.');
+        return redirect()->route($this->base_route);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified badge from storage.
      *
-     * @param  \App\Admin\Badge  $badge
+     * @param  \App\Models\Badge $badge
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $badge)
+    public function destroy(Badge $badge)
     {
-        Badge::destroy($badge);
-        return back()->with('success','Business badge removed!');
+        if (file_exists(public_path($this->upload_directory . $badge->icon))) {
+            unlink(public_path($this->upload_directory . $badge->icon));
+        }
+
+        $badge->delete();
+
+        Session::flash('success', $this->panel_name . ' deleted successfully.');
+        return redirect()->route($this->base_route);
     }
 }

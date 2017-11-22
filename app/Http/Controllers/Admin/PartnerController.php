@@ -2,161 +2,158 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\User;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Hash;
 
-class PartnerController extends Controller
+use App\Http\Requests\Admin\PartnerValidation\CreateFormValidation;
+use App\Http\Requests\Admin\PartnerValidation\UpdateFormValidation;
+use App\Models\Role;
+use App\Models\User;
+use App\Models\UserProfile;
+use Session, AppHelper;
+
+
+class PartnerController extends AdminBaseController
 {
+    /**
+     * Path to base view folder
+     * @var string
+     */
+    protected $view_path = 'admin.partner';
+
+    /**
+     * Base route
+     * @var string
+     */
+    protected $base_route = 'admin.partner';
+
+    /**
+     * Title of page using this controller
+     * @var string
+     */
+    protected $panel_name = 'Partner';
+
+    /**
+     * Display a listing of the partner.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-    	return view('admin.partners.create');
+        //initialize
+        $data = [];
+
+        //get data
+        $data['rows'] = User::with('userProfile')->partner()->orderBy('id', 'desc')
+            ->paginate(AppHelper::getSystemConfig('pagination'));
+
+        return view(parent::loadViewData($this->view_path . '.index'), compact('data'));
     }
 
-    public function store(Request $request)
+    /**
+     * Show the form for creating a new partner.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-    	$this->validate($request, [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'phone_number' => 'required',
-            'email' => 'required|unique:users',
-            'company' => 'required',
-            'billing_street1' => 'required',
-            'billing_street2' => 'required',
-            'billing_postcode' => 'required',
-            'billing_state' => 'required',
-            'billing_suburb' => 'required',
-            'billing_country' => 'required',
-            'password' => 'required',
-        ]);
+        //initialize
+        $data = [];
+        $data['userProfile'] = new UserProfile;
 
-        //dd($request->all());
+        return view(parent::loadViewData($this->view_path . '.create'), compact('data'));
+    }
 
-        if(request('residential_street1') == 0)
-        {
-        	$bill_street1 = request('billing_street1');
-        	$bill_street2 = request('billing_street2');
-        	$bill_post = request('billing_postcode');
-        	$bill_state = request('billing_state');
-        	$bill_sub = request('billing_suburb');
-        	$bill_con = request('billing_country');
-        	$pass = Hash::make(request('password'));
-
-        	User::create([
-        		'first_name' => request('first_name'),
-            	'last_name' => request('last_name'),
-            	'phone_number' => request('phone_number'),
-            	'email' => request('email'),
-            	'company' => request('company'),
-            	'billing_street1' => request('billing_street1'),
-            	'billing_street2' => request('billing_street2'),
-            	'billing_postcode' => request('billing_postcode'),
-            	'billing_state' => request('billing_state'),
-            	'billing_suburb' => request('billing_suburb'),
-            	'billing_country' => request('billing_country'),
-            	'residential_street1' => $bill_street1,
-            	'residential_street2' => $bill_street2,
-            	'residential_postcode' => $bill_post,
-            	'residential_state' => $bill_state,
-            	'residential_suburb' => $bill_sub,
-            	'residential_country' => $bill_con, 
-            	'password' => $pass,
-            	'role_id' => request('role'),
-            	'verified' => request('verified')
-        	]);
-
-        	  return back()->with('success','New partner has been created!');
-        }
-        else
-        {
-        	$pass = Hash::make(request('password'));
-        	User::create([
-        		'first_name' => request('first_name'),
-            	'last_name' => request('last_name'),
-            	'phone_number' => request('phone_number'),
-            	'email' => request('email'),
-            	'company' => request('company'),
-            	'billing_street1' => request('billing_street1'),
-            	'billing_street2' => request('billing_street2'),
-            	'billing_postcode' => request('billing_postcode'),
-            	'billing_state' => request('billing_state'),
-            	'billing_suburb' => request('billing_suburb'),
-            	'billing_country' => request('billing_country'),
-            	'residential_street1' => request('residential_street1'),
-            	'residential_street2' => request('residential_street2'),
-            	'residential_postcode' => request('residential_postcode'),
-            	'residential_state' => request('residential_state'),
-            	'residential_suburb' => request('residential_suburb'),
-            	'residential_country' => request('residential_country'), 
-            	'password' => $pass,
-            	'role_id' => request('role'),
-            	'verified' => request('verified')
-        	]);
-        	  return back()->with('success','New badge has been created!');
+    /**
+     * Store a newly created partner in storage.
+     *
+     * @param CreateFormValidation|\Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(CreateFormValidation $request)
+    {
+        $inputs = $request->all();
+        if ($inputs['same_address']) {
+            $inputs['residential_street1'] = $inputs['billing_street1'];
+            $inputs['residential_street2'] = $inputs['billing_street2'];
+            $inputs['residential_postcode'] = $inputs['billing_postcode'];
+            $inputs['residential_state'] = $inputs['billing_state'];
+            $inputs['residential_suburb'] = $inputs['billing_suburb'];
+            $inputs['residential_country'] = $inputs['billing_country'];
         }
 
-        
-    }
+        $inputs['role_id'] = 3;
 
-
-    public function list(){
-
-
-    }
-
-    
-    public function view(Request $request)
-    {
-
-        if( $request->ajax() ) {
-
-            $search = request('q');
-            $partner = User::where('role_id', '=', 3)
-                            ->where('company', 'LIKE', "$search%")
-                            ->get();
-
-            return $partner;
-
+        $user = User::create($inputs);
+        if (! $user->userProfile) {
+            $inputs['user_id'] = $user->id;
+            UserProfile::create($inputs);
         }
 
-        $partner = User::where('role_id',3)->get();
-
-        return view('admin.partners.index',compact('partner'));
+        Session::flash('success', $this->panel_name.' created successfully.');
+        return redirect()->route($this->base_route);
 
     }
 
-    public function edit($partner)
+    /**
+     * Display the specified partner.
+     *
+     * @param User $partner
+     * @return \Illuminate\Http\Response
+     */
+    public function show(User $partner)
     {
-        $partner = User::find($partner);
-        return view('admin.partners.edit',compact('partner'));
+        //
     }
 
-    public function update($partner)
+    /**
+     * Show the form for editing the specified partner.
+     *
+     * @param User $partner
+     * @return \Illuminate\Http\Response
+     * @internal param \App\Models\Partner $partner
+     */
+    public function edit(User $partner)
     {
-        $partner = User::find($partner);
+        //initialize
+        $data = [];
 
-        $partner->first_name = request('first_name');
-        $partner->last_name = request('last_name');
-        $partner->phone_number = request('phone_number');
-        $partner->email = request('email');
-        $partner->company = request('company');
-        $partner->billing_street1 = request('billing_street1');
-        $partner->billing_street2 = request('billing_street2');
-        $partner->billing_postcode = request('billing_postcode');
-        $partner->billing_state = request('billing_state');
-        $partner->billing_suburb = request('billing_suburb');
-        $partner->billing_country = request('billing_country');
-        $partner->residential_street1 = request('residential_street1');
-        $partner->residential_street2 = request('residential_street2');
-        $partner->residential_postcode = request('residential_postcode');
-        $partner->residential_state = request('residential_state');
-        $partner->residential_suburb = request('residential_suburb');
-        $partner->residential_country = request('residential_country');
+        //get data
+        $data['row'] = $partner;
+        $data['userProfile'] = $partner->userProfile;
+        $data['roles'] = Role::pluck('name', 'id');
 
-        $partner->save();
-
-        return redirect('admin/partners')->with('success','Partner Data is updated');
+        return view(parent::loadViewData($this->view_path . '.edit'), compact('data'));
     }
 
+    /**
+     * Update the specified partner in storage.
+     *
+     * @param UpdateFormValidation $request
+     * @param User $partner
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UpdateFormValidation $request, User $partner)
+    {
+        $request->offsetUnset('role_id');
+        $input = $request->all();
+        $partner->update($input);
+        $partner->userProfile->update($input);
+
+        Session::flash('success', $this->panel_name.' updated successfully.');
+        return redirect()->route($this->base_route);
+    }
+
+    /**
+     * Remove the specified partner from storage.
+     *
+     * @param  \App\Models\User $partner
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(User $partner)
+    {
+        $partner->delete();
+        $partner->userProfile->delete();
+
+        Session::flash('success', $this->panel_name.' deleted successfully.');
+        return redirect()->route($this->base_route);
+    }
 }

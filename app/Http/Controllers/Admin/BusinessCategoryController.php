@@ -1,64 +1,81 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 
-use App\BusinessCategory;
-use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\BusinessCategoryValidation\CreateFormValidation;
+use App\Http\Requests\Admin\BusinessCategoryValidation\UpdateFormValidation;
+use App\Models\BusinessCategory;
+use Session, AppHelper;
 use Illuminate\Http\Request;
 
 
-class BusinessCategoryController extends Controller
+class BusinessCategoryController extends AdminBaseController
 {
     /**
-     * Display a listing of the resource.
+     * Path to base view folder
+     * @var string
+     */
+    protected $view_path = 'admin.business-category';
+
+    /**
+     * Base route
+     * @var string
+     */
+    protected $base_route = 'admin.business-category';
+
+    /**
+     * Title of page using this controller
+     * @var string
+     */
+    protected $panel_name = 'Business Category';
+
+    /**
+     * Display a listing of the business category.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $businessCategories = BusinessCategory::all();
-        return view('admin/business_category/index', compact('businessCategories'));
+        //initialize
+        $data = [];
+
+        //get data
+        $data['rows'] = BusinessCategory::paginate(AppHelper::getSystemConfig('pagination'));
+
+        return view(parent::loadViewData($this->view_path . '.index'), compact('data'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new business category.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        return view('admin/business_category.create');
+        return view(parent::loadViewData($this->view_path . '.create'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created business category in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param CreateFormValidation|Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateFormValidation $request)
     {
 
-       // dd(request('title'));
+        BusinessCategory::create($request->all());
 
-        $this->validate($request, [
-            'title' => 'required'
-        ]);
-
-        BusinessCategory::create([
-
-            'title' => request('title'),
-            'tooltip' => request('tooltip')
-
-        ]);
-        return back()->with('success','New business category has been created!');
+        Session::flash('success', $this->panel_name.' created successfully.');
+        return redirect()->route($this->base_route);
 
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified business category.
      *
-     * @param  \App\BusinessCategory  $businessCategory
+     * @param  \App\Models\BusinessCategory $businessCategory
      * @return \Illuminate\Http\Response
      */
     public function show(BusinessCategory $businessCategory)
@@ -67,46 +84,49 @@ class BusinessCategoryController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified business category.
      *
-     * @param  \App\BusinessCategory  $businessCategory
+     * @param  \App\Models\BusinessCategory $businessCategory
      * @return \Illuminate\Http\Response
      */
     public function edit(BusinessCategory $businessCategory)
     {
-        return view('admin/business_category.edit', compact('businessCategory'));
+        //initialize
+        $data = [];
 
+        //get data
+        $data['row'] = $businessCategory;
+
+        return view(parent::loadViewData($this->view_path . '.edit'), compact('data'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified business category in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\BusinessCategory  $businessCategory
+     * @param UpdateFormValidation|Request $request
+     * @param  \App\Models\BusinessCategory $businessCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BusinessCategory $businessCategory)
+    public function update(UpdateFormValidation $request, BusinessCategory $businessCategory)
     {
-        $this->validate($request, [
-            'title' => 'required'
-        ]);
-
         $input = $request->all();
         $businessCategory->fill($input)->save();
 
-        return redirect()->back()->with('success','Business category successfully updated!');
+        Session::flash('success', $this->panel_name.' updated successfully.');
+        return redirect()->route($this->base_route);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified business category from storage.
      *
-     * @param  \App\BusinessCategory  $businessCategory
+     * @param  \App\Models\BusinessCategory $businessCategory
      * @return \Illuminate\Http\Response
      */
     public function destroy(BusinessCategory $businessCategory)
     {
+        $businessCategory->delete();
 
-        $result = $businessCategory->delete();
-        return back()->with('success','Business category removed!');
+        Session::flash('success', $this->panel_name.' deleted successfully.');
+        return redirect()->route($this->base_route);
     }
 }

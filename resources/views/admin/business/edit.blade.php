@@ -1,69 +1,28 @@
-@extends('admin/layouts/master')
+@extends('admin.layouts.default')
 
 @section('content')
-    <div class="row">
+    <div class="content-wrapper">
+        <h2>
+            Edit {{ $panel_name }} : {{ $data['row']->business_name }}
+        </h2>
 
-        @include('admin.layouts.sidemenu')
+        <div class="col-md-10">
+            {{ Form::model($data['row'], ['method' => 'POST', 'route' => [$base_route.'.update', $data['row']->id]]) }}
+            <div class="panel panel-flat">
 
-        <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
-            <h1>Admin Dashboard</h1>
+                <div class="panel-body">
 
-            <h2>Update Business Info</h2>
+                    @include($view_path . '.includes.form')
 
-            <form class="col-sm-6" method="POST" action="{{url('admin/businesses/update')}}/{{ $business->id }}" enctype="multipart/form-data">
-                {{ csrf_field() }}
-                <div class="form-group">
-                    <label>Name</label>
-                    <input class="form-control" type="text" name="business_name" value="{{$business->business_name}}"></input>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <a href="{{ route($base_route) }}" class="btn btn-default">Cancel</a>
+                    </div>
 
                 </div>
+            </div>
+            {{ Form::close() }}
+        </div>
 
-                <div class="form-group">
-                    <label for="tooltip">Website</label> 
-                    <input class="form-control" name="website" type="text" value="{{$business->website}}"></input>
-                    
-                </div>
-
-                <div class="form-group">
-                    <label for="tooltip">ABN</label>
-                    <input class="form-control" name="abn" type="text" value="{{$business->abn}}"></input>
-                    
-                </div>
-
-                <div class="form-group">
-                    <label for="tooltip">ACN</label>
-                    <input class="form-control" name="acn" type="text" value="{{$business->acn}}"></input>
-                    
-                </div>
-
-                <div class="form-group">
-                    <label for="tooltip">E-Mail</label> {!! $errors->first('message') !!}
-                    <input class="form-control" name="business_email" type="email" value="{{$business->business_email}}"></input>
-                    
-                </div>
-
-                <div class="form-group">
-                    <label for="tooltip">Business Mobile Number</label>
-                    <input class="form-control" name="business_mobile" type="text" value="{{$business->business_mobile}}"></input>
-                </div>
-
-                <div class="form-group">
-                    <label for="tooltip">Business Phone</label>
-                    <input class="form-control" name="business_general_phone" type="text" value="{{$business->business_general_phone}}"></input>
-                </div>
-
-                <div class="form-group">
-                    <label for="tooltip">Address</label>
-                    <input class="form-control" name="address" type="text" value="{{$business->address}}"></input>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Update</button>
-
-            </form>
-
-        </main>
     </div>
-
-
-
 @endsection
