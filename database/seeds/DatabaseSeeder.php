@@ -13,13 +13,21 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-        $this->call(RoleSeeder::class);
-        $this->call(BadgeSeeder::class);
-        $this->call(LevelSeeder::class);
-        $this->call(BusinessCategorySeeder::class);
-        $this->call(UserSeeder::class);
-        $this->call(BusinessSeeder::class);
-        $this->call(BusinessOptionSeeder::class);
+        $this->call(UsersTableSeeder::class);
+        $this->call(AffiliateLinksTableSeeder::class);
+        $this->call(AffiliateLinkBusinessOptionTableSeeder::class);
+        $this->call(AffiliateLinkTrackerTableSeeder::class);
+        $this->call(BadgesTableSeeder::class);
+        $this->call(BadgeUserTableSeeder::class);
+        $this->call(BusinessesTableSeeder::class);
+        $this->call(BusinessBusinessOptionTableSeeder::class);
+        $this->call(BusinessCategoriesTableSeeder::class);
+        $this->call(BusinessCategoryBusinessOptionTableSeeder::class);
+        $this->call(BusinessOptionsTableSeeder::class);
+        $this->call(LevelsTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
+        $this->call(SettingsTableSeeder::class);
+        $this->call(UserProfilesTableSeeder::class);
         Model::reguard();
     }
 
