@@ -61,7 +61,7 @@ class BusinessController extends AdminBaseController
         $data = [];
 
         //get data
-        $users = User::select('id', 'first_name', 'last_name')->get();
+        $users = User::select('id', 'first_name', 'last_name')->where('role_id', 2)->get();
         $data['users'] = $users->mapWithKeys(function ($item) {
             return [ $item->id => $item->first_name . ' ' . $item->last_name ];
         });
@@ -111,7 +111,7 @@ class BusinessController extends AdminBaseController
         //get data
         $data['row'] = $business;
 
-        $users = User::select('id', 'first_name', 'last_name')->get();
+        $users = User::select('id', 'first_name', 'last_name')->where('role_id', 2)->get();
         $data['users'] = $users->mapWithKeys(function ($item) {
             return [ $item->id => $item->first_name . ' ' . $item->last_name ];
         });

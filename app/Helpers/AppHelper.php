@@ -1,7 +1,10 @@
 <?php
 namespace App\Helpers;
 
+use App\Models\BusinessOption;
+use App\Models\Level;
 use App\Models\Setting;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class AppHelper
 {
@@ -43,6 +46,18 @@ class AppHelper
         //return false
         return false;
 
+    }
+
+    public function generateNestedBusinessOptions(LengthAwarePaginator $items)
+    {
+        $data['sub-rows'] = [];
+
+        $subLevels = Level::select('id')->where('parent_id', $items[0]->level->id)->pluck('id')->toArray();
+
+        $data['sub-rows'] = BusinessOption::with('level', 'parent', 'children', 'businessCategories')
+            ->whereIn('level_id', $subLevels)
+            ->where('parent_id', null)
+            ->get();
     }
 
 }

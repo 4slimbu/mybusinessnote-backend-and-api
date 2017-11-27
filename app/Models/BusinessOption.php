@@ -17,9 +17,15 @@ class BusinessOption extends Model
         'weight'
     ];
 
+    //each can have a parent
     public function parent()
     {
         return $this->belongsTo(BusinessOption::class, 'parent_id');
+    }
+
+    //Each can have multiple children
+    public function children() {
+        return $this->hasMany(static::class, 'parent_id');
     }
 
 	public function businessCategories()

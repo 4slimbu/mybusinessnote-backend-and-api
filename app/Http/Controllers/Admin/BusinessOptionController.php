@@ -43,8 +43,17 @@ class BusinessOptionController extends AdminBaseController
         $data = [];
 
         //get data
-        $data['rows'] = BusinessOption::with('level', 'parent', 'businessCategories')
-            ->paginate(AppHelper::getSystemConfig('pagination'));
+        $topLevels = Level::select('id')->where('parent_id', null)->pluck('id')->toArray();
+        $data['rows'] = BusinessOption::with('level', 'parent', 'children', 'businessCategories')
+            ->whereIn('level_id', $topLevels)
+            ->paginate(1);
+
+        $subLevels = Level::select('id')->where('parent_id', $data['rows'][0]->level->id)->pluck('id')->toArray();
+
+        $data['sub-rows'] = BusinessOption::with('level', 'parent', 'children', 'businessCategories')
+            ->whereIn('level_id', $subLevels)
+            ->where('parent_id', null)
+            ->get();
 
         return view(parent::loadViewData($this->view_path . '.index'), compact('data'));
     }
@@ -61,10 +70,10 @@ class BusinessOptionController extends AdminBaseController
 
         //get data
         $levels = Level::with('parent')
-            ->where('parent_id', '!=', null)
             ->get();
         $data['levels'] = $levels->mapWithKeys(function ($item) {
-            return [ $item->id => $item->parent->name . ' - ' . $item->name ];
+            $prefix = isset($item->parent) ? $item->parent->name . ' - ' : '';
+            return [ $item->id => $prefix . $item->name ];
         });
 
         $data['businessOptions'] = BusinessOption::pluck('name', 'id');
@@ -137,10 +146,10 @@ class BusinessOptionController extends AdminBaseController
         $data['selectedAffiliateLinks'] = $businessOption->affiliateLinks->pluck('id');
 
         $levels = Level::with('parent')
-            ->where('parent_id', '!=', null)
             ->get();
         $data['levels'] = $levels->mapWithKeys(function ($item) {
-            return [ $item->id => $item->parent->name . ' - ' . $item->name ];
+            $prefix = isset($item->parent) ? $item->parent->name . ' - ' : '';
+            return [ $item->id => $prefix . $item->name ];
         });
 
         $data['businessOptions'] = BusinessOption::where('id', '!=', $businessOption->id)->pluck('name', 'id');
