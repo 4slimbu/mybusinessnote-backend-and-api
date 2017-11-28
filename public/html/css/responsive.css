@@ -28,6 +28,75 @@
     }
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
+
+    .humanresource .alert-head div {
+    width: 53%;
+    }
+    .level-3-home ul.apps-icons li{
+        min-height: 145px
+    } 
+    .operation .alert-head div,
+    .operations .alert-head div{
+    width: 40%;
+    }
+    .step-one .alert-form p {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .operation-6 .alert-form p,
+    .level3-mark-6 .alert-form p,
+    .level3-human-resource-4 .alert-form p,
+    .level-3-opearations .alert-form p,
+    .level-3-finance-3 .alert-form p,
+    .marketing-10 .alert-form p{
+        padding-left: 0;
+        padding-right: 0;
+    }
+    ul.alert-brands-colors {
+    padding: 0 25px;
+    margin: 14px auto 25px;
+    }
+    form.alert-form {
+    width: 63%;
+    }
+    .pull-right.progress-label {
+    top: 2px;
+    }
+
+    .alert-head div {
+    width: 35%;
+    }
+
+    .acc-img {
+    top: -4px;
+    }
+
+    span.accordion-titles {
+    position: relative;
+    top: -3px;
+    }
+
+    ul.alert-f-links li {
+    width: 48.5%;
+    }
+
+    ul.alert-btns li:first-child {
+    padding-right: 18px;
+    }
+
+    ul.alert-btns {
+    padding: 0;
+    }
+
+    a.back-link i {
+    padding-right: 4px;
+    font-size: 12px;
+    }
+
+    a.back-link {
+    font-size: 14px;
+    }
+
     .level-7 .step-one a.btn {
         padding: 8px 26px;
     }
@@ -56,11 +125,17 @@
     ul.apps-icons li:first-child {
         padding-top: 28px;
     }
+    ul.level2-apps-icons li:first-child {
+    padding-top: 40px;
+    }
     ul.apps-icons li span {
         font-size: 13px;
     }
     ul.apps-icons img {
         width: 36px;
+    }
+    ul.level2-apps-icons img {
+    width: auto;
     }
     .right-sec p {
         font-size: 13px;
@@ -86,6 +161,9 @@
     .step-one a.btn {
         font-size: 16px;
         padding: 8px 43px;
+    }
+    .step-one a.btn-alert {
+    font-size: 12px;
     }
     .mid-sec h1 {
         font-size: 24px;
@@ -119,7 +197,7 @@
     ul.apps-icons li {
         min-height: 130px;
         padding: 20px 10px;
-        min-width: 148px;
+        min-width: 118px;
     }
 }
 @media only screen and (min-width: 864px) and (max-width: 991px) {
@@ -139,6 +217,128 @@
     }
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
+
+    form.alert-form input[type="text"]{
+        font-size: 12px;
+    }
+
+    .humanresource .alert-head div {
+    width: 68%;
+    }
+
+    .c-progress .progress-bar {
+    height: 2.5px;
+    }
+
+    span.accordion-titles{
+        position: relative;
+        top: -2px;
+    }
+
+    .operation .alert-head div {
+    width: 50%;
+    }
+
+    
+    .finance .alert-head img {
+        width: 18px;
+    }
+
+    .finance.operation .alert-head img {
+        margin-top: 0;
+    }
+
+    .alert-brands-colors li a, .colors-sample li a {
+    height: 20px;
+    width: 20px;
+    }
+
+    .acc-img {
+    top: -2px;
+    }
+
+    .colors-sample li:first-child a {
+    height: 30px;
+    width: 30px;
+    }
+
+    .marketing-6 .alert-brands-colors li:hover a::before,
+    .marketing-6 .alert-brands-colors li.active a::before{
+    font-size: 11px;
+    }
+
+    .colors-sample li:first-child a::after {
+    height: 25px;
+    width: 25px;
+    }
+
+    ul.alert-brands-colors {
+    width: 85%;
+    margin: 14px auto 15px;
+    }
+
+
+    .alert-brands-colors li a::after, .colors-sample li a::after {
+    height: 15px;
+    width: 15px;
+    left: 7%;
+    top: 12%;
+    }
+
+
+    form.alert-form input[type="text"]::-moz-placeholder{
+    font-size: 12px;
+    }
+
+    form.alert-form {
+    width: 73%;
+    }
+
+
+    ul.alert-btns{
+        padding: 0;
+    }
+
+    ul.alert-f-links li {
+    width: 48.5%;
+    padding: 5px 0;
+    }
+
+    ul.alert-btns li:first-child {
+    padding-right: 2px;
+    }
+
+    ul.alert-f-links li a {
+    font-size: 10px;
+    position: relative;
+    top: -3px;
+    }
+
+    ul.alert-btns li a {
+    font-size: 8px;
+    }
+
+    .alert-head div {
+    width: 42%;
+    padding: 15px 0;
+    }
+
+    .alert-head img {
+    width: 25px;
+    }
+
+    a.back-link {
+    font-size: 13px;
+    }
+
+    a.back-link i {
+    padding-right: 2px;
+    font-size: 10px;
+    }
+
+     .right-sec h5 {
+    font-size: 18px;
+    }
     .menu-accordion .panel-group .panel.active:last-child::after {
         height: 215px;
     }
@@ -160,11 +360,26 @@
     ul.apps-icons img {
         width: 30px;
     }
+
+    ul.apps-icons.level2-apps-icons img{
+        width: auto;
+    }
     ul.apps-icons li {
         padding: 20px 20px 10px;
         min-height: 119px;
         min-width: 114px;
     }
+
+    ul.apps-icons.level2-apps-icons li {
+    min-height: 129px;
+    min-width: 134px;
+    }
+
+    ul.apps-icons.level2-apps-icons li.pad-adjust {
+    padding-top: 30px;
+    }
+
+
     .apps-question i {
         position: relative;
         top: 2.5px;
@@ -192,6 +407,17 @@
     .step-one a.btn {
         font-size: 15px;
         padding: 5px 43px;
+    }
+
+    .level-7 .step-one a.btn,
+    .operation-7 .step-one a.btn {
+    padding: 8px 26px;
+    font-size: 13px;
+    }
+
+
+    .step-one a.btn-alert {
+    font-size: 10px;
     }
     .find-web-span {
         font-size: 68%;
