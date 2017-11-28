@@ -1,0 +1,17 @@
+/* alert */
+
+.help-block {
+
+  color: $brand-danger;
+}
+
+.alert {
+  position: fixed;
+  top: 100px;
+  z-index: 10;
+  right: 20px;
+  padding: 1rem 2rem;
+  ul {
+    margin-bottom: 0;
+  }
+}

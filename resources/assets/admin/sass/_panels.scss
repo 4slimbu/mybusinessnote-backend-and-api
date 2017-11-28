@@ -1,0 +1,32 @@
+/* dashboard */
+
+
+.panel {
+
+  .panel-heading {
+    font-size: 34px;
+  }
+
+  &.panel-default {
+    margin-bottom: 40px;
+  }
+
+  .panel-body {
+    padding: 2rem 0;
+  }
+
+
+}
+
+
+/* businesses */
+
+.panel-business-list {
+
+  .card {
+
+    margin-bottom: 50px;
+
+  }
+
+}

@@ -1,0 +1,76 @@
+.registration {
+
+  .show > .nav-pills .nav-link {
+    color: #fff;
+    background-color: $brand-success;
+    border: 2px solid #5cb85c;
+  }
+
+  .nav-pills {
+      margin-top: 0.5rem;
+    .nav-link {
+      color: inherit;
+      background-color: transparent;
+      border: 2px solid #ddd;
+      border-radius: 50%;
+      width: 90px;
+      height: 90px;
+      padding: 2rem;
+      margin-right: 3rem;
+      font-weight: bold;
+      transition: background-color 0.5s ease;
+
+      &:hover,&.active {
+        color: #fff;
+        background-color: $brand-success;
+        border: 2px solid darken($brand-success, 20%);
+      }
+
+      i.fa {
+        font-size: 1.5rem;
+      }
+
+    }
+
+    .nav-item {
+      margin-bottom: 2rem;
+    }
+
+  }
+
+  .tab-content {
+
+  }
+
+  .tab-pane {
+    position: relative;
+    padding: 0 2rem 2rem 2rem;
+  }
+
+
+
+  .card {
+
+    margin: 3rem 0;
+    border: 2px solid $brand-success;
+    .card-title {
+      margin-bottom: 2rem;
+      line-height: 2rem;
+    }
+    .card-header {
+      font-weight: 800;
+      font-size: 2rem;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      background: transparent;
+    }
+    .card-body {
+      padding: 2.5rem 2rem;
+    }
+  }
+
+  .form-group {
+    margin-bottom: 2.5rem;
+  }
+
+}

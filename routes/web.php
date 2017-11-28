@@ -324,6 +324,13 @@ Route::group([ 'namespace' => 'App\Http\Controllers'], function () {
 |
 */
 
-Route::get('/start', function () {
-    return view('start');
-});
+Route::get('/start', 'App\Http\Controllers\PageController@home');
+Route::get('/start/level/{level}', [
+    'as' => 'start.level',
+    'uses' => 'App\Http\Controllers\PageController@level'
+]);
+
+Route::get('/start/section/{section}', [
+    'as' => 'start.section',
+    'uses' => 'App\Http\Controllers\PageController@section'
+]);
