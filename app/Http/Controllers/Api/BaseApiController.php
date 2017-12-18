@@ -1,24 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Level;
-use Illuminate\Support\Facades\View;
+use App\Models\BusinessOption;
 
-class BaseController extends Controller
+class BaseApiController extends Controller
 {
-    protected function loadViewData($path)
-    {
-        View::composer($path, function($view)
-        {
-            //get data
-            $levels = Level::with('children')->where('parent_id', null)->get();
-            $view->with('levels', $levels);
-
-        });
-
-        return $path;
-    }
+    protected $baseApiRoute = 'http://mbj.dev/api/';
 
     public function generatePrevNextLinks($model)
     {
@@ -28,7 +18,7 @@ class BaseController extends Controller
             $data['prev'] = route('start.section', $model->parent && $model->parent->first()->id);
             $data['next'] = route('start.section', $model->children->first() && $model->children->first()->id);
         }
-        if ($model instanceof \App\Models\BusinessOption) {
+        if ($model instanceof BusinessOption) {
             if ($model->parent_id === null) {
                 dd('main business option');
             }

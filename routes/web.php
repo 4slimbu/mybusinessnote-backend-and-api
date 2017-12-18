@@ -323,14 +323,3 @@ Route::group([ 'namespace' => 'App\Http\Controllers'], function () {
 | Routes for all the registration activities.
 |
 */
-
-Route::get('/start', 'App\Http\Controllers\PageController@home');
-Route::get('/start/level/{level}', [
-    'as' => 'start.level',
-    'uses' => 'App\Http\Controllers\PageController@level'
-]);
-
-Route::get('/start/section/{section}', [
-    'as' => 'start.section',
-    'uses' => 'App\Http\Controllers\PageController@section'
-]);

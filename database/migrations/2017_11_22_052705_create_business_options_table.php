@@ -21,6 +21,8 @@ class CreateBusinessOptionsTable extends Migration {
 			$table->text('description', 65535)->nullable();
 			$table->text('tooltip', 65535)->nullable();
 			$table->text('content', 65535)->nullable();
+			$table->string('element', 191)->nullable();
+            $table->tinyInteger('menu_order')->unique();
 			$table->integer('weight')->nullable();
             $table->boolean('show_everywhere')->default(true);
 			$table->timestamps();

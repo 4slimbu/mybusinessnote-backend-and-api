@@ -43,6 +43,7 @@ class LevelController extends AdminBaseController
         //get data
         $data['rows'] = Level::with('parent', 'children')
             ->where('parent_id', null)
+            ->orderBy('menu_order')
             ->paginate(AppHelper::getSystemConfig('pagination'));
 
         return view(parent::loadViewData($this->view_path . '.index'), compact('data'));
