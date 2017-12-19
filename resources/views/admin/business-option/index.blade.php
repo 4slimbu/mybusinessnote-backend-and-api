@@ -5,14 +5,15 @@
         <h2>
             Manage {{ $panel_name }} List
         </h2>
-        <p>Note: Supported nesting depth: 5 <br />
-            Eg: Level->Sub Level->Business Option->Child Business Option->Grand Child Business Option
+        <p>Note: Supported nesting depth: 4 <br />
+            Eg: Top Business Option -> Business Option -> Child Business Option -> Grand Child Business Option
         </p>
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
                 <tr>
                     <th>BusinessOption</th>
+                    <th>Level</th>
                     <th>Section</th>
                     <th>Show On</th>
                     <th>Actions</th>
@@ -21,10 +22,11 @@
                 </thead>
                 <tbody>
                 @if(isset($data['rows']) && $data['rows']->count() > 0)
-                <!-- Levels -->
+                <!-- Top Business Option -->
                 @foreach ($data['rows'] as $businessOption)
                     <tr>
                         <td>{{ $businessOption->name }}</td>
+                        <td>{{ $businessOption->section->level->name }}</td>
                         <td>{{ $businessOption->section->name }}</td>
                         <td>{{ ViewHelper::generateList($businessOption->businessCategories) }}</td>
                         <td>
@@ -43,6 +45,7 @@
                         @foreach($businessOption->children as $BO)
                             <tr>
                                 <td style="padding-left: 100px;">{{ $BO->name }}</td>
+                                <td>{{ $BO->section->level->name }}</td>
                                 <td>{{ $BO->section->name }}</td>
                                 <td>{{ ViewHelper::generateList($BO->businessCategories) }}</td>
                                 <td>
@@ -61,6 +64,7 @@
                                 @foreach($BO->children as $childBO)
                                     <tr>
                                         <td style="padding-left: 150px;">{{ $childBO->name }}</td>
+                                        <td>{{ $childBO->section->level->name }}</td>
                                         <td>{{ $childBO->section->name }}</td>
                                         <td>{{ ViewHelper::generateList($childBO->businessCategories) }}</td>
                                         <td>
@@ -79,6 +83,7 @@
                                         @foreach($childBO->children as $grandChildBO)
                                             <tr>
                                                 <td style="padding-left: 200px;">{{ $grandChildBO->name }}</td>
+                                                <td>{{ $grandChildBO->section->level->name }}</td>
                                                 <td>{{ $grandChildBO->section->name }}</td>
                                                 <td>{{ ViewHelper::generateList($grandChildBO->businessCategories) }}</td>
                                                 <td>

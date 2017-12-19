@@ -44,7 +44,7 @@ class BusinessOptionController extends AdminBaseController
         $data = [];
 
         //get data
-        $data['rows'] = BusinessOption::with('section', 'parent', 'children', 'businessCategories')
+        $data['rows'] = BusinessOption::with('section', 'section.level', 'parent', 'children', 'businessCategories')
             ->where('parent_id', null)
             ->paginate(100);
 
@@ -62,10 +62,10 @@ class BusinessOptionController extends AdminBaseController
         $data = [];
 
         //get data
-        $levels = Level::with('parent')
+        $sections = Section::with('level')
             ->get();
-        $data['levels'] = $levels->mapWithKeys(function ($item) {
-            $prefix = isset($item->parent) ? $item->parent->name . ' - ' : '';
+        $data['sections'] = $sections->mapWithKeys(function ($item) {
+            $prefix = isset($item->level) ? $item->level->name . ' - ' : '';
             return [ $item->id => $prefix . $item->name ];
         });
 
