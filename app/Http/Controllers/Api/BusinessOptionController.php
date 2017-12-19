@@ -5,12 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Models\BusinessOption;
 use App\Models\Level;
 
-class PageController extends BaseApiController
+class BusinessOptionController extends BaseApiController
 {
-    public function show($levelId, $subLevelId = null, $businessOptionId = null)
+    public function show(Level $level, Level $section, BusinessOption $business_option)
     {
-        if ($levelId && $subLevelId == null && $businessOptionId == null) {
-        }
+        dd($level);
     }
 
     public function level(Level $level) {
