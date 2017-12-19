@@ -3,24 +3,25 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Resources\Api\LevelResource;
+use App\Http\Resources\Api\LevelsResource;
 use App\Models\Level;
 
 class LevelController extends BaseApiController
 {
     public function index()
     {
-        //initialize
-        $data = [];
-
         //get data
         $levels = Level::with('parent', 'children')
             ->where('parent_id', null)
             ->orderBy('menu_order')
-            ->get();
+            ->paginate();
+        return new LevelsResource($levels);
 
-        //transform data
-        $data = LevelResource::collection($levels);
+    }
 
-        return response()->json($data, 200);
+    public function show(Level $level)
+    {
+        LevelResource::withoutWrapping();
+        return new LevelResource($level);
     }
 }

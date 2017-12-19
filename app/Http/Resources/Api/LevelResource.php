@@ -10,23 +10,24 @@ class LevelResource extends Resource
      * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request
+<<<<<<< HEAD
+=======
+     *
+>>>>>>> develop
      * @return array
      */
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'type' => 'level',
-            'attributes' => [
+            'type'          => 'levels',
+            'id'            => (string)$this->id,
+            'attributes'    => [
                 'name' => $this->name,
-                'icon' => $this->icon,
             ],
-            'links' => [
-                'self' => '',
-                'next' => '',
-                'previous' => ''
+            'relationships' => new LevelRelationshipResource($this),
+            'links'         => [
+                'self' => route('levels.show', ['level' => $this->id]),
             ],
-            'children' => new SubLevelResource($this)
         ];
     }
 }

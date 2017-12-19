@@ -38,7 +38,6 @@ Route::apiResource('levels', 'App\Http\Controllers\Api\LevelController');
 Route::apiResource('levels/{level}/sections', 'App\Http\Controllers\Api\SectionController');
 Route::apiResource('levels/{level}/sections/{section}/business-options', 'App\Http\Controllers\Api\BusinessOptionController');
 
-
 Route::group(['middleware' => ['jwt.auth']], function() {
     /**
      * User logout route is also protected route

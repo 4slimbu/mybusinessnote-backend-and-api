@@ -7,10 +7,10 @@ use App\Models\Level;
 
 class PageController extends BaseApiController
 {
-    public function show($levelId, $subLevelId = null, $businessOptionId = null)
+    public function home()
     {
-        if ($levelId && $subLevelId == null && $businessOptionId == null) {
-        }
+        $level = Level::orderBy('menu_order')->first();
+        return $this->level($level);
     }
 
     public function level(Level $level) {
@@ -28,6 +28,11 @@ class PageController extends BaseApiController
         $data['businesOption'] = BusinessOption::where('level_id', $section->id)->first();
 
         return view(parent::loadViewData('start.page.index'), compact('data'));
+    }
+
+    public function businessOption(BusinessOption $businessOption)
+    {
+
     }
 
     public function page($page)
