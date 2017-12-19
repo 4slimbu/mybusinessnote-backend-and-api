@@ -7,12 +7,12 @@
     @endif
 </div>
 
-{{--Level--}}
+{{--Section--}}
 <div class="form-group">
-    <label  class="display-block text-semibold">Level:</label>
-    {{ Form::select('level_id', $data['levels'], null, ['class' => 'form-control', 'placeholder' => '-- Select Level --']) }}
-    @if($errors->has('level_id'))
-        <span class="text-danger">{{ $errors->first('level_id') }}</span>
+    <label  class="display-block text-semibold">Section:</label>
+    {{ Form::select('section_id', $data['sections'], null, ['class' => 'form-control', 'placeholder' => '-- Select Section --']) }}
+    @if($errors->has('section_id'))
+        <span class="text-danger">{{ $errors->first('section_id') }}</span>
     @endif
 </div>
 

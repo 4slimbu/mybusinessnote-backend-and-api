@@ -15,7 +15,6 @@ class CreateLevelsTable extends Migration {
 		Schema::create('levels', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('section_id')->nullable();
 			$table->string('name', 191);
             $table->string('icon', 191);
             $table->tinyInteger('menu_order')->unique();

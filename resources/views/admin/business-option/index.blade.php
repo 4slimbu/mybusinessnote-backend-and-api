@@ -12,8 +12,8 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Level/SubLevel/BusinesOption</th>
-                    <th>SubLevel/BusinessOption</th>
+                    <th>BusinessOption</th>
+                    <th>Section</th>
                     <th>Show On</th>
                     <th>Actions</th>
 
@@ -22,15 +22,15 @@
                 <tbody>
                 @if(isset($data['rows']) && $data['rows']->count() > 0)
                 <!-- Levels -->
-                @foreach ($data['rows'] as $level)
+                @foreach ($data['rows'] as $businessOption)
                     <tr>
-                        <td>L: {{ $level->level->name or 'No Level' }}</td>
-                        <td>BO: {{ $level->name }}</td>
-                        <td>{{ ViewHelper::generateList($level->businessCategories) }}</td>
+                        <td>{{ $businessOption->name }}</td>
+                        <td>{{ $businessOption->section->name }}</td>
+                        <td>{{ ViewHelper::generateList($businessOption->businessCategories) }}</td>
                         <td>
                             <div class="">
-                                <a href="{{ route('admin.business-option.edit', $level->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                <form class="form-inline" method="POST" action="{{ route('admin.business-option.destroy', $level->id) }}">
+                                <a href="{{ route('admin.business-option.edit', $businessOption->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                <form class="form-inline" method="POST" action="{{ route('admin.business-option.destroy', $businessOption->id) }}">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
                                     <button onclick="javascript: return confirm('Are you sure?');" type="submit" class="btn btn-sm btn-danger">Delete</button>
@@ -38,17 +38,17 @@
                             </div>
                         </td>
                     </tr>
-                    @if(isset($data['sub-rows']) && $data['sub-rows']->count() > 0)
-                        <!-- Sub Levels -->
-                        @foreach ($data['sub-rows'] as $subLevel)
+                    @if(!empty($businessOption->children))
+                        <!-- Business Options -->
+                        @foreach($businessOption->children as $BO)
                             <tr>
-                                <td style="padding-left: 50px;">SL: {{ $subLevel->level->name or 'No Level' }}</td>
-                                <td>BO: {{ $subLevel->name }}</td>
-                                <td>{{ ViewHelper::generateList($subLevel->businessCategories) }}</td>
+                                <td style="padding-left: 100px;">{{ $BO->name }}</td>
+                                <td>{{ $BO->section->name }}</td>
+                                <td>{{ ViewHelper::generateList($BO->businessCategories) }}</td>
                                 <td>
                                     <div class="">
-                                        <a href="{{ route('admin.business-option.edit', $subLevel->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                        <form class="form-inline" method="POST" action="{{ route('admin.business-option.destroy', $subLevel->id) }}">
+                                        <a href="{{ route('admin.business-option.edit', $BO->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                        <form class="form-inline" method="POST" action="{{ route('admin.business-option.destroy', $BO->id) }}">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
                                             <button onclick="javascript: return confirm('Are you sure?');" type="submit" class="btn btn-sm btn-danger">Delete</button>
@@ -56,17 +56,17 @@
                                     </div>
                                 </td>
                             </tr>
-                            @if(!empty($subLevel->children))
-                                <!-- Business Options -->
-                                @foreach($subLevel->children as $BO)
+                            @if(!empty($BO->children))
+                                <!-- Child Business Options -->
+                                @foreach($BO->children as $childBO)
                                     <tr>
-                                        <td style="padding-left: 100px;">BO: {{ $BO->name }}</td>
-                                        <td>SL: {{ $BO->level->name or 'No Parent' }}</td>
-                                        <td>{{ ViewHelper::generateList($BO->businessCategories) }}</td>
+                                        <td style="padding-left: 150px;">{{ $childBO->name }}</td>
+                                        <td>{{ $childBO->section->name }}</td>
+                                        <td>{{ ViewHelper::generateList($childBO->businessCategories) }}</td>
                                         <td>
                                             <div class="">
-                                                <a href="{{ route('admin.business-option.edit', $BO->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                                <form class="form-inline" method="POST" action="{{ route('admin.business-option.destroy', $BO->id) }}">
+                                                <a href="{{ route('admin.business-option.edit', $childBO->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                                <form class="form-inline" method="POST" action="{{ route('admin.business-option.destroy', $childBO->id) }}">
                                                     {{ csrf_field() }}
                                                     {{ method_field('DELETE') }}
                                                     <button onclick="javascript: return confirm('Are you sure?');" type="submit" class="btn btn-sm btn-danger">Delete</button>
@@ -74,17 +74,17 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    @if(!empty($BO->children))
-                                        <!-- Child Business Options -->
-                                        @foreach($BO->children as $childBO)
+                                    @if(!empty($childBO->children))
+                                        <!-- Grand Child Business Options -->
+                                        @foreach($childBO->children as $grandChildBO)
                                             <tr>
-                                                <td style="padding-left: 150px;">BO: {{ $childBO->name }}</td>
-                                                <td>SL: {{ $childBO->level->name or 'No Parent' }}</td>
-                                                <td>{{ ViewHelper::generateList($childBO->businessCategories) }}</td>
+                                                <td style="padding-left: 200px;">{{ $grandChildBO->name }}</td>
+                                                <td>{{ $grandChildBO->section->name }}</td>
+                                                <td>{{ ViewHelper::generateList($grandChildBO->businessCategories) }}</td>
                                                 <td>
                                                     <div class="">
-                                                        <a href="{{ route('admin.business-option.edit', $childBO->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                                        <form class="form-inline" method="POST" action="{{ route('admin.business-option.destroy', $childBO->id) }}">
+                                                        <a href="{{ route('admin.business-option.edit', $grandChildBO->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                                        <form class="form-inline" method="POST" action="{{ route('admin.business-option.destroy', $grandChildBO->id) }}">
                                                             {{ csrf_field() }}
                                                             {{ method_field('DELETE') }}
                                                             <button onclick="javascript: return confirm('Are you sure?');" type="submit" class="btn btn-sm btn-danger">Delete</button>
@@ -92,26 +92,6 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                            @if(!empty($childBO->children))
-                                                <!-- Grand Child Business Options -->
-                                                @foreach($childBO->children as $grandChildBO)
-                                                    <tr>
-                                                        <td style="padding-left: 200px;">BO: {{ $grandChildBO->name }}</td>
-                                                        <td>SL: {{ $grandChildBO->level->name or 'No Parent' }}</td>
-                                                        <td>{{ ViewHelper::generateList($grandChildBO->businessCategories) }}</td>
-                                                        <td>
-                                                            <div class="">
-                                                                <a href="{{ route('admin.business-option.edit', $grandChildBO->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                                                <form class="form-inline" method="POST" action="{{ route('admin.business-option.destroy', $grandChildBO->id) }}">
-                                                                    {{ csrf_field() }}
-                                                                    {{ method_field('DELETE') }}
-                                                                    <button onclick="javascript: return confirm('Are you sure?');" type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                                                </form>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            @endif
                                         @endforeach
                                     @endif
                                 @endforeach

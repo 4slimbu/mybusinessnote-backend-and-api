@@ -9,6 +9,7 @@ use App\Models\AffiliateLink;
 use App\Models\BusinessOption;
 use App\Models\BusinessCategory;
 use App\Models\Level;
+use App\Models\Section;
 use Session, AppHelper;
 
 
@@ -43,17 +44,9 @@ class BusinessOptionController extends AdminBaseController
         $data = [];
 
         //get data
-        $topLevels = Level::select('id')->where('parent_id', null)->pluck('id')->toArray();
-        $data['rows'] = BusinessOption::with('level', 'parent', 'children', 'businessCategories')
-            ->whereIn('level_id', $topLevels)
-            ->paginate(1);
-
-        $subLevels = Level::select('id')->where('parent_id', $data['rows'][0]->level->id)->pluck('id')->toArray();
-
-        $data['sub-rows'] = BusinessOption::with('level', 'parent', 'children', 'businessCategories')
-            ->whereIn('level_id', $subLevels)
+        $data['rows'] = BusinessOption::with('section', 'parent', 'children', 'businessCategories')
             ->where('parent_id', null)
-            ->get();
+            ->paginate(100);
 
         return view(parent::loadViewData($this->view_path . '.index'), compact('data'));
     }
@@ -145,10 +138,10 @@ class BusinessOptionController extends AdminBaseController
         $data['selectedBusinessCategories'] = $businessOption->businessCategories->pluck('id');
         $data['selectedAffiliateLinks'] = $businessOption->affiliateLinks->pluck('id');
 
-        $levels = Level::with('parent')
+        $sections = Section::with('level')
             ->get();
-        $data['levels'] = $levels->mapWithKeys(function ($item) {
-            $prefix = isset($item->parent) ? $item->parent->name . ' - ' : '';
+        $data['sections'] = $sections->mapWithKeys(function ($item) {
+            $prefix = isset($item->level) ? $item->level->name . ' - ' : '';
             return [ $item->id => $prefix . $item->name ];
         });
 

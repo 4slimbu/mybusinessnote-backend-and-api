@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class BusinessOption extends Model
 {
     protected $fillable = [
-        'level_id',
+        'section_id',
         'parent_id',
         'name',
         'description',
@@ -25,7 +25,7 @@ class BusinessOption extends Model
 
     //Each can have multiple children
     public function children() {
-        return $this->hasMany(static::class, 'parent_id');
+        return $this->hasMany(BusinessOption::class, 'parent_id');
     }
 
 	public function businessCategories()
@@ -38,9 +38,9 @@ class BusinessOption extends Model
         return $this->belongsToMany(AffiliateLink::class);
     }
 
-    public function level()
+    public function section()
     {
-        return $this->belongsTo(Level::class);
+        return $this->belongsTo(Section::class);
     }
 
 }

@@ -20,7 +20,7 @@ class BusinessOptionsTableSeeder extends Seeder
             0 => 
             array (
                 'id' => 1,
-                'level_id' => 1,
+                'section_id' => 1,
                 'parent_id' => NULL,
                 'name' => 'Getting Started',
                 'description' => NULL,
@@ -35,7 +35,7 @@ class BusinessOptionsTableSeeder extends Seeder
             1 => 
             array (
                 'id' => 2,
-                'level_id' => 4,
+                'section_id' => 1,
                 'parent_id' => NULL,
                 'name' => 'What industry is your business idea in',
                 'description' => NULL,
@@ -50,7 +50,7 @@ class BusinessOptionsTableSeeder extends Seeder
             2 => 
             array (
                 'id' => 3,
-                'level_id' => 4,
+                'section_id' => 1,
                 'parent_id' => 2,
                 'name' => 'General',
                 'description' => NULL,
@@ -65,7 +65,7 @@ class BusinessOptionsTableSeeder extends Seeder
             3 => 
             array (
                 'id' => 4,
-                'level_id' => 4,
+                'section_id' => 1,
                 'parent_id' => 2,
                 'name' => 'Hospitality',
                 'description' => NULL,
@@ -80,7 +80,7 @@ class BusinessOptionsTableSeeder extends Seeder
             4 => 
             array (
                 'id' => 5,
-                'level_id' => 4,
+                'section_id' => 1,
                 'parent_id' => 2,
                 'name' => 'Online Ecommerce',
                 'description' => NULL,
@@ -95,7 +95,7 @@ class BusinessOptionsTableSeeder extends Seeder
             5 => 
             array (
                 'id' => 6,
-                'level_id' => 4,
+                'section_id' => 1,
                 'parent_id' => 2,
                 'name' => 'Solo Traders',
                 'description' => NULL,
@@ -110,7 +110,7 @@ class BusinessOptionsTableSeeder extends Seeder
             6 => 
             array (
                 'id' => 7,
-                'level_id' => 5,
+                'section_id' => 2,
                 'parent_id' => NULL,
                 'name' => 'Great Now lets create your account',
                 'description' => NULL,
@@ -125,7 +125,7 @@ class BusinessOptionsTableSeeder extends Seeder
             7 => 
             array (
                 'id' => 8,
-                'level_id' => 6,
+                'section_id' => 3,
                 'parent_id' => NULL,
                 'name' => 'So tell us about your business',
                 'description' => NULL,
@@ -140,7 +140,7 @@ class BusinessOptionsTableSeeder extends Seeder
             8 => 
             array (
                 'id' => 9,
-                'level_id' => 7,
+                'section_id' => 4,
                 'parent_id' => NULL,
                 'name' => 'Register Your Business',
                 'description' => NULL,
@@ -155,7 +155,7 @@ class BusinessOptionsTableSeeder extends Seeder
             9 => 
             array (
                 'id' => 10,
-                'level_id' => 2,
+                'section_id' => 5,
                 'parent_id' => NULL,
                 'name' => 'Which area of your business would you like to work on first?',
                 'description' => NULL,
@@ -171,7 +171,7 @@ class BusinessOptionsTableSeeder extends Seeder
             10 => 
             array (
                 'id' => 11,
-                'level_id' => 8,
+                'section_id' => 5,
                 'parent_id' => NULL,
                 'name' => 'Do you have a logo',
                 'description' => NULL,
@@ -186,7 +186,7 @@ class BusinessOptionsTableSeeder extends Seeder
             11 => 
             array (
                 'id' => 12,
-                'level_id' => 8,
+                'section_id' => 5,
                 'parent_id' => 11,
                 'name' => 'Enter your tagline',
                 'description' => NULL,
@@ -201,7 +201,7 @@ class BusinessOptionsTableSeeder extends Seeder
             12 => 
             array (
                 'id' => 13,
-                'level_id' => 8,
+                'section_id' => 5,
                 'parent_id' => 12,
                 'name' => 'Select Your Brand Color',
                 'description' => NULL,
@@ -216,7 +216,7 @@ class BusinessOptionsTableSeeder extends Seeder
             13 => 
             array (
                 'id' => 14,
-                'level_id' => 8,
+                'section_id' => 5,
                 'parent_id' => 13,
                 'name' => 'Social Media Registration',
                 'description' => NULL,
@@ -231,7 +231,7 @@ class BusinessOptionsTableSeeder extends Seeder
             14 => 
             array (
                 'id' => 15,
-                'level_id' => 10,
+                'section_id' => 6,
                 'parent_id' => NULL,
                 'name' => 'Finance option',
                 'description' => NULL,
@@ -246,7 +246,7 @@ class BusinessOptionsTableSeeder extends Seeder
             15 => 
             array (
                 'id' => 16,
-                'level_id' => 10,
+                'section_id' => 6,
                 'parent_id' => NULL,
                 'name' => 'Merchant Facilities',
                 'description' => NULL,
@@ -261,7 +261,7 @@ class BusinessOptionsTableSeeder extends Seeder
             16 => 
             array (
                 'id' => 17,
-                'level_id' => 3,
+                'section_id' => 7,
                 'parent_id' => NULL,
                 'name' => 'Which area of your business would you like to work on first?',
                 'description' => NULL,
@@ -276,7 +276,7 @@ class BusinessOptionsTableSeeder extends Seeder
             17 => 
             array (
                 'id' => 18,
-                'level_id' => 11,
+                'section_id' => 7,
                 'parent_id' => NULL,
                 'name' => 'SWOT',
                 'description' => NULL,
