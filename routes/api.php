@@ -29,7 +29,12 @@ Route::post('/login', [
 ]);
 
 
+/**
+ * Level Routes
+ */
 
+/* Levels */
+Route::apiResource('levels', 'App\Http\Controllers\Api\LevelController');
 
 
 Route::group(['middleware' => ['jwt.auth']], function() {
@@ -62,11 +67,6 @@ Route::group(['middleware' => ['jwt.auth']], function() {
         'uses' => 'App\Http\Controllers\Api\PageController@businessOption'
     ]);
 
-    /**
-     * Level Routes
-     */
 
-    /* Levels */
-    Route::apiResource('levels', 'App\Http\Controllers\Api\LevelController');
 });
 
