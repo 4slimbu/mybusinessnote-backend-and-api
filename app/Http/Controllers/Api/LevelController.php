@@ -13,7 +13,7 @@ class LevelController extends BaseApiController
         //get data
         $levels = Level::with('sections')
             ->orderBy('menu_order')
-            ->paginate();
+            ->get();
 
         return new LevelResourceCollection($levels);
 
