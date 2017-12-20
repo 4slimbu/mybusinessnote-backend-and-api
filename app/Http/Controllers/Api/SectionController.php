@@ -2,26 +2,24 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Resources\Api\LevelResource;
-use App\Http\Resources\Api\LevelsResource;
+use App\Http\Resources\Api\SectionResource;
+use App\Http\Resources\Api\SectionResourceCollection;
 use App\Models\Level;
+use App\Models\Section;
 
 class SectionController extends BaseApiController
 {
     public function index()
     {
         //get data
-        $levels = Level::with('parent', 'children')
-            ->where('parent_id', '!=',  null)
-            ->orderBy('menu_order')
-            ->paginate();
-        return new LevelsResource($levels);
+        $sections = Section::with('level')->get();
+
+        return new SectionResourceCollection($sections);
 
     }
 
-    public function show(Level $level, Level $section)
+    public function show(Level $level, Section $section)
     {
-        LevelResource::withoutWrapping();
-        return new LevelResource($section);
+        return new SectionResource($section);
     }
 }

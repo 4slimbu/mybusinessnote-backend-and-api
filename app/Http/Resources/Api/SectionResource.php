@@ -5,7 +5,7 @@ namespace App\Http\Resources\Api;
 use Illuminate\Http\Resources\Json\Resource;
 use Illuminate\Support\Facades\Route;
 
-class LevelResource extends Resource
+class SectionResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -17,17 +17,16 @@ class LevelResource extends Resource
         return [
             'id'            => (string)$this->id,
             'name' => $this->name,
+            //prevent infinite loop when called using relationship
+            $this->mergeWhen(
+                Route::currentRouteName() != 'levels.show' &&
+                Route::currentRouteName() != 'levels.index'
+                , [
+                'level' => new LevelResource($this->level)
+            ]),
             'links'         => [
                 'self' => route('levels.show', ['level' => $this->id]),
             ],
-            //prevent infinite loop when called using relationship
-            $this->mergeWhen(
-                Route::currentRouteName() != 'sections.show' &&
-                Route::currentRouteName() != 'sections.index'
-                , [
-                'sections' => new SectionResourceCollection($this->sections)
-            ]),
-
         ];
     }
 }
