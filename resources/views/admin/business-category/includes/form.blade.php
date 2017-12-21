@@ -7,6 +7,15 @@
     @endif
 </div>
 
+{{--Icon--}}
+{{--<div class="form-group">--}}
+    {{--<label  class="display-block text-semibold">Icon:</label>--}}
+    {{--{{ Form::file('icon', null, ['class' => 'form-control']) }}--}}
+    {{--@if($errors->has('icon'))--}}
+        {{--<span class="text-danger">{{ $errors->first('icon') }}</span>--}}
+    {{--@endif--}}
+{{--</div>--}}
+
 {{--Tool Tip--}}
 <div class="form-group">
     <label>Tool Tip:</label>

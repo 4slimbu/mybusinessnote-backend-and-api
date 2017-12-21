@@ -11,8 +11,9 @@ class BusinessOption extends Model
         'parent_id',
         'name',
         'description',
-        'tooltip',
         'content',
+        'element',
+        'tooltip',
         'show_everywhere',
         'weight'
     ];
@@ -43,4 +44,14 @@ class BusinessOption extends Model
         return $this->belongsTo(Section::class);
     }
 
+    public static function elements()
+    {
+        return [
+            'GettingStartedHome' => 'GettingStartedHome',
+            'BusinessCategories' => 'BusinessCategories',
+            'RegisterUser' => 'RegisterUser',
+            'CreateBusiness' => 'CreateBusiness',
+            'RegisterBusiness' => 'RegisterBusiness'
+        ];
+    }
 }

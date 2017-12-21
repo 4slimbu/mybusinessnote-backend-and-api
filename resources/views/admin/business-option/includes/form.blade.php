@@ -51,21 +51,30 @@
     @endif
 </div>
 
-{{--Tool Tip--}}
-<div class="form-group">
-    <label>Tool Tip:</label>
-    {{ Form::textarea('tooltip', null, ['class' => 'form-control']) }}
-    @if($errors->has('tooltip'))
-        <span class="text-danger">{{ $errors->first('tooltip') }}</span>
-    @endif
-</div>
-
 {{--Content--}}
 <div class="form-group">
     <label>Content:</label>
     {{ Form::textarea('content', null, ['class' => 'form-control']) }}
     @if($errors->has('content'))
         <span class="text-danger">{{ $errors->first('content') }}</span>
+    @endif
+</div>
+
+{{--Elements--}}
+<div class="form-group">
+    <label  class="display-block text-semibold">Element:</label>
+    {{ Form::select('element', $data['elements'], $data['selectedElement'], ['placeholder' => '-- Choose Element --', 'class' => 'form-control']) }}
+    @if($errors->has('element'))
+        <span class="text-danger">{{ $errors->first('element') }}</span>
+    @endif
+</div>
+
+{{--Tool Tip--}}
+<div class="form-group">
+    <label>Tool Tip:</label>
+    {{ Form::textarea('tooltip', null, ['class' => 'form-control']) }}
+    @if($errors->has('tooltip'))
+        <span class="text-danger">{{ $errors->first('tooltip') }}</span>
     @endif
 </div>
 

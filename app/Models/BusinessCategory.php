@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class BusinessCategory extends Model
 {
-    protected $fillable = ['name', 'tooltip'];
+    protected $fillable = ['name', 'icon', 'tooltip'];
 
     public function businesses()
     {

@@ -11,6 +11,7 @@
                 <tr>
                     <th>#</th>
                     <th>Title</th>
+                    <th>Icon</th>
                     <th>Tooltip</th>
                     <th>Actions</th>
 
@@ -22,6 +23,7 @@
                     <tr>
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->name }}</td>
+                        <td><img src="{{ asset($upload_directory . $item->icon) }}" alt=""></td>
                         <td>{{ $item->tooltip }}</td>
                         <td>
 

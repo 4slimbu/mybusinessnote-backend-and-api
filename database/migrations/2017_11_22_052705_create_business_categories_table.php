@@ -16,6 +16,7 @@ class CreateBusinessCategoriesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name', 191);
+			$table->string('icon', 191)->nullable();
 			$table->text('tooltip', 65535)->nullable();
 			$table->timestamps();
 		});

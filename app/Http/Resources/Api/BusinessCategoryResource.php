@@ -3,8 +3,9 @@
 namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Support\Facades\Route;
 
-class BusinessOptionResource extends Resource
+class BusinessCategoryResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -14,12 +15,11 @@ class BusinessOptionResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => (string)$this->id,
+            'id'            => (string)$this->id,
             'name' => $this->name,
-            'content' => $this->content,
-            'element' => $this->element,
-            'tooltip' => $this->tooltip,
-            'weight' => $this->weight
+            'white_icon' => asset('images/icons/white/' . $this->icon ),
+            'red_icon' => asset('images/icons/red/' . $this->icon ),
+            'tooltip' => $this->tooltip
         ];
     }
 }

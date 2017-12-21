@@ -31,6 +31,12 @@ class BusinessCategoryController extends AdminBaseController
     protected $panel_name = 'Business Category';
 
     /**
+     * Upload directory relative to public folder
+     * @var string
+     */
+    protected $upload_directory = 'images/icons/';
+
+    /**
      * Display a listing of the business category.
      *
      * @return \Illuminate\Http\Response
@@ -64,8 +70,18 @@ class BusinessCategoryController extends AdminBaseController
      */
     public function store(CreateFormValidation $request)
     {
+        //Image Upload
+        if ($request->file('icon')->isValid()) {
+            $file = $request->file('icon');
+            $destinationPath = public_path($this->upload_directory);
+            $fileName = str_random('32') . '.' . $file->getClientOriginalExtension();
+            $file->move($destinationPath, $fileName);
+        }
 
-        BusinessCategory::create($request->all());
+        $input = $request->all();
+        $input['icon'] = $fileName;
+
+        BusinessCategory::create($input);
 
         Session::flash('success', $this->panel_name.' created successfully.');
         return redirect()->route($this->base_route);
@@ -110,6 +126,21 @@ class BusinessCategoryController extends AdminBaseController
     public function update(UpdateFormValidation $request, BusinessCategory $businessCategory)
     {
         $input = $request->all();
+
+        //Image Upload
+        if ($request->file('icon') && $request->file('icon')->isValid()) {
+            $file = $request->file('icon');
+            $destinationPath = public_path($this->upload_directory);
+            $fileName = str_random('32') . '.' . $file->getClientOriginalExtension();
+            $file->move($destinationPath, $fileName);
+            $input['icon'] = $fileName;
+
+            //Remove old image
+            if (!empty($businessCategory->icon) && file_exists(public_path($this->upload_directory . $businessCategory->icon))) {
+                unlink(public_path($this->upload_directory . $businessCategory->icon));
+            }
+        }
+
         $businessCategory->fill($input)->save();
 
         Session::flash('success', $this->panel_name.' updated successfully.');

@@ -34,6 +34,7 @@ Route::post('/login', [
  */
 
 /* Levels */
+Route::apiResource('business-categories', 'App\Http\Controllers\Api\BusinessCategoryController');
 Route::apiResource('levels', 'App\Http\Controllers\Api\LevelController');
 Route::apiResource('levels/{level}/sections', 'App\Http\Controllers\Api\SectionController');
 Route::apiResource('levels/{level}/sections/{section}/business-options', 'App\Http\Controllers\Api\BusinessOptionController');

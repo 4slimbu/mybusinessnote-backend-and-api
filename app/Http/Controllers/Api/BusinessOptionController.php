@@ -24,26 +24,19 @@ class BusinessOptionController extends BaseApiController
     {
         $business_option->with('parent', 'children');
 
-        $prev_business_option_id = BusinessOption::where('section_id', $section->id)
-            ->where('parent_id', $business_option->parent_id)
-            ->where('id', '<', $business_option->id)
-            ->max('id');
-
-        $next_business_option_id = BusinessOption::where('section_id', $section->id)
-            ->where('parent_id', $business_option->parent_id)
-            ->where('id', '>', $business_option->id)
-            ->min('id');
+        $prev = $this->getPreviousRecord($section, $business_option);
+        $next = $this->getNextRecord($section, $business_option);
 
         $links = [
             'self' => "/levels/{$level->id}/sections/{$section->id}/business-options/{$business_option->id}",
         ];
 
-        if ($prev_business_option_id) {
-            $links['prev'] = "/levels/{$level->id}/sections/{$section->id}/business-options/{$prev_business_option_id}";
+        if ($prev) {
+            $links['prev'] = "/levels/{$level->id}/sections/{$prev->section->id}/business-options/{$prev->id}";
         }
 
-        if ($next_business_option_id) {
-            $links['next'] = "/levels/{$level->id}/sections/{$section->id}/business-options/{$next_business_option_id}";
+        if ($next) {
+            $links['next'] = "/levels/{$level->id}/sections/{$next->section->id}/business-options/{$next->id}";
         }
 
         return (new BusinessOptionResource($business_option))->additional([
@@ -51,28 +44,106 @@ class BusinessOptionController extends BaseApiController
         ]);
     }
 
-    public function level(Level $level) {
-        $data = [];
-        $data['next'] = $level->children()->first();
-        $data['prevNextLinks'] = $this->generatePrevNextLinks($level);
-
-        return response()->json($data, 200);
-    }
-
-    public function section(Level $section) {
-        //initialize
-        $data = [];
-
-        $data['businesOption'] = BusinessOption::where('level_id', $section->id)->first();
-
-        return view(parent::loadViewData('start.page.index'), compact('data'));
-    }
-
-    public function page($page)
+    public function getPreviousRecord($section, $business_option)
     {
-        if ($page == 'home') {
-            $level = Level::first();
-            return $this->level($level);
+        //if has children
+        if ($child_business_option = $business_option->children->first()) {
+            $next = BusinessOption::where('section_id', $section->id)
+                ->where('parent_id', $child_business_option->parent_id)
+                ->where('id', '<', $child_business_option->id)
+                ->orderBy('id', 'desc')
+                ->first();
+
+            return $next;
+        }
+
+        //if has Sibling
+        $nextSibling = BusinessOption::where('section_id', $section->id)
+            ->where('parent_id', $business_option->parent_id)
+            ->where('id', '<', $business_option->id)
+            ->orderBy('id', 'desc')
+            ->first();
+
+        if ($nextSibling) {
+            return $nextSibling;
+        }
+
+        //if has Parent
+        if ($business_option->parent) {
+            $nextParent = BusinessOption::where('section_id', $section->id)
+                ->where('parent_id', $business_option->parent->id)
+                ->where('id', '<', $business_option->parent->id)
+                ->orderBy('id', 'desc')
+                ->first();
+            if ($nextParent) {
+                return $nextParent;
+            }
+        }
+
+        //if next section
+        $nextSection = Section::where('level_id', $section->level_id)
+            ->where('id', '<', $section->id)
+            ->orderBy('id', 'desc')
+            ->first();
+        if ($nextSection) {
+            $nextSectionFirstBusinessOption = BusinessOption::where('section_id', $nextSection->id)
+                ->first();
+            if ($nextSectionFirstBusinessOption) {
+                return $nextSectionFirstBusinessOption;
+            }
         }
     }
+
+    public function getNextRecord($section, $business_option)
+    {
+        //if has children
+        if ($child_business_option = $business_option->children->first()) {
+            $next = BusinessOption::where('section_id', $section->id)
+                ->where('parent_id', $child_business_option->parent_id)
+                ->where('id', '>', $child_business_option->id)
+                ->orderBy('id', 'asc')
+                ->first();
+
+            return $next;
+        }
+
+        //if has Sibling
+        $nextSibling = BusinessOption::where('section_id', $section->id)
+            ->where('parent_id', $business_option->parent_id)
+            ->where('id', '>', $business_option->id)
+            ->orderBy('id', 'asc')
+            ->first();
+
+        if ($nextSibling) {
+            return $nextSibling;
+        }
+
+        //if has Parent
+        if ($business_option->parent) {
+            $nextParent = BusinessOption::where('section_id', $section->id)
+                ->where('parent_id', $business_option->parent->id)
+                ->where('id', '>', $business_option->parent->id)
+                ->orderBy('id', 'asc')
+                ->first();
+            if ($nextParent) {
+                return $nextParent;
+            }
+        }
+
+        //if next section
+        $nextSection = Section::where('level_id', $section->level_id)
+            ->where('id', '>', $section->id)
+            ->orderBy('id', 'asc')
+            ->first();
+        if ($nextSection) {
+            $nextSectionFirstBusinessOption = BusinessOption::where('section_id', $nextSection->id)
+                ->first();
+            if ($nextSectionFirstBusinessOption) {
+                return $nextSectionFirstBusinessOption;
+            }
+        }
+
+        return null;
+    }
+
 }

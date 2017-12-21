@@ -8,7 +8,6 @@ use App\Http\Requests\Admin\BusinessOptionValidation\UpdateFormValidation;
 use App\Models\AffiliateLink;
 use App\Models\BusinessOption;
 use App\Models\BusinessCategory;
-use App\Models\Level;
 use App\Models\Section;
 use Session, AppHelper;
 
@@ -71,6 +70,8 @@ class BusinessOptionController extends AdminBaseController
 
         $data['businessOptions'] = BusinessOption::pluck('name', 'id');
         $data['businessCategories'] = BusinessCategory::pluck('name', 'id');
+        $data['elements'] = BusinessOption::elements();
+        $data['selectedElement'] = []; //dynamic form is expecting this variable
         $data['selectedBusinessCategories'] = []; //dynamic form is expecting this variable
         $data['selectedAffiliateLinks'] = []; //dynamic form is expecting this variable
 
@@ -137,6 +138,7 @@ class BusinessOptionController extends AdminBaseController
         $data['row'] = $businessOption;
         $data['selectedBusinessCategories'] = $businessOption->businessCategories->pluck('id');
         $data['selectedAffiliateLinks'] = $businessOption->affiliateLinks->pluck('id');
+        $data['selectedElement'] = $businessOption->element;
 
         $sections = Section::with('level')
             ->get();
@@ -147,6 +149,7 @@ class BusinessOptionController extends AdminBaseController
 
         $data['businessOptions'] = BusinessOption::where('id', '!=', $businessOption->id)->pluck('name', 'id');
         $data['businessCategories'] = BusinessCategory::pluck('name', 'id');
+        $data['elements'] = BusinessOption::elements();
 
         $affiliateLinks = AffiliateLink::with('partner', 'partner.userProfile')->get();
         $data['affiliateLinks'] = $affiliateLinks->mapWithKeys(function ($item) {
