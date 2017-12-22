@@ -19,12 +19,12 @@ class AffiliateLinkBusinessOptionTableSeeder extends Seeder
         \DB::table('affiliate_link_business_option')->insert(array (
             0 => 
             array (
-                'business_option_id' => 8,
+                'business_option_id' => 4,
                 'affiliate_link_id' => 1,
             ),
             1 => 
             array (
-                'business_option_id' => 9,
+                'business_option_id' => 5,
                 'affiliate_link_id' => 5,
             ),
             2 => 

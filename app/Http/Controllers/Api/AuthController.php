@@ -33,16 +33,35 @@ class AuthController extends Controller
 
         if($validator->fails()) {
             $error = $validator->messages();
-            return response()->json(['success'=> false, 'error'=> $error]);
+            return response()->json(['success'=> false, 'error'=> $error], 422);
         }
 
         //save data
         $input['role_id'] = 2; //role: customer
         $input['verified'] = 1; //email verification not required for now
-        User::create($input);
+        $user = User::create($input);
+
+        $credentials = [
+            'email' => $request->email,
+            'password' => $request->password,
+            'verified' => 1
+        ];
+
+        try {
+            // attempt to verify the credentials and create a token for the user
+            if (! $token = JWTAuth::attempt($credentials)) {
+                return response()->json(['success' => false, 'error' => 'Invalid Credentials. Please make sure you entered the right information and you have verified your email address.'], 401);
+            }
+        } catch (JWTException $e) {
+            // something went wrong whilst attempting to encode the token
+            return response()->json(['success' => false, 'error' => 'could_not_create_token'], 500);
+        }
 
         // all good so return the token
-        return response()->json(['success' => true, 'message' => 'User registered successfully']);
+        return response()->json([
+            'token' => $token,
+            'user' => $user
+        ]);
     }
 
     /**

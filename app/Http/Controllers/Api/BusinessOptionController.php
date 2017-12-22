@@ -22,7 +22,7 @@ class BusinessOptionController extends BaseApiController
 
     public function show(Level $level, Section $section, BusinessOption $business_option)
     {
-        $business_option->with('parent', 'children');
+        $business_option->with('parent', 'children', 'affiliateLinks');
 
         $prev = $this->getPreviousRecord($section, $business_option);
         $next = $this->getNextRecord($section, $business_option);

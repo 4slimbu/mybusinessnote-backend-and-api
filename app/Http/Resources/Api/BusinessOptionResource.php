@@ -19,7 +19,9 @@ class BusinessOptionResource extends Resource
             'content' => $this->content,
             'element' => $this->element,
             'tooltip' => $this->tooltip,
-            'weight' => $this->weight
+            'weight' => $this->weight,
+            //prevent infinite loop when called using relationship
+            'affiliate_links' => $this->affiliateLinks
         ];
     }
 }
