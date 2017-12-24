@@ -23,6 +23,11 @@ Route::post('/user/register', [
     'uses' => 'App\Http\Controllers\Api\AuthController@register'
 ]);
 
+Route::post('/user/{user}.', [
+    'as' => 'api.user.update',
+    'uses' => 'App\Http\Controllers\Api\AuthController@update'
+]);
+
 Route::post('/login', [
     'as' => 'api.login',
     'uses' => 'App\Http\Controllers\Api\AuthController@login'

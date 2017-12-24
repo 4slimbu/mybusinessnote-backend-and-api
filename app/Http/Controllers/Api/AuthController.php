@@ -65,6 +65,44 @@ class AuthController extends Controller
     }
 
     /**
+     * API Update User Info
+     *
+     * @param Request $request
+     * @param User $user
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(Request $request, User $user)
+    {
+        $rules = [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'phone_number' => 'required',
+            'password' => 'required',
+        ];
+
+
+        $input = $request->only('first_name', 'last_name', 'phone_number', 'password');
+        $validator = Validator::make($input, $rules);
+
+        if($validator->fails()) {
+            $error = $validator->messages();
+            return response()->json(['success'=> false, 'error'=> $error], 422);
+        }
+
+        //save data
+        $input['role_id'] = 2; //role: customer
+        $input['verified'] = 1; //email verification not required for now
+        $user = $user->save($input);
+
+
+        // all good so return the token
+        return response()->json([
+            'user' => $user
+        ]);
+    }
+
+
+    /**
      * API Login, on success return JWT Auth token
      *
      * @param Request $request
