@@ -23,7 +23,12 @@ Route::post('/user/register', [
     'uses' => 'App\Http\Controllers\Api\AuthController@register'
 ]);
 
-Route::post('/user/{user}.', [
+Route::post('/user/check-if-exist', [
+    'as' => 'api.user.check-if-exist',
+    'uses' => 'App\Http\Controllers\Api\AuthController@checkIfUserExistsAlready'
+]);
+
+Route::put('/user/{user}', [
     'as' => 'api.user.update',
     'uses' => 'App\Http\Controllers\Api\AuthController@update'
 ]);

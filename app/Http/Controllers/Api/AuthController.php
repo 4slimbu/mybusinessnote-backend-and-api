@@ -77,7 +77,6 @@ class AuthController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'phone_number' => 'required',
-            'password' => 'required',
         ];
 
 
@@ -90,14 +89,43 @@ class AuthController extends Controller
         }
 
         //save data
-        $input['role_id'] = 2; //role: customer
-        $input['verified'] = 1; //email verification not required for now
-        $user = $user->save($input);
+        $user->fill($input)->save();
 
 
-        // all good so return the token
+        // all good so return the user
         return response()->json([
             'user' => $user
+        ]);
+    }
+
+    /**
+     * API Check If User Already Exists
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @internal param User $user
+     */
+    public function checkIfUserExistsAlready(Request $request)
+    {
+        $rules = [
+            'email' => 'required|email',
+        ];
+
+
+        $input = $request->only('email');
+        $validator = Validator::make($input, $rules);
+
+        if($validator->fails()) {
+            $error = $validator->messages();
+            return response()->json(['success'=> false, 'error'=> $error], 422);
+        }
+
+        //check user
+        $user = User::select('id')->where('email', $request->get('email'))->first();
+
+        //return response
+        return response()->json([
+            'user' => ($user) ? true : false
         ]);
     }
 

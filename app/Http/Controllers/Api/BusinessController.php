@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Resources\Api\BusinessResource;
 use App\Models\Business;
-use Illuminate\Http\Request;
+use App\Http\Requests\Api\BusinessValidation\CreateFormValidation;
+use App\Http\Requests\Api\BusinessValidation\UpdateFormValidation;
 
 class BusinessController extends BaseApiController
 {
@@ -13,14 +14,14 @@ class BusinessController extends BaseApiController
         return new BusinessResource($business);
     }
 
-    public function store(Request $request)
+    public function store(CreateFormValidation $request)
     {
         $business = Business::create($request->all());
 
         return new BusinessResource($business);
     }
 
-    public function update(Request $request, Business $business)
+    public function update(UpdateFormValidation $request, Business $business)
     {
 
         $input = $request->all();
