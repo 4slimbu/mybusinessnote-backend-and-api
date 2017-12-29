@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\BadgeValidation;
+namespace App\Http\Requests\Api\BadgeValidation;
 
 use Illuminate\Foundation\Http\FormRequest;
 

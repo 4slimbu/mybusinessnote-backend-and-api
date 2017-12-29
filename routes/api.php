@@ -23,9 +23,9 @@ Route::post('/user/register', [
     'uses' => 'App\Http\Controllers\Api\AuthController@register'
 ]);
 
-Route::post('/user/check-if-exist', [
-    'as' => 'api.user.check-if-exist',
-    'uses' => 'App\Http\Controllers\Api\AuthController@checkIfUserExistsAlready'
+Route::post('/user/check-if-exists', [
+    'as' => 'api.user.check-if-exists',
+    'uses' => 'App\Http\Controllers\Api\AuthController@checkIfUserExists'
 ]);
 
 Route::put('/user/{user}', [
@@ -33,8 +33,8 @@ Route::put('/user/{user}', [
     'uses' => 'App\Http\Controllers\Api\AuthController@update'
 ]);
 
-Route::post('/login', [
-    'as' => 'api.login',
+Route::post('/user/login', [
+    'as' => 'api.user.login',
     'uses' => 'App\Http\Controllers\Api\AuthController@login'
 ]);
 
@@ -79,7 +79,5 @@ Route::group(['middleware' => ['jwt.auth']], function() {
         'as' => 'start.level.section.business-option',
         'uses' => 'App\Http\Controllers\Api\PageController@businessOption'
     ]);
-
-
 });
 

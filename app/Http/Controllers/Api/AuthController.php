@@ -49,7 +49,11 @@ class AuthController extends Controller
 
         try {
             // attempt to verify the credentials and create a token for the user
-            if (! $token = JWTAuth::attempt($credentials)) {
+            $customClaims = [
+                "user" => $user
+            ];
+
+            if (! $token = JWTAuth::attempt($credentials, $customClaims)) {
                 return response()->json(['success' => false, 'error' => 'Invalid Credentials. Please make sure you entered the right information and you have verified your email address.'], 401);
             }
         } catch (JWTException $e) {
@@ -59,8 +63,8 @@ class AuthController extends Controller
 
         // all good so return the token
         return response()->json([
-            'token' => $token,
-            'user' => $user
+            'success' => true,
+            'token' => $token
         ]);
     }
 
@@ -94,18 +98,19 @@ class AuthController extends Controller
 
         // all good so return the user
         return response()->json([
+            'success' => true,
             'user' => $user
         ]);
     }
 
     /**
-     * API Check If User Already Exists
+     * API Check If User Exists
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @internal param User $user
      */
-    public function checkIfUserExistsAlready(Request $request)
+    public function checkIfUserExists(Request $request)
     {
         $rules = [
             'email' => 'required|email',
@@ -157,7 +162,16 @@ class AuthController extends Controller
 
         try {
             // attempt to verify the credentials and create a token for the user
-            if (! $token = JWTAuth::attempt($credentials)) {
+            $authUser = User::where("email", $request->email)
+                ->where("verified", 1)
+                ->first()
+                ->toArray();
+
+            $customClaims = [
+                "user" => $authUser
+            ];
+
+            if (! $token = JWTAuth::attempt($credentials, $customClaims)) {
                 return response()->json(['success' => false, 'error' => 'Invalid Credentials. Please make sure you entered the right information and you have verified your email address.'], 401);
             }
         } catch (JWTException $e) {
@@ -171,7 +185,7 @@ class AuthController extends Controller
     /**
      * Log out
      * Invalidate the token, so user cannot use it anymore
-     * They have to relogin to get a new token
+     * They have to re-login to get a new token
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
