@@ -24,9 +24,9 @@ class SectionResource extends Resource
                 , [
                 'level' => new LevelResource($this->level)
             ]),
-            'links'         => [
-                'self' => route('levels.show', ['level' => $this->id]),
-            ],
+//            'links'         => [
+//                'self' => route('levels.show', ['level' => $this->id]),
+//            ],
         ];
     }
 }

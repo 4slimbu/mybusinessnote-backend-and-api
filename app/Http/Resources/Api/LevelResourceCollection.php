@@ -23,7 +23,7 @@ class LevelResourceCollection extends ResourceCollection
         return [
             'links'    => [
                 'self' => route('levels.index'),
-            ]
+            ],
         ];
     }
 }

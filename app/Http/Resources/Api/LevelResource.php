@@ -17,9 +17,9 @@ class LevelResource extends Resource
         return [
             'id'            => (string)$this->id,
             'name' => $this->name,
-            'links'         => [
-                'self' => route('levels.show', ['level' => $this->id]),
-            ],
+//            'links'         => [
+//                'self' => route('levels.show', ['level' => $this->id]),
+//            ],
             //prevent infinite loop when called using relationship
             $this->mergeWhen(
                 Route::currentRouteName() != 'sections.show' &&
