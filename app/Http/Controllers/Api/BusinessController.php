@@ -46,18 +46,19 @@ class BusinessController extends BaseApiController
     }
 
     public function getStatus($business_id) {
-        //initialize
-        $business = Business::where("id", $business_id)->first();
 
-        //if no business or no auth user business, return with generic data
-        if (! $business || Auth::id() !== $business->user->id) {
+        //initialize
+        $business = Business::where("id", 1)->first();
+//        $business = Business::where("id", $business_id)->first();
+
+        //if no business, return with generic data
+        if (!$business) {
             $data = [
                 "levels" => $this->getLevels($business),
-                "sections" => $this->getSections($business),
             ];
 
             return response()->json($data, 200);
-        }
+        };
 
         // else return with business data
         $data = [
@@ -66,7 +67,6 @@ class BusinessController extends BaseApiController
             "business_category_id" => $business->businessCategory->id,
             "business_name" => $business->business_name,
             "levels" => $this->getLevels($business),
-            "sections" => $this->getSections($business),
         ];
 
         return response()->json($data, 200);
@@ -76,42 +76,58 @@ class BusinessController extends BaseApiController
     {
         //get data
         $data = [];
-        $levels = Level::all();
+        $levels = Level::select('id', 'name', 'slug', 'icon')->orderBy('menu_order')->get();
 
         //get levels data and set completed_percent to 0
         foreach ($levels as $level) {
-            $data[$level->id] = $level->toArray();
-            $data[$level->id]["completed_percent"] = 0;
+            $arr = $level->toArray();
+            $arr["completed_percent"] = 0;
+
+            //set completed_percent to actual percent on touched levels
+            if (isset($business->levels)) {
+                foreach ($business->levels as $b_level) {
+                    if ($b_level->id == $level->id) {
+                        $arr["completed_percent"] = $b_level->pivot->completed_percent;
+                    }
+
+                }
+            }
+
+            $arr["sections"] = $this->getSections($business, $level);
+            array_push($data, $arr);
         }
 
-        //set completed_percent to actual percent on touched levels
-        if (isset($business->levels)) {
-            foreach ($business->levels as $b_level) {
-                $data[$b_level->id]["completed_percent"] = $b_level->pivot->completed_percent;
-            }
-        }
+
 
         return $data;
     }
 
-    private function getSections($business)
+    private function getSections($business, $level)
     {
+
         //get data
         $data = [];
-        $sections = Section::all();
+        $sections = Section::select('id', 'level_id', 'slug', 'name')->where("level_id", $level->id)->get();
 
         //get sections data and set completed_percent to 0
+        //get levels data and set completed_percent to 0
         foreach ($sections as $section) {
-            $data[$section->id] = $section->toArray();
-            $data[$section->id]["completed_percent"] = 0;
+            $arr = $section->toArray();
+            $arr["completed_percent"] = 0;
+
+            //set completed_percent to actual percent on touched sections
+            if (isset($business->sections)) {
+                foreach ($business->sections as $b_section) {
+                    if ($b_section->id == $section->id) {
+                        $arr["completed_percent"] = $b_section->pivot->completed_percent;
+                    }
+
+                }
+            }
+
+            array_push($data, $arr);
         }
 
-        //set completed_percent to actual percent on touched sections
-        if (isset($business->sections)) {
-            foreach ($business->sections as $b_section) {
-                $data[$b_section->id]["completed_percent"] = $b_section->pivot->completed_percent;
-            }
-        }
 
         return $data;
     }

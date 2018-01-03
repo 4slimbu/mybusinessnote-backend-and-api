@@ -20,6 +20,7 @@ class LevelsTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'name' => 'Getting Started',
+                'slug' => 'getting-started',
                 'icon' => 'badge_placeholder.jpg',
                 'description' => NULL,
                 'menu_order' => 1,
@@ -29,6 +30,7 @@ class LevelsTableSeeder extends Seeder
             array (
                 'id' => 2,
                 'name' => 'Setting the Foundations',
+                'slug' => 'setting-the-foundations',
                 'icon' => 'badge_placeholder.jpg',
                 'description' => NULL,
                 'menu_order' => 2,
@@ -38,6 +40,7 @@ class LevelsTableSeeder extends Seeder
             array (
                 'id' => 3,
                 'name' => 'Building up a Business',
+                'slug' => 'building-up-a-business',
                 'icon' => 'badge_placeholder.jpg',
                 'description' => NULL,
                 'menu_order' => 3,

@@ -10,6 +10,7 @@ class BusinessOption extends Model
         'section_id',
         'parent_id',
         'name',
+        'slug',
         'description',
         'content',
         'element',
