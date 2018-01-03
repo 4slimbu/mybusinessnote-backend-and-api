@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\BusinessOption;
 use App\Models\Level;
+use App\Models\Section;
 
 class PageController extends BaseApiController
 {
@@ -21,11 +22,13 @@ class PageController extends BaseApiController
         return response()->json($data, 200);
     }
 
-    public function section(Level $section) {
+    public function section(Level $level, Section $section) {
         //initialize
         $data = [];
 
-        $data['businesOption'] = BusinessOption::where('level_id', $section->id)->first();
+        dd("here");
+
+        $data['businesOption'] = BusinessOption::where('level_id', $level->id)->where('section_id', $section->id)->first();
 
         return view(parent::loadViewData('start.page.index'), compact('data'));
     }

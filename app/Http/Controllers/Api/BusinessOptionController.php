@@ -44,6 +44,17 @@ class BusinessOptionController extends BaseApiController
         ]);
     }
 
+    public function first(Level $level, Section $section)
+    {
+        $business_option = BusinessOption::where('section_id', $section->id)->first();
+
+        if ($business_option) {
+            return $this->show($level, $section, $business_option);
+        }
+
+        return response()->json(["not found"], 400);
+    }
+
     public function getPreviousRecord($section, $business_option)
     {
         //if has children

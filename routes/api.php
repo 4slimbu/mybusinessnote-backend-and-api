@@ -33,6 +33,11 @@ Route::put('/user/{user}', [
     'uses' => 'App\Http\Controllers\Api\AuthController@update'
 ]);
 
+Route::get('/user/business-status', [
+    'as' => 'api.user.business-status',
+    'uses' => 'App\Http\Controllers\Api\AuthController@getBusinessStatus'
+]);
+
 Route::post('/user/login', [
     'as' => 'api.user.login',
     'uses' => 'App\Http\Controllers\Api\AuthController@login'
@@ -46,9 +51,9 @@ Route::post('/user/login', [
 /* Levels */
 Route::apiResource('business-categories', 'App\Http\Controllers\Api\BusinessCategoryController');
 Route::apiResource('businesses', 'App\Http\Controllers\Api\BusinessController');
-Route::get('businesses/{business_id}/status', 'App\Http\Controllers\Api\BusinessController@getStatus');
 Route::apiResource('levels', 'App\Http\Controllers\Api\LevelController');
 Route::apiResource('levels/{level}/sections', 'App\Http\Controllers\Api\SectionController');
+Route::get('levels/{level}/sections/{section}/business-options/first', 'App\Http\Controllers\Api\BusinessOptionController@first');
 Route::apiResource('levels/{level}/sections/{section}/business-options', 'App\Http\Controllers\Api\BusinessOptionController');
 
 Route::group(['middleware' => ['jwt.auth']], function() {

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Business;
+use App\Models\Level;
+use App\Models\Section;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -199,6 +202,111 @@ class AuthController extends Controller
             // something went wrong whilst attempting to encode the token
             return response()->json(['success' => false, 'error' => 'Failed to logout, please try again.'], 500);
         }
+    }
+
+
+    public function getBusinessStatus() {
+        $business = null;
+
+        //get user from token
+        if (JWTAuth::getToken()) {
+            $decodedToken = JWTAuth::decode(JWTAuth::getToken())->toArray();
+
+            if ($decodedToken) {
+                $business = Business::where("user_id", $decodedToken['user']['id'])->first();
+            }
+        }
+
+        //if no business, return with generic data
+        if (!$business) {
+            $data = [
+                "levels" => $this->getLevels($business),
+            ];
+
+            return response()->json($data, 200);
+        };
+
+        // else return with business data
+        $data = [
+            "business_id" => $business->id,
+            "user_id" => $business->user->id,
+            "business_category_id" => $business->businessCategory->id,
+            "business_name" => $business->business_name,
+            "levels" => $this->getLevels($business),
+        ];
+
+        return response()->json($data, 200);
+    }
+
+    private function getLevels($business)
+    {
+        //get data
+        $data = [];
+        $levels = Level::select('id', 'name', 'slug', 'icon')->orderBy('menu_order')->get();
+
+        //get levels data and set completed_percent to 0
+        foreach ($levels as $level) {
+
+            $arr = $level->toArray();
+            $arr["completed_percent"] = 0;
+            $arr["total_sections"] = count($level->sections);
+            //set completed_percent to actual percent on touched levels
+            if (isset($business->levels)) {
+                foreach ($business->levels as $b_level) {
+                    if ($b_level->id == $level->id) {
+                        $arr["completed_percent"] = $b_level->pivot->completed_percent;
+                    }
+                }
+            }
+
+            $sectionData = $this->getSections($business, $level);
+
+            $arr["total_completed_sections"] = $sectionData['total_completed_sections'];
+            $arr["sections"] = $sectionData['sections'];
+
+            array_push($data, $arr);
+        }
+
+
+
+        return $data;
+    }
+
+    private function getSections($business, $level)
+    {
+
+        //get data
+        $data = [];
+        $sections = Section::select('id', 'level_id', 'slug', 'name')->where("level_id", $level->id)->get();
+        $total_completed_sections = 0;
+
+        //get sections data and set completed_percent to 0
+        //get levels data and set completed_percent to 0
+        foreach ($sections as $section) {
+            $arr = $section->toArray();
+            $arr["completed_percent"] = 0;
+
+            //set completed_percent to actual percent on touched sections
+            if (isset($business->sections)) {
+                foreach ($business->sections as $b_section) {
+                    if ($b_section->id == $section->id) {
+                        $arr["completed_percent"] = $b_section->pivot->completed_percent;
+                        if ($arr["completed_percent"] === 100) {
+                            $total_completed_sections +=1;
+                        }
+                    }
+
+                }
+            }
+
+            array_push($data, $arr);
+        }
+
+
+        return [
+            "sections" => $data,
+            "total_completed_sections" => $total_completed_sections
+        ];
     }
 
 }
