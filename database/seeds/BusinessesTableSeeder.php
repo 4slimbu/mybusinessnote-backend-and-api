@@ -13,16 +13,13 @@ class BusinessesTableSeeder extends Seeder
     public function run()
     {
 
-//        INSERT INTO `business_level` (`business_id`, `level_id`, `completed_percent`) VALUES ('1', '1', '100'), ('1', '2', '50');
-//        INSERT INTO `business_section` (`business_id`, `section_id`, `completed_percent`) VALUES ('1', '1', '100'), ('1', '2', '100'), ('1', '3', '100'), ('1', '4', '100'), ('1', '5', '50');
-
         \DB::table('businesses')->delete();
         
         \DB::table('businesses')->insert(array (
             0 => 
             array (
                 'id' => 1,
-                'user_id' => 7,
+                'user_id' => 2,
                 'business_category_id' => 7,
                 'business_name' => 'Sporer, Sauer and Pfeffer',
                 'website' => 'will.com',

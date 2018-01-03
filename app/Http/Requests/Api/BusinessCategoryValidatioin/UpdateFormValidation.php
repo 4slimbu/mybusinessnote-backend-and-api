@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\BusinessCategoryValidation;
+namespace App\Http\Requests\Api\BusinessCategoryValidation;
 
 use Illuminate\Foundation\Http\FormRequest;
 

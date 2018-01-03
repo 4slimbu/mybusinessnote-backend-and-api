@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\LevelValidation;
+namespace App\Http\Requests\Api\LevelValidation;
 
 use Illuminate\Foundation\Http\FormRequest;
 

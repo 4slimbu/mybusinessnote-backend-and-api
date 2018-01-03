@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\BusinessOptionValidation;
+namespace App\Http\Requests\Api\BusinessOptionValidation;
 
 use Illuminate\Foundation\Http\FormRequest;
 

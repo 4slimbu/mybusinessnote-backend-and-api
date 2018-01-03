@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Admin\PartnerValidation;
+namespace App\Http\Requests\Api\PartnerValidation;
 
 use Illuminate\Foundation\Http\FormRequest;
 
