@@ -3,40 +3,105 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Resources\Api\BusinessOptionResource;
-use App\Http\Resources\Api\BusinessOptionResourceCollection;
 use App\Models\BusinessOption;
 use App\Models\Level;
 use App\Models\Section;
 
 class BusinessOptionController extends BaseApiController
 {
-    public function index(Level $level, Section $section)
+    public function index($level, $section)
     {
         //get data
-        $business_options = BusinessOption::with('parent', 'children')
-            ->where('section_id', $section->id)
-            ->get();
+        $level = Level::where(function($q) use ($level) {
+            $q->where('id', $level)
+                ->orWhere('slug', $level);
+        })->first();
 
-        return new BusinessOptionResourceCollection($business_options);
-    }
+        if (! $level) {
+            return response()->json("Model not found", 400);
+        }
 
-    public function show(Level $level, Section $section, BusinessOption $business_option)
-    {
-        $business_option->with('parent', 'children', 'affiliateLinks');
+        $section = Section::where(function($q) use ($section) {
+                $q->where('id', $section)
+                    ->orWhere('slug', $section);
+        })->where('level_id', $level->id)->first();
+
+        if (! $section) {
+            return response()->json("Model not found", 400);
+        }
+
+        $business_option = BusinessOption::with('parent', 'children', 'affiliateLinks')
+            ->where('section_id', $section->id)->first();
+
+        if (! $business_option) {
+            return response()->json("Model not found", 400);
+        }
 
         $prev = $this->getPreviousRecord($section, $business_option);
         $next = $this->getNextRecord($section, $business_option);
 
         $links = [
-            'self' => "/levels/{$level->id}/sections/{$section->id}/business-options/{$business_option->id}",
+            'self' => "/level/{$level->slug}/section/{$section->slug}/business-option/{$business_option->slug}",
         ];
 
         if ($prev) {
-            $links['prev'] = "/levels/{$level->id}/sections/{$prev->section->id}/business-options/{$prev->id}";
+            $links['prev'] = "/level/{$level->slug}/section/{$prev->section->slug}/business-option/{$prev->slug}";
         }
 
         if ($next) {
-            $links['next'] = "/levels/{$level->id}/sections/{$next->section->id}/business-options/{$next->id}";
+            $links['next'] = "/level/{$level->slug}/section/{$next->section->slug}/business-option/{$next->slug}";
+        }
+
+        return (new BusinessOptionResource($business_option))->additional([
+            'links' => $links
+        ]);
+    }
+
+    public function show($level,$section,$business_option)
+    {
+        //get data
+        $level = Level::where(function($q) use ($level) {
+            $q->where('id', $level)
+                ->orWhere('slug', $level);
+        })->first();
+
+        if (! $level) {
+            return response()->json("Model not found", 400);
+        }
+
+        $section = Section::where(function($q) use ($section) {
+            $q->where('id', $section)
+                ->orWhere('slug', $section);
+        })->where('level_id', $level->id)->first();
+
+        if (! $section) {
+            return response()->json("Model not found", 400);
+        }
+
+        $business_option = BusinessOption::with('parent', 'children', 'affiliateLinks')
+            ->where('section_id', $section->id)
+            ->where(function($q) use ($business_option) {
+            $q->where('id', $business_option)
+                ->orWhere('slug', $business_option);
+        })->first();
+
+        if (! $business_option) {
+            return response()->json("Model not found", 400);
+        }
+
+        $prev = $this->getPreviousRecord($section, $business_option);
+        $next = $this->getNextRecord($section, $business_option);
+
+        $links = [
+            'self' => "/level/{$level->slug}/section/{$section->slug}/business-option/{$business_option->slug}",
+        ];
+
+        if ($prev) {
+            $links['prev'] = "/level/{$level->slug}/section/{$prev->section->slug}/business-option/{$prev->slug}";
+        }
+
+        if ($next) {
+            $links['next'] = "/level/{$level->slug}/section/{$next->section->slug}/business-option/{$next->slug}";
         }
 
         return (new BusinessOptionResource($business_option))->additional([
