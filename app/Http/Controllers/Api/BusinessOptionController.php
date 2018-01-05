@@ -163,7 +163,8 @@ class BusinessOptionController extends BaseApiController
                 $business->businessOptions()->attach([3 => ['status' => 'done']]);
                 $business->sections()->attach([1 => ['completed_percent' => 100]]);
                 $business->sections()->attach([2 => ['completed_percent' => 100]]);
-                $business->levels()->attach([1 => ['completed_percent' => count($business->sections()) * 25]]);
+
+                $business->levels()->attach([1 => ['completed_percent' => count($business->sections) * 25]]);
             }
 
 
@@ -179,15 +180,19 @@ class BusinessOptionController extends BaseApiController
 
         if ($request->get("type") === "update_business") {
             $business = Business::where('id', $request->get('business_id'))->first();
-            $business->update($request->only('business_name', 'website', 'abn'));
+            $business->update($request->only('business_category_id', 'sell_goods', 'business_name', 'website', 'abn'));
 
             $business->businessOptions()->detach($request->get('business_option_id'));
             $business->businessOptions()->attach([$request->get('business_option_id') => ['status' => 'done']]); //for business category
 
-            $business->sections()->detach(3);
-            $business->sections()->attach([3 => ['completed_percent' => 100]]);
-            $business->levels()->detach(1);
-            $business->levels()->attach([1 => ['completed_percent' => count($business->sections()) * 25]]);
+            $sectionId = BusinessOption::find($request->get('business_option_id'))->section_id;
+            $levelId = Section::find($sectionId)->level_id;
+
+            $business->sections()->detach($sectionId);
+            $business->sections()->attach([$sectionId => ['completed_percent' => 100]]);
+            $business->levels()->detach($levelId);
+
+            $business->levels()->attach([1 => ['completed_percent' => count($business->sections) * 25]]);
 
             return response()->json([
                 'success' => true,
