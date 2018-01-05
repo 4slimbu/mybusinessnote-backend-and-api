@@ -49,11 +49,14 @@ Route::post('/user/login', [
  */
 
 /* Levels */
-//Route::apiResource('business-categories', 'App\Http\Controllers\Api\BusinessCategoryController');
-//Route::apiResource('businesses', 'App\Http\Controllers\Api\BusinessController');
-//Route::apiResource('levels', 'App\Http\Controllers\Api\LevelController');
-//Route::apiResource('levels/{level}/sections', 'App\Http\Controllers\Api\SectionController');
-Route::apiResource('level/{level}/section/{section}/business-option', 'App\Http\Controllers\Api\BusinessOptionController');
+Route::apiResource('business-categories', 'App\Http\Controllers\Api\BusinessCategoryController');
+Route::apiResource('businesses', 'App\Http\Controllers\Api\BusinessController');
+Route::apiResource('levels', 'App\Http\Controllers\Api\LevelController');
+Route::apiResource('levels/{level}/sections', 'App\Http\Controllers\Api\SectionController');
+Route::get('/level/{level}/section/{section}', 'App\Http\Controllers\Api\BusinessOptionController@index');
+Route::get('/level/{level}/section/{section}/business-option/{business_option}', 'App\Http\Controllers\Api\BusinessOptionController@show');
+Route::post('/business-option', 'App\Http\Controllers\Api\BusinessOptionController@save');
+Route::put('/business-option', 'App\Http\Controllers\Api\BusinessOptionController@update');
 
 Route::group(['middleware' => ['jwt.auth']], function() {
     /**
