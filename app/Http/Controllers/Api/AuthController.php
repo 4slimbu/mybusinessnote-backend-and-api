@@ -213,7 +213,7 @@ class AuthController extends Controller
             $decodedToken = JWTAuth::decode(JWTAuth::getToken())->toArray();
 
             if ($decodedToken) {
-                $business = Business::where("user_id", $decodedToken['user']['id'])->first();
+                $business = Business::with("user")->where("user_id", $decodedToken['user']['id'])->first();
             }
         }
 
@@ -230,8 +230,14 @@ class AuthController extends Controller
         $data = [
             "business_id" => $business->id,
             "user_id" => $business->user->id,
+            "first_name" => $business->user->first_name,
+            "last_name" => $business->user->last_name,
+            "email" => $business->user->email,
+            "phone_number" => $business->user->phone_number,
             "business_category_id" => $business->businessCategory->id,
             "business_name" => $business->business_name,
+            "website" => $business->website,
+            "abn" => $business->abn,
             "levels" => $this->getLevels($business),
         ];
 
@@ -266,8 +272,6 @@ class AuthController extends Controller
 
             array_push($data, $arr);
         }
-
-
 
         return $data;
     }

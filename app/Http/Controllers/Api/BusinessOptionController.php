@@ -8,15 +8,16 @@ use App\Models\BusinessOption;
 use App\Models\Level;
 use App\Models\Section;
 use App\Models\User;
-use http\Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class BusinessOptionController extends BaseApiController
 {
+    //TODO: improve this barely working code
+
+
     public function index($level, $section)
     {
         //get data
@@ -135,10 +136,23 @@ class BusinessOptionController extends BaseApiController
             $userResponse = null;
 
             //save user form
-//            DB::beginTransaction();
-            try {
-                $userResponse =  $this->userRegister($request);
+            //TODO: use db transaction
+            $userResponse =  $this->userRegister($request);
 
+            if ($request->get('user_id')) {
+//                $user = User::find('id', $request->get('user_id'));
+//                $user->fill($request->only('first_name', 'last_name', 'phone_number'))->save();
+//                $business = $user->business;
+//
+//                $business->businessOptions()->attach([3 => ['status' => 'done']]);
+//                $business->sections()->attach([2 => ['completed_percent' => 100]]);
+//                $business->levels()->attach([1 => ['completed_percent' => 50]]);
+
+                return response()->json([
+                    'success' => true,
+                    'message' => "User updated successfully"
+                ], 201);
+            } else {
                 $business = Business::create([
                     'user_id' => $userResponse['user']->id,
                     'business_category_id' => $request->get('business_category_id'),
@@ -149,12 +163,10 @@ class BusinessOptionController extends BaseApiController
                 $business->businessOptions()->attach([3 => ['status' => 'done']]);
                 $business->sections()->attach([1 => ['completed_percent' => 100]]);
                 $business->sections()->attach([2 => ['completed_percent' => 100]]);
-                $business->levels()->attach([1 => ['completed_percent' => 50]]);
-
-            } catch (\Exception $e) {
-//                dd($e);
-//                DB::rollBack();
+                $business->levels()->attach([1 => ['completed_percent' => count($business->sections()) * 25]]);
             }
+
+
 
             if ($userResponse) {
                 return response()->json([
@@ -165,40 +177,25 @@ class BusinessOptionController extends BaseApiController
 
         }
 
-        if ($request->get("type") === "create_business") {
-            //save user form
-            //save user form
-//            DB::beginTransaction();
-            try {
-                $business = Business::create([
-                    'user_id' => $userResponse['user']->id,
-                    'business_category_id' => $request->get('business_category_id'),
-                    'sell_goods' => $request->get('sell_goods')
-                ]);
+        if ($request->get("type") === "update_business") {
+            $business = Business::where('id', $request->get('business_id'))->first();
+            $business->update($request->only('business_name', 'website', 'abn'));
 
-                $business->businessOptions()->attach([2 => ['status' => 'done']]); //for business category
-                $business->businessOptions()->attach([3 => ['status' => 'done']]);
-                $business->sections()->attach([1 => ['completed_percent' => 100]]);
-                $business->sections()->attach([2 => ['completed_percent' => 100]]);
-                $business->levels()->attach([1 => ['completed_percent' => 50]]);
+            $business->businessOptions()->detach($request->get('business_option_id'));
+            $business->businessOptions()->attach([$request->get('business_option_id') => ['status' => 'done']]); //for business category
 
-            } catch (\Exception $e) {
-//                dd($e);
-//                DB::rollBack();
-            }
+            $business->sections()->detach(3);
+            $business->sections()->attach([3 => ['completed_percent' => 100]]);
+            $business->levels()->detach(1);
+            $business->levels()->attach([1 => ['completed_percent' => count($business->sections()) * 25]]);
 
-            if ($userResponse) {
-                return response()->json([
-                    'success' => true,
-                    'token' => $userResponse['token']
-                ], 201);
-            }
+            return response()->json([
+                'success' => true,
+                'message' => "Updated Successfully"
+            ], 200);
         }
-
-
 
         return response()->json("Unable to save data", 500);
-
     }
 
     public function update(Request $request)
