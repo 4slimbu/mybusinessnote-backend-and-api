@@ -74,7 +74,7 @@ class LevelController extends AdminBaseController
     public function store(CreateFormValidation $request)
     {
         $inputs = $request->all();
-
+        $input['slug'] = str_slug($request->get('name'));
         Level::create($inputs);
 
         Session::flash('success', $this->panel_name.' created successfully.');

@@ -92,6 +92,7 @@ class BusinessOptionController extends AdminBaseController
     public function store(CreateFormValidation $request)
     {
         $input = $request->all();
+        $input['slug'] = str_slug($request->get('name'));
         $input['show_everywhere'] = isset($input['show_everywhere']) ? 1 : 0;
         $businessOption = BusinessOption::create($input);
 
