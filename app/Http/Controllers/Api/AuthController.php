@@ -147,31 +147,30 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $rules = [
-            'email' => 'required|email',
-            'password' => 'required',
+            'siwps' => 'required|email',
+            'sdlkw' => 'required',
         ];
 
-        $input = $request->only('email', 'password');
+        $input = $request->only('siwps', 'sdlkw');
         $validator = Validator::make($input, $rules);
         if($validator->fails()) {
             $error = $validator->messages();
             return response()->json(['success'=> false, 'error'=> $error]);
         }
         $credentials = [
-            'email' => $request->email,
-            'password' => $request->password,
+            'email' => $request->siwps,
+            'password' => $request->sdlkw,
             'verified' => 1
         ];
         try {
             // attempt to verify the credentials and create a token for the user
-            $authUser = User::where("email", $request->email)
+            $authUser = User::where("email", $request->siwps)
                 ->where("verified", 1)
                 ->first();
 
             $customClaims = [
                 "user" => $authUser
             ];
-            dd('here');
             if (! $token = JWTAuth::attempt($credentials, $customClaims)) {
                 return response()->json(['success' => false, 'error' => 'Invalid Credentials.'], 401);
             }
