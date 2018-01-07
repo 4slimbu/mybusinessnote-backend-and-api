@@ -45,6 +45,7 @@ class BusinessOptionController extends AdminBaseController
         //get data
         $data['rows'] = BusinessOption::with('section', 'section.level', 'parent', 'children', 'businessCategories')
             ->where('parent_id', null)
+            ->orderBy('menu_order')
             ->paginate(100);
 
         return view(parent::loadViewData($this->view_path . '.index'), compact('data'));
