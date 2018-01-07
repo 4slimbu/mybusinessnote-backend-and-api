@@ -162,20 +162,18 @@ class AuthController extends Controller
             'password' => $request->password,
             'verified' => 1
         ];
-
         try {
             // attempt to verify the credentials and create a token for the user
             $authUser = User::where("email", $request->email)
                 ->where("verified", 1)
-                ->first()
-                ->toArray();
+                ->first();
 
             $customClaims = [
                 "user" => $authUser
             ];
-
+            dd('here');
             if (! $token = JWTAuth::attempt($credentials, $customClaims)) {
-                return response()->json(['success' => false, 'error' => 'Invalid Credentials. Please make sure you entered the right information and you have verified your email address.'], 401);
+                return response()->json(['success' => false, 'error' => 'Invalid Credentials.'], 401);
             }
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
@@ -210,7 +208,7 @@ class AuthController extends Controller
 
         //get user from token
         if (JWTAuth::getToken()) {
-            $decodedToken = JWTAuth::decode(JWTAuth::getToken())->toArray();
+            $decodedToken = JWTAuth::decode(JWTAuth::getToken());
 
             if ($decodedToken) {
                 $business = Business::with("user")->where("user_id", $decodedToken['user']['id'])->first();
