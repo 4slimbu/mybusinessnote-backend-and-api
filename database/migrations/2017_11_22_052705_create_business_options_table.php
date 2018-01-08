@@ -15,6 +15,7 @@ class CreateBusinessOptionsTable extends Migration {
 		Schema::create('business_options', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->integer('level_id');
 			$table->integer('section_id');
 			$table->integer('parent_id')->nullable();
 			$table->string('name', 191);

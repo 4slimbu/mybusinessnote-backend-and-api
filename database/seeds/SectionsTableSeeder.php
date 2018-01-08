@@ -18,7 +18,6 @@ class SectionsTableSeeder extends Seeder
         
         \DB::table('sections')->insert(array (
             array (
-                'id' => 1,
                 'level_id' => 1,
                 'name' => 'Business Category',
                 'slug' => 'business-category',
@@ -26,7 +25,6 @@ class SectionsTableSeeder extends Seeder
                 'updated_at' => NULL,
             ),
             array (
-                'id' => 2,
                 'level_id' => 1,
                 'name' => 'About You',
                 'slug' => 'about-you',
@@ -34,7 +32,6 @@ class SectionsTableSeeder extends Seeder
                 'updated_at' => NULL,
             ),
             array (
-                'id' => 3,
                 'level_id' => 1,
                 'name' => 'Your Business Details',
                 'slug' => 'your-business-details',
@@ -42,7 +39,6 @@ class SectionsTableSeeder extends Seeder
                 'updated_at' => NULL,
             ),
             array (
-                'id' => 4,
                 'level_id' => 1,
                 'name' => 'Register Your Business',
                 'slug' => 'register-your-business',
@@ -50,7 +46,6 @@ class SectionsTableSeeder extends Seeder
                 'updated_at' => NULL,
             ),
             array (
-                'id' => 5,
                 'level_id' => 2,
                 'name' => 'Marketing',
                 'slug'=> 'marketing',
@@ -58,7 +53,6 @@ class SectionsTableSeeder extends Seeder
                 'updated_at' => NULL,
             ),
             array (
-                'id' => 6,
                 'level_id' => 2,
                 'name' => 'Operations',
                 'slug' => 'operations',
@@ -66,7 +60,6 @@ class SectionsTableSeeder extends Seeder
                 'updated_at' => NULL,
             ),
             array (
-                'id' => 7,
                 'level_id' => 2,
                 'name' => 'Finance',
                 'slug' => 'finance',
@@ -74,7 +67,6 @@ class SectionsTableSeeder extends Seeder
                 'updated_at' => NULL,
             ),
             array (
-                'id' => 8,
                 'level_id' => 3,
                 'name' => 'Marketing',
                 'slug' => 'marketing',
@@ -82,7 +74,6 @@ class SectionsTableSeeder extends Seeder
                 'updated_at' => NULL,
             ),
             array (
-                'id' => 9,
                 'level_id' => 3,
                 'name' => 'Legal',
                 'slug' => 'legal',
@@ -90,7 +81,6 @@ class SectionsTableSeeder extends Seeder
                 'updated_at' => NULL,
             ),
             array (
-                'id' => 10,
                 'level_id' => 3,
                 'name' => 'Human Resources',
                 'slug' => 'human-resources',
@@ -98,7 +88,6 @@ class SectionsTableSeeder extends Seeder
                 'updated_at' => NULL,
             ),
             array (
-                'id' => 11,
                 'level_id' => 3,
                 'name' => 'Operations',
                 'slug' => 'operations',
@@ -106,7 +95,6 @@ class SectionsTableSeeder extends Seeder
                 'updated_at' => NULL,
             ),
             array (
-                'id' => 12,
                 'level_id' => 3,
                 'name' => 'Finance',
                 'slug' => 'finance',

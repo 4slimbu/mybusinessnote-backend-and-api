@@ -1,91 +1,115 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
-| API Routes
+| Un-authenticated Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
+| All these routes can accessed by app even before user is registered.
+| Some are required for loading App.
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['namespace' => 'App\\Http\\Controllers\Api\\'], function() {
+
+    /*
+     * Register new user
+     *
+     * This route may not be used anymore and will be removed soon. Its because we are handling
+     * everything as a business option and we have created specific route to handle user registration
+     * through BusinessOptionController that will ultimately call the AuthController. This is to ensure
+     * uniformity in accessing API and getting Response.
+     */
+    Route::post('/user/register', [
+        'as' => 'api.user.register',
+        'uses' => 'AuthController@register'
+    ]);
+
+    /* Check if user email is valid or not */
+    Route::post('/user/check-if-exists', [
+        'as' => 'api.user.check-if-exists',
+        'uses' => 'AuthController@checkIfUserExists'
+    ]);
+
+    /* Log in */
+    Route::post('/user/login', [
+        'as' => 'api.user.login',
+        'uses' => 'AuthController@login'
+    ]);
+
+    /* Get Business Categories */
+    Route::apiResource('business-categories', 'BusinessCategoryController');
+
+    //gets the current status of current user's business.
+    Route::get('/user/business-status', [
+        'as' => 'api.user.business-status',
+        'uses' => 'AuthController@getBusinessStatus'
+    ]);
+
+    /* specific business-option routes that sets up user and user business also need to be excluded from authentication */
+    Route::get('/level/getting-started/section/business-category', 'BusinessOptionController@getBusinessCategoryBusinessOption');
+    Route::get('/level/getting-started/section/sell-goods', 'BusinessOptionController@getSellGoodsBusinessOption');
+    Route::get('/level/getting-started/section/about-you', 'BusinessOptionController@getAboutYouBusinessOption');
+    /*
+     * This route will be used by unauthenticated user to register themselves and save the basic business info.
+     * While registering user through this route, business-category and sell-goods business options will be saved as well.
+     * Once user registers, every business options will follow the default authenticated routed listed in the authenticated
+     * routes section.
+     */
+    Route::post('/level/getting-started/section/about-you', 'BusinessOptionController@saveEntryBusinessOption');
 });
 
-//Authentication
-Route::post('/user/register', [
-    'as' => 'api.user.register',
-    'uses' => 'App\Http\Controllers\Api\AuthController@register'
-]);
-
-Route::post('/user/check-if-exists', [
-    'as' => 'api.user.check-if-exists',
-    'uses' => 'App\Http\Controllers\Api\AuthController@checkIfUserExists'
-]);
-
-Route::put('/user/{user}', [
-    'as' => 'api.user.update',
-    'uses' => 'App\Http\Controllers\Api\AuthController@update'
-]);
-
-Route::get('/user/business-status', [
-    'as' => 'api.user.business-status',
-    'uses' => 'App\Http\Controllers\Api\AuthController@getBusinessStatus'
-]);
-
-Route::post('/user/login', [
-    'as' => 'api.user.login',
-    'uses' => 'App\Http\Controllers\Api\AuthController@login'
-]);
 
 
-/**
- * Level Routes
- */
+/*
+|--------------------------------------------------------------------------
+| Authenticated Routes
+|--------------------------------------------------------------------------
+|
+| User must be logged in to access these routes.
+| The request header should include valid Authorization Bearer JWT token to access these routes.
+|
+*/
 
-/* Levels */
-Route::apiResource('business-categories', 'App\Http\Controllers\Api\BusinessCategoryController');
-Route::apiResource('businesses', 'App\Http\Controllers\Api\BusinessController');
-Route::apiResource('levels', 'App\Http\Controllers\Api\LevelController');
-Route::apiResource('levels/{level}/sections', 'App\Http\Controllers\Api\SectionController');
-Route::get('/level/{level}/section/{section}', 'App\Http\Controllers\Api\BusinessOptionController@index');
-Route::get('/level/{level}/section/{section}/business-option/{business_option}', 'App\Http\Controllers\Api\BusinessOptionController@show');
-Route::post('/business-option', 'App\Http\Controllers\Api\BusinessOptionController@save');
-Route::put('/business-option', 'App\Http\Controllers\Api\BusinessOptionController@update');
-
-Route::group(['middleware' => ['jwt.auth']], function() {
-    /**
-     * User logout route is also protected route
+Route::group(['namespace' => 'App\\Http\\Controllers\Api\\', 'middleware' => ['jwt.auth']], function() {
+    /*
+     * User Routes
      */
+    Route::put('/user/{user}', [
+        'as' => 'api.user.update',
+        'uses' => 'AuthController@update'
+    ]);
+
     Route::post('/user/logout', [
         'as' => 'api.logout',
-        'uses' => 'App\Http\Controllers\Api\AuthController@logout'
+        'uses' => 'AuthController@logout'
     ]);
 
-    /**
-     * Page Routes
+    /*
+     * Business Options routes
      */
 
-    Route::get('/start', [
-        'as' => 'start',
-        'uses' => 'App\Http\Controllers\Api\PageController@home'
+//    Route::apiResource('businesses', 'BusinessController');
+//    Route::apiResource('levels', 'LevelController');
+//    Route::apiResource('levels/{level}/sections', 'SectionController');
+
+    /* This route will return the first business-option of the specified level/section */
+    Route::get('/level/{level}/section/{section}', 'BusinessOptionController@first');
+
+    /* This route will return all the business-options within level/section */
+    Route::get('/level/{level}/section/{section}/business-options', 'BusinessOptionController@index');
+
+    /* This route will return the specified business-option */
+    Route::get('/level/{level}/section/{section}/business-option/{business_option}', [
+        'as' => 'api.business-option.show',
+        'uses' => 'BusinessOptionController@show'
     ]);
-    Route::get('/start/level/{level}', [
-        'as' => 'start.level',
-        'uses' => 'App\Http\Controllers\Api\PageController@level'
-    ]);
-    Route::get('/start/{level}/section/{section}', [
-        'as' => 'start.level.section',
-        'uses' => 'App\Http\Controllers\Api\PageController@section'
-    ]);
-    Route::get('/start/{level}/section/{section}/{businessOption}', [
-        'as' => 'start.level.section.business-option',
-        'uses' => 'App\Http\Controllers\Api\PageController@businessOption'
-    ]);
+
+    /* This is the default route to save any business option */
+    Route::post('/business-option', 'BusinessOptionController@save');
+
+    /* This is the default route to update any business option */
+    Route::put('/business-option', 'BusinessOptionController@update');
+
 });
 

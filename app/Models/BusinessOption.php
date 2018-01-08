@@ -45,6 +45,11 @@ class BusinessOption extends Model
         return $this->belongsTo(Section::class);
     }
 
+    public function level()
+    {
+        return $this->belongsTo(Level::class);
+    }
+
     public static function elements()
     {
         return [
