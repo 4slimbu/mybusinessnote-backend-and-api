@@ -43,6 +43,34 @@ trait BusinessOptionable
         }
     }
 
+    private function getBusinessOption($level, $section, $business_option)
+    {
+        try {
+            //get level using level id/slug
+            $level = Level::where(function($q) use ($level) {
+                $q->where('id', $level)
+                    ->orWhere('slug', $level);
+            })->first();
+
+            //get section from level id, section id/slug
+            $section = Section::where(function($q) use ($section) {
+                $q->where('id', $section)
+                    ->orWhere('slug', $section);
+            })->where('level_id', $level->id)->first();
+
+            //get business-option using section id, business-option id/slug
+            $business_option = BusinessOption::with('parent', 'children', 'level', 'section', 'affiliateLinks')
+                ->where('section_id', $section->id)
+                ->where(function($q) use ($business_option) {
+                    $q->where('id', $business_option)
+                        ->orWhere('slug', $business_option);
+                })->first();
+
+            return $business_option;
+        } catch (\Exception $exception){
+            throw new ModelNotFoundException('not_found', 400);
+        }
+    }
 
     private function getPreviousRecord($section, $business_option)
     {
@@ -85,6 +113,7 @@ trait BusinessOptionable
             ->where('id', '<', $section->id)
             ->orderBy('id', 'desc')
             ->first();
+
         if ($nextSection) {
             $nextSectionFirstBusinessOption = BusinessOption::where('section_id', $nextSection->id)
                 ->first();
@@ -94,7 +123,7 @@ trait BusinessOptionable
         }
     }
 
-    private function getNextRecord($section, $business_option)
+    private function getNextRecord($level, $section, $business_option)
     {
         //if has children
         if ($child_business_option = $business_option->children->first()) {

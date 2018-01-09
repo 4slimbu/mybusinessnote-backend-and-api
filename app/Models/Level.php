@@ -8,7 +8,6 @@ class Level extends Model
 {
     protected $fillable = ['name', 'slug', 'description', 'content'];
 
-
     //Each level can have multiple sections
     public function sections() {
         return $this->hasMany(Section::class);

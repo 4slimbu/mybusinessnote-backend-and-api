@@ -105,6 +105,11 @@ Route::group(['namespace' => 'App\\Http\\Controllers\Api\\', 'middleware' => ['j
         'uses' => 'BusinessOptionController@show'
     ]);
 
+    Route::get('/level/{level}/section/{section}/business-option/{business_option}/next', [
+        'as' => 'api.business-option.next',
+        'uses' => 'BusinessOptionController@next'
+    ]);
+
     /* This is the default route to save any business option */
     Route::post('/business-option', 'BusinessOptionController@save');
 
