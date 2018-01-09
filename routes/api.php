@@ -47,16 +47,16 @@ Route::group(['namespace' => 'App\\Http\\Controllers\Api\\'], function() {
     ]);
 
     /* specific business-option routes that sets up user and user business also need to be excluded from authentication */
-    Route::get('/level/getting-started/section/business-category', 'BusinessOptionController@getBusinessCategoryBusinessOption');
-    Route::get('/level/getting-started/section/sell-goods', 'BusinessOptionController@getSellGoodsBusinessOption');
-    Route::get('/level/getting-started/section/about-you', 'BusinessOptionController@getAboutYouBusinessOption');
+    Route::get('/level/1/section/1/business-option/1', 'BusinessOptionController@getBusinessCategoryBusinessOption');
+    Route::get('/level/1/section/1/business-option/2', 'BusinessOptionController@getSellGoodsBusinessOption');
+    Route::get('/level/1/section/2/business-option/3', 'BusinessOptionController@getAboutYouBusinessOption');
     /*
      * This route will be used by unauthenticated user to register themselves and save the basic business info.
      * While registering user through this route, business-category and sell-goods business options will be saved as well.
      * Once user registers, every business options will follow the default authenticated routed listed in the authenticated
      * routes section.
      */
-    Route::post('/level/getting-started/section/about-you', 'BusinessOptionController@saveEntryBusinessOption');
+    Route::post('/entry-business-option', 'BusinessOptionController@saveEntryBusinessOption');
 });
 
 
@@ -97,12 +97,17 @@ Route::group(['namespace' => 'App\\Http\\Controllers\Api\\', 'middleware' => ['j
     Route::get('/level/{level}/section/{section}', 'BusinessOptionController@first');
 
     /* This route will return all the business-options within level/section */
-    Route::get('/level/{level}/section/{section}/business-options', 'BusinessOptionController@index');
+//    Route::get('/level/{level}/section/{section}/business-options', 'BusinessOptionController@index');
 
     /* This route will return the specified business-option */
     Route::get('/level/{level}/section/{section}/business-option/{business_option}', [
         'as' => 'api.business-option.show',
         'uses' => 'BusinessOptionController@show'
+    ]);
+
+    Route::get('/level/{level}/section/{section}/business-option/{business_option}/previous', [
+        'as' => 'api.business-option.previous',
+        'uses' => 'BusinessOptionController@previous'
     ]);
 
     Route::get('/level/{level}/section/{section}/business-option/{business_option}/next', [

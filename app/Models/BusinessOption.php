@@ -60,4 +60,5 @@ class BusinessOption extends Model
             'RegisterBusiness' => 'RegisterBusiness'
         ];
     }
+
 }

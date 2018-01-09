@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Mockery\Exception;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -21,20 +22,9 @@ trait BusinessOptionable
     private function getFirstBusinessOption($level, $section)
     {
         try {
-            // Get Level
-            $level = Level::where(function ($q) use ($level) {
-                $q->where('id', $level)
-                    ->orWhere('slug', $level);
-            })->first();
-
-            // Get Section
-            $section = Section::where(function ($q) use ($section) {
-                $q->where('id', $section)
-                    ->orWhere('slug', $section);
-            })->where('level_id', $level->id)->first();
-
             // Get Business Option
             $business_option = BusinessOption::with('parent', 'children', 'level', 'section', 'affiliateLinks')
+                ->where('level_id', $level->id)
                 ->where('section_id', $section->id)->first();
 
             return $business_option;
@@ -46,25 +36,12 @@ trait BusinessOptionable
     private function getBusinessOption($level, $section, $business_option)
     {
         try {
-            //get level using level id/slug
-            $level = Level::where(function($q) use ($level) {
-                $q->where('id', $level)
-                    ->orWhere('slug', $level);
-            })->first();
-
-            //get section from level id, section id/slug
-            $section = Section::where(function($q) use ($section) {
-                $q->where('id', $section)
-                    ->orWhere('slug', $section);
-            })->where('level_id', $level->id)->first();
-
-            //get business-option using section id, business-option id/slug
+            // Get Business Option
             $business_option = BusinessOption::with('parent', 'children', 'level', 'section', 'affiliateLinks')
+                ->where('level_id', $level->id)
                 ->where('section_id', $section->id)
-                ->where(function($q) use ($business_option) {
-                    $q->where('id', $business_option)
-                        ->orWhere('slug', $business_option);
-                })->first();
+                ->where('id', $business_option->id)
+                ->first();
 
             return $business_option;
         } catch (\Exception $exception){
@@ -72,7 +49,99 @@ trait BusinessOptionable
         }
     }
 
-    private function getPreviousRecord($section, $business_option)
+    /**
+     * This returns next business-option determined by menu-order
+     * filtered by business_category_id
+     *
+     * Complex oldGetNextRecord has been deprecated in favour of this simple solution.
+     *
+     * Old used complex calculation to find next child or next sibling or next section etc.
+     * This one uses more straight forward search using menu-order which will always put
+     * favourable child, sibling or section next to current business-option. This will be achieved
+     * by using drag-and-drop feature in the backend.
+     *
+     * @param $level
+     * @param $section
+     * @param $business_option
+     * @param $business_category_id
+     * @return null
+     */
+    private function getNextRecord($level, $section, $business_option, $business_category_id)
+    {
+        try {
+            $next = BusinessOption::where('id', '>', $business_option->id)
+                ->where('level_id', $level->id)
+                ->where('section_id', $section->id)
+                ->orderBy('id', 'asc')
+                ->first();
+
+            if ($business_category_id) {
+                if (count($next->businessCategories)) {
+                    $business_categories = $next->businessCategories->pluck('id')->toArray();
+                    if (!in_array($business_category_id, $business_categories)) {
+                        $this->getNextRecord($level, $section, $next, $business_category_id);
+                    }
+                }
+            }
+            return $next;
+        } catch (\Exception $exception) {
+            throw new ModelNotFoundException('not_found', 400);
+        }
+
+    }
+
+    /**
+     * This returns previous business-option determined by menu-order
+     * filtered by business_category_id
+     *
+     * Complex oldGetNextRecord has been deprecated in favour of this simple solution.
+     *
+     * Old used complex calculation to find previous child or previous sibling or previous section etc.
+     * This one uses more straight forward search using menu-order which will always put
+     * favourable child, sibling or section previous to current business-option. This will be achieved
+     * by using drag-and-drop feature in the backend.
+     *
+     * @param $level
+     * @param $section
+     * @param $business_option
+     * @param $business_category_id
+     * @return null
+     */
+    private function getPreviousRecord($level, $section, $business_option, $business_category_id)
+    {
+        try {
+            $previous = BusinessOption::where('id', '<', $business_option->id)
+                ->where('level_id', $level->id)
+                ->where('section_id', $section->id)
+                ->orderBy('id', 'desc')
+                ->first();
+
+            if ($business_category_id) {
+                if (count($previous->businessCategories)) {
+                    $business_categories = $previous->businessCategories->pluck('id')->toArray();
+                    if (!in_array($business_category_id, $business_categories)) {
+                        $this->getPreviousRecord($level, $section, $previous, $business_category_id);
+                    }
+                }
+            }
+
+            return $previous;
+        } catch (\Exception $exception) {
+            throw new Exception('not_found', 400);
+        }
+
+    }
+
+    /**
+     * This method has been deprecated to more simple solution.
+     *
+     * @param $section
+     * @param $business_option
+     * @return null
+     * @internal param $level
+     * @internal param $business_category_id
+     */
+    private function oldGetPreviousRecord($section, $business_option)
     {
         //if has children
         if ($child_business_option = $business_option->children->first()) {
@@ -123,7 +192,16 @@ trait BusinessOptionable
         }
     }
 
-    private function getNextRecord($level, $section, $business_option)
+    /**
+     * This method has been deprecated to more simple solution.
+     *
+     * @param $level
+     * @param $section
+     * @param $business_option
+     * @param $business_category_id
+     * @return null
+     */
+    private function oldNetNextRecord($level, $section, $business_option, $business_category_id)
     {
         //if has children
         if ($child_business_option = $business_option->children->first()) {
@@ -272,19 +350,6 @@ trait BusinessOptionable
             'success' => true,
             'user' => $user
         ]);
-    }
-
-    private function saveBusinessCategoryBusinessOption()
-    {
-    }
-
-    private function saveSellGoodsBusinessOption()
-    {
-
-    }
-
-    private function saveAboutYouBusinessOption() {
-
     }
 
 }

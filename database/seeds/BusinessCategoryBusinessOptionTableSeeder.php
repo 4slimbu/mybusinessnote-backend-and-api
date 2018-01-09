@@ -17,11 +17,30 @@ class BusinessCategoryBusinessOptionTableSeeder extends Seeder
         \DB::table('business_category_business_option')->delete();
         
         \DB::table('business_category_business_option')->insert(array (
-            0 => 
             array (
-                'business_category_id' => 4,
-                'business_option_id' => 18,
+                'business_category_id' => 1,
+                'business_option_id' => 2,
             ),
+            array (
+                'business_category_id' => 2,
+                'business_option_id' => 2,
+            ),
+            array (
+                'business_category_id' => 3,
+                'business_option_id' => 2,
+            ),
+            array (
+                'business_category_id' => 5,
+                'business_option_id' => 2,
+            ),
+            array (
+                'business_category_id' => 6,
+                'business_option_id' => 2,
+            ),
+            array (
+                'business_category_id' => 7,
+                'business_option_id' => 2,
+            )
         ));
         
         

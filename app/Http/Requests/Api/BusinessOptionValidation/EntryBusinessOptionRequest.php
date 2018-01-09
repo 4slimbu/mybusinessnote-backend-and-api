@@ -26,7 +26,7 @@ class EntryBusinessOptionRequest extends FormRequest
         return [
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'required|email|unique:user',
+            'email' => 'required|email|unique:users',
             'phone_number' => 'required',
             'password' => 'required|min:8|max:20',
             'business_category_id' => 'required|numeric',

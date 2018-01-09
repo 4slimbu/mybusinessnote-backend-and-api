@@ -8,9 +8,12 @@ use App\Models\Business;
 use App\Models\BusinessOption;
 use App\Models\Level;
 use App\Models\Section;
+use App\Models\User;
 use App\Traits\Authenticable;
 use App\Traits\BusinessOptionable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Bus;
+use Mockery\Exception;
 
 class BusinessOptionController extends BaseApiController
 {
@@ -48,7 +51,7 @@ class BusinessOptionController extends BaseApiController
      * @param $business_option
      * @return BusinessOptionResource
      */
-    public function show($level, $section, $business_option)
+    public function show(Level $level, Section $section, BusinessOption $business_option)
     {
         $business_option = $this->getBusinessOption($level, $section, $business_option);
         return new BusinessOptionResource($business_option);
@@ -64,7 +67,7 @@ class BusinessOptionController extends BaseApiController
      * @param $business_option
      * @return BusinessOptionResource
      */
-    public function next(Request $request, $level, $section, $business_option)
+    public function next(Request $request, Level $level, Section $section, BusinessOption $business_option)
     {
         //if query has business_category_id or user is authenticated
         // then include it as well in the query
@@ -78,7 +81,6 @@ class BusinessOptionController extends BaseApiController
             $business_category_id = $user->business->business_category_id;
         }
 
-        dd($business_category_id);
         $business_option = $this->getNextRecord($level, $section, $business_option, $business_category_id);
         return new BusinessOptionResource($business_option);
     }
@@ -87,14 +89,27 @@ class BusinessOptionController extends BaseApiController
      * Returns previous business-option using current business-option order by menu-order
      * if no next option: throw model not found exception
      *
+     * @param Request $request
      * @param $level
      * @param $section
      * @param $business_option
      * @return BusinessOptionResource
      */
-    public function previous($level, $section, $business_option)
+    public function previous(Request $request, Level $level, Section $section, BusinessOption $business_option)
     {
-        $business_option = $this->getPreviousRecord($level, $section, $business_option);
+        //if query has business_category_id or user is authenticated
+        // then include it as well in the query
+        $business_category_id = null;
+
+        if ($request->get('business_category_id')) {
+            $business_category_id = $request->get('business_category_id');
+        }
+
+        if ($user = $this->getAuthUser()) {
+            $business_category_id = $user->business->business_category_id;
+        }
+
+        $business_option = $this->getPreviousRecord($level, $section, $business_option, $business_category_id);
         return new BusinessOptionResource($business_option);
     }
 
@@ -203,45 +218,99 @@ class BusinessOptionController extends BaseApiController
 
 
     /**
-     * Gets Business Option with slug: business-category
+     * Gets Business Option : business-category
      *
      * @return BusinessOptionController|\Illuminate\Http\JsonResponse
      */
     public function getBusinessCategoryBusinessOption()
     {
-        return $this->first('getting-started', 'business-category');
+        $level = Level::where('id', 1)->first();
+        $section = Section::where('id', 1)->first();
+        $businessOption = BusinessOption::where('id', 1)->first();
+
+        return $this->show($level, $section, $businessOption);
     }
 
     /**
-     * Gets Business Option with slug: sell-goods
+     * Gets Business Option: sell-goods
      *
      * @return BusinessOptionController|\Illuminate\Http\JsonResponse
      */
     public function getSellGoodsBusinessOption()
     {
-        return $this->first('getting-started', 'sell-goods');
+        $level = Level::where('id', 1)->first();
+        $section = Section::where('id', 1)->first();
+        $businessOption = BusinessOption::where('id', 2)->first();
+
+        return $this->show($level, $section, $businessOption);
     }
 
 
     /**
-     * Gets Business Option with slug: about-you
+     * Gets Business Option: about-you
      *
      * @return BusinessOptionController|\Illuminate\Http\JsonResponse
      */
     public function getAboutYouBusinessOption()
     {
-        return $this->first('getting-started', 'about-you');
+        $level = Level::where('id', 1)->first();
+        $section = Section::where('id', 2)->first();
+        $businessOption = BusinessOption::where('id', 3)->first();
+
+        return $this->show($level, $section, $businessOption);
     }
 
     /**
-     * Saves Business Option with slugs: business-category, about-you, sell-goods
+     * Saves Business Option: business-category, about-you, sell-goods
      *
      * @param EntryBusinessOptionRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function saveEntryBusinessOption(EntryBusinessOptionRequest $request)
     {
-        $this->saveBusinessCategoryBusinessOption($request->only($this->businessCategoryFields));
-        $this->saveSellGoodsBusinessOption($request->all());
-        $this->saveAboutYouBusinessOption($request->all());
+        try {
+            $userInfo = $this->saveAboutYouBusinessOption(
+                $request->only('first_name', 'last_name', 'email', 'phone_number', 'password')
+            );
+            $this->saveBusinessCategoryBusinessOption($request->only('business_category_id'), $userInfo);
+            $this->saveSellGoodsBusinessOption($request->only('sell_goods'), $userInfo);
+
+            return response()->json([
+                'token' => $userInfo['token']
+            ]);
+        } catch (\Exception $exception) {
+            dd($exception->getMessage());
+            throw new Exception('unknown_error', 500);
+        }
+
     }
+
+    private function saveAboutYouBusinessOption($data) {
+
+        if (! $this->getAuthUser() && $data) {
+
+            dd('here');
+            //create
+        } else {
+            $user = User::();
+
+            return [
+                'user' => $user
+            ];
+        }
+
+        return "user";
+    }
+
+    private function saveBusinessCategoryBusinessOption()
+    {
+
+    }
+
+    private function saveSellGoodsBusinessOption()
+    {
+
+    }
+
+
 }
