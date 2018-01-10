@@ -18,6 +18,7 @@ class CreateBusinessSection extends Migration
             $table->integer('business_id')->unsigned();
             $table->integer('section_id')->unsigned();
             $table->tinyInteger('completed_percent')->default(0);
+            $table->timestamps();
             $table->primary(['business_id','section_id'], 'pivot_bu_se');
         });
     }

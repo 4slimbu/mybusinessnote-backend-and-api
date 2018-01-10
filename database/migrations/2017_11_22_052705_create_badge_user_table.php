@@ -17,7 +17,7 @@ class CreateBadgeUserTable extends Migration {
 			$table->integer('badge_id')->unsigned();
 			$table->integer('user_id')->unsigned();
 			$table->integer('business_id')->unsigned();
-			$table->dateTime('earned_on')->nullable();
+            $table->timestamps();
 			$table->primary(['badge_id','user_id','business_id'], 'pivot_ba_us_bu_id');
 		});
 	}

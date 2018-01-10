@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBusinessMetaTable extends Migration
+class CreateBusinessMetasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateBusinessMetaTable extends Migration
      */
     public function up()
     {
-        Schema::create('business_meta', function (Blueprint $table) {
+        Schema::create('business_metas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('business_id');
             $table->integer('business_option_id');
@@ -30,6 +30,6 @@ class CreateBusinessMetaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('business_meta');
+        Schema::dropIfExists('business_metas');
     }
 }

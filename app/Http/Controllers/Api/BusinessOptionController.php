@@ -13,14 +13,12 @@ use App\Models\User;
 use App\Traits\Authenticable;
 use App\Traits\BusinessOptionable;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Bus;
 use Mockery\Exception;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class BusinessOptionController extends BaseApiController
 {
     use BusinessOptionable, Authenticable;
-
-    //TODO: improve this barely working code
 
     /*
     |--------------------------------------------------------------------------
@@ -43,7 +41,6 @@ class BusinessOptionController extends BaseApiController
         return new BusinessOptionResource($business_option);
     }
 
-
     /**
      * Returns a single business option with related business-meta data
      *
@@ -59,8 +56,9 @@ class BusinessOptionController extends BaseApiController
     }
 
     /**
-     * Returns next business-option using current business-option order by menu-order
-     * if no next option: throw model not found exception
+     * Returns next business-option
+     *
+     * It uses current business-option to order higher business-options by menu-order
      *
      * @param Request $request
      * @param $level
@@ -87,8 +85,9 @@ class BusinessOptionController extends BaseApiController
     }
 
     /**
-     * Returns previous business-option using current business-option order by menu-order
-     * if no next option: throw model not found exception
+     * Returns previous business-option
+     *
+     * It uses current business-option to order lower business-options by menu-order
      *
      * @param Request $request
      * @param $level
@@ -115,48 +114,46 @@ class BusinessOptionController extends BaseApiController
     }
 
     /**
-     * Insert/Update specified Business Option along with
-     * related pivot tables to track progress
+     * Insert/Update specified Business Option
+     *
+     * It also insert/update related pivot tables to track progress
      * and also insert/update business-meta data
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function save(Request $request)
     {
+        try {
+            $authUser = $this->getAuthUser();
+            $business = $authUser->business;
 
-        if ($request->get("type") === "register_user") {
-            $userResponse = null;
+            //updates the business category
+            if ($request->get('business_option_id') && $request->get('data')) {
+                $data = $request->get('data');
+                foreach ($data as $item) {
 
-            //save user form
-            //TODO: use db transaction
+                }
 
+                $business->fill($request->all())->save();
+            }
 
-        }
+            // Sync create_business business option
+            $business_option_status = $request->get('business_option_status') ? $request->get('business_option_status') : 'done';
+            $data = [
+                'business_category_id' => $business->business_category_id,
+                'business_option_status' => $business_option_status
+            ];
+            $this->syncBusinessPivotTables($business, BusinessOption::find(5), $data);
 
-        if ($request->get("type") === "update_business") {
-            $business = Business::where('id', $request->get('business_id'))->first();
-            $business->update($request->only('business_category_id', 'sell_goods', 'business_name', 'website', 'abn'));
-
-            $business->businessOptions()->detach($request->get('business_option_id'));
-            $business->businessOptions()->attach([$request->get('business_option_id') => ['status' => 'done']]); //for business category
-
-            $sectionId = BusinessOption::find($request->get('business_option_id'))->section_id;
-            $levelId = Section::find($sectionId)->level_id;
-
-            $business->sections()->detach($sectionId);
-            $business->sections()->attach([$sectionId => ['completed_percent' => 100]]);
-            $business->levels()->detach($levelId);
-
-            $business->levels()->attach([1 => ['completed_percent' => count($business->sections) * 25]]);
-
+            //return response
             return response()->json([
-                'success' => true,
-                'message' => "Updated Successfully"
+                'business' => $business
             ], 200);
+        } catch (\Exception $exception) {
+            throw new \Exception('unknown_error', 500);
         }
-
-        return response()->json("Unable to save data", 500);
     }
 
     public function update(Request $request)
@@ -180,7 +177,6 @@ class BusinessOptionController extends BaseApiController
     | That's why these are special.
     |
     */
-
 
     /**
      * Gets Business Option : business-category
@@ -210,7 +206,6 @@ class BusinessOptionController extends BaseApiController
         return $this->show($level, $section, $businessOption);
     }
 
-
     /**
      * Gets Business Option: about-you
      *
@@ -234,12 +229,37 @@ class BusinessOptionController extends BaseApiController
      */
     public function saveEntryBusinessOption(EntryBusinessOptionRequest $request)
     {
-        $userInfo = $this->saveAboutYouBusinessOption($request, false);
         try {
-            $this->saveBusinessCategoryBusinessOption($request->only('business_category_id'), $userInfo, false);
-            $this->saveSellGoodsBusinessOption($request->only('sell_goods'), $userInfo, false);
-            $this->syncBusinessPivotTables();
+            //create user
+            //response will return token and user
+            $userInfo = $this->userRegister($request);
 
+            //create business with business_category_id, user_id and sell_goods
+            $business_category_id = $request->get('business_category_id') ? $request->get('business_category_id') : 1;
+            $business = Business::create([
+                'user_id' => $userInfo['user']['id'],
+                'business_category_id' => $business_category_id,
+                'sell_goods' => $request->get('sell_goods') ? $request->get('sell_goods') : false
+            ]);
+
+            // Set up business_business_options with all the available business_options
+            $relevant_business_options = BusinessCategory::find($business_category_id)->businessOptions()
+                ->where('business_category_id', $business_category_id)->pluck('id');
+            $business->businessOptions()->attach($relevant_business_options);
+
+            //sync business with default business options determined by business_category_id
+            $data = [
+                'business_category_id' => $business_category_id,
+                'business_option_status' => 'done'
+            ];
+            // Sync business_category business option
+            $this->syncBusinessPivotTables($business, BusinessOption::find(1), $data);
+            // Sync sell_goods business Option
+            $this->syncBusinessPivotTables($business, BusinessOption::find(2), $data);
+            // Sync about you business option
+            $this->syncBusinessPivotTables($business, BusinessOption::find(3), $data);
+
+            //return user and token
             return response()->json($userInfo);
         } catch (\Exception $exception) {
             throw new Exception('unknown_error', 500);
@@ -253,110 +273,209 @@ class BusinessOptionController extends BaseApiController
      * If not authenticated, register user and create business for the user
      *
      * @param Request $request
-     * @param bool $returnResponse
      * @return array|\Illuminate\Http\JsonResponse
-     * @throws \Exception
+     * @internal param bool $returnResponse
      */
-    private function saveAboutYouBusinessOption(Request $request, $returnResponse = true) {
-
+    public function saveAboutYouBusinessOption(Request $request) {
         //if user is authenticated, then it means we need to update
         if ($user = $this->getAuthUser()) {
             //update user info except email
             $inputs = $request->only('first_name', 'last_name', 'phone_number', 'password');
+
             try {
                 $user->fill($inputs)->save();
+                $token = JWTAuth::fromUser($user);
+
+                // Sync create_business business option
+                $data = [
+                    'business_category_id' => $user->business->business_category_id,
+                    'business_option_status' => 'done'
+                ];
+                $this->syncBusinessPivotTables($user->business, BusinessOption::find(3), $data);
 
                 //return response
-                if ($returnResponse) {
-                    return response()->json(['user' => $user], 200);
-                } else {
-                    return ['user' => $user];
-                }
+                return response()->json([
+                    'token' => $token,
+                    'user' => $user
+                ], 200);
             } catch (\Exception $exception) {
                 throw new Exception('unknown_error', 500);
             }
+        }
+    }
 
-        //else register user
-        } else {
-            $response = $this->userRegister($request);
-            $response['business'] = Business::create(['user_id' => $response['user']->id]);
+    /**
+     * Insert/update Business Option: business-category
+     *
+     * This return jsonResponse by default but can be set to return array of data.
+     * This is especially useful when called from inside another function.
+     *
+     * @param Request $request
+     * @internal param $data
+     * @internal param $userInfo
+     * @internal param bool $returnResponse
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function saveBusinessCategoryBusinessOption(Request $request)
+    {
+        try {
+            $business_category_id = $request->get('business_category_id');
+            $authUser = $this->getAuthUser();
+            $business = $authUser->business;
+
+            if ($business->business_category_id !== $business_category_id) {
+                //updates the business category
+                $business->fill(['business_category_id' => $business_category_id])->save();
+
+                //sync the business_business_option table
+                //get the business_options_id for the new and old categories
+                $new_business_options = BusinessCategory::find($business_category_id)->businessOptions()
+                    ->where('business_category_id', $business_category_id)->pluck('id')->toArray();
+                $old_business_options = $business->businessOptions()
+                    ->where('status', '!=', 'irrelevant')
+                    ->pluck('id')->toArray();
+
+                //compare
+                $new_addition = array_diff($new_business_options, $old_business_options);
+                $not_relevant = array_diff($old_business_options, $new_business_options);
+
+                //if new: add
+                $business->businessOptions()->detach($new_addition);
+                $business->businessOptions()->attach($new_addition);
+
+                //if old un-required: update with status irrelevant
+                $business->businessOptions()->detach($not_relevant);
+                $not_relevant_data = [];
+                foreach ($not_relevant as $item) {
+                    $not_relevant_data[$item] = ['status' => 'irrelevant'];
+                }
+                $business->businessOptions()->attach($not_relevant_data);
+
+                // Sync create_business business option
+                $data = [
+                    'business_category_id' => $business->business_category_id,
+                    'business_option_status' => 'done'
+                ];
+
+                $this->syncBusinessPivotTables($business, BusinessOption::find(1), $data);
+
+            }
 
             //return response
-            if ($returnResponse) {
-                return response()->json($response, 201);
+            return response()->json([
+                'business' => $business
+            ], 200);
+
+        } catch (\Exception $exception) {
+            throw new Exception('unknown_error', 500);
+        }
+
+    }
+
+    /**
+     * Insert/update Business Option: sell-goods
+     *
+     * This return jsonResponse by default but can be set to return array of data.
+     * This is especially useful when called from inside another function.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @internal param $data
+     * @internal param $userInfo
+     * @internal param bool $returnResponse
+     */
+    public function saveSellGoodsBusinessOption(Request $request)
+    {
+        try {
+            $sell_goods = $request->get('sell_goods');
+            $authUser = $this->getAuthUser();
+            $business = $authUser->business;
+
+            if ($business->sell_goods !== $sell_goods) {
+                //updates the business category
+                $business->fill(['sell_goods' => $sell_goods])->save();
+
+                // Sync create_business business option
+                $data = [
+                    'business_category_id' => $business->business_category_id,
+                    'business_option_status' => 'done'
+                ];
+                $this->syncBusinessPivotTables($business, BusinessOption::find(2), $data);
+
+                //return response
+                return response()->json([
+                    'business' => $business
+                ], 200);
             }
-            return $response;
+
+        } catch (\Exception $exception) {
+            throw new Exception('unknown_error', 500);
         }
     }
 
-    private function saveBusinessCategoryBusinessOption($data, $userInfo, $returnResponse = true)
+    /**
+     * Insert/update Business Option: create-business
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function saveCreateBusinessBusinessOption(Request $request)
     {
+        try {
+            $inputs = $request->only('business_name', 'business_website');
+            $authUser = $this->getAuthUser();
+            $business = $authUser->business;
 
+            //updates the business category
+            $business->fill($inputs)->save();
 
-    }
+            // Sync create_business business option
+            $data = [
+                'business_category_id' => $business->business_category_id,
+                'business_option_status' => 'done'
+            ];
+            $this->syncBusinessPivotTables($business, BusinessOption::find(4), $data);
 
-    private function saveSellGoodsBusinessOption($data, $userInfo, $returnResponse = true)
-    {
+            //return response
+            return response()->json([
+                'business' => $business
+            ], 200);
 
-    }
-
-    private function syncBusinessPivotTables(Business $business, BusinessOption $business_option, $data)
-    {
-        $business_category_id = ($data['business_category_id']) ? $data['business_category_id'] : null;
-        $business_option_status = ($data['business_option_status']) ? $data['business_option_status'] : null;
-
-        //sync business_business_option table
-        $business->businessOptions()->detach($business_option->id);
-        $business->businessOptions()->attach([$business_option->id => ['status' => $business_option_status]]);
-
-        //TODO: improve
-        //sync business_section table
-        //when there is business_category_id as filter, it is applied to section only for now
-        //assuming at least one business-option will be there in a section and no of section in a level is constant
-        //but it can change in the future
-        $section_completed_percent = $this->getSectionCompletedPercent($business, $business_option, $business_category_id);
-        $business->sections()->detach($business_option->section->id);
-        $business->sections()->attach([$business_option->section->id => ['completed_percent' => $section_completed_percent]]);
-
-        //sync business_level table
-        $level_completed_percent = $this->getLevelCompletedPercent($business, $business_option);
-        $business->levels()->detach($business_option->level->id);
-        $business->levels()->attach([1 => ['completed_percent' => $level_completed_percent]]);
-    }
-
-    private function getSectionCompletedPercent(Business $business, BusinessOption $business_option, $business_category_id = null)
-    {
-        //get total weight of  business options under given business_category_id and section
-        if ($business_category_id) {
-            $business_options_total_weight = BusinessCategory::find($business_category_id)
-                ->businessOptions()->where('section_id', $business_option->section->id)
-                ->sum('weight');
-        //else get total business option under given section
-        } else {
-            $business_options_total_weight = BusinessOption::where('section_id', $business_option->section->id)
-                ->sum('weight');
+        } catch (\Exception $exception) {
+            throw new \Exception('unknown_error', 500);
         }
-
-        //get total weight of completed business options under given section
-        $completed_business_options_weight = $business->businessOptions()
-            ->where('section_id', $business_option->section->id)
-            ->where('status', 'done')->sum('weight');
-
-        //calculate percent
-        return ($completed_business_options_weight / $business_options_total_weight) * 100;
     }
 
-    private function getLevelCompletedPercent(Business $business, BusinessOption $businessOption)
-    {
-        //get total sections count
-        $total_sections = $businessOption->level->sections()->count();
+    /**
+     * Insert/update Business Option: register-business
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function saveRegisterBusinessBusinessOption(Request $request) {
+        try {
+            $inputs = $request->only('abn');
+            $authUser = $this->getAuthUser();
+            $business = $authUser->business;
 
-        //get completed sections count
-        $completed_sections = $business->sections()->where('completed_percent', 100)->count();
+            //updates the business category
+            $business->fill($inputs)->save();
 
-        //calculate percent
-        return ($completed_sections/$total_sections) * 100;
+            // Sync create_business business option
+            $data = [
+                'business_category_id' => $business->business_category_id,
+                'business_option_status' => 'done'
+            ];
+            $this->syncBusinessPivotTables($business, BusinessOption::find(5), $data);
+
+            //return response
+            return response()->json([
+                'business' => $business
+            ], 200);
+        } catch (\Exception $exception) {
+            throw new \Exception('unknown_error', 500);
+        }
     }
-
 
 }

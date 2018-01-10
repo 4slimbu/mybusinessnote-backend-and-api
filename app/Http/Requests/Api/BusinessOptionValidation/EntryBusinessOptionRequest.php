@@ -29,8 +29,9 @@ class EntryBusinessOptionRequest extends FormRequest
             'email' => 'required|email|unique:users',
             'phone_number' => 'required',
             'password' => 'required|min:8|max:20',
-            'business_category_id' => 'required|numeric',
-            'sell_goods' => 'required|boolean'
+            'business_category_id' => 'required',
+            'sell_goods' => 'required'
         ];
     }
+
 }
