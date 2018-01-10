@@ -15,8 +15,11 @@ class BusinessOptionsTableSeeder extends Seeder
         
 
         \DB::table('business_options')->delete();
+        
         \DB::table('business_options')->insert(array (
+            0 => 
             array (
+                'id' => 1,
                 'level_id' => 1,
                 'section_id' => 1,
                 'parent_id' => NULL,
@@ -32,7 +35,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => '2018-01-07 10:48:14',
             ),
+            1 => 
             array (
+                'id' => 2,
                 'level_id' => 1,
                 'section_id' => 1,
                 'parent_id' => NULL,
@@ -48,7 +53,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2018-01-07 10:43:38',
                 'updated_at' => '2018-01-07 10:43:38',
             ),
+            2 => 
             array (
+                'id' => 3,
                 'level_id' => 1,
                 'section_id' => 2,
                 'parent_id' => NULL,
@@ -64,7 +71,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2017-11-23 01:28:17',
                 'updated_at' => '2018-01-07 10:50:06',
             ),
+            3 => 
             array (
+                'id' => 4,
                 'level_id' => 1,
                 'section_id' => 3,
                 'parent_id' => NULL,
@@ -80,7 +89,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2017-11-23 01:29:09',
                 'updated_at' => '2018-01-07 10:52:07',
             ),
+            4 => 
             array (
+                'id' => 5,
                 'level_id' => 1,
                 'section_id' => 4,
                 'parent_id' => NULL,
@@ -96,7 +107,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2017-11-23 01:30:17',
                 'updated_at' => '2018-01-07 10:53:32',
             ),
+            5 => 
             array (
+                'id' => 6,
                 'level_id' => 2,
                 'section_id' => 5,
                 'parent_id' => NULL,
@@ -104,15 +117,17 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'do-you-have-a-logo',
                 'description' => NULL,
                 'content' => 'logo upload shortcode',
-                'element' => '',
+                'element' => NULL,
                 'tooltip' => 'marketing',
                 'menu_order' => 6,
                 'weight' => 1,
                 'show_everywhere' => 1,
                 'created_at' => '2017-11-23 01:49:28',
-                'updated_at' => '2017-11-23 01:49:28',
+                'updated_at' => '2018-01-09 19:11:42',
             ),
+            6 => 
             array (
+                'id' => 7,
                 'level_id' => 2,
                 'section_id' => 5,
                 'parent_id' => 12,
@@ -120,15 +135,17 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'select-your-brand-color',
                 'description' => NULL,
                 'content' => 'shortcode brand color',
-                'element' => '',
+                'element' => NULL,
                 'tooltip' => 'brand color',
                 'menu_order' => 7,
                 'weight' => 1,
                 'show_everywhere' => 1,
                 'created_at' => '2017-11-23 01:51:54',
-                'updated_at' => '2017-11-23 03:17:52',
+                'updated_at' => '2018-01-09 19:12:26',
             ),
+            7 => 
             array (
+                'id' => 8,
                 'level_id' => 2,
                 'section_id' => 5,
                 'parent_id' => 13,
@@ -136,15 +153,17 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'social-media-registration',
                 'description' => NULL,
                 'content' => 'social media registration shortcode',
-                'element' => '',
+                'element' => NULL,
                 'tooltip' => 'social',
                 'menu_order' => 8,
                 'weight' => 1,
                 'show_everywhere' => 1,
                 'created_at' => '2017-11-23 01:52:43',
-                'updated_at' => '2017-11-23 03:28:31',
+                'updated_at' => '2018-01-09 19:12:43',
             ),
+            8 => 
             array (
+                'id' => 9,
                 'level_id' => 2,
                 'section_id' => 6,
                 'parent_id' => NULL,
@@ -160,7 +179,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2017-11-23 01:55:03',
                 'updated_at' => '2018-01-07 11:01:58',
             ),
+            9 => 
             array (
+                'id' => 10,
                 'level_id' => 2,
                 'section_id' => 6,
                 'parent_id' => NULL,
@@ -168,15 +189,17 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'merchant-facilities',
                 'description' => NULL,
                 'content' => 'yet to decide',
-                'element' => '',
+                'element' => NULL,
                 'tooltip' => 'merchant facilities',
                 'menu_order' => 10,
                 'weight' => 1,
                 'show_everywhere' => 1,
                 'created_at' => '2017-11-23 01:56:30',
-                'updated_at' => '2017-11-23 01:56:30',
+                'updated_at' => '2018-01-09 19:12:01',
             ),
+            10 => 
             array (
+                'id' => 11,
                 'level_id' => 2,
                 'section_id' => 7,
                 'parent_id' => NULL,
@@ -192,7 +215,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2017-11-23 01:46:02',
                 'updated_at' => '2018-01-07 10:56:46',
             ),
+            11 => 
             array (
+                'id' => 12,
                 'level_id' => 2,
                 'section_id' => 7,
                 'parent_id' => NULL,
@@ -200,15 +225,17 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'which-area-of-your-business-would-you-like-to-work-on-first',
                 'description' => NULL,
                 'content' => 'shortcode to show business options',
-                'element' => '',
+                'element' => NULL,
                 'tooltip' => 'starting',
                 'menu_order' => 12,
                 'weight' => 1,
                 'show_everywhere' => 1,
                 'created_at' => '2017-11-23 01:57:34',
-                'updated_at' => '2017-11-23 01:57:34',
+                'updated_at' => '2018-01-09 19:12:18',
             ),
+            12 => 
             array (
+                'id' => 13,
                 'level_id' => 3,
                 'section_id' => 8,
                 'parent_id' => NULL,
@@ -224,7 +251,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2017-11-23 02:04:19',
                 'updated_at' => '2018-01-07 11:04:49',
             ),
+            13 => 
             array (
+                'id' => 14,
                 'level_id' => 3,
                 'section_id' => 9,
                 'parent_id' => NULL,
@@ -236,11 +265,13 @@ class BusinessOptionsTableSeeder extends Seeder
                 'tooltip' => 'legal advisor',
                 'menu_order' => 14,
                 'weight' => 1,
-                'show_everywhere' => 0,
+                'show_everywhere' => 1,
                 'created_at' => '2018-01-07 11:07:02',
-                'updated_at' => '2018-01-07 11:07:02',
+                'updated_at' => '2018-01-09 19:14:06',
             ),
+            14 => 
             array (
+                'id' => 15,
                 'level_id' => 3,
                 'section_id' => 10,
                 'parent_id' => NULL,
@@ -252,11 +283,13 @@ class BusinessOptionsTableSeeder extends Seeder
                 'tooltip' => 'Do you have employment contracts already?',
                 'menu_order' => 15,
                 'weight' => 1,
-                'show_everywhere' => 0,
+                'show_everywhere' => 1,
                 'created_at' => '2018-01-07 11:03:57',
-                'updated_at' => '2018-01-07 11:03:57',
+                'updated_at' => '2018-01-09 19:13:54',
             ),
+            15 => 
             array (
+                'id' => 16,
                 'level_id' => 3,
                 'section_id' => 11,
                 'parent_id' => NULL,
@@ -268,11 +301,13 @@ class BusinessOptionsTableSeeder extends Seeder
                 'tooltip' => 'Office space?',
                 'menu_order' => 16,
                 'weight' => 1,
-                'show_everywhere' => 0,
+                'show_everywhere' => 1,
                 'created_at' => '2018-01-07 11:05:23',
-                'updated_at' => '2018-01-07 11:05:23',
+                'updated_at' => '2018-01-09 19:14:17',
             ),
+            16 => 
             array (
+                'id' => 17,
                 'level_id' => 3,
                 'section_id' => 12,
                 'parent_id' => NULL,
@@ -284,9 +319,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'tooltip' => 'Book keeping?',
                 'menu_order' => 19,
                 'weight' => 1,
-                'show_everywhere' => 0,
+                'show_everywhere' => 1,
                 'created_at' => '2018-01-07 11:03:22',
-                'updated_at' => '2018-01-07 11:03:22',
+                'updated_at' => '2018-01-09 19:14:29',
             ),
         ));
         

@@ -261,63 +261,6 @@ trait BusinessOptionable
 
 
     /**
-     * API Register, on success return JWT Auth token
-     *
-     * @param Request $request
-     * @return array|\Illuminate\Http\JsonResponse
-     */
-    private function userRegister(Request $request)
-    {
-        $rules = [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email',
-            'phone_number' => 'required',
-            'password' => 'required',
-        ];
-
-
-        $input = $request->only('first_name', 'last_name', 'role_id', 'email', 'phone_number', 'password');
-        $validator = Validator::make($input, $rules);
-
-        if($validator->fails()) {
-            $error = $validator->messages();
-            return response()->json(['success'=> false, 'error'=> $error], 422);
-        }
-
-        //save data
-        $input['role_id'] = 2; //role: customer
-        $input['verified'] = 1; //email verification not required for now
-        $user = User::create($input);
-
-        $credentials = [
-            'email' => $request->email,
-            'password' => $request->password,
-            'verified' => 1
-        ];
-
-        try {
-            // attempt to verify the credentials and create a token for the user
-            $customClaims = [
-                "user" => $user
-            ];
-
-            if (! $token = JWTAuth::attempt($credentials, $customClaims)) {
-                return response()->json(['success' => false, 'error' => 'Invalid Credentials.'], 401);
-            }
-        } catch (JWTException $e) {
-            // something went wrong whilst attempting to encode the token
-            return response()->json(['success' => false, 'error' => 'could_not_create_token'], 500);
-        }
-
-        // all good so return the token
-        return [
-            'token' => $token,
-            'user' => $user
-        ];
-    }
-
-    /**
      * API Update User Info
      *
      * @param Request $request

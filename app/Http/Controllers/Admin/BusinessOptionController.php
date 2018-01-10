@@ -102,7 +102,7 @@ class BusinessOptionController extends AdminBaseController
         }
 
         if ($input['show_everywhere']) {
-            $businessOption->businessCategories()->sync([]);
+            $businessOption->businessCategories()->sync(BusinessCategory::all()->pluck('id'));
         } else {
             if (isset($input['business_category_id']) && $input['business_category_id']) {
                 $businessOption->businessCategories()->sync(array_filter($input['business_category_id']));
@@ -118,7 +118,7 @@ class BusinessOptionController extends AdminBaseController
      * Display the specified business option.
      *
      * @param  \App\Models\BusinessOption $businessOption
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function show(BusinessOption $businessOption)
     {
@@ -180,7 +180,7 @@ class BusinessOptionController extends AdminBaseController
         }
 
         if ($input['show_everywhere']) {
-            $businessOption->businessCategories()->sync([]);
+            $businessOption->businessCategories()->sync(BusinessCategory::all()->pluck('id'));
         } else {
             if (isset($input['business_category_id']) && $input['business_category_id']) {
                 $businessOption->businessCategories()->sync(array_filter($input['business_category_id']));

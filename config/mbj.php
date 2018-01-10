@@ -7,5 +7,5 @@ return [
                 'desc' => 'This sets the no of items to display in admin area listing.'
             ]
         ],
-    ]
+    ],
 ];

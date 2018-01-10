@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\Api\BusinessOptionValidation\EntryBusinessOptionRequest;
 use App\Http\Resources\Api\BusinessOptionResource;
 use App\Models\Business;
+use App\Models\BusinessCategory;
 use App\Models\BusinessOption;
 use App\Models\Level;
 use App\Models\Section;
@@ -34,7 +35,7 @@ class BusinessOptionController extends BaseApiController
      *
      * @param Level $level
      * @param Section $section
-     * @return $this|\Illuminate\Http\JsonResponse
+     * @return BusinessOptionResource
      */
     public function first(Level $level, Section $section)
     {
@@ -129,43 +130,7 @@ class BusinessOptionController extends BaseApiController
 
             //save user form
             //TODO: use db transaction
-            $userResponse = $this->userRegister($request);
 
-            if ($request->get('user_id')) {
-//                $user = User::find('id', $request->get('user_id'));
-//                $user->fill($request->only('first_name', 'last_name', 'phone_number'))->save();
-//                $business = $user->business;
-//
-//                $business->businessOptions()->attach([3 => ['status' => 'done']]);
-//                $business->sections()->attach([2 => ['completed_percent' => 100]]);
-//                $business->levels()->attach([1 => ['completed_percent' => 50]]);
-
-                return response()->json([
-                    'success' => true,
-                    'message' => "User updated successfully"
-                ], 201);
-            } else {
-                $business = Business::create([
-                    'user_id' => $userResponse['user']->id,
-                    'business_category_id' => $request->get('business_category_id'),
-                    'sell_goods' => $request->get('sell_goods')
-                ]);
-
-                $business->businessOptions()->attach([2 => ['status' => 'done']]); //for business category
-                $business->businessOptions()->attach([3 => ['status' => 'done']]);
-                $business->sections()->attach([1 => ['completed_percent' => 100]]);
-                $business->sections()->attach([2 => ['completed_percent' => 100]]);
-
-                $business->levels()->attach([1 => ['completed_percent' => count($business->sections) * 25]]);
-            }
-
-
-            if ($userResponse) {
-                return response()->json([
-                    'success' => true,
-                    'token' => $userResponse['token']
-                ], 201);
-            }
 
         }
 
@@ -220,7 +185,7 @@ class BusinessOptionController extends BaseApiController
     /**
      * Gets Business Option : business-category
      *
-     * @return BusinessOptionController|\Illuminate\Http\JsonResponse
+     * @return BusinessOptionResource
      */
     public function getBusinessCategoryBusinessOption()
     {
@@ -234,7 +199,7 @@ class BusinessOptionController extends BaseApiController
     /**
      * Gets Business Option: sell-goods
      *
-     * @return BusinessOptionController|\Illuminate\Http\JsonResponse
+     * @return BusinessOptionResource
      */
     public function getSellGoodsBusinessOption()
     {
@@ -249,7 +214,7 @@ class BusinessOptionController extends BaseApiController
     /**
      * Gets Business Option: about-you
      *
-     * @return BusinessOptionController|\Illuminate\Http\JsonResponse
+     * @return BusinessOptionResource
      */
     public function getAboutYouBusinessOption()
     {
@@ -265,51 +230,132 @@ class BusinessOptionController extends BaseApiController
      *
      * @param EntryBusinessOptionRequest $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function saveEntryBusinessOption(EntryBusinessOptionRequest $request)
     {
+        $userInfo = $this->saveAboutYouBusinessOption($request, false);
         try {
-            $userInfo = $this->saveAboutYouBusinessOption(
-                $request->only('first_name', 'last_name', 'email', 'phone_number', 'password')
-            );
-            $this->saveBusinessCategoryBusinessOption($request->only('business_category_id'), $userInfo);
-            $this->saveSellGoodsBusinessOption($request->only('sell_goods'), $userInfo);
+            $this->saveBusinessCategoryBusinessOption($request->only('business_category_id'), $userInfo, false);
+            $this->saveSellGoodsBusinessOption($request->only('sell_goods'), $userInfo, false);
+            $this->syncBusinessPivotTables();
 
-            return response()->json([
-                'token' => $userInfo['token']
-            ]);
+            return response()->json($userInfo);
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
             throw new Exception('unknown_error', 500);
         }
 
     }
 
-    private function saveAboutYouBusinessOption($data) {
+    /**
+     * Saves Business Option: About You
+     *
+     * If not authenticated, register user and create business for the user
+     *
+     * @param Request $request
+     * @param bool $returnResponse
+     * @return array|\Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    private function saveAboutYouBusinessOption(Request $request, $returnResponse = true) {
 
-        if (! $this->getAuthUser() && $data) {
+        //if user is authenticated, then it means we need to update
+        if ($user = $this->getAuthUser()) {
+            //update user info except email
+            $inputs = $request->only('first_name', 'last_name', 'phone_number', 'password');
+            try {
+                $user->fill($inputs)->save();
 
-            dd('here');
-            //create
+                //return response
+                if ($returnResponse) {
+                    return response()->json(['user' => $user], 200);
+                } else {
+                    return ['user' => $user];
+                }
+            } catch (\Exception $exception) {
+                throw new Exception('unknown_error', 500);
+            }
+
+        //else register user
         } else {
-            $user = User::();
+            $response = $this->userRegister($request);
+            $response['business'] = Business::create(['user_id' => $response['user']->id]);
 
-            return [
-                'user' => $user
-            ];
+            //return response
+            if ($returnResponse) {
+                return response()->json($response, 201);
+            }
+            return $response;
+        }
+    }
+
+    private function saveBusinessCategoryBusinessOption($data, $userInfo, $returnResponse = true)
+    {
+
+
+    }
+
+    private function saveSellGoodsBusinessOption($data, $userInfo, $returnResponse = true)
+    {
+
+    }
+
+    private function syncBusinessPivotTables(Business $business, BusinessOption $business_option, $data)
+    {
+        $business_category_id = ($data['business_category_id']) ? $data['business_category_id'] : null;
+        $business_option_status = ($data['business_option_status']) ? $data['business_option_status'] : null;
+
+        //sync business_business_option table
+        $business->businessOptions()->detach($business_option->id);
+        $business->businessOptions()->attach([$business_option->id => ['status' => $business_option_status]]);
+
+        //TODO: improve
+        //sync business_section table
+        //when there is business_category_id as filter, it is applied to section only for now
+        //assuming at least one business-option will be there in a section and no of section in a level is constant
+        //but it can change in the future
+        $section_completed_percent = $this->getSectionCompletedPercent($business, $business_option, $business_category_id);
+        $business->sections()->detach($business_option->section->id);
+        $business->sections()->attach([$business_option->section->id => ['completed_percent' => $section_completed_percent]]);
+
+        //sync business_level table
+        $level_completed_percent = $this->getLevelCompletedPercent($business, $business_option);
+        $business->levels()->detach($business_option->level->id);
+        $business->levels()->attach([1 => ['completed_percent' => $level_completed_percent]]);
+    }
+
+    private function getSectionCompletedPercent(Business $business, BusinessOption $business_option, $business_category_id = null)
+    {
+        //get total weight of  business options under given business_category_id and section
+        if ($business_category_id) {
+            $business_options_total_weight = BusinessCategory::find($business_category_id)
+                ->businessOptions()->where('section_id', $business_option->section->id)
+                ->sum('weight');
+        //else get total business option under given section
+        } else {
+            $business_options_total_weight = BusinessOption::where('section_id', $business_option->section->id)
+                ->sum('weight');
         }
 
-        return "user";
+        //get total weight of completed business options under given section
+        $completed_business_options_weight = $business->businessOptions()
+            ->where('section_id', $business_option->section->id)
+            ->where('status', 'done')->sum('weight');
+
+        //calculate percent
+        return ($completed_business_options_weight / $business_options_total_weight) * 100;
     }
 
-    private function saveBusinessCategoryBusinessOption()
+    private function getLevelCompletedPercent(Business $business, BusinessOption $businessOption)
     {
+        //get total sections count
+        $total_sections = $businessOption->level->sections()->count();
 
-    }
+        //get completed sections count
+        $completed_sections = $business->sections()->where('completed_percent', 100)->count();
 
-    private function saveSellGoodsBusinessOption()
-    {
-
+        //calculate percent
+        return ($completed_sections/$total_sections) * 100;
     }
 
 

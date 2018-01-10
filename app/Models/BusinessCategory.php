@@ -12,4 +12,9 @@ class BusinessCategory extends Model
     {
     	return $this->hasMany(Business::class);
     }
+
+    public function businessOptions()
+    {
+        return $this->belongsToMany(BusinessOption::class);
+    }
 }
