@@ -351,9 +351,9 @@ trait BusinessOptionable
     private function getSectionCompletedPercent(Business $business, BusinessOption $business_option)
     {
         //get total weight of  business options under given business_category_id and section
-        $business_options_total_weight = BusinessCategory::find($business->business_category_id)
-            ->businessOptions()->where('section_id', $business_option->section->id)
-            ->sum('weight');
+        $business_options_total_weight = $business->businessOptions()
+            ->where('section_id', $business_option->section->id)
+            ->where('status', '!=', 'irrelevant')->sum('weight');;
 
         //get total weight of completed business options under given section
         $completed_business_options_weight = $business->businessOptions()

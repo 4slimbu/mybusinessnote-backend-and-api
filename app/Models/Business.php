@@ -50,7 +50,7 @@ class Business extends Model
         return $this->belongsToMany(BusinessOption::class)->withPivot("status");
     }
 
-    public function businessMeta()
+    public function businessMetas()
     {
         return $this->hasMany(BusinessMeta::class);
     }

@@ -128,15 +128,31 @@ class BusinessOptionController extends BaseApiController
         try {
             $authUser = $this->getAuthUser();
             $business = $authUser->business;
+            $business_option_id = $request->get('business_option_id');
 
-            //updates the business category
-            if ($request->get('business_option_id') && $request->get('data')) {
+            if (! $business_option_id || $business) {
+                throw new \Exception('invalid_request', 400);
+            }
+
+            //updates the business meta
+            if ($business_option_id && $request->get('data')) {
                 $data = $request->get('data');
-                foreach ($data as $item) {
+                foreach ($data as $key => $value) {
+                    $businessMeta = $business->businessMeta()
+                        ->where('business_option_id', $business_option_id)
+                        ->where('key', $key)
+                        ->first();
+                    if ($businessMeta) {
+                        $businessMeta->fill(['value' => $value])->save();
+                    } else {
+                        $business->businessMeta()->fill([
+                            'business_option_id' => $business_option_id,
+                            'key' => $key,
+                            'value' => $value
+                        ])->save();
+                    }
 
                 }
-
-                $business->fill($request->all())->save();
             }
 
             // Sync create_business business option
@@ -145,7 +161,7 @@ class BusinessOptionController extends BaseApiController
                 'business_category_id' => $business->business_category_id,
                 'business_option_status' => $business_option_status
             ];
-            $this->syncBusinessPivotTables($business, BusinessOption::find(5), $data);
+            $this->syncBusinessPivotTables($business, BusinessOption::find($business_option_id), $data);
 
             //return response
             return response()->json([
@@ -173,8 +189,9 @@ class BusinessOptionController extends BaseApiController
     | Special Methods for Handling Special Entry Business Options
     |--------------------------------------------------------------------------
     |
-    | Some parts in these methods are hard-coded : like slug.
-    | That's why these are special.
+    | These business options are unique in the sense that some are called
+    | even before user is registered and are saved either in users table
+    | or in businesses table instead of business_metas table
     |
     */
 
@@ -255,7 +272,9 @@ class BusinessOptionController extends BaseApiController
             // Sync business_category business option
             $this->syncBusinessPivotTables($business, BusinessOption::find(1), $data);
             // Sync sell_goods business Option
-            $this->syncBusinessPivotTables($business, BusinessOption::find(2), $data);
+            if ($business_category_id != 4) {
+                $this->syncBusinessPivotTables($business, BusinessOption::find(2), $data);
+            }
             // Sync about you business option
             $this->syncBusinessPivotTables($business, BusinessOption::find(3), $data);
 
