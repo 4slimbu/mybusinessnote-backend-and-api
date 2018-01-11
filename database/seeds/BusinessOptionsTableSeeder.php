@@ -45,7 +45,7 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'will-you-also-be-selling-goods-online',
                 'description' => NULL,
                 'content' => NULL,
-                'element' => NULL,
+                'element' => 'SellGoods',
                 'tooltip' => NULL,
                 'menu_order' => 2,
                 'weight' => 1,

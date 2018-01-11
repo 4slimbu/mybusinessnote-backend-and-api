@@ -232,6 +232,7 @@ class AuthController extends Controller
             "email" => $business->user->email,
             "phone_number" => $business->user->phone_number,
             "business_category_id" => $business->businessCategory->id,
+            "sell_goods" => (bool) $business->sell_goods,
             "business_name" => $business->business_name,
             "website" => $business->website,
             "abn" => $business->abn,
@@ -278,13 +279,15 @@ class AuthController extends Controller
 
         //get data
         $data = [];
-        $sections = Section::select('id', 'level_id', 'slug', 'name')->where("level_id", $level->id)->get();
+        $sections = Section::select('id', 'level_id', 'slug', 'name', 'icon')->where("level_id", $level->id)->get();
         $total_completed_sections = 0;
 
         //get sections data and set completed_percent to 0
         //get levels data and set completed_percent to 0
         foreach ($sections as $section) {
             $arr = $section->toArray();
+            $arr["red_icon"] = asset('images/icons/sections/red/' . $section->icon );
+            $arr["white_icon"] = asset('images/icons/sections/white/' . $section->icon );
             $arr["completed_percent"] = 0;
 
             //set completed_percent to actual percent on touched sections

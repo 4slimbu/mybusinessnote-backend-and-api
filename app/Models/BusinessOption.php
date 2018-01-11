@@ -55,6 +55,7 @@ class BusinessOption extends Model
         return [
             'GettingStartedHome' => 'GettingStartedHome',
             'BusinessCategories' => 'BusinessCategories',
+            'SellGoods' => 'SellGoods',
             'RegisterUser' => 'RegisterUser',
             'CreateBusiness' => 'CreateBusiness',
             'RegisterBusiness' => 'RegisterBusiness'

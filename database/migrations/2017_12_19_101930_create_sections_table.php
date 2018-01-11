@@ -18,6 +18,7 @@ class CreateSectionsTable extends Migration
             $table->integer('level_id');
             $table->string('name');
             $table->string('slug');
+            $table->string('icon')->nullable();
             $table->timestamps();
         });
     }

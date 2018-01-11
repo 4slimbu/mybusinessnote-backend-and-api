@@ -70,7 +70,7 @@ class BusinessOptionController extends BaseApiController
     {
         //if query has business_category_id or user is authenticated
         // then include it as well in the query
-        $business_category_id = null;
+        $business_category_id = 1;
 
         if ($request->get('business_category_id')) {
             $business_category_id = $request->get('business_category_id');
@@ -80,7 +80,7 @@ class BusinessOptionController extends BaseApiController
             $business_category_id = $user->business->business_category_id;
         }
 
-        $business_option = $this->getNextRecord($level, $section, $business_option, $business_category_id);
+        $business_option = $this->getNextRecord($business_option, $business_category_id);
         return new BusinessOptionResource($business_option);
     }
 
@@ -442,7 +442,7 @@ class BusinessOptionController extends BaseApiController
     public function saveCreateBusinessBusinessOption(Request $request)
     {
         try {
-            $inputs = $request->only('business_name', 'business_website');
+            $inputs = $request->only('business_name', 'website');
             $authUser = $this->getAuthUser();
             $business = $authUser->business;
 

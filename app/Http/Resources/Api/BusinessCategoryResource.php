@@ -17,8 +17,8 @@ class BusinessCategoryResource extends Resource
         return [
             'id'            => (string)$this->id,
             'name' => $this->name,
-            'white_icon' => asset('images/icons/white/' . $this->icon ),
-            'red_icon' => asset('images/icons/red/' . $this->icon ),
+            'white_icon' => asset('images/icons/business-categories/white/' . $this->icon ),
+            'red_icon' => asset('images/icons/business-categories/red/' . $this->icon ),
             'tooltip' => $this->tooltip
         ];
     }

@@ -34,7 +34,7 @@ class BusinessCategoryController extends AdminBaseController
      * Upload directory relative to public folder
      * @var string
      */
-    protected $upload_directory = 'images/icons/';
+    protected $upload_directory = 'images/icons/business-categories';
 
     /**
      * Display a listing of the business category.

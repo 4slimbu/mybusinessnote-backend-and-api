@@ -1,6 +1,7 @@
 <?php
 namespace App\Traits;
 
+use App\Models\Busines;
 use App\Models\Business;
 use App\Models\BusinessCategory;
 use App\Models\BusinessOption;
@@ -68,23 +69,13 @@ trait BusinessOptionable
      * @param $business_category_id
      * @return null
      */
-    private function getNextRecord($level, $section, $business_option, $business_category_id)
+    private function getNextRecord( $business_option, $business_category_id)
     {
         try {
-            $next = BusinessOption::where('id', '>', $business_option->id)
-                ->where('level_id', $level->id)
-                ->where('section_id', $section->id)
+            $next = BusinessCategory::find($business_category_id)
+                ->businessOptions()->where('id', '>', $business_option->id)
                 ->orderBy('id', 'asc')
                 ->first();
-
-            if ($business_category_id) {
-                if (count($next->businessCategories)) {
-                    $business_categories = $next->businessCategories->pluck('id')->toArray();
-                    if (!in_array($business_category_id, $business_categories)) {
-                        $this->getNextRecord($level, $section, $next, $business_category_id);
-                    }
-                }
-            }
             return $next;
         } catch (\Exception $exception) {
             throw new ModelNotFoundException('not_found', 400);

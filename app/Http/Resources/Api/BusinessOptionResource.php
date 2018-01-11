@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Support\Facades\URL;
 
 class BusinessOptionResource extends Resource
 {
@@ -36,9 +37,9 @@ class BusinessOptionResource extends Resource
             //prevent infinite loop when called using relationship
             'affiliate_links' => $this->affiliateLinks,
             'links' => [
-                'prev' => route('api.business-option.show', [$this->level->id, $this->section->id, $this->id]) . '/prev',
-                'self' => route('api.business-option.show', [$this->level->id, $this->section->id, $this->id]),
-                'next' => route('api.business-option.show', [$this->level->id, $this->section->id, $this->id]) . '/next'
+                'prev' => '/level/' . $this->level->id . '/section/' . $this->section->id . '/business-option/' . $this->id . '/prev',
+                'self' => '/level/' . $this->level->id . '/section/' . $this->section->id . '/business-option/' . $this->id,
+                'next' => '/level/' . $this->level->id . '/section/' . $this->section->id . '/business-option/' . $this->id . '/next'
             ]
         ];
     }
