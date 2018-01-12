@@ -6,6 +6,7 @@ use App\Http\Requests\Api\BusinessOptionValidation\EntryBusinessOptionRequest;
 use App\Http\Resources\Api\BusinessOptionResource;
 use App\Models\Business;
 use App\Models\BusinessCategory;
+use App\Models\BusinessMeta;
 use App\Models\BusinessOption;
 use App\Models\Level;
 use App\Models\Section;
@@ -127,29 +128,29 @@ class BusinessOptionController extends BaseApiController
     {
         try {
             $authUser = $this->getAuthUser();
-            $business = $authUser->business;
             $business_option_id = $request->get('business_option_id');
 
-            if (! $business_option_id || $business) {
+            if (! ($business_option_id && $authUser)) {
                 throw new \Exception('invalid_request', 400);
             }
+            $business = $authUser->business;
 
             //updates the business meta
-            if ($business_option_id && $request->get('data')) {
-                $data = $request->get('data');
-                foreach ($data as $key => $value) {
-                    $businessMeta = $business->businessMeta()
+            if ($business_option_id && $request->get('business_meta')) {
+                $business_meta = $request->get('business_meta');
+                foreach ($business_meta as $key => $value) {
+                    $businessMeta = $business->businessMetas()
                         ->where('business_option_id', $business_option_id)
                         ->where('key', $key)
                         ->first();
                     if ($businessMeta) {
                         $businessMeta->fill(['value' => $value])->save();
                     } else {
-                        $business->businessMeta()->fill([
+                        $business->businessMetas()->create([
                             'business_option_id' => $business_option_id,
                             'key' => $key,
                             'value' => $value
-                        ])->save();
+                        ]);
                     }
 
                 }
@@ -157,17 +158,23 @@ class BusinessOptionController extends BaseApiController
 
             // Sync create_business business option
             $business_option_status = $request->get('business_option_status') ? $request->get('business_option_status') : 'done';
+//            if ($request->get('business_option_status') && $business && $business->id && $business_option_id) {
+//                $business_meta = BusinessMeta::where('business_id', $business->id)->where('business_option_id', $business_option_id)->delete();
+//            }
             $data = [
                 'business_category_id' => $business->business_category_id,
                 'business_option_status' => $business_option_status
             ];
+            $businessOption = BusinessOption::find($business_option_id);
             $this->syncBusinessPivotTables($business, BusinessOption::find($business_option_id), $data);
 
             //return response
             return response()->json([
-                'business' => $business
+                'business' => $business,
+                'business_option' => new BusinessOptionResource($businessOption)
             ], 200);
         } catch (\Exception $exception) {
+            dd($exception->getMessage());
             throw new \Exception('unknown_error', 500);
         }
     }

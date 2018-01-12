@@ -63,6 +63,11 @@ class User extends Authenticatable
 
     }
 
+    public function badges()
+    {
+        return $this->hasOne(Business::class);
+
+    }
 
     public function setPasswordAttribute($value)
     {

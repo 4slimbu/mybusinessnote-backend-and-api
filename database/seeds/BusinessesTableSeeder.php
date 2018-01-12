@@ -12,6 +12,7 @@ class BusinessesTableSeeder extends Seeder
      */
     public function run()
     {
+        
 
         \DB::table('businesses')->delete();
         
@@ -118,17 +119,17 @@ class BusinessesTableSeeder extends Seeder
             ),
             5 => 
             array (
-                'id' => 6,
-                'user_id' => 3,
+                'id' => 7,
+                'user_id' => 10,
                 'business_category_id' => 7,
-                'business_name' => 'Beier-Beer',
-                'website' => 'http://website.com',
-                'abn' => '9612890686731',
-                'acn' => '5833969759093',
-                'business_email' => 'emely12@example.org',
-                'business_mobile' => '+1.978.989.0443',
-                'business_general_phone' => '398.767.0153',
-                'address' => '471 Moen BrookNorth Jazmyneton, CA 17593',
+                'business_name' => '',
+                'website' => '',
+                'abn' => '',
+                'acn' => '',
+                'business_email' => '',
+                'business_mobile' => '',
+                'business_general_phone' => '',
+                'address' => '',
                 'sell_goods' => NULL,
                 'tagline' => NULL,
                 'logo' => NULL,

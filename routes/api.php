@@ -126,8 +126,5 @@ Route::group(['namespace' => 'App\\Http\\Controllers\Api\\'], function() {
     /* This is the default route to save any business option */
     Route::post('/business-option', 'BusinessOptionController@save');
 
-    /* This is the default route to update any business option */
-    Route::put('/business-option', 'BusinessOptionController@update');
-
 });
 

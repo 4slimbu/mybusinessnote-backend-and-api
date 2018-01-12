@@ -17,7 +17,9 @@ class BusinessOptionsTableSeeder extends Seeder
         \DB::table('business_options')->delete();
         
         \DB::table('business_options')->insert(array (
+            0 => 
             array (
+                'id' => 1,
                 'level_id' => 1,
                 'section_id' => 1,
                 'parent_id' => NULL,
@@ -33,7 +35,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => '2018-01-07 10:48:14',
             ),
+            1 => 
             array (
+                'id' => 2,
                 'level_id' => 1,
                 'section_id' => 1,
                 'parent_id' => NULL,
@@ -49,7 +53,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2018-01-07 10:43:38',
                 'updated_at' => '2018-01-07 10:43:38',
             ),
+            2 => 
             array (
+                'id' => 3,
                 'level_id' => 1,
                 'section_id' => 2,
                 'parent_id' => NULL,
@@ -65,7 +71,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2017-11-23 01:28:17',
                 'updated_at' => '2018-01-07 10:50:06',
             ),
+            3 => 
             array (
+                'id' => 4,
                 'level_id' => 1,
                 'section_id' => 3,
                 'parent_id' => NULL,
@@ -81,7 +89,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2017-11-23 01:29:09',
                 'updated_at' => '2018-01-07 10:52:07',
             ),
+            4 => 
             array (
+                'id' => 5,
                 'level_id' => 1,
                 'section_id' => 4,
                 'parent_id' => NULL,
@@ -97,7 +107,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2017-11-23 01:30:17',
                 'updated_at' => '2018-01-07 10:53:32',
             ),
+            5 => 
             array (
+                'id' => 6,
                 'level_id' => 2,
                 'section_id' => 5,
                 'parent_id' => NULL,
@@ -105,7 +117,7 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'do-you-have-a-logo',
                 'description' => NULL,
                 'content' => 'logo upload shortcode',
-                'element' => NULL,
+                'element' => 'Logo',
                 'tooltip' => 'marketing',
                 'menu_order' => 6,
                 'weight' => 1,
@@ -113,7 +125,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2017-11-23 01:49:28',
                 'updated_at' => '2018-01-09 19:11:42',
             ),
+            6 => 
             array (
+                'id' => 7,
                 'level_id' => 2,
                 'section_id' => 5,
                 'parent_id' => NULL,
@@ -129,7 +143,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2017-11-23 01:49:28',
                 'updated_at' => '2018-01-09 19:11:42',
             ),
+            7 => 
             array (
+                'id' => 8,
                 'level_id' => 2,
                 'section_id' => 5,
                 'parent_id' => NULL,
@@ -145,7 +161,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2017-11-23 01:51:54',
                 'updated_at' => '2018-01-09 19:12:26',
             ),
+            8 => 
             array (
+                'id' => 9,
                 'level_id' => 2,
                 'section_id' => 5,
                 'parent_id' => NULL,
@@ -161,7 +179,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2017-11-23 01:52:43',
                 'updated_at' => '2018-01-09 19:12:43',
             ),
+            9 => 
             array (
+                'id' => 10,
                 'level_id' => 2,
                 'section_id' => 6,
                 'parent_id' => NULL,
@@ -177,7 +197,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2017-11-23 01:55:03',
                 'updated_at' => '2018-01-07 11:01:58',
             ),
+            10 => 
             array (
+                'id' => 11,
                 'level_id' => 2,
                 'section_id' => 6,
                 'parent_id' => NULL,
@@ -193,7 +215,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2017-11-23 01:55:03',
                 'updated_at' => '2018-01-07 11:01:58',
             ),
+            11 => 
             array (
+                'id' => 12,
                 'level_id' => 2,
                 'section_id' => 6,
                 'parent_id' => NULL,
@@ -209,7 +233,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2017-11-23 01:55:03',
                 'updated_at' => '2018-01-07 11:01:58',
             ),
+            12 => 
             array (
+                'id' => 13,
                 'level_id' => 2,
                 'section_id' => 6,
                 'parent_id' => NULL,
@@ -225,7 +251,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2017-11-23 01:56:30',
                 'updated_at' => '2018-01-09 19:12:01',
             ),
+            13 => 
             array (
+                'id' => 14,
                 'level_id' => 2,
                 'section_id' => 7,
                 'parent_id' => NULL,
@@ -241,7 +269,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2017-11-23 01:46:02',
                 'updated_at' => '2018-01-07 10:56:46',
             ),
+            14 => 
             array (
+                'id' => 15,
                 'level_id' => 2,
                 'section_id' => 7,
                 'parent_id' => NULL,
@@ -257,7 +287,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2017-11-23 01:46:02',
                 'updated_at' => '2018-01-07 10:56:46',
             ),
+            15 => 
             array (
+                'id' => 16,
                 'level_id' => 2,
                 'section_id' => 7,
                 'parent_id' => NULL,
@@ -265,7 +297,7 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'do-you-need-a-quick-office-setup',
                 'description' => NULL,
                 'content' => NULL,
-                'element' => 'QuickOfficeSetup',
+                'element' => 'QuickOfficeSetUp',
                 'tooltip' => 'Choose category',
                 'menu_order' => 16,
                 'weight' => 1,
@@ -273,7 +305,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2017-11-23 01:46:02',
                 'updated_at' => '2018-01-07 10:56:46',
             ),
+            16 => 
             array (
+                'id' => 17,
                 'level_id' => 2,
                 'section_id' => 7,
                 'parent_id' => NULL,
@@ -289,7 +323,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2017-11-23 01:57:34',
                 'updated_at' => '2018-01-09 19:12:18',
             ),
+            17 => 
             array (
+                'id' => 18,
                 'level_id' => 2,
                 'section_id' => 7,
                 'parent_id' => NULL,
@@ -305,7 +341,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2017-11-23 01:57:34',
                 'updated_at' => '2018-01-09 19:12:18',
             ),
+            18 => 
             array (
+                'id' => 19,
                 'level_id' => 3,
                 'section_id' => 8,
                 'parent_id' => NULL,
@@ -321,7 +359,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2017-11-23 02:04:19',
                 'updated_at' => '2018-01-07 11:04:49',
             ),
+            19 => 
             array (
+                'id' => 20,
                 'level_id' => 3,
                 'section_id' => 9,
                 'parent_id' => NULL,
@@ -337,7 +377,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2018-01-07 11:07:02',
                 'updated_at' => '2018-01-09 19:14:06',
             ),
+            20 => 
             array (
+                'id' => 21,
                 'level_id' => 3,
                 'section_id' => 10,
                 'parent_id' => NULL,
@@ -353,7 +395,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2018-01-07 11:03:57',
                 'updated_at' => '2018-01-09 19:13:54',
             ),
+            21 => 
             array (
+                'id' => 22,
                 'level_id' => 3,
                 'section_id' => 11,
                 'parent_id' => NULL,
@@ -369,7 +413,9 @@ class BusinessOptionsTableSeeder extends Seeder
                 'created_at' => '2018-01-07 11:05:23',
                 'updated_at' => '2018-01-09 19:14:17',
             ),
+            22 => 
             array (
+                'id' => 23,
                 'level_id' => 3,
                 'section_id' => 12,
                 'parent_id' => NULL,

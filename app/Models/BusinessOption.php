@@ -30,6 +30,11 @@ class BusinessOption extends Model
         return $this->hasMany(BusinessOption::class, 'parent_id');
     }
 
+    public function business()
+    {
+        return $this->belongsToMany(Business::class)->withPivot("status");
+    }
+
 	public function businessCategories()
 	{
 		return $this->belongsToMany(BusinessCategory::class);
@@ -50,6 +55,11 @@ class BusinessOption extends Model
         return $this->belongsTo(Level::class);
     }
 
+    public function businessMetas()
+    {
+        return $this->hasMany(BusinessMeta::class);
+    }
+
     public static function elements()
     {
         return [
@@ -58,7 +68,20 @@ class BusinessOption extends Model
             'SellGoods' => 'SellGoods',
             'RegisterUser' => 'RegisterUser',
             'CreateBusiness' => 'CreateBusiness',
-            'RegisterBusiness' => 'RegisterBusiness'
+            'RegisterBusiness' => 'RegisterBusiness',
+            'Logo' => 'Logo',
+            'Tagline' => 'Tagline',
+            'BrandColor' => 'BrandColor',
+            'SocialMediaRegistration' => 'SocialMediaRegistration',
+            'FinancingOption' => 'FinancingOption',
+            'InitialAccountSoftware' => 'InitialAccountSoftware',
+            'BusinessBanking' => 'BusinessBanking',
+            'MerchantFacilities' => 'MerchantFacilities',
+            'BusinessEmailSetUp' => 'BusinessEmailSetUp',
+            'PhoneSetUp' => 'PhoneSetUp',
+            'QuickOfficeSetUp' => 'QuickOfficeSetUp',
+            'SetUpInternet' => 'SetUpInternet',
+            'OfficeAccessories' => 'OfficeAccessories',
         ];
     }
 

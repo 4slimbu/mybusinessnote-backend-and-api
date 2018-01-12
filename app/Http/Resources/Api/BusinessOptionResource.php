@@ -2,11 +2,12 @@
 
 namespace App\Http\Resources\Api;
 
+use App\Traits\Authenticable;
 use Illuminate\Http\Resources\Json\Resource;
-use Illuminate\Support\Facades\URL;
 
 class BusinessOptionResource extends Resource
 {
+    use Authenticable;
     protected $additionalData;
 
     public function __construct($resource, $additionalData = null)
@@ -22,6 +23,19 @@ class BusinessOptionResource extends Resource
      */
     public function toArray($request)
     {
+        $business_meta = [];
+        $business_business_option_status = null;
+        if ($user = $this->getAuthUser()) {
+            $business_meta = $this->businessMetas()->where('business_id', $user->business->id)->get();
+            if (count($business_meta) > 0) {
+                $business_meta = $business_meta->pluck('value', 'key')->toArray();
+            }
+            $business_business_option_status = $this->business()->where('business_id', $user->business->id)->select('status')->first();
+            if ($business_business_option_status) {
+                $business_business_option_status = $business_business_option_status->status;
+            }
+        }
+
         return [
             'id' => $this->id,
             'level_id' => $this->level->id,
@@ -36,8 +50,10 @@ class BusinessOptionResource extends Resource
             'weight' => $this->weight,
             //prevent infinite loop when called using relationship
             'affiliate_links' => $this->affiliateLinks,
+            'business_meta' => $business_meta,
+            'business_business_option_status' => $business_business_option_status,
             'links' => [
-                'prev' => '/level/' . $this->level->id . '/section/' . $this->section->id . '/business-option/' . $this->id . '/prev',
+                'prev' => '/level/' . $this->level->id . '/section/' . $this->section->id . '/business-option/' . $this->id . '/previous',
                 'self' => '/level/' . $this->level->id . '/section/' . $this->section->id . '/business-option/' . $this->id,
                 'next' => '/level/' . $this->level->id . '/section/' . $this->section->id . '/business-option/' . $this->id . '/next'
             ]

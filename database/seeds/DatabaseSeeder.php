@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
         $this->call(BusinessLevelTableSeeder::class);
         $this->call(BusinessSectionTableSeeder::class);
 
+        $this->call(BusinessMetasTableSeeder::class);
     }
 
 

@@ -320,7 +320,7 @@ trait BusinessOptionable
         //sync business_level table
         $level_completed_percent = $this->getLevelCompletedPercent($business, $business_option);
         $business->levels()->detach($business_option->level->id);
-        $business->levels()->attach([1 => ['completed_percent' => $level_completed_percent]]);
+        $business->levels()->attach([$business_option->level->id => ['completed_percent' => $level_completed_percent]]);
 
         //user earns a badge if level_completed percent is 100
         if ($level_completed_percent >= 100) {
@@ -345,7 +345,6 @@ trait BusinessOptionable
         $business_options_total_weight = $business->businessOptions()
             ->where('section_id', $business_option->section->id)
             ->where('status', '!=', 'irrelevant')->sum('weight');;
-
         //get total weight of completed business options under given section
         $completed_business_options_weight = $business->businessOptions()
             ->where('section_id', $business_option->section->id)
@@ -368,8 +367,7 @@ trait BusinessOptionable
         $total_sections = $businessOption->level->sections()->count();
 
         //get completed sections count
-        $completed_sections = $business->sections()->where('completed_percent', 100)->count();
-
+        $completed_sections = $business->sections()->where('level_id', $businessOption->level_id)->where('completed_percent', 100)->count();
         //calculate percent
         return ($completed_sections/$total_sections) * 100;
     }

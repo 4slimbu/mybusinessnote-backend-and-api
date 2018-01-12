@@ -152,6 +152,21 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2017-11-23 01:31:18',
                 'updated_at' => '2017-11-23 01:31:18',
             ),
+            9 => 
+            array (
+                'id' => 10,
+                'role_id' => 2,
+                'first_name' => 'sudip',
+                'last_name' => 'limbu',
+                'phone_number' => '998238388',
+                'email' => 'sudiplimbu@gmail.com',
+                'password' => '$2y$10$NQ3DH1z/KpaNPHadhk.t/ei/lP.NgGu2n5HSz2jwfIh3WO/gZZcWK',
+                'verified' => 1,
+                'token' => NULL,
+                'remember_token' => NULL,
+                'created_at' => '2018-01-12 05:22:29',
+                'updated_at' => '2018-01-12 05:22:29',
+            ),
         ));
         
         
