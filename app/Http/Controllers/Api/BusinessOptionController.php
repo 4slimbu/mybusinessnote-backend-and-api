@@ -174,7 +174,7 @@ class BusinessOptionController extends BaseApiController
                 'business_option' => new BusinessOptionResource($businessOption)
             ], 200);
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
+//            dd($exception->getMessage());
             throw new \Exception('unknown_error', 500);
         }
     }
