@@ -21,6 +21,12 @@ class BusinessOptionController extends BaseApiController
 {
     use BusinessOptionable, Authenticable;
 
+    /**
+     * Upload directory relative to public folder
+     * @var string
+     */
+    protected $upload_directory = 'images/business-options/';
+
     /*
     |--------------------------------------------------------------------------
     | Resource Routes
@@ -129,16 +135,26 @@ class BusinessOptionController extends BaseApiController
         try {
             $authUser = $this->getAuthUser();
             $business_option_id = $request->get('business_option_id');
-
             if (! ($business_option_id && $authUser)) {
                 throw new \Exception('invalid_request', 400);
             }
             $business = $authUser->business;
-
             //updates the business meta
             if ($business_option_id && $request->get('business_meta')) {
                 $business_meta = $request->get('business_meta');
                 foreach ($business_meta as $key => $value) {
+                    if (preg_match('#^data:image/\w+;base64,#i', $value)){
+                        // remove the part that we don't need from the provided image and decode it
+                        $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value));
+                        $file_path = $this->upload_directory . uniqid("logo_" . $business->id . "_") . '.jpg';
+                        $success = file_put_contents($file_path, $data);
+                        if (!$success) {
+                            throw new \Exception('failed_to_save_image', 500);
+                        }
+
+                        $value = uniqid("logo_" . $business->id . "_") . '.jpg';
+                    };
+
                     $businessMeta = $business->businessMetas()
                         ->where('business_option_id', $business_option_id)
                         ->where('key', $key)
@@ -174,8 +190,8 @@ class BusinessOptionController extends BaseApiController
                 'business_option' => new BusinessOptionResource($businessOption)
             ], 200);
         } catch (\Exception $exception) {
-//            dd($exception->getMessage());
-            throw new \Exception('unknown_error', 500);
+            dd($exception->getMessage());
+//            throw new \Exception('unknown_error', 500);
         }
     }
 
