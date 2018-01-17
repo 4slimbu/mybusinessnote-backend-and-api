@@ -136,7 +136,6 @@ class BusinessOptionController extends BaseApiController
             $authUser = $this->getAuthUser();
             $business_option_id = $request->get('business_option_id');
             if (! ($business_option_id && $authUser)) {
-                dd($business_option_id, $authUser);
                 throw new \Exception('invalid_request', 400);
             }
             $business = $authUser->business;
@@ -192,8 +191,8 @@ class BusinessOptionController extends BaseApiController
                 'business_option' => new BusinessOptionResource($businessOption)
             ], 200);
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
-//            throw new \Exception('unknown_error', 500);
+//            dd($exception->getMessage());
+            throw new \Exception('unknown_error', 500);
         }
     }
 
@@ -518,7 +517,7 @@ class BusinessOptionController extends BaseApiController
                 'business' => $business
             ], 200);
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
+//            dd($exception->getMessage());
             throw new \Exception('unknown_error', 500);
         }
     }

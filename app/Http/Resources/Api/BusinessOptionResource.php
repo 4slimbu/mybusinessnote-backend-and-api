@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Api;
 
+use App\Models\BusinessOption;
 use App\Models\Level;
 use App\Models\Section;
 use App\Traits\Authenticable;
@@ -42,6 +43,7 @@ class BusinessOptionResource extends Resource
         return [
             'id' => $this->id,
             'level_id' => $this->level->id,
+            'levels' => ($user) ? $this->getLevels($user->business): null,
             'level' => ($user) ? $this->getLevel($user->business, $this->level->id) : null,
             'section' => ($user) ? $this->getSection($user->business, $this->level, $this->section->id): null,
             'level_slug' => $this->level->slug,
@@ -119,6 +121,38 @@ class BusinessOptionResource extends Resource
             }
         }
 
+
+        return $data;
+    }
+
+    private function getLevels($business)
+    {
+        //get data
+        $data = [];
+        $levels = Level::select('id', 'name', 'slug', 'icon')->orderBy('menu_order')->get();
+
+        //get levels data and set completed_percent to 0
+        foreach ($levels as $level) {
+
+            $arr = $level->toArray();
+            $arr["completed_percent"] = 0;
+            $arr["total_sections"] = count($level->sections);
+            //set completed_percent to actual percent on touched levels
+            if (isset($business->levels)) {
+                foreach ($business->levels as $b_level) {
+                    if ($b_level->id == $level->id) {
+                        $arr["completed_percent"] = $b_level->pivot->completed_percent;
+                    }
+                }
+            }
+
+            $sectionData = $this->getSections($business, $level);
+
+            $arr["total_completed_sections"] = $sectionData['total_completed_sections'];
+            $arr["sections"] = $sectionData['sections'];
+
+            array_push($data, $arr);
+        }
 
         return $data;
     }
