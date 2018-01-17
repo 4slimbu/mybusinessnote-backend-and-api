@@ -82,6 +82,20 @@ class BusinessOption extends Model
             'QuickOfficeSetUp' => 'QuickOfficeSetUp',
             'SetUpInternet' => 'SetUpInternet',
             'OfficeAccessories' => 'OfficeAccessories',
+            'SWOT' => 'SWOT',
+            'CustomerAnalysis' => 'CustomerAnalysis',
+            'DemographicArea' => 'DemographicArea',
+            'SocialMediaExecution' => 'SocialMediaExecution',
+            'Budget' => 'Budget',
+            'LegalAdviser' => 'LegalAdviser',
+            'EmploymentContracts' => 'EmploymentContracts',
+            'AwardWages' => 'AwardWages',
+            'HrPolicy' => 'HrPolicy',
+            'BookKeeping' => 'BookKeeping',
+            'CashFlowForecasting' => 'CashFlowForecasting',
+            'OfficeSpace' => 'OfficeSpace',
+            'StoreLease' => 'StoreLease',
+            'NeedHardware' => 'NeedHardware',
         ];
     }
 

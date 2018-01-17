@@ -42,6 +42,16 @@ class AffiliateLinkBusinessOptionTableSeeder extends Seeder
                 'business_option_id' => 13,
                 'affiliate_link_id' => 4,
             ),
+            5 => 
+            array (
+                'business_option_id' => 14,
+                'affiliate_link_id' => 6,
+            ),
+            6 => 
+            array (
+                'business_option_id' => 15,
+                'affiliate_link_id' => 7,
+            ),
         ));
         
         

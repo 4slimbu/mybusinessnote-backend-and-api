@@ -172,7 +172,7 @@ class AuthController extends Controller
                 "user" => $authUser
             ];
             if (! $token = JWTAuth::attempt($credentials, $customClaims)) {
-                return response()->json(['success' => false, 'error' => 'Invalid Credentials.'], 401);
+                return response()->json(['success' => false, 'error' => ['form' => 'Invalid Credentials.']], 401);
             }
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token

@@ -116,7 +116,7 @@ class BusinessOptionController extends BaseApiController
             $business_category_id = $user->business->business_category_id;
         }
 
-        $business_option = $this->getPreviousRecord($level, $section, $business_option, $business_category_id);
+        $business_option = $this->getPreviousRecord($business_option, $business_category_id);
         return new BusinessOptionResource($business_option);
     }
 
@@ -136,6 +136,7 @@ class BusinessOptionController extends BaseApiController
             $authUser = $this->getAuthUser();
             $business_option_id = $request->get('business_option_id');
             if (! ($business_option_id && $authUser)) {
+                dd($business_option_id, $authUser);
                 throw new \Exception('invalid_request', 400);
             }
             $business = $authUser->business;
@@ -146,13 +147,14 @@ class BusinessOptionController extends BaseApiController
                     if (preg_match('#^data:image/\w+;base64,#i', $value)){
                         // remove the part that we don't need from the provided image and decode it
                         $data = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $value));
-                        $file_path = $this->upload_directory . uniqid("logo_" . $business->id . "_") . '.jpg';
+                        $image_name = uniqid("logo_" . $business->id . "_") . '.jpg';
+                        $file_path = $this->upload_directory . $image_name;
                         $success = file_put_contents($file_path, $data);
                         if (!$success) {
                             throw new \Exception('failed_to_save_image', 500);
                         }
 
-                        $value = uniqid("logo_" . $business->id . "_") . '.jpg';
+                        $value = $image_name;
                     };
 
                     $businessMeta = $business->businessMetas()
@@ -516,6 +518,7 @@ class BusinessOptionController extends BaseApiController
                 'business' => $business
             ], 200);
         } catch (\Exception $exception) {
+            dd($exception->getMessage());
             throw new \Exception('unknown_error', 500);
         }
     }

@@ -63,8 +63,6 @@ trait BusinessOptionable
      * favourable child, sibling or section next to current business-option. This will be achieved
      * by using drag-and-drop feature in the backend.
      *
-     * @param $level
-     * @param $section
      * @param $business_option
      * @param $business_category_id
      * @return null
@@ -94,33 +92,21 @@ trait BusinessOptionable
      * favourable child, sibling or section previous to current business-option. This will be achieved
      * by using drag-and-drop feature in the backend.
      *
-     * @param $level
-     * @param $section
      * @param $business_option
      * @param $business_category_id
      * @return null
      */
-    private function getPreviousRecord($level, $section, $business_option, $business_category_id)
+    private function getPreviousRecord($business_option, $business_category_id)
     {
         try {
-            $previous = BusinessOption::where('id', '<', $business_option->id)
-                ->where('level_id', $level->id)
-                ->where('section_id', $section->id)
+            $previous = BusinessCategory::find($business_category_id)
+                ->businessOptions()->where('id', '<', $business_option->id)
                 ->orderBy('id', 'desc')
                 ->first();
 
-            if ($business_category_id) {
-                if (count($previous->businessCategories)) {
-                    $business_categories = $previous->businessCategories->pluck('id')->toArray();
-                    if (!in_array($business_category_id, $business_categories)) {
-                        $this->getPreviousRecord($level, $section, $previous, $business_category_id);
-                    }
-                }
-            }
-
             return $previous;
         } catch (\Exception $exception) {
-            throw new Exception('not_found', 400);
+            throw new ModelNotFoundException('not_found', 400);
         }
 
     }
@@ -323,9 +309,9 @@ trait BusinessOptionable
         $business->levels()->attach([$business_option->level->id => ['completed_percent' => $level_completed_percent]]);
 
         //user earns a badge if level_completed percent is 100
-        if ($level_completed_percent >= 100) {
-            $business->user->badges()->attach([$business_option->level->id]);
-        }
+//        if ($level_completed_percent >= 100) {
+//            $business->user->badges()->attach([$business_option->level->id]);
+//        }
     }
 
     /**
