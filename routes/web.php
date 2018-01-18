@@ -248,6 +248,32 @@ Route::group([
         'uses' => 'LevelController@destroy'
     ]);
 
+    /* Section */
+    Route::get('section', [
+        'as' => 'section',
+        'uses' => 'SectionController@index',
+    ]);
+    Route::get('section/create', [
+        'as' => 'section.create',
+        'uses' => 'SectionController@create',
+    ]);
+    Route::post('section/store', [
+        'as' => 'section.store',
+        'uses' => 'SectionController@store',
+    ]);
+    Route::get('section/edit/{section}', [
+        'as' => 'section.edit',
+        'uses' => 'SectionController@edit'
+    ]);
+    Route::post('section/update/{section}', [
+        'as' => 'section.update',
+        'uses' => 'SectionController@update',
+    ]);
+    Route::delete('section/destroy/{section}', [
+        'as' => 'section.destroy',
+        'uses' => 'SectionController@destroy'
+    ]);
+
 //        //Customer Category
 //    Route::get('/admin/customers','Admin\CustomerController@index');
 //    Route::get('/admin/customers/edit/{customer}','Admin\CustomerController@edit');

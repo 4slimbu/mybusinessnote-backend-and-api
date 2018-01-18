@@ -69,6 +69,17 @@
                             </ul>
                         </li>
 
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Sections<span class="caret"></span></a>
+                            <ul>
+                                <li class="nav-item"><a class="nav-link" href="{{ route('admin.section') }}">View
+                                        All</a></li>
+                                <li class="nav-item"><a class="nav-link"
+                                                        href="{{ route('admin.section.create') }}">Add New</a>
+                                </li>
+                            </ul>
+                        </li>
+
                     </ul>
                 </div>
             </div>
