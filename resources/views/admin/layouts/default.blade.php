@@ -10,6 +10,13 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
+    <script>
+        tinymce.init({
+            selector: '.myeditablediv'
+        });
+    </script>
+
     <!-- Styles -->
     <link href="{{ asset('admin-public/css/app.css') }}" rel="stylesheet">
 </head>
@@ -40,6 +47,7 @@
 
 <script src="{{ asset('admin-public/js/app.js') }}"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 {{--<script src="https://unpkg.com/vue@2.1.3/dist/vue.js"></script>--}}
 
 

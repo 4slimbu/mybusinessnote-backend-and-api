@@ -54,7 +54,7 @@
 {{--Content--}}
 <div class="form-group">
     <label>Content:</label>
-    {{ Form::textarea('content', null, ['class' => 'form-control']) }}
+    {{ Form::textarea('content', null, ['class' => 'form-control myeditablediv']) }}
     @if($errors->has('content'))
         <span class="text-danger">{{ $errors->first('content') }}</span>
     @endif
@@ -72,7 +72,7 @@
 {{--Tool Tip--}}
 <div class="form-group">
     <label>Tool Tip:</label>
-    {{ Form::textarea('tooltip', null, ['class' => 'form-control']) }}
+    {{ Form::textarea('tooltip', null, ['class' => 'form-control myeditablediv']) }}
     @if($errors->has('tooltip'))
         <span class="text-danger">{{ $errors->first('tooltip') }}</span>
     @endif
