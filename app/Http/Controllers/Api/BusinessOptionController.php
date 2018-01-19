@@ -27,6 +27,29 @@ class BusinessOptionController extends BaseApiController
      */
     protected $upload_directory = 'images/business-options/';
 
+    public function getUsingQuery(Request $request)
+    {
+        try {
+            if ($request->get('level')) {
+                $level = Level::where('slug', $request->get('level'))->first();
+                if ($request->get('section')) {
+                    $section = Section::where('slug', $request->get('section'))->where('level_id', $level->id)->first();
+
+                    $bo = $request->get('bo');
+                    if ($bo && $bo !== '' && $bo !== 'false') {
+                        $business_option = BusinessOption::findOrFail($bo);
+                        return $this->show($level, $section, $business_option);
+                    } else {
+                        return $this->first($level, $section);
+                    }
+                }
+            }
+            return response()->json(['error_code' => 'not_found'], 400);
+        } catch (\Exception $exception) {
+            return response()->json(['error_code' => 'not_found'], 400);
+        }
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Resource Routes

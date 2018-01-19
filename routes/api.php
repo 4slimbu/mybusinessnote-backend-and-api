@@ -124,6 +124,7 @@
         Route::put('/level/1/section/4/business-option/5', 'BusinessOptionController@saveRegisterBusinessBusinessOption');
 
         /* This is the default route to save any business option */
+        Route::get('/business-option', 'BusinessOptionController@getUsingQuery');
         Route::post('/business-option', 'BusinessOptionController@save');
 
     });

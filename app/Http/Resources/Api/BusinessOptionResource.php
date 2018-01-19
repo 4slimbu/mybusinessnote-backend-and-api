@@ -6,11 +6,12 @@ use App\Models\BusinessOption;
 use App\Models\Level;
 use App\Models\Section;
 use App\Traits\Authenticable;
+use App\Traits\BusinessOptionable;
 use Illuminate\Http\Resources\Json\Resource;
 
 class BusinessOptionResource extends Resource
 {
-    use Authenticable;
+    use Authenticable, BusinessOptionable;
     protected $additionalData;
 
     public function __construct($resource, $additionalData = null)
@@ -40,6 +41,30 @@ class BusinessOptionResource extends Resource
             }
         }
 
+        $business_category_id = 1;
+
+        if ($request->get('business_category_id')) {
+            $business_category_id = $request->get('business_category_id');
+        }
+
+        if ($user = $this->getAuthUser()) {
+            $business_category_id = $user->business->business_category_id;
+        }
+
+        $previousRecord = $this->getPreviousRecord($this, $business_category_id);
+        if ($previousRecord) {
+            $previousLink = '/business-option?level=' . $previousRecord->level->slug . '&section=' . $previousRecord->section->slug . '&bo=' . $previousRecord->id;
+        } else {
+            $previousLink = '/business-option?level=' . $this->level->slug . '&section=' . $this->section->slug;
+        }
+
+        $nextRecord = $this->getNextRecord($this, $business_category_id);
+        if ($nextRecord) {
+            $nextLink = '/business-option?level=' . $nextRecord->level->slug . '&section=' . $nextRecord->section->slug . '&bo=' . $nextRecord->id;
+        } else {
+            $nextLink = '/business-option?level=' . $this->level->slug . '&section=' . $this->section->slug;
+        }
+
         return [
             'id' => $this->id,
             'level_id' => $this->level->id,
@@ -60,9 +85,9 @@ class BusinessOptionResource extends Resource
             'business_meta' => $business_meta,
             'business_business_option_status' => $business_business_option_status,
             'links' => [
-                'prev' => '/level/' . $this->level->id . '/section/' . $this->section->id . '/business-option/' . $this->id . '/previous',
-                'self' => '/level/' . $this->level->id . '/section/' . $this->section->id . '/business-option/' . $this->id,
-                'next' => '/level/' . $this->level->id . '/section/' . $this->section->id . '/business-option/' . $this->id . '/next'
+                'prev' => $previousLink,
+                'self' => '/business-option?level=' . $this->level->slug . '&section=' . $this->section->slug . '&bo=' . $this->id,
+                'next' => $nextLink
             ]
         ];
     }
