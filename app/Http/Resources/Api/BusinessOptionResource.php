@@ -95,7 +95,7 @@ class BusinessOptionResource extends Resource
     private function getLevel($business, $level_id)
     {
         //get data
-        $level = Level::select('id', 'name', 'slug', 'icon')->where('id', $level_id)->orderBy('menu_order')->first();
+        $level = Level::select('id', 'name', 'slug', 'icon', 'tooltip')->where('id', $level_id)->orderBy('menu_order')->first();
 
         //get levels data and set completed_percent to 0
         $data = $level->toArray();
@@ -122,7 +122,7 @@ class BusinessOptionResource extends Resource
     {
 
         //get data
-        $section = Section::select('id', 'level_id', 'slug', 'name', 'icon')->where('id', $section_id)
+        $section = Section::select('id', 'level_id', 'slug', 'name', 'icon', 'tooltip')->where('id', $section_id)
             ->where("level_id", $level->id)->first();
         $total_completed_sections = 0;
 
@@ -154,7 +154,7 @@ class BusinessOptionResource extends Resource
     {
         //get data
         $data = [];
-        $levels = Level::select('id', 'name', 'slug', 'icon')->orderBy('menu_order')->get();
+        $levels = Level::select('id', 'name', 'slug', 'icon', 'tooltip')->orderBy('menu_order')->get();
 
         //get levels data and set completed_percent to 0
         foreach ($levels as $level) {
@@ -187,7 +187,7 @@ class BusinessOptionResource extends Resource
 
         //get data
         $data = [];
-        $sections = Section::select('id', 'level_id', 'slug', 'name', 'icon')->where("level_id", $level->id)->get();
+        $sections = Section::select('id', 'level_id', 'slug', 'name', 'icon', 'tooltip')->where("level_id", $level->id)->get();
         $total_completed_sections = 0;
 
         //get sections data and set completed_percent to 0

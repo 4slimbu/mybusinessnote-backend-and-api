@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
         $this->call(BusinessSectionTableSeeder::class);
 
         $this->call(BusinessMetasTableSeeder::class);
+        $this->call(DynamicTableSeeder::class);
     }
 
 

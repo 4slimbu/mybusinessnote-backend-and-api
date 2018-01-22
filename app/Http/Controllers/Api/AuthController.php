@@ -235,7 +235,7 @@ class AuthController extends Controller
             "sell_goods" => (bool) $business->sell_goods,
             "business_name" => $business->business_name,
             "website" => $business->website,
-            "abn" => $business->abn,
+            "abn" => ($business->abn) ? $business->abn : '',
             "levels" => $this->getLevels($business),
         ];
 
@@ -246,7 +246,7 @@ class AuthController extends Controller
     {
         //get data
         $data = [];
-        $levels = Level::select('id', 'name', 'slug', 'icon')->orderBy('menu_order')->get();
+        $levels = Level::select('id', 'name', 'slug', 'tooltip', 'icon')->orderBy('menu_order')->get();
 
         //get levels data and set completed_percent to 0
         foreach ($levels as $level) {
@@ -279,7 +279,7 @@ class AuthController extends Controller
 
         //get data
         $data = [];
-        $sections = Section::select('id', 'level_id', 'slug', 'name', 'icon')->where("level_id", $level->id)->get();
+        $sections = Section::select('id', 'level_id', 'slug', 'name', 'icon', 'tooltip')->where("level_id", $level->id)->get();
         $total_completed_sections = 0;
 
         //get sections data and set completed_percent to 0

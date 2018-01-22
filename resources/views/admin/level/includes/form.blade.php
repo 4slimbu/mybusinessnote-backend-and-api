@@ -15,3 +15,12 @@
         <span class="text-danger">{{ $errors->first('description') }}</span>
     @endif
 </div>
+
+{{--Tool Tip--}}
+<div class="form-group">
+    <label>Tool Tip:</label>
+    {{ Form::textarea('tooltip', null, ['class' => 'form-control myeditablediv']) }}
+    @if($errors->has('tooltip'))
+        <span class="text-danger">{{ $errors->first('tooltip') }}</span>
+    @endif
+</div>

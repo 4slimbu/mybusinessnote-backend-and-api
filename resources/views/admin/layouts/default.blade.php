@@ -10,7 +10,8 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
+    <script src="{{ asset('admin-public/js/tinymce/jquery.tinymce.min.js') }}"></script>
+    <script src="{{ asset('admin-public/js/tinymce/tinymce.min.js') }}"></script>
     <script>
         tinymce.init({
             selector: '.myeditablediv'
