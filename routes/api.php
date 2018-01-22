@@ -9,7 +9,7 @@
 | Some are required for loading App.
 |
 */
-//Route::group(['domain' => 'admin.mybusinessjourney.com.au'], function() {
+Route::group(['domain' => 'admin.mybusinessjourney.com.au'], function() {
 
     Route::group(['namespace' => 'App\\Http\\Controllers\Api\\'], function () {
 
@@ -128,5 +128,5 @@
         Route::post('/business-option', 'BusinessOptionController@save');
 
     });
-//});
+});
 
