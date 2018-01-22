@@ -75,7 +75,7 @@ class Handler extends ExceptionHandler
             }
 
             return response()->json([
-                'error_code' => 'unknown_error'
+                'error_code' => $exception->getMessage()
             ], 500);
         }
 
