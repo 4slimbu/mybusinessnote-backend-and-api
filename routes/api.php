@@ -117,11 +117,11 @@
         /*
          * Updated special routes
          */
-        Route::put('/level/1/section/1/business-option/1', 'BusinessOptionController@saveBusinessCategoryBusinessOption');
-        Route::put('/level/1/section/1/business-option/2', 'BusinessOptionController@saveSellGoodsBusinessOption');
-        Route::put('/level/1/section/2/business-option/3', 'BusinessOptionController@saveAboutYouBusinessOption');
-        Route::put('/level/1/section/3/business-option/4', 'BusinessOptionController@saveCreateBusinessBusinessOption');
-        Route::put('/level/1/section/4/business-option/5', 'BusinessOptionController@saveRegisterBusinessBusinessOption');
+        Route::post('/level/1/section/1/business-option/1', 'BusinessOptionController@saveBusinessCategoryBusinessOption');
+        Route::post('/level/1/section/1/business-option/2', 'BusinessOptionController@saveSellGoodsBusinessOption');
+        Route::post('/level/1/section/2/business-option/3', 'BusinessOptionController@saveAboutYouBusinessOption');
+        Route::post('/level/1/section/3/business-option/4', 'BusinessOptionController@saveCreateBusinessBusinessOption');
+        Route::post('/level/1/section/4/business-option/5', 'BusinessOptionController@saveRegisterBusinessBusinessOption');
 
         /* This is the default route to save any business option */
         Route::get('/business-option', 'BusinessOptionController@getUsingQuery');
