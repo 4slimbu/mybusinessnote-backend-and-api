@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Api;
 
-use App\Models\Level;
+use App\Models\Leve
 use App\Models\Section;
 use App\Traits\Authenticable;
 use App\Traits\BusinessOptionable;
