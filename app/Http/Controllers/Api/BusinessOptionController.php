@@ -67,7 +67,7 @@ class BusinessOptionController extends BaseApiController
      */
     public function first(Level $level, Section $section)
     {
-        $business_option = $this->getFirstBusinessOption($level, $section);
+        $business_option = $this->getSectionFirstBusinessOption($level, $section);
         return new BusinessOptionResource($business_option);
     }
 

@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\Api;
 
-use App\Models\BusinessOption;
 use App\Models\Level;
 use App\Models\Section;
 use App\Traits\Authenticable;
@@ -27,6 +26,7 @@ class BusinessOptionResource extends Resource
      */
     public function toArray($request)
     {
+//        \DB::enableQueryLog();
         $business_meta = [];
         $business_business_option_status = null;
         $user = $this->getAuthUser();
@@ -47,8 +47,11 @@ class BusinessOptionResource extends Resource
             $business_category_id = $request->get('business_category_id');
         }
 
+        $selfLink = '/business-option?level=' . $this->level->slug . '&section=' . $this->section->slug . '&bo=' . $this->id;
         if ($user = $this->getAuthUser()) {
             $business_category_id = $user->business->business_category_id;
+            $user->history = json_encode(['last_visited' => $selfLink]);
+            $user->save();
         }
 
         $previousRecord = $this->getPreviousRecord($this, $business_category_id);
@@ -65,7 +68,7 @@ class BusinessOptionResource extends Resource
             $nextLink = '/business-option?level=' . $this->level->slug . '&section=' . $this->section->slug;
         }
 
-        return [
+        $returnData = [
             'id' => $this->id,
             'level_id' => $this->level->id,
             'levels' => ($user) ? $this->getLevels($user->business): null,
@@ -86,21 +89,25 @@ class BusinessOptionResource extends Resource
             'business_business_option_status' => $business_business_option_status,
             'links' => [
                 'prev' => $previousLink,
-                'self' => '/business-option?level=' . $this->level->slug . '&section=' . $this->section->slug . '&bo=' . $this->id,
+                'self' => $selfLink,
                 'next' => $nextLink
             ]
         ];
+//        dd(\DB::getQueryLog());
+        return $returnData;
     }
 
     private function getLevel($business, $level_id)
     {
         //get data
-        $level = Level::select('id', 'name', 'slug', 'icon', 'tooltip')->where('id', $level_id)->orderBy('menu_order')->first();
+        $level = Level::where('id', $level_id)->orderBy('menu_order')->first();
 
         //get levels data and set completed_percent to 0
         $data = $level->toArray();
         $data["completed_percent"] = 0;
         $data["total_sections"] = count($level->sections);
+        $data["level_first_bo"] = $this->getLevelFirstBusinessOption($level);
+        $data["level_last_bo"] = $this->getLevelLastBusinessOption($level);
         //set completed_percent to actual percent on touched levels
         if (isset($business->levels)) {
             foreach ($business->levels as $b_level) {
@@ -122,7 +129,7 @@ class BusinessOptionResource extends Resource
     {
 
         //get data
-        $section = Section::select('id', 'level_id', 'slug', 'name', 'icon', 'tooltip')->where('id', $section_id)
+        $section = Section::where('id', $section_id)
             ->where("level_id", $level->id)->first();
         $total_completed_sections = 0;
 
@@ -132,6 +139,8 @@ class BusinessOptionResource extends Resource
         $data["red_icon"] = asset('images/icons/sections/red/' . $section->icon );
         $data["white_icon"] = asset('images/icons/sections/white/' . $section->icon );
         $data["completed_percent"] = 0;
+        $data["section_first_bo"] = $this->getSectionFirstBusinessOption($level, $section);
+        $data["section_last_bo"] = $this->getSectionLastBusinessOption($level, $section);
 
         //set completed_percent to actual percent on touched sections
         if (isset($business->sections)) {
@@ -154,7 +163,7 @@ class BusinessOptionResource extends Resource
     {
         //get data
         $data = [];
-        $levels = Level::select('id', 'name', 'slug', 'icon', 'tooltip')->orderBy('menu_order')->get();
+        $levels = Level::orderBy('menu_order')->get();
 
         //get levels data and set completed_percent to 0
         foreach ($levels as $level) {
@@ -162,6 +171,8 @@ class BusinessOptionResource extends Resource
             $arr = $level->toArray();
             $arr["completed_percent"] = 0;
             $arr["total_sections"] = count($level->sections);
+            $arr["level_first_bo"] = $this->getLevelFirstBusinessOption($level);
+            $arr["level_last_bo"] = $this->getLevelLastBusinessOption($level);
             //set completed_percent to actual percent on touched levels
             if (isset($business->levels)) {
                 foreach ($business->levels as $b_level) {
@@ -187,7 +198,7 @@ class BusinessOptionResource extends Resource
 
         //get data
         $data = [];
-        $sections = Section::select('id', 'level_id', 'slug', 'name', 'icon', 'tooltip')->where("level_id", $level->id)->get();
+        $sections = Section::where("level_id", $level->id)->get();
         $total_completed_sections = 0;
 
         //get sections data and set completed_percent to 0
@@ -197,6 +208,8 @@ class BusinessOptionResource extends Resource
             $arr["red_icon"] = asset('images/icons/sections/red/' . $section->icon );
             $arr["white_icon"] = asset('images/icons/sections/white/' . $section->icon );
             $arr["completed_percent"] = 0;
+            $arr["section_first_bo"] = $this->getSectionFirstBusinessOption($level, $section);
+            $arr["section_last_bo"] = $this->getSectionLastBusinessOption($level, $section);
 
             //set completed_percent to actual percent on touched sections
             if (isset($business->sections)) {

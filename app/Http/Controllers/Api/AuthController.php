@@ -7,6 +7,7 @@ use App\Models\Business;
 use App\Models\Level;
 use App\Models\Section;
 use App\Models\User;
+use App\Traits\BusinessOptionable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -14,6 +15,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
+    use BusinessOptionable;
     /**
      * API Register, on success return JWT Auth token
      *
@@ -231,6 +233,7 @@ class AuthController extends Controller
             "last_name" => $business->user->last_name,
             "email" => $business->user->email,
             "phone_number" => $business->user->phone_number,
+            "history" => json_decode($business->user->history),
             "business_category_id" => $business->businessCategory->id,
             "sell_goods" => (bool) $business->sell_goods,
             "business_name" => $business->business_name,
@@ -246,7 +249,7 @@ class AuthController extends Controller
     {
         //get data
         $data = [];
-        $levels = Level::select('id', 'name', 'slug', 'tooltip', 'icon')->orderBy('menu_order')->get();
+        $levels = Level::orderBy('menu_order')->get();
 
         //get levels data and set completed_percent to 0
         foreach ($levels as $level) {
@@ -254,6 +257,8 @@ class AuthController extends Controller
             $arr = $level->toArray();
             $arr["completed_percent"] = 0;
             $arr["total_sections"] = count($level->sections);
+            $arr["level_first_bo"] = $this->getLevelFirstBusinessOption($level);
+            $arr["level_last_bo"] = $this->getLevelLastBusinessOption($level);
             //set completed_percent to actual percent on touched levels
             if (isset($business->levels)) {
                 foreach ($business->levels as $b_level) {
@@ -279,7 +284,7 @@ class AuthController extends Controller
 
         //get data
         $data = [];
-        $sections = Section::select('id', 'level_id', 'slug', 'name', 'icon', 'tooltip')->where("level_id", $level->id)->get();
+        $sections = Section::where("level_id", $level->id)->get();
         $total_completed_sections = 0;
 
         //get sections data and set completed_percent to 0
@@ -289,6 +294,8 @@ class AuthController extends Controller
             $arr["red_icon"] = asset('images/icons/sections/red/' . $section->icon );
             $arr["white_icon"] = asset('images/icons/sections/white/' . $section->icon );
             $arr["completed_percent"] = 0;
+            $arr["section_first_bo"] = $this->getSectionFirstBusinessOption($level, $section);
+            $arr["section_last_bo"] = $this->getSectionLastBusinessOption($level, $section);
 
             //set completed_percent to actual percent on touched sections
             if (isset($business->sections)) {

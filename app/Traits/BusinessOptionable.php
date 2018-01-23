@@ -22,13 +22,54 @@ trait BusinessOptionable
      * @param $section
      * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Http\JsonResponse|null|static
      */
-    private function getFirstBusinessOption($level, $section)
+    private function getSectionFirstBusinessOption($level, $section)
     {
         try {
             // Get Business Option
             $business_option = BusinessOption::with('parent', 'children', 'level', 'section', 'affiliateLinks')
                 ->where('level_id', $level->id)
                 ->where('section_id', $section->id)->first();
+
+            return $business_option;
+        } catch (\Exception $exception){
+            throw new ModelNotFoundException('not_found', 400);
+        }
+    }
+
+    private function getSectionLastBusinessOption($level, $section)
+    {
+        try {
+            // Get Business Option
+            $business_option = BusinessOption::with('parent', 'children', 'level', 'section', 'affiliateLinks')
+                ->where('level_id', $level->id)
+                ->where('section_id', $section->id)->orderBy('id', 'desc')->first();
+
+            return $business_option;
+        } catch (\Exception $exception){
+            throw new ModelNotFoundException('not_found', 400);
+        }
+    }
+
+    private function getLevelFirstBusinessOption($level)
+    {
+        try {
+            // Get Business Option
+            $business_option = BusinessOption::with('parent', 'children', 'level', 'section', 'affiliateLinks')
+                ->where('level_id', $level->id)->first();
+
+            return $business_option;
+        } catch (\Exception $exception){
+            throw new ModelNotFoundException('not_found', 400);
+        }
+    }
+
+    private function getLevelLastBusinessOption($level)
+    {
+        try {
+            // Get Business Option
+            $business_option = BusinessOption::with('parent', 'children', 'level', 'section', 'affiliateLinks')
+                ->where('level_id', $level->id)
+                ->orderBy('id', 'desc')->first();
 
             return $business_option;
         } catch (\Exception $exception){
