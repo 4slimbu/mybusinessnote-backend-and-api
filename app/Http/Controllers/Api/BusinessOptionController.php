@@ -198,20 +198,23 @@ class BusinessOptionController extends BaseApiController
 
             // Sync create_business business option
             $business_option_status = $request->get('business_option_status') ? $request->get('business_option_status') : 'done';
-//            if ($request->get('business_option_status') && $business && $business->id && $business_option_id) {
-//                $business_meta = BusinessMeta::where('business_id', $business->id)->where('business_option_id', $business_option_id)->delete();
-//            }
+            if (($request->get('business_option_status') === 'irrelevant'
+                    || $request->get('business_option_status') === 'skipped')
+                && $business && $business->id && $business_option_id) {
+                $business_meta = BusinessMeta::where('business_id', $business->id)->where('business_option_id', $business_option_id)->delete();
+            }
             $data = [
                 'business_category_id' => $business->business_category_id,
                 'business_option_status' => $business_option_status
             ];
             $businessOption = BusinessOption::find($business_option_id);
-            $this->syncBusinessPivotTables($business, BusinessOption::find($business_option_id), $data);
+            $completed_status = $this->syncBusinessPivotTables($business, BusinessOption::find($business_option_id), $data);
 
             //return response
             return response()->json([
                 'business' => $business,
-                'business_option' => new BusinessOptionResource($businessOption)
+                'business_option' => new BusinessOptionResource($businessOption),
+                'completed_status' => $completed_status
             ], 200);
         } catch (\Exception $exception) {
 //            dd($exception->getMessage());
@@ -533,11 +536,12 @@ class BusinessOptionController extends BaseApiController
                 'business_category_id' => $business->business_category_id,
                 'business_option_status' => 'done'
             ];
-            $this->syncBusinessPivotTables($business, BusinessOption::find(5), $data);
+            $completed_status = $this->syncBusinessPivotTables($business, BusinessOption::find(5), $data);
 
             //return response
             return response()->json([
-                'business' => $business
+                'business' => $business,
+                'completed_status' => $completed_status
             ], 200);
         } catch (\Exception $exception) {
 //            dd($exception->getMessage());

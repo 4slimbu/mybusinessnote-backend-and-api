@@ -328,6 +328,7 @@ trait BusinessOptionable
      */
     private function syncBusinessPivotTables(Business $business, BusinessOption $business_option, $data)
     {
+        $response = [];
         $business_category_id = ($data['business_category_id']) ? $data['business_category_id'] : null;
         $business_option_status = ($data['business_option_status']) ? $data['business_option_status'] : null;
 
@@ -340,15 +341,23 @@ trait BusinessOptionable
         //when there is business_category_id as filter, it is applied to section only for now
         //assuming at least one business-option will be there in a section and no of section in a level is constant
         //but it can change in the future
+
+        $section_current_completed_percent = $business->sections()->where('id', $business_option->section->id)->first() ?
+            $business->sections()->where('id', $business_option->section->id)->first()->pivot->completed_percent : 0;
         $section_completed_percent = $this->getSectionCompletedPercent($business, $business_option, $business_category_id);
         $business->sections()->detach($business_option->section->id);
         $business->sections()->attach([$business_option->section->id => ['completed_percent' => $section_completed_percent]]);
+        $response['section'] = ($section_current_completed_percent < 100 && $section_completed_percent >= 100) ? true : false;
 
         //sync business_level table
+        $level_current_completed_percent = $business->levels()->where('id', $business_option->level->id)->first() ?
+            $business->levels()->where('id', $business_option->level->id)->first()->pivot->completed_percent : 0;
         $level_completed_percent = $this->getLevelCompletedPercent($business, $business_option);
         $business->levels()->detach($business_option->level->id);
         $business->levels()->attach([$business_option->level->id => ['completed_percent' => $level_completed_percent]]);
+        $response['level'] = ($level_current_completed_percent < 100 && $level_completed_percent >= 100) ? true : false;
 
+        return $response;
         //user earns a badge if level_completed percent is 100
 //        if ($level_completed_percent >= 100) {
 //            $business->user->badges()->attach([$business_option->level->id]);

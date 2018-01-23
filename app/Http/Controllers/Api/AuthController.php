@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Business;
+use App\Models\BusinessOption;
 use App\Models\Level;
 use App\Models\Section;
 use App\Models\User;
@@ -249,7 +250,7 @@ class AuthController extends Controller
     {
         //get data
         $data = [];
-        $levels = Level::orderBy('menu_order')->get();
+        $levels = Level::select('id', 'name', 'slug', 'icon', 'description', 'content', 'tooltip')->orderBy('menu_order')->get();
 
         //get levels data and set completed_percent to 0
         foreach ($levels as $level) {
@@ -257,8 +258,8 @@ class AuthController extends Controller
             $arr = $level->toArray();
             $arr["completed_percent"] = 0;
             $arr["total_sections"] = count($level->sections);
-            $arr["level_first_bo"] = $this->getLevelFirstBusinessOption($level);
-            $arr["level_last_bo"] = $this->getLevelLastBusinessOption($level);
+            $arr["level_first_bo"] = BusinessOption::where('level_id', $level->id)->first();;
+            $arr["level_last_bo"] = BusinessOption::where('level_id', $level->id)->orderBy('id', 'desc')->first();
             //set completed_percent to actual percent on touched levels
             if (isset($business->levels)) {
                 foreach ($business->levels as $b_level) {
@@ -284,7 +285,7 @@ class AuthController extends Controller
 
         //get data
         $data = [];
-        $sections = Section::where("level_id", $level->id)->get();
+        $sections = Section::select('id', 'slug', 'level_id', 'name', 'icon', 'tooltip')->where("level_id", $level->id)->get();
         $total_completed_sections = 0;
 
         //get sections data and set completed_percent to 0
@@ -294,8 +295,10 @@ class AuthController extends Controller
             $arr["red_icon"] = asset('images/icons/sections/red/' . $section->icon );
             $arr["white_icon"] = asset('images/icons/sections/white/' . $section->icon );
             $arr["completed_percent"] = 0;
-            $arr["section_first_bo"] = $this->getSectionFirstBusinessOption($level, $section);
-            $arr["section_last_bo"] = $this->getSectionLastBusinessOption($level, $section);
+            $arr["section_first_bo"] = BusinessOption::where('level_id', $level->id)
+                ->where('section_id', $section->id)->first();
+            $arr["section_last_bo"] = BusinessOption::where('level_id', $level->id)
+                ->where('section_id', $section->id)->orderBy('id', 'desc')->first();
 
             //set completed_percent to actual percent on touched sections
             if (isset($business->sections)) {
