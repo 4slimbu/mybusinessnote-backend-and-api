@@ -12,6 +12,6 @@ class DynamicTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(AffiliateLink::class, 25)->create();
+//        factory(AffiliateLink::class, 25)->create();
     }
 }

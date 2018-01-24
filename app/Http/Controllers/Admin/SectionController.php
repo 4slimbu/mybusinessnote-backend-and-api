@@ -32,6 +32,12 @@ class SectionController extends AdminBaseController
     protected $panel_name = 'Section';
 
     /**
+     * Upload directory relative to public folder
+     * @var string
+     */
+    protected $upload_directory = 'images/sections/';
+
+    /**
      * Display a listing of the business option.
      *
      * @return \Illuminate\Http\Response
@@ -73,9 +79,18 @@ class SectionController extends AdminBaseController
      */
     public function store(CreateFormValidation $request)
     {
-        $inputs = $request->all();
+        //Image Upload
+        $input = $request->all();
+        if ($request->file('icon') && $request->file('icon')->isValid()) {
+            $file = $request->file('icon');
+            $destinationPath = public_path($this->upload_directory);
+            $fileName = str_random('32') . '.' . $file->getClientOriginalExtension();
+            $file->move($destinationPath, $fileName);
+            $input['icon'] = $fileName;
+        }
+
         $input['slug'] = str_slug($request->get('name'));
-        Section::create($inputs);
+        Section::create($input);
 
         Session::flash('success', $this->panel_name.' created successfully.');
         return redirect()->route($this->base_route);
@@ -120,8 +135,22 @@ class SectionController extends AdminBaseController
      */
     public function update(UpdateFormValidation $request, Section $section)
     {
-
         $input = $request->all();
+
+        //Icon Upload
+        if ($request->file('icon') && $request->file('icon')->isValid()) {
+            $file = $request->file('icon');
+            $destinationPath = public_path($this->upload_directory);
+            $fileName = str_random('32') . '.' . $file->getClientOriginalExtension();
+            $file->move($destinationPath, $fileName);
+            $input['icon'] = $fileName;
+
+            //Remove old image
+            if (!empty($section->icon) && file_exists(public_path($this->upload_directory . $section->icon))) {
+                unlink(public_path($this->upload_directory . $section->icon));
+            }
+        }
+
         $section->fill($input)->save();
 
         Session::flash('success', $this->panel_name.' updated successfully.');
@@ -136,6 +165,10 @@ class SectionController extends AdminBaseController
      */
     public function destroy(Section $section)
     {
+        if (file_exists(public_path($this->upload_directory . $section->icon))) {
+            unlink(public_path($this->upload_directory . $section->icon));
+        }
+
         $section->delete();
 
         Session::flash('success', $this->panel_name.' deleted successfully.');

@@ -17,6 +17,8 @@ class CreateUserProfilesTable extends Migration {
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
 			$table->string('company', 191)->nullable();
+			$table->string('affiliate_link_label', 255)->nullable();
+			$table->string('affiliate_link', 255)->nullable();
 			$table->string('billing_street1', 191)->nullable();
 			$table->string('billing_street2', 191)->nullable();
 			$table->string('billing_postcode', 191)->nullable();

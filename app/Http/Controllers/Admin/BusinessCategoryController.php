@@ -34,7 +34,7 @@ class BusinessCategoryController extends AdminBaseController
      * Upload directory relative to public folder
      * @var string
      */
-    protected $upload_directory = 'images/icons/business-categories';
+    protected $upload_directory = 'images/business-categories/';
 
     /**
      * Display a listing of the business category.
@@ -71,15 +71,22 @@ class BusinessCategoryController extends AdminBaseController
     public function store(CreateFormValidation $request)
     {
         //Image Upload
-        if ($request->file('icon')->isValid()) {
+        $input = $request->all();
+        if ($request->file('icon') && $request->file('icon')->isValid()) {
             $file = $request->file('icon');
             $destinationPath = public_path($this->upload_directory);
             $fileName = str_random('32') . '.' . $file->getClientOriginalExtension();
             $file->move($destinationPath, $fileName);
+            $input['icon'] = $fileName;
         }
 
-        $input = $request->all();
-        $input['icon'] = $fileName;
+        if ($request->file('hover_icon') && $request->file('hover_icon')->isValid()) {
+            $file = $request->file('hover_icon');
+            $destinationPath = public_path($this->upload_directory);
+            $fileName = str_random('32') . '.' . $file->getClientOriginalExtension();
+            $file->move($destinationPath, $fileName);
+            $input['hover_icon'] = $fileName;
+        }
 
         BusinessCategory::create($input);
 
@@ -127,7 +134,7 @@ class BusinessCategoryController extends AdminBaseController
     {
         $input = $request->all();
 
-        //Image Upload
+        //Icon Upload
         if ($request->file('icon') && $request->file('icon')->isValid()) {
             $file = $request->file('icon');
             $destinationPath = public_path($this->upload_directory);
@@ -138,6 +145,20 @@ class BusinessCategoryController extends AdminBaseController
             //Remove old image
             if (!empty($businessCategory->icon) && file_exists(public_path($this->upload_directory . $businessCategory->icon))) {
                 unlink(public_path($this->upload_directory . $businessCategory->icon));
+            }
+        }
+
+        //Hover Icon Upload
+        if ($request->file('hover_icon') && $request->file('hover_icon')->isValid()) {
+            $file = $request->file('hover_icon');
+            $destinationPath = public_path($this->upload_directory);
+            $fileName = str_random('32') . '.' . $file->getClientOriginalExtension();
+            $file->move($destinationPath, $fileName);
+            $input['hover_icon'] = $fileName;
+
+            //Remove old image
+            if (!empty($businessCategory->hover_icon) && file_exists(public_path($this->upload_directory . $businessCategory->hover_icon))) {
+                unlink(public_path($this->upload_directory . $businessCategory->hover_icon));
             }
         }
 
@@ -155,6 +176,13 @@ class BusinessCategoryController extends AdminBaseController
      */
     public function destroy(BusinessCategory $businessCategory)
     {
+        if (file_exists(public_path($this->upload_directory . $businessCategory->icon))) {
+            unlink(public_path($this->upload_directory . $businessCategory->icon));
+        }
+
+        if (file_exists(public_path($this->upload_directory . $businessCategory->hover_icon))) {
+            unlink(public_path($this->upload_directory . $businessCategory->hover_icon));
+        }
         $businessCategory->delete();
 
         Session::flash('success', $this->panel_name.' deleted successfully.');

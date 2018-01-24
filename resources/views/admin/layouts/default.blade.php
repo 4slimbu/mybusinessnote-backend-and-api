@@ -37,6 +37,13 @@
 
             <h1>{{ $panel_name }}</h1>
 
+            @if(Session::has('success'))
+                <p class="alert alert-success">{{ Session::get('success') }}</p>
+            @endif
+            @if(Session::has('error'))
+                <p class="alert alert-error">{{ Session::get('error') }}</p>
+            @endif
+
             @yield('content')
 
         </main>
@@ -49,8 +56,7 @@
 <script src="{{ asset('admin-public/js/app.js') }}"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-{{--<script src="https://unpkg.com/vue@2.1.3/dist/vue.js"></script>--}}
-
+<script src="https://unpkg.com/vue@2.1.3/dist/vue.js"></script>
 
 </body>
 </html>

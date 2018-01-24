@@ -12,14 +12,14 @@ class CreateBadgesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('badges', function(Blueprint $table)
-		{
-			$table->increments('id');
-			$table->string('name', 191);
-			$table->string('icon', 191);
-			$table->text('message', 65535);
-			$table->timestamps();
-		});
+//		Schema::create('badges', function(Blueprint $table)
+//		{
+//			$table->increments('id');
+//			$table->string('name', 191);
+//			$table->string('icon', 191);
+//			$table->text('message', 65535);
+//			$table->timestamps();
+//		});
 	}
 
 
@@ -30,7 +30,7 @@ class CreateBadgesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('badges');
+//		Schema::drop('badges');
 	}
 
 }

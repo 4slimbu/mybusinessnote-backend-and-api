@@ -31,6 +31,12 @@ class LevelController extends AdminBaseController
     protected $panel_name = 'Level';
 
     /**
+     * Upload directory relative to public folder
+     * @var string
+     */
+    protected $upload_directory = 'images/levels/';
+
+    /**
      * Display a listing of the business option.
      *
      * @return \Illuminate\Http\Response
@@ -42,7 +48,6 @@ class LevelController extends AdminBaseController
 
         //get data
         $data['rows'] = Level::with('sections')
-            ->orderBy('menu_order')
             ->paginate(AppHelper::getSystemConfig('pagination'));
 
         return view(parent::loadViewData($this->view_path . '.index'), compact('data'));
@@ -58,10 +63,6 @@ class LevelController extends AdminBaseController
         //initialize
         $data = [];
 
-        //get data
-        $data['roles'] = Role::pluck('name', 'id');
-        $data['levels'] = Level::pluck('name', 'id');
-
         return view(parent::loadViewData($this->view_path . '.create'), compact('data'));
     }
 
@@ -73,9 +74,26 @@ class LevelController extends AdminBaseController
      */
     public function store(CreateFormValidation $request)
     {
-        $inputs = $request->all();
+        //Image Upload
+        $input = $request->all();
+        if ($request->file('icon') && $request->file('icon')->isValid()) {
+            $file = $request->file('icon');
+            $destinationPath = public_path($this->upload_directory);
+            $fileName = str_random('32') . '.' . $file->getClientOriginalExtension();
+            $file->move($destinationPath, $fileName);
+            $input['icon'] = $fileName;
+        }
+
+        if ($request->file('badge_icon') && $request->file('badge_icon')->isValid()) {
+            $file = $request->file('badge_icon');
+            $destinationPath = public_path($this->upload_directory);
+            $fileName = str_random('32') . '.' . $file->getClientOriginalExtension();
+            $file->move($destinationPath, $fileName);
+            $input['badge_icon'] = $fileName;
+        }
+
         $input['slug'] = str_slug($request->get('name'));
-        Level::create($inputs);
+        Level::create($input);
 
         Session::flash('success', $this->panel_name.' created successfully.');
         return redirect()->route($this->base_route);
@@ -121,8 +139,36 @@ class LevelController extends AdminBaseController
      */
     public function update(UpdateFormValidation $request, Level $level)
     {
-
         $input = $request->all();
+
+        //Icon Upload
+        if ($request->file('icon') && $request->file('icon')->isValid()) {
+            $file = $request->file('icon');
+            $destinationPath = public_path($this->upload_directory);
+            $fileName = str_random('32') . '.' . $file->getClientOriginalExtension();
+            $file->move($destinationPath, $fileName);
+            $input['icon'] = $fileName;
+
+            //Remove old image
+            if (!empty($level->icon) && file_exists(public_path($this->upload_directory . $level->icon))) {
+                unlink(public_path($this->upload_directory . $level->icon));
+            }
+        }
+
+        //Badge Icon Upload
+        if ($request->file('badge_icon') && $request->file('badge_icon')->isValid()) {
+            $file = $request->file('badge_icon');
+            $destinationPath = public_path($this->upload_directory);
+            $fileName = str_random('32') . '.' . $file->getClientOriginalExtension();
+            $file->move($destinationPath, $fileName);
+            $input['badge_icon'] = $fileName;
+
+            //Remove old image
+            if (!empty($level->badge_icon) && file_exists(public_path($this->upload_directory . $level->badge_icon))) {
+                unlink(public_path($this->upload_directory . $level->badge_icon));
+            }
+        }
+
         $level->fill($input)->save();
 
         Session::flash('success', $this->panel_name.' updated successfully.');
@@ -137,6 +183,14 @@ class LevelController extends AdminBaseController
      */
     public function destroy(Level $level)
     {
+        if (file_exists(public_path($this->upload_directory . $level->icon))) {
+            unlink(public_path($this->upload_directory . $level->icon));
+        }
+
+        if (file_exists(public_path($this->upload_directory . $level->badge_icon))) {
+            unlink(public_path($this->upload_directory . $level->badge_icon));
+        }
+
         $level->delete();
 
         Session::flash('success', $this->panel_name.' deleted successfully.');

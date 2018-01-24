@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Level extends Model
 {
-    protected $fillable = ['name', 'slug', 'description', 'content', 'tooltip'];
+    protected $fillable = ['name', 'slug', 'icon', 'badge_icon', 'badge_message', 'content', 'tooltip'];
 
     //Each level can have multiple sections
     public function sections() {

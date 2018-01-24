@@ -11,11 +11,9 @@ class BusinessOption extends Model
         'parent_id',
         'name',
         'slug',
-        'description',
         'content',
         'element',
         'tooltip',
-        'show_everywhere',
         'weight'
     ];
 

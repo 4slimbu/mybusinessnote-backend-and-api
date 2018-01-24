@@ -20,7 +20,6 @@ class CreateBusinessOptionsTable extends Migration {
 			$table->integer('parent_id')->nullable();
 			$table->string('name', 191);
 			$table->string('slug', 191);
-			$table->text('description', 65535)->nullable();
             $table->text('content', 65535)->nullable();
             $table->string('element', 191)->nullable();
             $table->text('tooltip', 65535)->nullable();

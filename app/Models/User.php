@@ -69,6 +69,12 @@ class User extends Authenticatable
 
     }
 
+    public function affiliateLinks()
+    {
+        return $this->hasMany(AffiliateLink::class);
+
+    }
+
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);

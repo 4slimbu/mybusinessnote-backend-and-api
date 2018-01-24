@@ -436,6 +436,7 @@ class BusinessOptionController extends BaseApiController
             ], 200);
 
         } catch (\Exception $exception) {
+            dd($exception);
             throw new Exception('unknown_error', 500);
         }
 

@@ -34,22 +34,13 @@
 </div>
 
 {{--Parent Business Option--}}
-<div class="form-group">
-    <label  class="display-block text-semibold">Parent Business Option:</label>
-    {{ Form::select('parent_id', $data['businessOptions'], null, ['placeholder' => '-- Choose Parent Busines Option --', 'class' => 'form-control']) }}
-    @if($errors->has('parent_id'))
-        <span class="text-danger">{{ $errors->first('parent_id') }}</span>
-    @endif
-</div>
-
-{{--Description--}}
-<div class="form-group">
-    <label>Description:</label>
-    {{ Form::textarea('description', null, ['class' => 'form-control']) }}
-    @if($errors->has('description'))
-        <span class="text-danger">{{ $errors->first('description') }}</span>
-    @endif
-</div>
+{{--<div class="form-group">--}}
+    {{--<label  class="display-block text-semibold">Parent Business Option:</label>--}}
+    {{--{{ Form::select('parent_id', $data['businessOptions'], null, ['placeholder' => '-- Choose Parent Busines Option --', 'class' => 'form-control']) }}--}}
+    {{--@if($errors->has('parent_id'))--}}
+        {{--<span class="text-danger">{{ $errors->first('parent_id') }}</span>--}}
+    {{--@endif--}}
+{{--</div>--}}
 
 {{--Content--}}
 <div class="form-group">
@@ -81,7 +72,7 @@
 {{--Partner Affiliate Links--}}
 <div class="form-group">
     <label  class="display-block text-semibold">Affiliate Links:</label>
-    {{ Form::select('affiliate_link_id[]', $data['affiliateLinks'], $data['selectedAffiliateLinks'], ['placeholder' => '-- Choose Affiliate Links --', 'class' => 'form-control', 'multiple' => 'multiple']) }}
+    {{ Form::select('affiliate_link_id[]', $data['affiliateLinks'], $data['selectedAffiliateLinks'], ['placeholder' => '-- Choose Affiliate Links --', 'class' => 'form-control']) }}
     @if($errors->has('affiliate_link_id'))
         <span class="text-danger">{{ $errors->first('affiliate_link_id') }}</span>
     @endif

@@ -38,16 +38,6 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Business Badges <span class="caret"></span></a>
-                            <ul>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('admin.badge') }}">View All</a>
-                                </li>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('admin.badge.create') }}">Add
-                                        New</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item">
                             <a class="nav-link" href="#">Business Options<span class="caret"></span></a>
                             <ul>
                                 <li class="nav-item"><a class="nav-link" href="{{ route('admin.business-option') }}">View

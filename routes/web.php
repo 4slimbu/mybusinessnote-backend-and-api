@@ -65,32 +65,6 @@ Route::group([
     ]);
 
 
-    /* Badge */
-    Route::get('badge', [
-        'as' => 'badge',
-        'uses' => 'BadgeController@index',
-    ]);
-    Route::get('badge/create', [
-        'as' => 'badge.create',
-        'uses' => 'BadgeController@create',
-    ]);
-    Route::post('badge/store', [
-        'as' => 'badge.store',
-        'uses' => 'BadgeController@store',
-    ]);
-    Route::get('badge/edit/{badge}', [
-        'as' => 'badge.edit',
-        'uses' => 'BadgeController@edit'
-    ]);
-    Route::post('badge/update/{badge}', [
-        'as' => 'badge.update',
-        'uses' => 'BadgeController@update',
-    ]);
-    Route::delete('badge/destroy/{badge}', [
-        'as' => 'badge.destroy',
-        'uses' => 'BadgeController@destroy'
-    ]);
-
     /* User */
     Route::get('user', [
         'as' => 'user',
