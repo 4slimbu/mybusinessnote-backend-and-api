@@ -7,12 +7,12 @@
     @endif
 </div>
 
-{{--Description--}}
+{{--Content--}}
 <div class="form-group">
-    <label>Description:</label>
-    {{ Form::textarea('description', null, ['class' => 'form-control']) }}
-    @if($errors->has('description'))
-        <span class="text-danger">{{ $errors->first('description') }}</span>
+    <label>Content:</label>
+    {{ Form::textarea('content', null, ['class' => 'form-control myeditablediv']) }}
+    @if($errors->has('content'))
+        <span class="text-danger">{{ $errors->first('content') }}</span>
     @endif
 </div>
 
