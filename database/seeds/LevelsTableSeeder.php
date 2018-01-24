@@ -17,29 +17,51 @@ class LevelsTableSeeder extends Seeder
         \DB::table('levels')->delete();
         
         \DB::table('levels')->insert(array (
+            0 => 
             array (
                 'id' => 1,
                 'name' => 'Getting Started',
                 'slug' => 'getting-started',
-                'icon' => 'badge_placeholder.jpg',
+                'icon' => 'qQJtdh1JUNZ3F5zIHDoGyhfdWFUHdlgd.png',
+                'badge_icon' => 'PzAh8dpz6DuKYUzDao3evUAp4jt3t8mS.png',
+                'badge_message' => '<h5 class="obvious-h5">Getting started</h5>
+<p>&nbsp;</p>
+<h1>Congratulations</h1>
+<p>&nbsp;</p>
+<p>Level 1 complete!</p>',
+                'content' => '<h1>Getting Started</h1>
+<p>Let\'s get you started by setting up your account. Click on continue to go through the steps<br />to register as well as to set up your business.</p>',
+                'tooltip' => '<p>level one tool tip</p>',
                 'created_at' => NULL,
-                'updated_at' => NULL,
+                'updated_at' => '2018-01-24 08:48:03',
             ),
+            1 => 
             array (
                 'id' => 2,
                 'name' => 'Setting the Foundations',
                 'slug' => 'setting-the-foundations',
-                'icon' => 'badge_placeholder.jpg',
+                'icon' => 'oxI7FcevXpBbqMxIly2LJBnIcQGM3jge.png',
+                'badge_icon' => 'jReTUeH2BNyOm9339ddvjn1jH4st7XfA.png',
+                'badge_message' => '<h1>Congratulation</h1>
+<p>Level 2 Completed</p>',
+                'content' => '<p>Level 2 content</p>',
+                'tooltip' => '<p>Level 2 tool tip</p>',
                 'created_at' => NULL,
-                'updated_at' => NULL,
+                'updated_at' => '2018-01-24 08:53:55',
             ),
+            2 => 
             array (
                 'id' => 3,
                 'name' => 'Building up a Business',
                 'slug' => 'building-up-a-business',
-                'icon' => 'badge_placeholder.jpg',
+                'icon' => 'Bk9A87lgogIf8RtFJhQ5pXuXJOCYOJ3c.png',
+                'badge_icon' => 'qRwHJuaBxVeZl4BEFUuA3vsaqDQL5xRD.png',
+                'badge_message' => '<h1>Congratulation</h1>
+<p>Level 3 completed</p>',
+                'content' => '<p>level 3 content</p>',
+                'tooltip' => '<p>level 3 tool tip</p>',
                 'created_at' => NULL,
-                'updated_at' => NULL,
+                'updated_at' => '2018-01-24 08:54:56',
             ),
         ));
         

@@ -34,7 +34,7 @@
 {{--Badge Message--}}
 <div class="form-group">
     <label>Badge Message:</label>
-    {{ Form::textarea('badge_message', null, ['class' => 'form-control', 'rows' => 3]) }}
+    {{ Form::textarea('badge_message', null, ['class' => 'form-control myeditablediv']) }}
     @if($errors->has('badge_message'))
         <span class="text-danger">{{ $errors->first('badge_message') }}</span>
     @endif
