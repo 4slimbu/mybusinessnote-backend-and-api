@@ -73,13 +73,13 @@ class UsersTableSeeder extends Seeder
                 'last_name' => 'Daddy',
                 'phone_number' => '99 9999 9999',
                 'email' => 'godaddy@gmail.com',
-                'password' => '$2y$10$Q8nOZEFoPwFMiS3w1jOE.uK1q3ugCDP/r1JYfF1j9CUHNRsOeJjMG',
+                'password' => '$2y$10$50i18EIUUSx2GhRPeOSJkuyvJgQyyhD6Xbr7A3Be1RIx0pTfyTYz.',
                 'verified' => 1,
                 'history' => NULL,
                 'token' => NULL,
                 'remember_token' => NULL,
                 'created_at' => NULL,
-                'updated_at' => '2018-01-24 09:19:31',
+                'updated_at' => '2018-01-24 09:14:55',
             ),
             4 => 
             array (
@@ -89,13 +89,13 @@ class UsersTableSeeder extends Seeder
                 'last_name' => 'Maker',
                 'phone_number' => '99 9999 9999',
                 'email' => 'logomaker@gmail.com',
-                'password' => '$2y$10$NwaXpYddOdMPslOmZoucT.fcrbFw9tfjC45iiu2SfZAi3BnkG.oJO',
+                'password' => '$2y$10$55qygSxFTZ9J3VZ7m5f/a.V4rR634j2iqRgIWcyQDePWrJG.h0tkC',
                 'verified' => 1,
                 'history' => NULL,
                 'token' => NULL,
                 'remember_token' => NULL,
                 'created_at' => NULL,
-                'updated_at' => '2018-01-24 09:19:18',
+                'updated_at' => '2018-01-24 09:14:37',
             ),
             5 => 
             array (
@@ -153,13 +153,13 @@ class UsersTableSeeder extends Seeder
                 'last_name' => 'ABN',
                 'phone_number' => '99 9999 9999',
                 'email' => 'ausg@gmail.com',
-                'password' => '$2y$10$Dy4QcUxq.Poz9mx.TBVU/u2UXVAMCYjW6/cdXPIAIMKB8Kwxz20b2',
+                'password' => '$2y$10$333SK0ZonzUJpc4L5Nroxeuxx46bNVRVvVUI8HFkvGtCfA7kpVLhe',
                 'verified' => 1,
                 'history' => NULL,
                 'token' => NULL,
                 'remember_token' => NULL,
                 'created_at' => '2017-11-23 01:31:18',
-                'updated_at' => '2018-01-24 09:19:07',
+                'updated_at' => '2018-01-24 09:14:24',
             ),
             9 => 
             array (
