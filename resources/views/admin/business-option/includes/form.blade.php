@@ -27,7 +27,7 @@
 {{--Business Category--}}
 <div class="form-group more-inputs">
     <label  class="display-block text-semibold">Business Category:</label>
-    {{ Form::select('business_category_id[]', $data['businessCategories'], $data['selectedBusinessCategories'], ['placeholder' => '-- Choose Business Category --', 'class' => 'form-control', 'multiple' => 'multiple']) }}
+    {{ Form::select('business_category_id[]', $data['businessCategories'], $data['selectedBusinessCategories'], ['placeholder' => '-- Choose Business Category --', 'class' => 'form-control', 'multiple' => 'multiple', 'height' => 200]) }}
     @if($errors->has('business_category_id'))
         <span class="text-danger">{{ $errors->first('business_category_id') }}</span>
     @endif
