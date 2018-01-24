@@ -250,7 +250,7 @@ class AuthController extends Controller
     {
         //get data
         $data = [];
-        $levels = Level::select('id', 'name', 'slug', 'icon', 'description', 'content', 'tooltip')->orderBy('menu_order')->get();
+        $levels = Level::all();
 
         //get levels data and set completed_percent to 0
         foreach ($levels as $level) {
@@ -285,7 +285,7 @@ class AuthController extends Controller
 
         //get data
         $data = [];
-        $sections = Section::select('id', 'slug', 'level_id', 'name', 'icon', 'tooltip')->where("level_id", $level->id)->get();
+        $sections = Section::where("level_id", $level->id)->get();
         $total_completed_sections = 0;
 
         //get sections data and set completed_percent to 0

@@ -101,7 +101,7 @@ class BusinessOptionResource extends Resource
     private function getLevel($business, $level_id)
     {
         //get data
-        $level = Level::where('id', $level_id)->orderBy('menu_order')->first();
+        $level = Level::where('id', $level_id)->first();
 
         //get levels data and set completed_percent to 0
         $data = $level->toArray();
@@ -166,7 +166,7 @@ class BusinessOptionResource extends Resource
     {
         //get data
         $data = [];
-        $levels = Level::orderBy('menu_order')->get();
+        $levels = Level::all();
 
         //get levels data and set completed_percent to 0
         foreach ($levels as $level) {
