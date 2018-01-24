@@ -5,9 +5,9 @@
         <h2>
             Manage {{ $panel_name }} List
         </h2>
-        <p>Note: Supported nesting depth: 4 <br />
-            Eg: Top Business Option -> Business Option -> Child Business Option -> Grand Child Business Option
-        </p>
+        {{--<p>Note: Supported nesting depth: 4 <br />--}}
+            {{--Eg: Top Business Option -> Business Option -> Child Business Option -> Grand Child Business Option--}}
+        {{--</p>--}}
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
