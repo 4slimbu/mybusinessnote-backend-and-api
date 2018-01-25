@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class BusinessOption extends Model
 {
     protected $fillable = [
+        'level_id',
         'section_id',
         'parent_id',
         'name',

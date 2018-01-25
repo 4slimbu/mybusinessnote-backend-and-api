@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\BusinessOptionValidation\UpdateFormValidation;
 use App\Models\AffiliateLink;
 use App\Models\BusinessOption;
 use App\Models\BusinessCategory;
+use App\Models\Level;
 use App\Models\Section;
 use Session, AppHelper;
 
@@ -94,7 +95,9 @@ class BusinessOptionController extends AdminBaseController
     {
         $input = $request->all();
         $input['slug'] = str_slug($request->get('name'));
+        $input['level_id'] = Section::findOrFail($input['section_id'])->level_id;
         $input['show_everywhere'] = isset($input['show_everywhere']) ? 1 : 0;
+
         $businessOption = BusinessOption::create($input);
 
         if (isset($input['affiliate_link_id']) && $input['affiliate_link_id']) {
