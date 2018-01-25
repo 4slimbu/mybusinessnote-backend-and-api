@@ -25,10 +25,15 @@ class DatabaseSeeder extends Seeder
         $this->call(BusinessCategoryBusinessOptionTableSeeder::class);
         $this->call(BusinessOptionsTableSeeder::class);
         $this->call(LevelsTableSeeder::class);
+        $this->call(SectionsTableSeeder::class);
         $this->call(RolesTableSeeder::class);
         $this->call(SettingsTableSeeder::class);
         $this->call(UserProfilesTableSeeder::class);
-        Model::reguard();
+        $this->call(BusinessLevelTableSeeder::class);
+        $this->call(BusinessSectionTableSeeder::class);
+
+        $this->call(BusinessMetasTableSeeder::class);
+        $this->call(DynamicTableSeeder::class);
     }
 
 

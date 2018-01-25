@@ -1,0 +1,23 @@
+
+.auto-suggest-wrapper {
+
+  max-height: 300px;
+  overflow-y:scroll;
+
+  .auto-suggest {
+
+    li {
+
+      cursor: pointer;
+      &:hover, &.active {
+
+        background: $brand-success;
+        color: #fff;
+
+      }
+
+    }
+
+  }
+
+}

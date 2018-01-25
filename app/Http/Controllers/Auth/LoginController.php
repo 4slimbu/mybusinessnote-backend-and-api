@@ -31,7 +31,6 @@ class LoginController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @return void
      */
     public function __construct()
     {
@@ -56,6 +55,7 @@ class LoginController extends Controller
     /**
      * Override credentials method from the authenticateUsers
      *
+     * @param Request $request
      * @return void
      */
 

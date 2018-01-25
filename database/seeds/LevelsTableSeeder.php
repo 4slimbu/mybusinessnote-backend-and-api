@@ -20,137 +20,48 @@ class LevelsTableSeeder extends Seeder
             0 => 
             array (
                 'id' => 1,
-                'parent_id' => NULL,
                 'name' => 'Getting Started',
-                'description' => NULL,
+                'slug' => 'getting-started',
+                'icon' => 'qQJtdh1JUNZ3F5zIHDoGyhfdWFUHdlgd.png',
+                'badge_icon' => 'PzAh8dpz6DuKYUzDao3evUAp4jt3t8mS.png',
+                'badge_message' => '<h5 class="obvious-h5">Getting started</h5>
+<p>&nbsp;</p>
+<h1>Congratulations</h1>
+<p>&nbsp;</p>
+<p>Level 1 complete!</p>',
+                'content' => '<h1>Getting Started</h1>
+<p>Let\'s get you started by setting up your account. Click on continue to go through the steps<br />to register as well as to set up your business.</p>',
+                'tooltip' => '<p>level one tool tip</p>',
                 'created_at' => NULL,
-                'updated_at' => NULL,
+                'updated_at' => '2018-01-24 08:48:03',
             ),
             1 => 
             array (
                 'id' => 2,
-                'parent_id' => NULL,
                 'name' => 'Setting the Foundations',
-                'description' => NULL,
+                'slug' => 'setting-the-foundations',
+                'icon' => 'oxI7FcevXpBbqMxIly2LJBnIcQGM3jge.png',
+                'badge_icon' => 'jReTUeH2BNyOm9339ddvjn1jH4st7XfA.png',
+                'badge_message' => '<h1>Congratulation</h1>
+<p>Level 2 Completed</p>',
+                'content' => '<p>Level 2 content</p>',
+                'tooltip' => '<p>Level 2 tool tip</p>',
                 'created_at' => NULL,
-                'updated_at' => NULL,
+                'updated_at' => '2018-01-24 08:53:55',
             ),
             2 => 
             array (
                 'id' => 3,
-                'parent_id' => NULL,
                 'name' => 'Building up a Business',
-                'description' => NULL,
+                'slug' => 'building-up-a-business',
+                'icon' => 'Bk9A87lgogIf8RtFJhQ5pXuXJOCYOJ3c.png',
+                'badge_icon' => 'qRwHJuaBxVeZl4BEFUuA3vsaqDQL5xRD.png',
+                'badge_message' => '<h1>Congratulation</h1>
+<p>Level 3 completed</p>',
+                'content' => '<p>level 3 content</p>',
+                'tooltip' => '<p>level 3 tool tip</p>',
                 'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            3 => 
-            array (
-                'id' => 4,
-                'parent_id' => 1,
-                'name' => 'Business Category',
-                'description' => NULL,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            4 => 
-            array (
-                'id' => 5,
-                'parent_id' => 1,
-                'name' => 'About You',
-                'description' => NULL,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            5 => 
-            array (
-                'id' => 6,
-                'parent_id' => 1,
-                'name' => 'Your Business Details',
-                'description' => NULL,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            6 => 
-            array (
-                'id' => 7,
-                'parent_id' => 1,
-                'name' => 'Register Your Business',
-                'description' => NULL,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            7 => 
-            array (
-                'id' => 8,
-                'parent_id' => 2,
-                'name' => 'Marketing',
-                'description' => NULL,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            8 => 
-            array (
-                'id' => 9,
-                'parent_id' => 2,
-                'name' => 'Operations',
-                'description' => NULL,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            9 => 
-            array (
-                'id' => 10,
-                'parent_id' => 2,
-                'name' => 'Finance',
-                'description' => NULL,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            10 => 
-            array (
-                'id' => 11,
-                'parent_id' => 3,
-                'name' => 'Marketing',
-                'description' => NULL,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            11 => 
-            array (
-                'id' => 12,
-                'parent_id' => 3,
-                'name' => 'Legal',
-                'description' => NULL,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            12 => 
-            array (
-                'id' => 13,
-                'parent_id' => 3,
-                'name' => 'Human Resources',
-                'description' => NULL,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            13 => 
-            array (
-                'id' => 14,
-                'parent_id' => 3,
-                'name' => 'Operations',
-                'description' => NULL,
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            14 => 
-            array (
-                'id' => 15,
-                'parent_id' => 3,
-                'name' => 'Finance',
-                'description' => NULL,
-                'created_at' => NULL,
-                'updated_at' => NULL,
+                'updated_at' => '2018-01-24 08:54:56',
             ),
         ));
         

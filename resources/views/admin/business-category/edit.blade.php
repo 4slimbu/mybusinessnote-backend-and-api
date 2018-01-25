@@ -8,7 +8,7 @@
         </h2>
 
         <div class="col-md-10">
-            {{ Form::model($data['row'], ['method' => 'POST', 'route' => [$base_route.'.update', $data['row']->id]]) }}
+            {{ Form::model($data['row'], ['method' => 'POST', 'files' => true, 'route' => [$base_route.'.update', $data['row']->id]]) }}
             <div class="panel panel-flat">
 
                 <div class="panel-body">

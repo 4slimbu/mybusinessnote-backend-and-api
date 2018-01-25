@@ -14,7 +14,7 @@ class BadgeUserTableSeeder extends Seeder
     {
         
 
-        \DB::table('badge_user')->delete();
+//        \DB::table('badge_user')->delete();
         
         
         

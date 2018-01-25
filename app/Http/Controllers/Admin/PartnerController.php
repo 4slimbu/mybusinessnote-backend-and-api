@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Admin\PartnerValidation\CreateFormValidation;
 use App\Http\Requests\Admin\PartnerValidation\UpdateFormValidation;
+use App\Models\AffiliateLink;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\UserProfile;
@@ -88,6 +89,14 @@ class PartnerController extends AdminBaseController
             UserProfile::create($inputs);
         }
 
+        if ($request->get('affiliate_link_label') && $request->get('affiliate_link')) {
+            $affiliateLink = new AffiliateLink;
+            $affiliateLink->user_id = $user->id;
+            $affiliateLink->name = $request->get('affiliate_link_label');
+            $affiliateLink->link = $request->get('affiliate_link');
+            $affiliateLink->save();
+        }
+
         Session::flash('success', $this->panel_name.' created successfully.');
         return redirect()->route($this->base_route);
 
@@ -119,6 +128,7 @@ class PartnerController extends AdminBaseController
         //get data
         $data['row'] = $partner;
         $data['userProfile'] = $partner->userProfile;
+        $data['affiliateLink'] = $partner->affiliateLinks->first();
         $data['roles'] = Role::pluck('name', 'id');
 
         return view(parent::loadViewData($this->view_path . '.edit'), compact('data'));
@@ -137,6 +147,13 @@ class PartnerController extends AdminBaseController
         $input = $request->all();
         $partner->update($input);
         $partner->userProfile->update($input);
+
+        if ($request->get('affiliate_link_label') && $request->get('affiliate_link')) {
+            $affiliateLink = $partner->affiliateLinks->first();
+            $affiliateLink->name = $request->get('affiliate_link_label');
+            $affiliateLink->link = $request->get('affiliate_link');
+            $affiliateLink->save();
+        }
 
         Session::flash('success', $this->panel_name.' updated successfully.');
         return redirect()->route($this->base_route);

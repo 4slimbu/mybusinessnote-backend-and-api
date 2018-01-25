@@ -16,11 +16,14 @@ class CreateBusinessOptionsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('level_id');
+			$table->integer('section_id');
 			$table->integer('parent_id')->nullable();
 			$table->string('name', 191);
-			$table->text('description', 65535)->nullable();
-			$table->text('tooltip', 65535)->nullable();
-			$table->text('content', 65535)->nullable();
+			$table->string('slug', 191);
+            $table->text('content', 65535)->nullable();
+            $table->string('element', 191)->nullable();
+            $table->text('tooltip', 65535)->nullable();
+            $table->tinyInteger('menu_order')->unique()->nullable();
 			$table->integer('weight')->nullable();
             $table->boolean('show_everywhere')->default(true);
 			$table->timestamps();

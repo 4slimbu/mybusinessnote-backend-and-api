@@ -32,7 +32,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'token'
     ];
 
     /**
@@ -57,12 +57,23 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function businesses()
+    public function business()
     {
-        return $this->hasMany(Business::class);
+        return $this->hasOne(Business::class);
 
     }
 
+    public function badges()
+    {
+        return $this->hasOne(Business::class);
+
+    }
+
+    public function affiliateLinks()
+    {
+        return $this->hasMany(AffiliateLink::class);
+
+    }
 
     public function setPasswordAttribute($value)
     {

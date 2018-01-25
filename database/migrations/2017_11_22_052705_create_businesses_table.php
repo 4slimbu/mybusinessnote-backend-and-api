@@ -16,15 +16,15 @@ class CreateBusinessesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
-			$table->integer('business_category_id')->unsigned();
-			$table->string('business_name', 191);
-			$table->string('website', 191);
-			$table->string('abn', 191);
-			$table->string('acn', 191);
-			$table->string('business_email', 191);
-			$table->string('business_mobile', 191);
-			$table->string('business_general_phone', 191);
-			$table->string('address', 191);
+			$table->integer('business_category_id')->nullable();
+			$table->string('business_name', 191)->nullable();
+			$table->string('website', 191)->nullable();
+			$table->string('abn', 191)->nullable();
+			$table->string('acn', 191)->nullable();
+			$table->string('business_email', 191)->nullable();
+			$table->string('business_mobile', 191)->nullable();
+			$table->string('business_general_phone', 191)->nullable();
+			$table->string('address', 191)->nullable();
 			$table->boolean('sell_goods')->nullable();
 			$table->string('tagline', 191)->nullable();
 			$table->string('logo', 191)->nullable();

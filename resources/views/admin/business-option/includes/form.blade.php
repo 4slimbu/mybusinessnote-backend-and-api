@@ -7,12 +7,12 @@
     @endif
 </div>
 
-{{--Level--}}
+{{--Section--}}
 <div class="form-group">
-    <label  class="display-block text-semibold">Level:</label>
-    {{ Form::select('level_id', $data['levels'], null, ['class' => 'form-control', 'placeholder' => '-- Select Level --']) }}
-    @if($errors->has('level_id'))
-        <span class="text-danger">{{ $errors->first('level_id') }}</span>
+    <label  class="display-block text-semibold">Section:</label>
+    {{ Form::select('section_id', $data['sections'], null, ['class' => 'form-control', 'placeholder' => '-- Select Section --']) }}
+    @if($errors->has('section_id'))
+        <span class="text-danger">{{ $errors->first('section_id') }}</span>
     @endif
 </div>
 
@@ -27,52 +27,52 @@
 {{--Business Category--}}
 <div class="form-group more-inputs">
     <label  class="display-block text-semibold">Business Category:</label>
-    {{ Form::select('business_category_id[]', $data['businessCategories'], $data['selectedBusinessCategories'], ['placeholder' => '-- Choose Business Category --', 'class' => 'form-control', 'multiple' => 'multiple']) }}
+    {{ Form::select('business_category_id[]', $data['businessCategories'], $data['selectedBusinessCategories'], ['placeholder' => '-- Choose Business Category --', 'class' => 'form-control', 'multiple' => 'multiple', 'height' => 200]) }}
     @if($errors->has('business_category_id'))
         <span class="text-danger">{{ $errors->first('business_category_id') }}</span>
     @endif
 </div>
 
 {{--Parent Business Option--}}
+{{--<div class="form-group">--}}
+    {{--<label  class="display-block text-semibold">Parent Business Option:</label>--}}
+    {{--{{ Form::select('parent_id', $data['businessOptions'], null, ['placeholder' => '-- Choose Parent Busines Option --', 'class' => 'form-control']) }}--}}
+    {{--@if($errors->has('parent_id'))--}}
+        {{--<span class="text-danger">{{ $errors->first('parent_id') }}</span>--}}
+    {{--@endif--}}
+{{--</div>--}}
+
+{{--Content--}}
 <div class="form-group">
-    <label  class="display-block text-semibold">Parent Business Option:</label>
-    {{ Form::select('parent_id', $data['businessOptions'], null, ['placeholder' => '-- Choose Parent Busines Option --', 'class' => 'form-control']) }}
-    @if($errors->has('parent_id'))
-        <span class="text-danger">{{ $errors->first('parent_id') }}</span>
+    <label>Content:</label>
+    {{ Form::textarea('content', null, ['class' => 'form-control myeditablediv']) }}
+    @if($errors->has('content'))
+        <span class="text-danger">{{ $errors->first('content') }}</span>
     @endif
 </div>
 
-{{--Description--}}
+{{--Elements--}}
 <div class="form-group">
-    <label>Description:</label>
-    {{ Form::textarea('description', null, ['class' => 'form-control']) }}
-    @if($errors->has('description'))
-        <span class="text-danger">{{ $errors->first('description') }}</span>
+    <label  class="display-block text-semibold">Element:</label>
+    {{ Form::select('element', $data['elements'], $data['selectedElement'], ['placeholder' => '-- Choose Element --', 'class' => 'form-control']) }}
+    @if($errors->has('element'))
+        <span class="text-danger">{{ $errors->first('element') }}</span>
     @endif
 </div>
 
 {{--Tool Tip--}}
 <div class="form-group">
     <label>Tool Tip:</label>
-    {{ Form::textarea('tooltip', null, ['class' => 'form-control']) }}
+    {{ Form::textarea('tooltip', null, ['class' => 'form-control myeditablediv']) }}
     @if($errors->has('tooltip'))
         <span class="text-danger">{{ $errors->first('tooltip') }}</span>
-    @endif
-</div>
-
-{{--Content--}}
-<div class="form-group">
-    <label>Content:</label>
-    {{ Form::textarea('content', null, ['class' => 'form-control']) }}
-    @if($errors->has('content'))
-        <span class="text-danger">{{ $errors->first('content') }}</span>
     @endif
 </div>
 
 {{--Partner Affiliate Links--}}
 <div class="form-group">
     <label  class="display-block text-semibold">Affiliate Links:</label>
-    {{ Form::select('affiliate_link_id[]', $data['affiliateLinks'], $data['selectedAffiliateLinks'], ['placeholder' => '-- Choose Affiliate Links --', 'class' => 'form-control', 'multiple' => 'multiple']) }}
+    {{ Form::select('affiliate_link_id[]', $data['affiliateLinks'], $data['selectedAffiliateLinks'], ['placeholder' => '-- Choose Affiliate Links --', 'class' => 'form-control']) }}
     @if($errors->has('affiliate_link_id'))
         <span class="text-danger">{{ $errors->first('affiliate_link_id') }}</span>
     @endif

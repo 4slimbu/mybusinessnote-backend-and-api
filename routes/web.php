@@ -65,32 +65,6 @@ Route::group([
     ]);
 
 
-    /* Badge */
-    Route::get('badge', [
-        'as' => 'badge',
-        'uses' => 'BadgeController@index',
-    ]);
-    Route::get('badge/create', [
-        'as' => 'badge.create',
-        'uses' => 'BadgeController@create',
-    ]);
-    Route::post('badge/store', [
-        'as' => 'badge.store',
-        'uses' => 'BadgeController@store',
-    ]);
-    Route::get('badge/edit/{badge}', [
-        'as' => 'badge.edit',
-        'uses' => 'BadgeController@edit'
-    ]);
-    Route::post('badge/update/{badge}', [
-        'as' => 'badge.update',
-        'uses' => 'BadgeController@update',
-    ]);
-    Route::delete('badge/destroy/{badge}', [
-        'as' => 'badge.destroy',
-        'uses' => 'BadgeController@destroy'
-    ]);
-
     /* User */
     Route::get('user', [
         'as' => 'user',
@@ -248,6 +222,32 @@ Route::group([
         'uses' => 'LevelController@destroy'
     ]);
 
+    /* Section */
+    Route::get('section', [
+        'as' => 'section',
+        'uses' => 'SectionController@index',
+    ]);
+    Route::get('section/create', [
+        'as' => 'section.create',
+        'uses' => 'SectionController@create',
+    ]);
+    Route::post('section/store', [
+        'as' => 'section.store',
+        'uses' => 'SectionController@store',
+    ]);
+    Route::get('section/edit/{section}', [
+        'as' => 'section.edit',
+        'uses' => 'SectionController@edit'
+    ]);
+    Route::post('section/update/{section}', [
+        'as' => 'section.update',
+        'uses' => 'SectionController@update',
+    ]);
+    Route::delete('section/destroy/{section}', [
+        'as' => 'section.destroy',
+        'uses' => 'SectionController@destroy'
+    ]);
+
 //        //Customer Category
 //    Route::get('/admin/customers','Admin\CustomerController@index');
 //    Route::get('/admin/customers/edit/{customer}','Admin\CustomerController@edit');
@@ -323,7 +323,3 @@ Route::group([ 'namespace' => 'App\Http\Controllers'], function () {
 | Routes for all the registration activities.
 |
 */
-
-Route::get('/start', function () {
-    return view('start');
-});

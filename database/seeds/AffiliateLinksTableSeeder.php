@@ -21,51 +21,31 @@ class AffiliateLinksTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'user_id' => 4,
-                'name' => 'domain',
+                'name' => 'Create One',
                 'description' => 'Register domain here',
                 'link' => 'https://godaddy.com/register',
                 'created_at' => NULL,
-                'updated_at' => NULL,
+                'updated_at' => '2018-01-24 09:19:31',
             ),
             1 => 
             array (
                 'id' => 2,
-                'user_id' => 4,
-                'name' => 'hosting',
-                'description' => 'Host your domain',
-                'link' => 'https://godaddy.com/hosting',
+                'user_id' => 5,
+                'name' => 'Create One',
+                'description' => 'Create quick logo with us',
+                'link' => 'https://logomaker.com/create/logo',
                 'created_at' => NULL,
-                'updated_at' => NULL,
+                'updated_at' => '2018-01-24 09:19:18',
             ),
             2 => 
             array (
                 'id' => 3,
-                'user_id' => 5,
-                'name' => 'logo',
-                'description' => 'Create quick logo with us',
-                'link' => 'https://logomaker.com/create/logo',
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            3 => 
-            array (
-                'id' => 4,
-                'user_id' => 5,
-                'name' => 'branding',
-                'description' => 'Extensive branding with logo designing',
-                'link' => 'https://logomaker.com/branding',
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
-            4 => 
-            array (
-                'id' => 5,
                 'user_id' => 9,
-                'name' => 'business register',
+                'name' => 'Create One',
                 'description' => 'register your business with australian government',
-                'link' => 'https://ausbusiness/register',
+                'link' => 'https://ausbusiness.com/register',
                 'created_at' => NULL,
-                'updated_at' => NULL,
+                'updated_at' => '2018-01-24 09:19:07',
             ),
         ));
         

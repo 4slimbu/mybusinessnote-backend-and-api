@@ -15,9 +15,13 @@ class CreateLevelsTable extends Migration {
 		Schema::create('levels', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('parent_id')->nullable();
 			$table->string('name', 191);
-			$table->text('description', 65535)->nullable();
+			$table->string('slug', 191);
+            $table->string('icon', 191);
+            $table->string('badge_icon', 191)->nullable();
+            $table->text('badge_message')->nullable();
+			$table->text('content', 65535)->nullable();
+			$table->text('tooltip', 65535)->nullable();
 			$table->timestamps();
 		});
 	}

@@ -1,9 +1,9 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes React and other helpers. It's a great starting point while
  * building robust, powerful web applications using React + Laravel.
  */
+import Main from "./components/Main";
 
 require('./bootstrap');
 
@@ -13,4 +13,15 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-require('./components/Example');
+import React from 'react'
+import { render } from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
+
+if (document.getElementById('mbj-app')) {
+    render((
+        <BrowserRouter>
+            <Main />
+        </BrowserRouter>
+    ), document.getElementById('mbj-app'));
+}
+

@@ -35,4 +35,23 @@ class Business extends Model
 
     }
 
+    public function levels()
+    {
+        return $this->belongsToMany(Level::class)->withPivot("completed_percent");
+    }
+
+    public function sections()
+    {
+        return $this->belongsToMany(Section::class)->withPivot("completed_percent");
+    }
+
+    public function businessOptions()
+    {
+        return $this->belongsToMany(BusinessOption::class)->withPivot("status");
+    }
+
+    public function businessMetas()
+    {
+        return $this->hasMany(BusinessMeta::class);
+    }
 }
