@@ -38,6 +38,10 @@
             'uses' => 'AuthController@login'
         ]);
 
+        /* Social Auth */
+        Route::get('/login/oauth/{driver}', 'SocialAuthController@redirectToProvider')->name('social.oauth');
+        Route::get('/login/oauth/{driver}/callback', 'SocialAuthController@handleProviderCallback')->name('social.callback');
+
         /* Get Business Categories */
         Route::apiResource('business-categories', 'BusinessCategoryController');
 
@@ -126,6 +130,8 @@
         /* This is the default route to save any business option */
         Route::get('/business-option', 'BusinessOptionController@getUsingQuery');
         Route::post('/business-option', 'BusinessOptionController@save');
+
+        Route::apiResource('/test', 'BusinessOptionController');
 
     });
 //});

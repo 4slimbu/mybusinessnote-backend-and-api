@@ -21,7 +21,12 @@ class User extends Authenticatable
         'role_id',
         'email',
         'password',
+        'avatar',
+        'provider_id',
+        'provider',
+        'access_token',
         'verified',
+        'history',
         'token',
         'remember_token'
     ];
