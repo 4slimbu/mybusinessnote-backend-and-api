@@ -1,4 +1,4 @@
-# My Business Journey [![Build Status](https://bitbucket.org/octomedia/mbj/branch/master)](https://bitbucket.org/octomedia)
+# My Business Journey
 
 API and Backend for MBJ main application. MBJ main app is based on REACT  
 
@@ -15,7 +15,6 @@ git clone git@bitbucket.org:octomedia/mbj.git
 cd mbj && composer install
 mv .env.example  .env
 php artisan key:generate
-php artisan migrate:refresh --seed
 ```
 
 ### Step 2
@@ -31,3 +30,12 @@ DB_PASSWORD=
 
 1. Visit: `http://mbj.test` to view the homepage
 2. Visit: `http://mbj.test/admin` to login the backend
+
+
+### Step 3
+
+If you want to seed some sample data run the following bash command
+
+```bash
+php artisan migrate:refresh --seed
+```
