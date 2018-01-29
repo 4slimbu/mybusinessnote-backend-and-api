@@ -13,11 +13,9 @@
     <script src="{{ asset('admin-public/js/tinymce/jquery.tinymce.min.js') }}"></script>
     <script src="{{ asset('admin-public/js/tinymce/tinymce.min.js') }}"></script>
     <script>
-        if (document.getElementsByClassName("myeditablediv")) {
-            tinymce.init({
-                selector: '.myeditablediv'
-            });
-        }
+        tinymce.init({
+            selector: '.myeditablediv'
+        });
     </script>
 
     <!-- Styles -->

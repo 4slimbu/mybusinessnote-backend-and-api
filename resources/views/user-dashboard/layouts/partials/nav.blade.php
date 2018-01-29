@@ -2,6 +2,8 @@
 <div class="container-fluid d-flex justify-content-between">
 <a href="/" class="navbar-brand"><img src="{{ asset('images/MBJ_logo@4x.png')}}"/></a>
 
+
+
   <nav class="nav user-nav">
     
       <!-- Authentication Links -->
@@ -10,11 +12,12 @@
       @else
           <li class="nav-item dropdown">
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                  {{ Auth::user()->first_name . " " . Auth::user()->last_name }} <span class="caret"></span>
+                  My Account <span class="caret"></span>
               </a>
 
               <ul class="dropdown-menu" role="menu">
-                  <li><a class="dropdown-item" href="{{url('profiles')}}/{{ Auth::user()->id }}">Profile</a></li>
+                  <li><a class="dropdown-item" href="{{url('home')}}">My Dashboard</a></li>
+                  <li><a class="dropdown-item" href="{{url('profiles')}}/{{ Auth::user()->id }}">My Profile</a></li>
                   <li>
                       <a class="dropdown-item" href="{{ route('logout') }}"
                           onclick="event.preventDefault();

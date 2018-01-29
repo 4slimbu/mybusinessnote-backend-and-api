@@ -2,26 +2,38 @@
 
 /*
 |--------------------------------------------------------------------------
-| Web General Routes
+| Authentication Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| Routes to authenticate backend users.
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
+Route::group([ 'namespace' => 'App\Http\Controllers'], function () {
+    Auth::routes();
 });
+
+/*
+|--------------------------------------------------------------------------
+| Backend Base Dashboard Route
+|--------------------------------------------------------------------------
+|
+| Routes for the backend base dashboard. It isn't connected to any view.
+| It just redirect to appropriate dashboard depending upon the user role.
+*/
+
+Route::get('/', [
+    'as' => 'dashboard',
+    'uses' => 'App\\Http\\Controllers\\DashboardController@index'
+])->middleware('auth');
+
 
 
 /*
 |--------------------------------------------------------------------------
-| Admin Routes
+| Admin Dashboard Routes
 |--------------------------------------------------------------------------
 |
-| Routes for all the admin activities.
+| Routes for all the admin related requests.
 |
 */
 
@@ -29,7 +41,7 @@ Route::get('/', function () {
 Route::group([
     'prefix' => 'admin',
     'as' => 'admin.',
-    'middleware' => 'can:accessAdminPanel',
+    'middleware' => 'auth.admin',
     'namespace' => 'App\Http\Controllers\Admin'
 ], function() {
 
@@ -275,51 +287,88 @@ Route::group([
 
 /*
 |--------------------------------------------------------------------------
-| User Routes
+| Partner Dashboard Routes
 |--------------------------------------------------------------------------
 |
-| Routes for all the user and business activities.
+| Routes for all the partner related requests.
 |
 */
 
-Route::group([ 'namespace' => 'App\Http\Controllers'], function () {
-    Auth::routes();
 
+Route::group([
+    'prefix' => 'partner-dashboard',
+    'as' => 'partner-dashboard.',
+    'middleware' => 'auth.partner',
+    'namespace' => 'App\\Http\\Controllers\\PartnerDashboard'
+], function() {
 
-    Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('profile/{user}','HomeController@profile');
-    Route::get('user/{businessid}','HomeController@business');
-    Route::get('business/edit/{business}','HomeController@businessEdit');
-    Route::post('business/update/{business}','HomeController@businessUpdate');
-    Route::get('/register/verify/{token}', 'Auth\RegisterController@verify');
+    Route::get('/', [
+        'as' => 'dashboard',
+        'uses' => 'DashboardController@index'
+    ]);
 
-    Route::get('password-change','HomeController@passwordChange');
-
-    Route::post('password-change','HomeController@passwordReset');
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Business Routes
-    |--------------------------------------------------------------------------
-    |
-    | Routes for all the business activities.
-    |
-    */
-
-    Route::post('/business', 'BusinessController@store');
-    Route::get('/businesses', 'BusinessController@index');
-    Route::get('/business/{business}', 'BusinessController@show');
-
+    /* Profile */
+    Route::get('profile', [
+        'as' => 'profile',
+        'uses' => 'ProfileController@index',
+    ]);
+    Route::post('profile/update/{businessCategory}', [
+        'as' => 'profile.update',
+        'uses' => 'ProfileController@update',
+    ]);
+    Route::post('profile/update/password', [
+        'as' => 'profile.update-password',
+        'uses' => 'ProfileController@updatePassword'
+    ]);
 });
-
 
 
 /*
 |--------------------------------------------------------------------------
-| Registration Routes
+| User Dashboard Routes
 |--------------------------------------------------------------------------
 |
-| Routes for all the registration activities.
+| Routes for all the user related request.
 |
 */
+
+
+Route::group([
+    'prefix' => 'user',
+    'as' => 'user.',
+    'middleware' => 'auth.user',
+    'namespace' => 'App\\Http\\Controllers\\UserDashboard'
+], function() {
+
+    Route::get('/', [
+        'as' => 'dashboard',
+        'uses' => 'DashboardController@index'
+    ]);
+
+    /* Profile */
+    Route::get('profile', [
+        'as' => 'profile',
+        'uses' => 'ProfileController@index',
+    ]);
+    Route::get('profile/create', [
+        'as' => 'profile.create',
+        'uses' => 'ProfileController@create',
+    ]);
+    Route::post('profile/store', [
+        'as' => 'profile.store',
+        'uses' => 'ProfileController@store',
+    ]);
+    Route::get('profile/edit/{businessCategory}', [
+        'as' => 'profile.edit',
+        'uses' => 'ProfileController@edit'
+    ]);
+    Route::post('profile/update/{businessCategory}', [
+        'as' => 'profile.update',
+        'uses' => 'ProfileController@update',
+    ]);
+    Route::delete('profile/destroy/{businessCategory}', [
+        'as' => 'profile.destroy',
+        'uses' => 'ProfileController@destroy'
+    ]);
+
+});
