@@ -10,7 +10,8 @@
       @if (Auth::guest())
           <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
       @else
-          <li class="nav-item dropdown">
+          <li class="nav-item"><a class="nav-link" href="{{url('home')}}">My Account</a></li>
+          <!-- <li class="nav-item dropdown">
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                   My Account <span class="caret"></span>
               </a>
@@ -30,7 +31,7 @@
                       </form>
                   </li>
               </ul>
-          </li>
+          </li> -->
 
       @endif
       <li class="nav-item"><a class="nav-link" href="/start">My Business Journey</a></li>
