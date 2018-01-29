@@ -1,40 +1,27 @@
 /* sidebar */
 
-.sidebar-module {
-  padding: 0 1rem;
+
+.sidebar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    padding: 0;
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
 }
 
+.sidebar-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 110px;
+    height: calc(100vh - 110px);
+    padding-top: .5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
 
-.admin-sidebar {
-
-  &.sidebar {
-    margin-top: 1rem;
-  }
-
-  .card {
-    margin-bottom: 0.25rem;
-  }
-
-  .nav {
-
-    .nav-link {
-
-      font-weight: bold;
-
-    }
-    ul {
-
-      margin-left: 1rem;
-
-      .nav-link {
-
-        font-weight: normal;
-
-      }
-
-    }
-
-  }
-
-
+.nav-link {
+    display: block;
+    padding: .5rem 2rem;
 }

@@ -8,8 +8,6 @@
 @import "~bootstrap/dist/css/bootstrap.min";
 
 
-// Slick Carousel
-@import "~slick-carousel/slick/slick.scss";
 
 // Modules
 @import "alerts";
@@ -29,6 +27,13 @@ html, body {
 	font-weight: 100;
 	height: 100vh;
 	margin: 0;
+}
+
+
+a {
+	
+	color: $brand-secondary;
+
 }
 
 .main-content {
