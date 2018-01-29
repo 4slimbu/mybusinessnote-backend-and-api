@@ -46,10 +46,6 @@ php artisan migrate:refresh --seed
 
 Hosting: AWS
 
-### Staging Main App
-
-http://appstaging.mybusinessjourney.com.au
-
 
 ### Staging API
 
