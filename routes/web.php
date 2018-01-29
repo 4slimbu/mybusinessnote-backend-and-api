@@ -323,3 +323,50 @@ Route::group([ 'namespace' => 'App\Http\Controllers'], function () {
 | Routes for all the registration activities.
 |
 */
+
+
+/*
+|--------------------------------------------------------------------------
+| Partner Dashboard Routes
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::group([
+    'prefix' => 'partner',
+    'as' => 'partner.',
+    'namespace' => 'App\Http\Controllers\Partner'
+], function() {
+
+    Route::get('/', [
+        'as' => 'dashboard',
+        'uses' => 'DashboardController@index'
+    ]);
+
+    /* Profile */
+    Route::get('profile', [
+        'as' => 'profile',
+        'uses' => 'ProfileController@index',
+    ]);
+    Route::get('profile/create', [
+        'as' => 'profile.create',
+        'uses' => 'ProfileController@create',
+    ]);
+    Route::post('profile/store', [
+        'as' => 'profile.store',
+        'uses' => 'ProfileController@store',
+    ]);
+    Route::get('profile/edit/{businessCategory}', [
+        'as' => 'profile.edit',
+        'uses' => 'ProfileController@edit'
+    ]);
+    Route::post('profile/update/{businessCategory}', [
+        'as' => 'profile.update',
+        'uses' => 'ProfileController@update',
+    ]);
+    Route::delete('profile/destroy/{businessCategory}', [
+        'as' => 'profile.destroy',
+        'uses' => 'ProfileController@destroy'
+    ]);
+
+});
