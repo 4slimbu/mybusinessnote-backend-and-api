@@ -3,16 +3,16 @@
 @section('content')
     <div class="content-wrapper">
         <h2>
-            {{ $panel_name }} : {{ $data['row']->first_name  }}  {{ $data['row']->last_name  }}
+            Change Password
         </h2>
 
         <div class="col-md-10">
-            {{ Form::model($data['row'], ['method' => 'POST', 'route' => [$base_route.'.update']]) }}
+            {{ Form::open(['method' => 'POST', 'route' => [$base_route.'.update-password']]) }}
             <div class="panel panel-flat">
 
                 <div class="panel-body">
 
-                    @include($view_path . '.includes.form')
+                    @include($view_path . '.includes.password-form')
 
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Save changes</button>

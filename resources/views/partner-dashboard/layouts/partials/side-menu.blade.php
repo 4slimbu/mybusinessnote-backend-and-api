@@ -14,17 +14,17 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('partner-dashboard.profile.update-password') }}"><i class="fa fa-briefcase" aria-hidden="true"></i> Change Password</a>
+                <a class="nav-link" href="{{ route('partner-dashboard.profile.edit-password') }}"><i class="fa fa-briefcase" aria-hidden="true"></i> Change Password</a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('logout') }}"
                    onclick="event.preventDefault();
-                       document.getElementById('logout-form').submit();">
+                       document.getElementById('side-logout-form').submit();">
                     <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
                 </a>
 
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                <form id="side-logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     {{ csrf_field() }}
                 </form>
             </li>

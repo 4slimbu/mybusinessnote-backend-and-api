@@ -1,4 +1,4 @@
-@extends('partner-dashboard.layouts.default')
+@extends('user-dashboard.layouts.default')
 
 @section('content')
     <div class="content-wrapper">

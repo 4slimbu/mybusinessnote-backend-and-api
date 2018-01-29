@@ -260,28 +260,6 @@ Route::group([
         'uses' => 'SectionController@destroy'
     ]);
 
-//        //Customer Category
-//    Route::get('/admin/customers','Admin\CustomerController@index');
-//    Route::get('/admin/customers/edit/{customer}','Admin\CustomerController@edit');
-//    Route::post('admin/customers/update/{customer}','Admin\CustomerController@update');
-//
-//    //Business
-//
-//    Route::get('admin/businesses','Admin\AdminBusinessController@index');
-//    Route::get('admin/businesses/edit/{business}','Admin\AdminBusinessController@edit');
-//    Route::post('admin/businesses/update/{business}','Admin\AdminBusinessController@update');
-//
-//    //Business Option
-//
-//    Route::get('admin/businessoption','Admin\BusinessOptionController@index');
-//    Route::get('admin/businessoption/create','Admin\BusinessOptionController@create');
-//    Route::post('admin/businessoption','Admin\BusinessOptionController@store');
-//
-//    Route::get('admin/businessoption/edit/{businessoption}','Admin\BusinessOptionController@edit');
-//    Route::post('admin/businessoption/update/{option}','Admin\BusinessOptionController@update');
-
-
-
 });
 
 
@@ -312,13 +290,17 @@ Route::group([
         'as' => 'profile',
         'uses' => 'ProfileController@index',
     ]);
-    Route::post('profile/update/{businessCategory}', [
-        'as' => 'profile.update',
-        'uses' => 'ProfileController@update',
-    ]);
     Route::post('profile/update/password', [
         'as' => 'profile.update-password',
         'uses' => 'ProfileController@updatePassword'
+    ]);
+    Route::post('profile/update', [
+        'as' => 'profile.update',
+        'uses' => 'ProfileController@update',
+    ]);
+    Route::get('profile/edit/password', [
+        'as' => 'profile.edit-password',
+        'uses' => 'ProfileController@editPassword'
     ]);
 });
 
@@ -334,8 +316,8 @@ Route::group([
 
 
 Route::group([
-    'prefix' => 'user',
-    'as' => 'user.',
+    'prefix' => 'user-dashboard',
+    'as' => 'user-dashboard.',
     'middleware' => 'auth.user',
     'namespace' => 'App\\Http\\Controllers\\UserDashboard'
 ], function() {
@@ -350,25 +332,16 @@ Route::group([
         'as' => 'profile',
         'uses' => 'ProfileController@index',
     ]);
-    Route::get('profile/create', [
-        'as' => 'profile.create',
-        'uses' => 'ProfileController@create',
+    Route::post('profile/update/password', [
+        'as' => 'profile.update-password',
+        'uses' => 'ProfileController@updatePassword'
     ]);
-    Route::post('profile/store', [
-        'as' => 'profile.store',
-        'uses' => 'ProfileController@store',
-    ]);
-    Route::get('profile/edit/{businessCategory}', [
-        'as' => 'profile.edit',
-        'uses' => 'ProfileController@edit'
-    ]);
-    Route::post('profile/update/{businessCategory}', [
+    Route::post('profile/update', [
         'as' => 'profile.update',
         'uses' => 'ProfileController@update',
     ]);
-    Route::delete('profile/destroy/{businessCategory}', [
-        'as' => 'profile.destroy',
-        'uses' => 'ProfileController@destroy'
+    Route::get('profile/edit/password', [
+        'as' => 'profile.edit-password',
+        'uses' => 'ProfileController@editPassword'
     ]);
-
 });

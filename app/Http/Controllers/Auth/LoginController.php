@@ -80,7 +80,7 @@ class LoginController extends Controller
             return redirect()->route('admin.dashboard');
         }
         if (Auth::user() && Auth::user()->role->id === 2) {
-            return redirect()->route('user.dashboard');
+            return redirect()->route('user-dashboard.dashboard');
         }
         if (Auth::user() && Auth::user()->role->id === 3) {
             return redirect()->route('partner-dashboard.dashboard');

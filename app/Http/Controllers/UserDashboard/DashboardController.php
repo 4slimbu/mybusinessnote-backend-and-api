@@ -10,34 +10,33 @@ use App\Models\User;
 use Session, AppHelper;
 
 
-class DashboardController extends AdminBaseController
+class DashboardController extends BaseController
 {
     /**
      * Path to base view folder
      * @var string
      */
-    protected $view_path = 'partner.dashboard';
+    protected $view_path = 'user-dashboard.dashboard';
 
     /**
      * Base route
      * @var string
      */
-    protected $base_route = 'partner.dashboard';
+    protected $base_route = 'user-dashboard.dashboard';
 
     /**
      * Title of page using this controller
      * @var string
      */
-    protected $panel_name = 'Partner Dashboard';
+    protected $panel_name = 'User Dashboard';
 
     /**
-     * Displays partner dashboard.
+     * Displays user dashboard.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        dd("here");
         //initialize
         $data = [];
 

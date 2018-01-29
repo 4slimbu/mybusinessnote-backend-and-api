@@ -4,6 +4,7 @@ namespace App\Http\Controllers\PartnerDashboard;
 
 
 use App\Http\Requests\PartnerDashboard\ProfileValidation\UpdateFormValidation;
+use App\Http\Requests\PartnerDashboard\ProfileValidation\UpdatePasswordFormValidation;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -73,21 +74,30 @@ class ProfileController extends BaseController
         return redirect()->route($this->base_route);
     }
 
+
+    public function editPassword()
+    {
+        //initialize
+
+        return view(parent::loadViewData($this->view_path . '.edit-password'));
+    }
+
+
     /**
      * Update the specified business option in storage.
      *
-     * @param UpdateFormValidation|\Illuminate\Http\Request $request
-     * @param  \App\Models\User $profile
+     * @param UpdatePasswordFormValidation|UpdateFormValidation|\Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @internal param User $profile
      */
-    public function updatePassword(UpdateFormValidation $request, User $profile)
+    public function updatePassword(UpdatePasswordFormValidation $request)
     {
-
-        $input = $request->all();
+        $input = $request->only('password', 'password_confirmation');
+        $profile = User::where('id', Auth::user()->id)->first();
         $profile->fill($input)->save();
 
         Session::flash('success', $this->panel_name.' updated successfully.');
-        return redirect()->route($this->base_route);
+        return redirect()->back();
     }
 
 }
