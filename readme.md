@@ -1,6 +1,7 @@
 # My Business Journey
 
-API and Backend for MBJ main application. MBJ main app is based on REACT  
+API and Backend for MBJ main application(https://bitbucket.org/octomedia/mbj_app). MBJ main application is one page app built on REACT/REDUX. To clone MBJ main app go to 
+https://bitbucket.org/octomedia/mbj_app and follow the readme instruction.
 
 ## Installation
 
