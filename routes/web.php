@@ -278,7 +278,7 @@ Route::group([
 | User Routes
 |--------------------------------------------------------------------------
 |
-| Routes for all the business activities.
+| Routes for all the user and business activities.
 |
 */
 
@@ -287,7 +287,7 @@ Route::group([ 'namespace' => 'App\Http\Controllers'], function () {
 
 
     Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('profiles/{user}','HomeController@profile');
+    Route::get('profile/{user}','HomeController@profile');
     Route::get('user/{businessid}','HomeController@business');
     Route::get('business/edit/{business}','HomeController@businessEdit');
     Route::post('business/update/{business}','HomeController@businessUpdate');
