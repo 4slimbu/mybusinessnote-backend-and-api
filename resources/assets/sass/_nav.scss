@@ -19,7 +19,12 @@
 
 .navbar {
   padding: 1.5rem 1rem;
+  .navbar-brand img {
+    max-height: 40px;
+  }
 }
+
+
 
 
 
@@ -44,35 +49,4 @@
     }
   }
 
-}
-
-
-.sidebar {
-
-  .nav-pills {
-
-
-
-
-    /*
-    .nav-item .nav-link {
-      color: #fff;
-      cursor: default;
-      background-color: #ccc;
-      margin-right: 0.8rem;
-
-      &:hover {
-        cursor: pointer;
-        color: #fff;
-        background-color: $brand-primary;
-      }
-      &.active {
-        color: #fff;
-        cursor: default;
-        background-color: $brand-primary;
-      }
-
-    }*/
-
-  }
 }

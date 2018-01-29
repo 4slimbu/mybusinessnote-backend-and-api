@@ -8,7 +8,7 @@
         <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4" role="main">
             
 
-            <h2>Your Business Profile</h2>
+            <h2>My Business Profile</h2>
 
          
 

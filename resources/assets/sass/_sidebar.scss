@@ -2,7 +2,7 @@
 
 
 .sidebar {
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
@@ -14,8 +14,8 @@
 .sidebar-sticky {
     position: -webkit-sticky;
     position: sticky;
-    top: 110px;
-    height: calc(100vh - 110px);
+    top: 120px;
+    height: calc(100vh - 120px);
     padding-top: .5rem;
     overflow-x: hidden;
     overflow-y: auto;

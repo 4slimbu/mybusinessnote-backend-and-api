@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>My Business Journey</title>
 
     <script src="{{ asset('admin-public/js/tinymce/jquery.tinymce.min.js') }}"></script>
     <script src="{{ asset('admin-public/js/tinymce/tinymce.min.js') }}"></script>
@@ -19,11 +19,11 @@
     </script>
 
     <!-- Styles -->
-    <link href="{{ asset('admin-public/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
 <body>
-<div id="app" class="container-fluid">
+<div id="app">
     <!-- Top Nav -->
     @include('admin.layouts.partials.nav')
     <!-- /top nap -->
@@ -33,9 +33,9 @@
         @include('admin.layouts.partials.side-menu')
         <!-- /left sidebar menu -->
 
-        <main class="col-sm-9 ml-sm-auto col-md-9 pt-3" role="main">
+        <main class="col-md-9 ml-sm-auto col-lg-10 pt-5 px-5" role="main">
 
-            <h1>{{ $panel_name }}</h1>
+           <!--  <h2>{{ $panel_name }}</h2> -->
 
             @if(Session::has('success'))
                 <p class="alert alert-success">{{ Session::get('success') }}</p>
@@ -49,11 +49,11 @@
         </main>
     </div>
 
-    @include('admin.layouts.partials.footer')
 </div>
 <!-- Scripts -->
 
 <script src="{{ asset('admin-public/js/app.js') }}"></script>
+<script src="https://use.fontawesome.com/d94e52ff8c.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <script src="https://unpkg.com/vue@2.1.3/dist/vue.js"></script>

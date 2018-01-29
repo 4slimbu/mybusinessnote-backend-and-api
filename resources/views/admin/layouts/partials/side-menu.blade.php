@@ -1,118 +1,71 @@
-<nav class="col-sm-3 col-md-3 d-none d-sm-block admin-sidebar sidebar">
-    <div id="accordion" role="tablist">
+<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <div class="sidebar-sticky">
 
-        <div class="card">
-            <div class="card-header" role="tab" id="headingTwo">
-                <h5 class="mb-0">
-                    <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false"
-                       aria-controls="collapseTwo">
-                        Business
-                    </a>
-                </h5>
-            </div>
-            <div id="collapseTwo" class="collapse show" role="tabpanel" aria-labelledby="headingTwo"
-                 data-parent="#accordion">
-                <div class="card-body">
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>Business</span>
+          <a class="d-flex align-items-center text-muted" href="#">
+           <i class="fa fa-briefcase" aria-hidden="true"></i>
+          </a>
+        </h6>
+        <ul class="nav flex-column">
 
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.business') }}"><i class="fa fa-briefcase" aria-hidden="true"></i> View Businesses</a>
+            </li>
+          <!--   <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.business.create') }}"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+ Add New Business</a>
+            </li> -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.business-category') }}"><i class="fa fa-tag" aria-hidden="true"></i> Business Catgories</a>
+            </li>
+           <!--  <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.business-category.create') }}">Add New Category</a>
+            </li> -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.level') }}"><i class="fa fa-signal" aria-hidden="true"></i> Levels</a>
+            </li>
+           <!--  <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.level.create') }}">Add New Level</a>
+             </li> -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.section') }}"><i class="fa fa-th-large" aria-hidden="true"></i>
+ Sections</a></li>
+           <!--  <li class="nav-item">
+                <a class="nav-link"  href="{{ route('admin.section.create') }}">Add New Section</a>
+            </li> -->
 
-                    <ul class="nav nav-pills flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Business <span class="caret"></span></a>
-                            <ul>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('admin.business') }}">View
-                                        All</a></li>
-                                <li class="nav-item"><a class="nav-link"
-                                                        href="{{ route('admin.business.create') }}">Add New</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Business Categories <span class="caret"></span></a>
-                            <ul>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('admin.business-category') }}">View
-                                        All</a></li>
-                                <li class="nav-item"><a class="nav-link"
-                                                        href="{{ route('admin.business-category.create') }}">Add New</a>
-                                </li>
-                            </ul>
-                        </li>
+             <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.business-option') }}"><i class="fa fa-link" aria-hidden="true"></i>
+ Options</a>
+            </li>
+           <!--  <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.business-option.create') }}">Add New Option</a>
+            </li> -->
+           
+        </ul>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Business Options<span class="caret"></span></a>
-                            <ul>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('admin.business-option') }}">View
-                                        All</a></li>
-                                <li class="nav-item"><a class="nav-link"
-                                                        href="{{ route('admin.business-option.create') }}">Add New</a>
-                                </li>
-                            </ul>
-                        </li>
+         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>Users</span>
+          <a class="d-flex align-items-center text-muted" href="#">
+          <i class="fa fa-users" aria-hidden="true"></i>
+          </a>
+        </h6>
+        <ul class="nav flex-column">
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Levels<span class="caret"></span></a>
-                            <ul>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('admin.level') }}">View
-                                        All</a></li>
-                                <li class="nav-item"><a class="nav-link"
-                                                        href="{{ route('admin.level.create') }}">Add New</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Sections<span class="caret"></span></a>
-                            <ul>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('admin.section') }}">View
-                                        All</a></li>
-                                <li class="nav-item"><a class="nav-link"
-                                                        href="{{ route('admin.section.create') }}">Add New</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header" role="tab" id="headingThree">
-                <h5 class="mb-0">
-                    <a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false"
-                       aria-controls="collapseThree">
-                        Users
-                    </a>
-                </h5>
-            </div>
-            <div id="collapseThree" class="collapse show" role="tabpanel" aria-labelledby="headingThree"
-                 data-parent="#accordion">
-                <div class="card-body">
-                    <ul class="nav nav-pills flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Customers<span class="caret"></span></a>
-                            <ul>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('admin.customer') }}">View
-                                        All</a></li>
-                                <li class="nav-item"><a class="nav-link"
-                                                        href="{{ route('admin.customer.create') }}">Add New</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Partners <span class="caret"></span></a>
-                            <ul>
-                                <li class="nav-item"><a class="nav-link" href="{{ route('admin.partner') }}">View
-                                        All</a></li>
-                                <li class="nav-item"><a class="nav-link"
-                                                        href="{{ route('admin.partner.create') }}">Add New</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                    </ul>
-                </div>
-            </div>
-        </div>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.customer') }}"><i class="fa fa-address-book" aria-hidden="true"></i> Customers</a>
+            </li>
+          <!--   <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.customer.create') }}">Add New</a>
+            </li> -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.partner') }}"><i class="fa fa-handshake-o" aria-hidden="true"></i> Partners</a>
+            </li>
+           <!--  <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.partner.create') }}">Add New</a>
+            </li> -->   
+    
+        </ul>
     </div>
 </nav>
-

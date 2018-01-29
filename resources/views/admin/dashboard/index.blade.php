@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="content-wrapper">
-        <h2>
-            Manage {{ $panel_name }}
-        </h2>
+        <h4>
+            {{ $panel_name }}
+        </h4>
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>

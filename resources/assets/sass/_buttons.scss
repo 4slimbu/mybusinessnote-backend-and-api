@@ -1,0 +1,17 @@
+.btn-link {
+    font-weight: 400;
+    color: $brand-primary;
+    background-color: transparent;
+}
+
+.btn-primary {
+    color: #fff;
+	background-color: $brand-secondary;
+	border-color: $brand-secondary;
+    &:hover,&:active,&:focus{
+		color: #fff;
+		
+		background-color: $brand-primary;
+		border-color: $brand-primary;
+    }
+}

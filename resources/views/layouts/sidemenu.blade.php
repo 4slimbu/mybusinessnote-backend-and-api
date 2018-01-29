@@ -10,7 +10,7 @@
           <li class="nav-item">
             <a class="nav-link" href="{{url('user-preferences')}}">
               <i class="fa fa-envelope-o" aria-hidden="true"></i>
-              Communication Preferences
+              Preferences
             </a>
           </li>
           <li class="nav-item">

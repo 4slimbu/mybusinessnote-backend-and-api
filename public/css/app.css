@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,600);/*!
+@import url(https://fonts.googleapis.com/css?family=Montserrat:300,400,600);/*!
  * Bootstrap v4.0.0 (https://getbootstrap.com)
  * Copyright 2011-2018 The Bootstrap Authors
  * Copyright 2011-2018 Twitter, Inc.
@@ -10073,6 +10073,10 @@ a.text-dark:hover {
   padding: 1.5rem 1rem;
 }
 
+.navbar .navbar-brand img {
+  max-height: 40px;
+}
+
 .user-nav.navbar-nav {
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
@@ -10087,28 +10091,6 @@ a.text-dark:hover {
 
 .user-nav .nav-link.active {
   color: #fff;
-}
-
-.sidebar .nav-pills {
-  /*
-    .nav-item .nav-link {
-      color: #fff;
-      cursor: default;
-      background-color: #ccc;
-      margin-right: 0.8rem;
-
-      &:hover {
-        cursor: pointer;
-        color: #fff;
-        background-color: $brand-primary;
-      }
-      &.active {
-        color: #fff;
-        cursor: default;
-        background-color: $brand-primary;
-      }
-
-    }*/
 }
 
 .auto-suggest-wrapper {
@@ -10162,7 +10144,7 @@ a.text-dark:hover {
 /* sidebar */
 
 .sidebar {
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
@@ -10175,8 +10157,8 @@ a.text-dark:hover {
 .sidebar-sticky {
   position: -webkit-sticky;
   position: sticky;
-  top: 110px;
-  height: calc(100vh - 110px);
+  top: 120px;
+  height: calc(100vh - 120px);
   padding-top: .5rem;
   overflow-x: hidden;
   overflow-y: auto;
@@ -10257,11 +10239,31 @@ a.text-dark:hover {
   margin-bottom: 2.5rem;
 }
 
+.btn-link {
+  font-weight: 400;
+  color: #4b384b;
+  background-color: transparent;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #bc6a6f;
+  border-color: #bc6a6f;
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
+  color: #fff;
+  background-color: #4b384b;
+  border-color: #4b384b;
+}
+
 html,
 body {
   background-color: #fff;
   color: #636b6f;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 100;
   height: 100vh;
   margin: 0;
@@ -10269,6 +10271,10 @@ body {
 
 a {
   color: #bc6a6f;
+}
+
+a:hover {
+  color: #4b384b;
 }
 
 .main-content {

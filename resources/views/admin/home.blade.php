@@ -5,8 +5,7 @@
         @include('admin.layouts.partials.side-menu')
 
         <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
-          <h1>Dashboard</h1>
-
+        
           <h2>Section title</h2>
           <div class="table-responsive">
             <table class="table table-striped">
