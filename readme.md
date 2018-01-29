@@ -40,3 +40,18 @@ If you want to seed some sample data run the following bash command
 ```bash
 php artisan migrate:refresh --seed
 ```
+
+
+### Other Details
+
+Hosting: AWS
+
+##Staging Main App
+
+http://appstaging.mybusinessjourney.com.au
+
+
+##Staging API
+
+http://api.mybusinessjourney.com.au
+http://api.mybusinessjourney.com.au/admin
