@@ -42,16 +42,16 @@ php artisan migrate:refresh --seed
 ```
 
 
-### Other Details
+## Other Details
 
 Hosting: AWS
 
-##Staging Main App
+### Staging Main App
 
 http://appstaging.mybusinessjourney.com.au
 
 
-##Staging API
+### Staging API
 
 http://api.mybusinessjourney.com.au
 http://api.mybusinessjourney.com.au/admin
