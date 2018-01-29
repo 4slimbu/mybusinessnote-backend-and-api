@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -26,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -75,12 +76,17 @@ class LoginController extends Controller
      */
     protected function redirectTo()
     {
-        // if user have role
-       /* if (auth()->user()->isAdmin()) {
-            return $this->redirectTo = '/dashboard';
+        if (Auth::user() && Auth::user()->role->id === 1) {
+            return redirect()->route('admin.dashboard');
+        }
+        if (Auth::user() && Auth::user()->role->id === 2) {
+            return redirect()->route('user.dashboard');
+        }
+        if (Auth::user() && Auth::user()->role->id === 3) {
+            return redirect()->route('partner-dashboard.dashboard');
         }
 
-        return $this->redirectTo = '/home'; */
+        return redirect()->back();
     }
 
 

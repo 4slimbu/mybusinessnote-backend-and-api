@@ -8,7 +8,7 @@ use App\Models\Business;
 use Auth;
 use Hash;
 
-class HomeController extends BaseController
+class HomeController extends Controller
 {
     /**
      * Create a new controller instance.

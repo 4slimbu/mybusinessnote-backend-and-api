@@ -13,11 +13,9 @@
     <script src="{{ asset('admin-public/js/tinymce/jquery.tinymce.min.js') }}"></script>
     <script src="{{ asset('admin-public/js/tinymce/tinymce.min.js') }}"></script>
     <script>
-        if (document.getElementsByClassName("myeditablediv")) {
-            tinymce.init({
-                selector: '.myeditablediv'
-            });
-        }
+        tinymce.init({
+            selector: '.myeditablediv'
+        });
     </script>
 
     <!-- Styles -->
@@ -27,12 +25,12 @@
 <body>
 <div id="app">
     <!-- Top Nav -->
-    @include('admin.layouts.partials.nav')
+    @include('partner-dashboard.layouts.partials.nav')
     <!-- /top nap -->
 
     <div class="row">
         <!-- Left Sidebar Menu -->
-        @include('admin.layouts.partials.side-menu')
+        @include('partner-dashboard.layouts.partials.side-menu')
         <!-- /left sidebar menu -->
 
         <main class="col-md-9 ml-sm-auto col-lg-10 pt-5 px-5" role="main">
