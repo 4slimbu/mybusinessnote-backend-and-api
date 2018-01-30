@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\Api\BusinessOptionValidation\EntryBusinessOptionRequest;
 use App\Http\Resources\Api\BusinessOptionResource;
+use App\Models\AffiliateLink;
 use App\Models\Business;
 use App\Models\BusinessCategory;
 use App\Models\BusinessMeta;
@@ -550,4 +551,24 @@ class BusinessOptionController extends BaseApiController
         }
     }
 
+    /**
+     * This tracks the user click on Partner Link
+     *
+     * @param Request $request
+     */
+    public function trackClick(Request $request)
+    {
+        try {
+            if ($user = $this->getAuthUser()) {
+                AffiliateLink::create([
+                    'user_id' => $user->id,
+                    'business_id' => $user->business->id,
+                    'sell_goods' => $request->get('sell_goods') ? $request->get('sell_goods') : false
+            ]);
+            }
+
+        } catch (\Exception $exception) {
+            //do nothing
+        }
+    }
 }
