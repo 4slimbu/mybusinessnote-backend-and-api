@@ -6,7 +6,7 @@
         <h2 class="h2">Manage {{ $panel_name }} List</h2>
             <div class="btn-toolbar mb-2 mb-md-0">
                 <div class="btn-group mr-2">
-                    <a href="#" class="btn btn-sm btn-outline-secondary">Export</a>
+                    <a href={{ route('partner-dashboard.lead.download') }} class="btn btn-sm btn-outline-secondary">Export</a>
                 </div>
             </div>
         </div>

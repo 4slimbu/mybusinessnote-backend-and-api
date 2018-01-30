@@ -308,6 +308,11 @@ Route::group([
         'as' => 'lead',
         'uses' => 'LeadController@index',
     ]);
+
+    Route::get('lead/download', [
+        'as' => 'lead.download',
+        'uses' => 'LeadController@download',
+    ]);
 });
 
 
