@@ -18,6 +18,10 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('partner-dashboard.lead') }}"><i class="fa fa-briefcase" aria-hidden="true"></i> Leads</a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                        document.getElementById('side-logout-form').submit();">

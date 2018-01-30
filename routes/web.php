@@ -302,6 +302,12 @@ Route::group([
         'as' => 'profile.edit-password',
         'uses' => 'ProfileController@editPassword'
     ]);
+
+    /* Lead */
+    Route::get('lead', [
+        'as' => 'lead',
+        'uses' => 'LeadController@index',
+    ]);
 });
 
 

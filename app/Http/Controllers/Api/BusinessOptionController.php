@@ -4,14 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\Api\BusinessOptionValidation\EntryBusinessOptionRequest;
 use App\Http\Resources\Api\BusinessOptionResource;
-use App\Models\AffiliateLink;
+use App\Models\AffiliateLinkTracker;
 use App\Models\Business;
 use App\Models\BusinessCategory;
 use App\Models\BusinessMeta;
 use App\Models\BusinessOption;
 use App\Models\Level;
 use App\Models\Section;
-use App\Models\User;
 use App\Traits\Authenticable;
 use App\Traits\BusinessOptionable;
 use Illuminate\Http\Request;
@@ -560,11 +559,25 @@ class BusinessOptionController extends BaseApiController
     {
         try {
             if ($user = $this->getAuthUser()) {
-                AffiliateLink::create([
-                    'user_id' => $user->id,
-                    'business_id' => $user->business->id,
-                    'sell_goods' => $request->get('sell_goods') ? $request->get('sell_goods') : false
-            ]);
+                //check if user have already clicked the link
+                $row = AffiliateLinkTracker::where('user_id', $user->id)
+                    ->where('business_id', $user->business->id)
+                    ->where('business_option_id', $request->get('bo_id'))
+                    ->where('affiliate_link_id', $request->get('aff_id'))
+                    ->first();
+
+                //if not, save data
+                if (! $row) {
+                    $data = [
+                        'user_id' => $user->id,
+                        'business_id' => $user->business->id,
+                        'business_option_id' => $request->get('bo_id'),
+                        'affiliate_link_id' => $request->get('aff_id'),
+                        'browser' => $request->header('User-Agent'),
+                        'ip' => $request->ip()
+                    ];
+                    AffiliateLinkTracker::create($data);
+                }
             }
 
         } catch (\Exception $exception) {

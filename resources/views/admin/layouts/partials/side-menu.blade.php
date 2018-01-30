@@ -60,6 +60,9 @@
                 <a class="nav-link" href="{{ route('admin.partner') }}"><i class="fa fa-handshake-o" aria-hidden="true"></i> Partners</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.partner') }}"><i class="fa fa-handshake-o" aria-hidden="true"></i> Partners</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                        document.getElementById('side-logout-form').submit();">
