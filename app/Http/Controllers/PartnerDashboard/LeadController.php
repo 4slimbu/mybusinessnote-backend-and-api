@@ -102,7 +102,7 @@ class LeadController extends BaseController
                         $sheet->fromArray($leadsArray, null, 'A1', false, false);
                     });
 
-                })->download('xlsx');
+                })->download('csv');
             }
 
             Session::flash('error', 'No leads to download.');
