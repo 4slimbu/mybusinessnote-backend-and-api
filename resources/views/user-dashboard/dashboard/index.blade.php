@@ -115,10 +115,14 @@
 											<tr>
 												<td>{{ $bo['name'] }}</td>
 												<td>
-													@if($bo['businessMetas'])
-														@foreach($bo['businessMetas'] as $bo_meta)
-															{!! $bo_meta['value'] !!} <br />
-														@endforeach
+													@if($bo['status'] === 'done')
+														@if($bo['businessMetas'])
+															@foreach($bo['businessMetas'] as $bo_meta)
+																{!! $bo_meta['value'] !!} <br />
+															@endforeach
+														@endif
+													@else
+														{{ $bo['status'] }}
 													@endif
 												</td>
 											</tr>

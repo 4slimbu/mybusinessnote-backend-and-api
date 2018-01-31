@@ -76,7 +76,7 @@ class DashboardController extends BaseController
                 $data[] = [
                     'id' => $level->id,
                     'name' => $level->name,
-                    'sections' => $this->getRelatedSections($level, $businessOptions, $businessMetas)
+                    'sections' => $this->getRelatedSections($level, $business, $businessOptions, $businessMetas)
                 ];
             }
         }
@@ -88,12 +88,13 @@ class DashboardController extends BaseController
      * Gets related section for given level, business and business options
      *
      * @param $level
+     * @param $business
      * @param $businessOptions
      * @param $businessMetas
      * @return array
      * @internal param $business
      */
-    private function getRelatedSections($level, $businessOptions, $businessMetas)
+    private function getRelatedSections($level, $business, $businessOptions, $businessMetas)
     {
         $data = [];
         if ($level->sections) {
@@ -101,7 +102,7 @@ class DashboardController extends BaseController
                 $data[] = [
                     'id' => $section->id,
                     'name' => $section->name,
-                    'businessOptions' => $this->getRelatedBusinessOptions($section, $businessOptions, $businessMetas)
+                    'businessOptions' => $this->getRelatedBusinessOptions($section, $business, $businessOptions, $businessMetas)
                 ];
             }
         }
@@ -113,27 +114,35 @@ class DashboardController extends BaseController
      * Get related business options for given section, business and business options
      *
      * @param $section
+     * @param $business
      * @param $businessOptions
      * @param $businessMetas
      * @return array
      * @internal param $business
      */
-    private function getRelatedBusinessOptions($section, $businessOptions, $businessMetas)
+    private function getRelatedBusinessOptions($section, $business, $businessOptions, $businessMetas)
     {
         $data = [];
 
         if ($section && $businessOptions) {
             foreach ($businessOptions as $businessOption) {
                 if ($businessOption->section_id === $section->id) {
+                    //status
+                    $businessOptionWithStatus = $business->businessOptions()->select('status')->where('business_option_id', $businessOption->id)->first();
+                    $status = ($businessOptionWithStatus) ? $businessOptionWithStatus->status : '';
+
+                    //business meta
                     $businessMetaData = $businessMetas->filter(function ($value, $key) use($businessOption) {
                         return $value->business_option_id === $businessOption->id;
                     });
 
                     $transformedBusinessMetaData = $this->transformBusinessMetaData($businessMetaData);
 
+                    //return data
                     $data[] = [
                         'id' => $businessOption->id,
                         'name' => $businessOption->name,
+                        'status' => $status,
                         'businessMetas' => $transformedBusinessMetaData
                     ];
                 }
