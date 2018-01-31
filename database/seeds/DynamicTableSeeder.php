@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\AffiliateLink;
+use App\Models\AffiliateLinkTracker;
 use Illuminate\Database\Seeder;
 
 class DynamicTableSeeder extends Seeder
@@ -12,6 +12,6 @@ class DynamicTableSeeder extends Seeder
      */
     public function run()
     {
-//        factory(AffiliateLink::class, 25)->create();
+//        factory(AffiliateLinkTracker::class, 50)->create();
     }
 }

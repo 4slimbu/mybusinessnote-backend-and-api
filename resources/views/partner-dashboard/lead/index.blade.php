@@ -15,11 +15,10 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Link Name</th>
-                    <th>User</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Phone Number</th>
                     <th>Email</th>
-                    <th>Browser</th>
-                    <th>IP</th>
                     <th>Clicked On</th>
 
                 </tr>
@@ -29,11 +28,10 @@
                 @foreach ($data['rows'] as $item)
                     <tr>
                         <td></td>
-                        <td>{{ $item->affiliateLink->name }}</td>
                         <td>{{ $item->user->first_name }}</td>
+                        <td>{{ $item->user->last_name }}</td>
+                        <td>{{ $item->user->phone_number }}</td>
                         <td>{{ $item->user->email }}</td>
-                        <td>{{ $item->browser }}</td>
-                        <td>{{ $item->ip }}</td>
                         <td>{{ $item->created_at }}</td>
                     </tr>
 

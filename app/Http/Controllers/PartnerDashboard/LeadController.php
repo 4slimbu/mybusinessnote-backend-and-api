@@ -72,18 +72,17 @@ class LeadController extends BaseController
                 $leadsArray = [];
 
                 // Define the Excel spreadsheet headers
-                $leadsArray[] = ['sn', 'link_name', 'user','email','browser','ip', 'clicked_on'];
+                $leadsArray[] = ['sn', 'first_name', 'last_name', 'phone_number', 'email', 'clicked_on'];
 
                 // Convert each member of the returned collection into an array,
                 // and append it to the leads array.
                 foreach ($leads as $key => $lead) {
                     $leadsArray[] = [
                         $key + 1,
-                        $lead->affiliateLink->name,
                         $lead->user->first_name,
+                        $lead->user->last_name,
+                        $lead->user->phone_number,
                         $lead->user->email,
-                        $lead->browser,
-                        $lead->ip,
                         $lead->created_at
                     ];
                 }
