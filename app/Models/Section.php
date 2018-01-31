@@ -12,4 +12,9 @@ class Section extends Model
     public function level() {
         return $this->belongsTo(Level::class, 'level_id');
     }
+
+    //Each section has many business options
+    public function businessOptions() {
+        return $this->hasMany(BusinessOption::class);
+    }
 }

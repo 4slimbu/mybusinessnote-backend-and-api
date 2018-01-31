@@ -339,9 +339,9 @@ Route::group([
     ]);
 
     /* Profile */
-    Route::get('profile', [
-        'as' => 'profile',
-        'uses' => 'ProfileController@index',
+    Route::get('profile/edit', [
+        'as' => 'profile.edit',
+        'uses' => 'ProfileController@edit',
     ]);
     Route::post('profile/update/password', [
         'as' => 'profile.update-password',

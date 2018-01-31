@@ -31,7 +31,12 @@ class ProfileController extends BaseController
      */
     protected $panel_name = 'Profile';
 
-    public function index()
+    /**
+     * Show the edit page for Profile
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit()
     {
         //initialize
         $data = [];

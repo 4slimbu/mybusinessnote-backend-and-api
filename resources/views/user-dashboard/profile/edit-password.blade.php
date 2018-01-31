@@ -1,4 +1,4 @@
-@extends('partner-dashboard.layouts.default')
+@extends('user-dashboard.layouts.default')
 
 @section('content')
     <div class="content-wrapper">
@@ -16,7 +16,7 @@
 
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Save changes</button>
-                        <a href="{{ route($base_route) }}" class="btn btn-default">Cancel</a>
+                        <a href="{{ route('user-dashboard.dashboard') }}" class="btn btn-default">Cancel</a>
                     </div>
 
                 </div>

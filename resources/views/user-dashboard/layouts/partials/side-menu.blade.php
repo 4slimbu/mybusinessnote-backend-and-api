@@ -2,7 +2,7 @@
     <div class="sidebar-sticky">
 
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-          <span>Business</span>
+          <span>User Dashboard</span>
           <a class="d-flex align-items-center text-muted" href="#">
            <i class="fa fa-briefcase" aria-hidden="true"></i>
           </a>
@@ -10,11 +10,7 @@
         <ul class="nav flex-column">
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('user-dashboard.profile') }}"><i class="fa fa-briefcase" aria-hidden="true"></i> Profile</a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('user-dashboard.profile.edit-password') }}"><i class="fa fa-briefcase" aria-hidden="true"></i> Change Password</a>
+                <a class="nav-link" href="{{ route('user-dashboard.dashboard') }}"><i class="fa fa-briefcase" aria-hidden="true"></i> Dashboard</a>
             </li>
 
             <li class="nav-item">

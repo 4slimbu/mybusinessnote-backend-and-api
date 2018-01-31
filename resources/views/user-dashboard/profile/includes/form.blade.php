@@ -24,27 +24,3 @@
         <span class="text-danger">{{ $errors->first('phone_number') }}</span>
     @endif
 </div>
-
-{{--Email--}}
-<div class="form-group">
-    <label>Email:</label>
-    {{ Form::text('email', null, ['class' => 'form-control']) }}
-    @if($errors->has('email'))
-        <span class="text-danger">{{ $errors->first('email') }}</span>
-    @endif
-</div>
-
-{{--Status--}}
-<div class="form-group">
-    <label class="display-block text-semibold">Status:</label>
-    <label class="radio-inline">
-        {{ Form::radio('verified', '1', true,  ['class' => 'styled']) }} Verified
-    </label>
-    <label class="radio-inline">
-        {{ Form::radio('verified', '0', false, ['class' => 'styled']) }} Un-verified
-    </label>
-    @if($errors->has('verified'))
-
-        <span class="text-danger-800">{{ $errors->first('verified') }}</span>
-    @endif
-</div>
