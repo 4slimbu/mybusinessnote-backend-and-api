@@ -77,16 +77,16 @@ class LoginController extends Controller
     protected function redirectTo()
     {
         if (Auth::user() && Auth::user()->role->id === 1) {
-            return redirect()->route('admin.dashboard');
+            return route('admin.dashboard');
         }
         if (Auth::user() && Auth::user()->role->id === 2) {
-            return redirect()->route('user-dashboard.dashboard');
+            return route('user-dashboard.dashboard');
         }
         if (Auth::user() && Auth::user()->role->id === 3) {
-            return redirect()->route('partner-dashboard.dashboard');
+            return route('partner-dashboard.dashboard');
         }
 
-        return redirect()->back();
+//        return redirect()->back();
     }
 
 
