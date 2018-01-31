@@ -10,15 +10,7 @@
 
     <title>My Business Journey</title>
 
-    <script src="{{ asset('admin-public/js/tinymce/jquery.tinymce.min.js') }}"></script>
-    <script src="{{ asset('admin-public/js/tinymce/tinymce.min.js') }}"></script>
-    <script>
-        if (document.getElementsByClassName("myeditablediv")) {
-            tinymce.init({
-                selector: '.myeditablediv'
-            });
-        }
-    </script>
+    
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -53,12 +45,15 @@
 
 </div>
 <!-- Scripts -->
-
-<script src="{{ asset('admin-public/js/app.js') }}"></script>
-<script src="https://use.fontawesome.com/d94e52ff8c.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
-<script src="https://unpkg.com/vue@2.1.3/dist/vue.js"></script>
-
+<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('admin-public/js/tinymce/jquery.tinymce.min.js') }}"></script>
+    <script src="{{ asset('admin-public/js/tinymce/tinymce.min.js') }}"></script>
+    <script>
+        if (document.getElementsByClassName("myeditablediv")) {
+            tinymce.init({
+                selector: '.myeditablediv'
+            });
+        }
+    </script>
 </body>
 </html>

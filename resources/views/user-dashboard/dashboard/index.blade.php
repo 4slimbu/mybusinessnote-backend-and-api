@@ -7,7 +7,7 @@
             <h1 class="h2">{{ $panel_name }}</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
               <div class="btn-group mr-2">
-                <a href="#" class="btn btn-sm btn-outline-secondary">Export Profile to PDF</a>
+                <a href="#" class="btn btn-sm btn-outline-secondary"><i class="fas fa-file-pdf" aria-hidden="true"></i> Export Profile to PDF</a>
               </div>
             </div>
         </div>

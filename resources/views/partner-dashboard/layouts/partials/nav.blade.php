@@ -16,8 +16,7 @@
               </a>
 
               <ul class="dropdown-menu" role="menu">
-                  <li><a class="dropdown-item" href="{{url('home')}}">My Dashboard</a></li>
-                  <li><a class="dropdown-item" href="{{url('profiles')}}/{{ Auth::user()->id }}">My Profile</a></li>
+                
                   <li>
                       <a class="dropdown-item" href="{{ route('logout') }}"
                           onclick="event.preventDefault();

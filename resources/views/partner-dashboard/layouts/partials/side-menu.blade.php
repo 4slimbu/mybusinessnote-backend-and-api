@@ -13,7 +13,7 @@
                 <a class="nav-link" href="{{ route('partner-dashboard.profile') }}"><i class="fa fa-briefcase" aria-hidden="true"></i> Profile</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('partner-dashboard.lead') }}"><i class="fa fa-line-chart" aria-hidden="true"></i> Leads</a>
+                <a class="nav-link" href="{{ route('partner-dashboard.lead') }}"><i class="fa fa-chart-line" aria-hidden="true"></i> Leads</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('partner-dashboard.profile.edit-password') }}"><i class="fa fa-lock" aria-hidden="true"></i> Change Password</a>
@@ -25,7 +25,7 @@
                 <a class="nav-link" href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                        document.getElementById('side-logout-form').submit();">
-                    <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
+                    <i class="fa fa-sign-out-alt" aria-hidden="true"></i> Logout
                 </a>
 
                 <form id="side-logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
