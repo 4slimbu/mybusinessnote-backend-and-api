@@ -69,13 +69,14 @@ class DashboardController extends BaseController
 
         //this grouping is excludes level one
         $levels = Level::with('sections')->where('id', '!=', 1)->get();
+        $businessMetas = BusinessMeta::where('business_id', $business->id)->get();
 
         if ($levels) {
             foreach ($levels as $level) {
                 $data[] = [
                     'id' => $level->id,
                     'name' => $level->name,
-                    'sections' => $this->getRelatedSections($level, $business, $businessOptions)
+                    'sections' => $this->getRelatedSections($level, $businessOptions, $businessMetas)
                 ];
             }
         }
@@ -87,11 +88,12 @@ class DashboardController extends BaseController
      * Gets related section for given level, business and business options
      *
      * @param $level
-     * @param $business
      * @param $businessOptions
+     * @param $businessMetas
      * @return array
+     * @internal param $business
      */
-    private function getRelatedSections($level, $business, $businessOptions)
+    private function getRelatedSections($level, $businessOptions, $businessMetas)
     {
         $data = [];
         if ($level->sections) {
@@ -99,7 +101,7 @@ class DashboardController extends BaseController
                 $data[] = [
                     'id' => $section->id,
                     'name' => $section->name,
-                    'businessOptions' => $this->getRelatedBusinessOptions($section, $business, $businessOptions)
+                    'businessOptions' => $this->getRelatedBusinessOptions($section, $businessOptions, $businessMetas)
                 ];
             }
         }
@@ -111,14 +113,14 @@ class DashboardController extends BaseController
      * Get related business options for given section, business and business options
      *
      * @param $section
-     * @param $business
      * @param $businessOptions
+     * @param $businessMetas
      * @return array
+     * @internal param $business
      */
-    private function getRelatedBusinessOptions($section, $business, $businessOptions)
+    private function getRelatedBusinessOptions($section, $businessOptions, $businessMetas)
     {
         $data = [];
-        $businessMetas = BusinessMeta::where('business_id', $business->id)->get();
 
         if ($section && $businessOptions) {
             foreach ($businessOptions as $businessOption) {
