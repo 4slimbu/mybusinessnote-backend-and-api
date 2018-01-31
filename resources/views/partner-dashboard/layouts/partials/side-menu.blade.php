@@ -12,14 +12,14 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('partner-dashboard.profile') }}"><i class="fa fa-briefcase" aria-hidden="true"></i> Profile</a>
             </li>
-
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('partner-dashboard.profile.edit-password') }}"><i class="fa fa-briefcase" aria-hidden="true"></i> Change Password</a>
+                <a class="nav-link" href="{{ route('partner-dashboard.lead') }}"><i class="fa fa-line-chart" aria-hidden="true"></i> Leads</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('partner-dashboard.profile.edit-password') }}"><i class="fa fa-lock" aria-hidden="true"></i> Change Password</a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('partner-dashboard.lead') }}"><i class="fa fa-briefcase" aria-hidden="true"></i> Leads</a>
-            </li>
+           
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('logout') }}"
