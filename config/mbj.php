@@ -8,5 +8,5 @@ return [
             ]
         ],
     ],
-    'app_url' => env('APP_URL', 'http://appstaging.mybusinessjourney.com.au/')
+    'main_app_url' => env('MAIN_APP_URL')
 ];
