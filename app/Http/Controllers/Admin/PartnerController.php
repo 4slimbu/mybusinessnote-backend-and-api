@@ -32,6 +32,19 @@ class PartnerController extends AdminBaseController
      */
     protected $panel_name = 'Partner';
 
+
+     /**
+     * Array of panel actions
+     * @var string
+     */
+    protected $panel_actions = array( 
+
+        [ 'link' => 'partner/create', 'label' => 'Add New'],
+        [ 'link' => '#', 'label' => 'Export to Excel']
+        
+    );
+
+
     /**
      * Display a listing of the partner.
      *

@@ -30,6 +30,17 @@ class LevelController extends AdminBaseController
      */
     protected $panel_name = 'Level';
 
+
+     /**
+     * Array of panel actions
+     * @var string
+     */
+    protected $panel_actions = array( 
+
+        [ 'link' => 'level/create', 'label' => 'Add New']
+        
+    );
+
     /**
      * Upload directory relative to public folder
      * @var string

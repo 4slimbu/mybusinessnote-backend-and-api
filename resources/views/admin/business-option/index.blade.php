@@ -2,15 +2,8 @@
 
 @section('content')
     <div class="content-wrapper">
-       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
-        <h2 class="h2">Manage {{ $panel_name }} List</h2>
-            <div class="btn-toolbar mb-2 mb-md-0">
-                <div class="btn-group mr-2">
-                    <a href="{{ route('admin.business-option.create') }}" class="btn btn-sm btn-outline-secondary">Add New</a>
-                   
-                </div>
-            </div>
-        </div>
+        
+        <useraction title="{{ $panel_name }}" useractions="{{ json_encode($panel_actions) }}"></useraction>
         
         {{--<p>Note: Supported nesting depth: 4 <br />--}}
             {{--Eg: Top Business Option -> Business Option -> Child Business Option -> Grand Child Business Option--}}

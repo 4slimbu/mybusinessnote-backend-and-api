@@ -30,6 +30,16 @@ class BusinessCategoryController extends AdminBaseController
      */
     protected $panel_name = 'Business Category';
 
+     /**
+     * Array of panel actions
+     * @var string
+     */
+    protected $panel_actions = array( 
+
+        [ 'link' => 'business-category/create', 'label' => 'Add New']
+        
+    );
+
     /**
      * Upload directory relative to public folder
      * @var string

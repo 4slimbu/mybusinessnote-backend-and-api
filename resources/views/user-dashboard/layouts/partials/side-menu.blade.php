@@ -10,11 +10,13 @@
         <ul class="nav flex-column">
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('user-dashboard.dashboard') }}"><i class="fa fa-briefcase" aria-hidden="true"></i> Dashboard</a>
+                <a class="nav-link" href="{{ route('user-dashboard.dashboard') }}"><i class="fa fa-briefcase" aria-hidden="true"></i> My Business Profile</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('user-dashboard.communication-preference') }}"><i class="fa fa-briefcase" aria-hidden="true"></i> Communication Preferences</a>
+                <a class="nav-link" href="{{ route('user-dashboard.communication-preference') }}">
+                  <i class="fas fa-comments"></i> Contact Preferences
+                </a>
             </li>
 
             <li class="nav-item">

@@ -31,6 +31,16 @@ class ProfileController extends BaseController
      */
     protected $panel_name = 'Profile';
 
+
+     /**
+     * Array of panel actions
+     * @var string
+     */
+    protected $panel_actions = array( 
+
+        [ 'link' => 'user-dashboard/dashboard/profile/pdf', 'label' => 'Export to PDF']
+    );
+
     /**
      * Show the edit page for Profile
      *

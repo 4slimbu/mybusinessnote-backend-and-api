@@ -31,6 +31,17 @@ class DashboardController extends BaseController
     protected $panel_name = 'User Dashboard';
 
     /**
+     * Array of panel actions
+     * @var string
+     */
+    protected $panel_actions = array( 
+
+        [ 'link' => 'user-dashboard/dashboard/profile/pdf', 'label' => 'Export to PDF']
+    );
+
+
+
+    /**
      * Displays user dashboard with user and business info.
      *
      * @return \Illuminate\Http\Response

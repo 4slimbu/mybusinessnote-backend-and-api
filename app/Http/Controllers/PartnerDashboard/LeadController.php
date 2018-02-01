@@ -24,10 +24,20 @@ class LeadController extends BaseController
     protected $base_route = 'partner-dashboard.lead';
 
     /**
-     * Title of page using this controller
+     * Panel title of page using this controller
      * @var string
      */
     protected $panel_name = 'Lead';
+
+
+    /**
+     * Array of panel actions
+     * @var string
+     */
+    protected $panel_actions = array( 
+
+        [ 'link' => 'partner-dashboard/lead/download', 'label' => 'Export to Excel']
+    );
 
     /**
      * Display a listing of the lead.
@@ -41,10 +51,13 @@ class LeadController extends BaseController
 
         //get only current partner's lead
         $partner_id = Auth::user()->id;
+        
         $data['rows'] = AffiliateLinkTracker::with('user', 'business', 'businessOption')
             ->withAndWhereHas('affiliateLink', function($query) use ($partner_id){
                 $query->where('user_id', $partner_id);
             })->paginate(10);
+
+
 
         //return view
         return view(parent::loadViewData($this->view_path . '.index'), compact('data'));
