@@ -343,6 +343,16 @@ Route::group([
         'uses' => 'DashboardController@profileToPdf'
     ]);
 
+    /* Communication Preference */
+    Route::get('/communication-preference', [
+        'as' => 'communication-preference',
+        'uses' => 'CommunicationPreferenceController@index'
+    ]);
+    Route::post('communication-preference/update', [
+        'as' => 'communication-preference.update',
+        'uses' => 'CommunicationPreferenceController@update',
+    ]);
+
     /* Profile */
     Route::get('profile/edit', [
         'as' => 'profile.edit',
