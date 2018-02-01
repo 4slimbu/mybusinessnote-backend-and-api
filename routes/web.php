@@ -333,9 +333,14 @@ Route::group([
     'namespace' => 'App\\Http\\Controllers\\UserDashboard'
 ], function() {
 
+    /* Dashboard */
     Route::get('/', [
         'as' => 'dashboard',
         'uses' => 'DashboardController@index'
+    ]);
+    Route::get('/dashboard/profile/pdf', [
+        'as' => 'dashboard.profile.pdf',
+        'uses' => 'DashboardController@profileToPdf'
     ]);
 
     /* Profile */

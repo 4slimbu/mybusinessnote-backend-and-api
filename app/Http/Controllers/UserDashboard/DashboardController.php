@@ -3,16 +3,11 @@
 namespace App\Http\Controllers\UserDashboard;
 
 
-use App\Http\Requests\Admin\UserValidation\CreateFormValidation;
-use App\Http\Requests\Admin\UserValidation\UpdateFormValidation;
 use App\Models\BusinessMeta;
-use App\Models\BusinessOption;
 use App\Models\Level;
-use App\Models\Role;
 use App\Models\User;
-use function foo\func;
 use Illuminate\Support\Facades\Auth;
-use Session, AppHelper;
+use Session, AppHelper, PDF;
 
 
 class DashboardController extends BaseController
@@ -52,6 +47,27 @@ class DashboardController extends BaseController
 
 
         return view(parent::loadViewData($this->view_path . '.index'), compact('data'));
+    }
+
+    public function profileToPdf()
+    {
+        //initialize
+        $data = [];
+
+        //get data
+        $data['user'] = User::with('business')->where('id', Auth::user()->id)->first();
+        $relatedBusinessOptions = $data['user']->business->businessOptions()->select('id', 'section_id', 'name', 'status')->get();
+        $data['groupedBusinessOptions'] = $this->groupByLevelAndSection($data['user']->business, $relatedBusinessOptions);
+
+        try {
+            $pdf = PDF::loadView(parent::loadViewData($this->view_path . '.profile-pdf'), compact('data'));
+            return $pdf->download('invoice.pdf');
+        } catch (\Exception $exception) {
+//            dd($exception);
+            Session::flash('error', 'Something went wrong!');
+        }
+
+        return redirect()->back();
     }
 
     /**

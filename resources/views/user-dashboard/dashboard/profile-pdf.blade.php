@@ -1,18 +1,10 @@
-@extends('user-dashboard.layouts.default')
+@extends('user-dashboard.layouts.pdf-layout')
 
 @section('content')
     <div class="content-wrapper">
-  
-         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
-            <h1 class="h2">{{ $panel_name }}</h1>
-            <div class="btn-toolbar mb-2 mb-md-0">
-              <div class="btn-group mr-2">
-                <a href="{{ route('user-dashboard.dashboard.profile.pdf') }}" class="btn btn-sm btn-outline-secondary">Export Profile to PDF</a>
-              </div>
-            </div>
-        </div>
-
-
+  		<div style="padding: 50px 200px; background-color: #4b384b;">
+			<img style="width: 100%" src="{{ asset('images/MBJ_logo@4x.png')}}"/>
+		</div>
 		<div class="card">
 			<div class="card-header">
 			Business Profile
