@@ -61,7 +61,7 @@ class DashboardController extends BaseController
 
         try {
             $pdf = PDF::loadView(parent::loadViewData($this->view_path . '.profile-pdf'), compact('data'));
-            return $pdf->download('invoice.pdf');
+            return $pdf->download('business_profile.pdf');
         } catch (\Exception $exception) {
 //            dd($exception);
             Session::flash('error', 'Something went wrong!');
