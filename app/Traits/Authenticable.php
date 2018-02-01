@@ -1,6 +1,7 @@
 <?php
 namespace App\Traits;
 
+use App\Events\UserRegistered;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -58,6 +59,10 @@ trait Authenticable
             $input['role_id'] = 2; //role: customer
             $input['verified'] = 1; //email verification not required for now
             $user = User::create($input);
+
+            //fire events
+            //$user won't return all fields so need to query again
+            event(new UserRegistered(User::find($user->id)));
 
             $credentials = [
                 'email' => $request->email,

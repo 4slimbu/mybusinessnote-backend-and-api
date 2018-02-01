@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -15,13 +16,19 @@ class UserRegistered
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
+     * Current User Instance
+     * @var
+     */
+    public $user;
+
+    /**
      * Create a new event instance.
      *
-     * @return void
+     * @param User $user
      */
-    public function __construct()
+    public function __construct(User $user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
