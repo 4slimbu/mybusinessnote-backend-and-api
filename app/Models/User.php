@@ -26,6 +26,9 @@ class User extends Authenticatable
         'provider',
         'access_token',
         'verified',
+        'is_3rd_party_integration',
+        'is_marketing_emails',
+        'is_free_isb_subscription',
         'history',
         'token',
         'remember_token'

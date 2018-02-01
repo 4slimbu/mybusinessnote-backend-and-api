@@ -14,6 +14,10 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('user-dashboard.communication-preference') }}"><i class="fa fa-briefcase" aria-hidden="true"></i> Communication Preferences</a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                        document.getElementById('side-logout-form').submit();">
