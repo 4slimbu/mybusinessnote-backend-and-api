@@ -13,9 +13,21 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\Event' => [
-            'App\Listeners\EventListener',
+        'App\Events\BrontoSubscriptionUpdated' => [
+            'App\Listeners\SyncUserOnBronto',
         ],
+        'App\Events\CampaignMonitorSubscriptionUpdated' => [
+            'App\Listeners\SyncUserOnCampaignMonitor',
+        ],
+    ];
+
+    /**
+     * The subscriber classes to register.
+     *
+     * @var array
+     */
+    protected $subscribe = [
+        'App\Listeners\UserEventSubscriber',
     ];
 
     /**

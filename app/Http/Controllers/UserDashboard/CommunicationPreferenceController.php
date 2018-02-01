@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\UserDashboard;
 
 
-use App\Models\BusinessMeta;
-use App\Models\Level;
+use App\Events\UserUpdated;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -63,8 +62,10 @@ class CommunicationPreferenceController extends BaseController
         ];
 
         $user = User::where('id', Auth::user()->id)->first();
+        $oldUser = clone $user;
         $user->update($input);
 
+        event(new UserUpdated($oldUser, $user));
         Session::flash('success', $this->panel_name.' updated successfully.');
         return redirect()->route($this->base_route);
     }
