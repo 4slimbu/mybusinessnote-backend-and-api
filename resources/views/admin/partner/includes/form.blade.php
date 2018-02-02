@@ -21,7 +21,7 @@
     <label>Phone No:</label>
     {{ Form::text('phone_number', null, ['class' => 'form-control']) }}
     @if($errors->has('phone_number'))
-        <span class="text-danger">{{ $errors->first('phone_number') }}</span>
+        <span class="text-danger">{{ $/errors->first('phone_number') }}</span>
     @endif
 </div>
 
@@ -46,35 +46,48 @@
 {{--Company--}}
 <div class="form-group">
     <label>Company:</label>
-    {{ Form::text('company', $data['userProfile']->company, ['class' => 'form-control']) }}
+    {{ Form::text('company', isset($data['userProfile']->company)?$data['userProfile']->company : '' , ['class' => 'form-control']) }}
     @if($errors->has('company'))
         <span class="text-danger">{{ $errors->first('company') }}</span>
     @endif
 </div>
 
+
 {{--Affiliate Link Label--}}
 <div class="form-group">
+
     <label>Affiliate Link Label:</label>
-    {{ Form::text('affiliate_link_label', $data['affiliateLink']->name, ['class' => 'form-control']) }}
+
+    {{ Form::text('affiliate_link_label', (isset($data['affiliateLink']))  ? $data['affiliateLink']->name : '', ['class' => 'form-control']) }}
+
     @if($errors->has('affiliate_link_label'))
+
         <span class="text-danger">{{ $errors->first('affiliate_link_label') }}</span>
+
     @endif
+
 </div>
 
 {{--Affiliate Link--}}
 <div class="form-group">
+
     <label>Affiliate Link:</label>
-    {{ Form::text('affiliate_link', $data['affiliateLink']->link, ['class' => 'form-control']) }}
+
+    {{ Form::text('affiliate_link', (isset($data['affiliateLink']))  ? $data['affiliateLink']->link : '', ['class' => 'form-control']) }}
+
     @if($errors->has('affiliate_link'))
+
         <span class="text-danger">{{ $errors->first('affiliate_link') }}</span>
+
     @endif
+
 </div>
 
 
 {{--Billing Street 1--}}
 <div class="form-group">
     <label>Billing Street 1:</label>
-    {{ Form::text('billing_street1', $data['userProfile']->billing_street1, ['class' => 'form-control']) }}
+    {{ Form::text('billing_street1', isset($data['userProfile']->billing_street1)?$data['userProfile']->billing_street1 : '', ['class' => 'form-control']) }}
     @if($errors->has('billing_street1'))
         <span class="text-danger">{{ $errors->first('billing_street1') }}</span>
     @endif
@@ -83,7 +96,7 @@
 {{--Billing Street 2--}}
 <div class="form-group">
     <label>Billing Street 2:</label>
-    {{ Form::text('billing_street2', $data['userProfile']->billing_street2, ['class' => 'form-control']) }}
+    {{ Form::text('billing_street2', isset( $data['userProfile']->billing_street2 )?$data['userProfile']->billing_street2 : '', ['class' => 'form-control']) }}
     @if($errors->has('billing_street2'))
         <span class="text-danger">{{ $errors->first('billing_street2') }}</span>
     @endif
@@ -92,7 +105,7 @@
 {{--Billing Post Code--}}
 <div class="form-group">
     <label>Billing Post Code:</label>
-    {{ Form::text('billing_postcode', $data['userProfile']->billing_postcode, ['class' => 'form-control']) }}
+    {{ Form::text('billing_postcode', isset( $data['userProfile']->billing_postcode ) ? $data['userProfile']->billing_postcode : '', ['class' => 'form-control']) }}
     @if($errors->has('billing_postcode'))
         <span class="text-danger">{{ $errors->first('billing_postcode') }}</span>
     @endif
@@ -101,7 +114,7 @@
 {{--Billing State--}}
 <div class="form-group">
     <label>Billing State:</label>
-    {{ Form::text('billing_state', $data['userProfile']->billing_state, ['class' => 'form-control']) }}
+    {{ Form::text('billing_state', isset( $data['userProfile']->billing_state ) ? $data['userProfile']->billing_state : '', ['class' => 'form-control']) }}
     @if($errors->has('billing_state'))
         <span class="text-danger">{{ $errors->first('billing_state') }}</span>
     @endif
@@ -110,7 +123,7 @@
 {{--Billing Sub Urb--}}
 <div class="form-group">
     <label>Billing Sub Urb:</label>
-    {{ Form::text('billing_suburb', $data['userProfile']->billing_suburb, ['class' => 'form-control']) }}
+    {{ Form::text('billing_suburb', isset( $data['userProfile']->billing_suburb ) ? $data['userProfile']->billing_suburb : '', ['class' => 'form-control']) }}
     @if($errors->has('billing_suburb'))
         <span class="text-danger">{{ $errors->first('billing_suburb') }}</span>
     @endif
@@ -119,7 +132,7 @@
 {{--Billing Country--}}
 <div class="form-group">
     <label>Billing Country:</label>
-    {{ Form::text('billing_country', $data['userProfile']->billing_country, ['class' => 'form-control']) }}
+    {{ Form::text('billing_country', isset( $data['userProfile']->billing_country ) ? $data['userProfile']->billing_country : '', ['class' => 'form-control']) }}
     @if($errors->has('billing_country'))
         <span class="text-danger">{{ $errors->first('billing_country') }}</span>
     @endif
@@ -136,7 +149,7 @@
 {{--Street 1--}}
 <div class="form-group more-inputs">
     <label>Street 1:</label>
-    {{ Form::text('residential_street1', $data['userProfile']->residential_street1, ['class' => 'form-control']) }}
+    {{ Form::text('residential_street1', isset( $data['userProfile']->residential_street1 ) ? $data['userProfile']->residential_street1 : '' , ['class' => 'form-control']) }}
     @if($errors->has('residential_street1'))
         <span class="text-danger">{{ $errors->first('residential_street1') }}</span>
     @endif
@@ -145,7 +158,7 @@
 {{--Street 2--}}
 <div class="form-group more-inputs">
     <label>Street 2:</label>
-    {{ Form::text('residential_street2', $data['userProfile']->residential_street2, ['class' => 'form-control']) }}
+    {{ Form::text('residential_street2', isset( $data['userProfile']->residential_street2 ) ? $data['userProfile']->residential_street2 : '' , ['class' => 'form-control']) }}
     @if($errors->has('residential_street2'))
         <span class="text-danger">{{ $errors->first('residential_street2') }}</span>
     @endif
@@ -154,7 +167,7 @@
 {{--Post Code--}}
 <div class="form-group more-inputs">
     <label>Post Code:</label>
-    {{ Form::text('residential_postcode', $data['userProfile']->residential_postcode, ['class' => 'form-control']) }}
+    {{ Form::text('residential_postcode', isset( $data['userProfile']->residential_postcode ) ? $data['userProfile']->residential_postcode : '' , ['class' => 'form-control']) }}
     @if($errors->has('residential_postcode'))
         <span class="text-danger">{{ $errors->first('residential_postcode') }}</span>
     @endif
@@ -163,7 +176,7 @@
 {{--State--}}
 <div class="form-group more-inputs">
     <label>State:</label>
-    {{ Form::text('residential_state', $data['userProfile']->residential_state, ['class' => 'form-control']) }}
+    {{ Form::text('residential_state', isset( $data['userProfile']->residential_state ) ? $data['userProfile']->residential_state : '', ['class' => 'form-control']) }}
     @if($errors->has('residential_state'))
         <span class="text-danger">{{ $errors->first('residential_state') }}</span>
     @endif
@@ -172,7 +185,7 @@
 {{--Sub Urb--}}
 <div class="form-group more-inputs">
     <label>Sub Urb:</label>
-    {{ Form::text('residential_suburb', $data['userProfile']->residential_suburb, ['class' => 'form-control']) }}
+    {{ Form::text('residential_suburb', isset( $data['userProfile']->residential_suburb ) ? $data['userProfile']->residential_suburb : '', ['class' => 'form-control']) }}
     @if($errors->has('residential_suburb'))
         <span class="text-danger">{{ $errors->first('residential_suburb') }}</span>
     @endif
@@ -181,7 +194,7 @@
 {{--Country--}}
 <div class="form-group more-inputs">
     <label>Country:</label>
-    {{ Form::text('residential_country', $data['userProfile']->residential_country, ['class' => 'form-control']) }}
+    {{ Form::text('residential_country', isset( $data['userProfile']->residential_country ) ? $data['userProfile']->residential_country : '' , ['class' => 'form-control']) }}
     @if($errors->has('residential_country'))
         <span class="text-danger">{{ $errors->first('residential_country') }}</span>
     @endif
@@ -190,7 +203,7 @@
 {{--Website--}}
 <div class="form-group">
     <label>Website:</label>
-    {{ Form::text('website', $data['userProfile']->website, ['class' => 'form-control']) }}
+    {{ Form::text('website', isset( $data['userProfile']->website ) ? $data['userProfile']->website : '', ['class' => 'form-control']) }}
     @if($errors->has('website'))
         <span class="text-danger">{{ $errors->first('website') }}</span>
     @endif

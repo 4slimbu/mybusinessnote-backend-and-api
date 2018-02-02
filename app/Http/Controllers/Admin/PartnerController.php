@@ -71,8 +71,7 @@ class PartnerController extends AdminBaseController
     {
         //initialize
         $data = [];
-        $data['userProfile'] = new UserProfile;
-
+    
         return view(parent::loadViewData($this->view_path . '.create'), compact('data'));
     }
 
