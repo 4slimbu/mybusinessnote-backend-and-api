@@ -13,7 +13,10 @@ class UserEventSubscriber
      * Handle user register events.
      * @param $event
      */
-    public function onUserRegistered($event) {}
+    public function onUserRegister($event) {
+//        event(new BrontoSubscriptionUpdated($event->user));
+        event(new CampaignMonitorSubscriptionUpdated($event->user));
+    }
 
     /**
      * Handle user update events.
@@ -38,6 +41,10 @@ class UserEventSubscriber
         $events->listen(
             'App\Events\UserUpdated',
             'App\Listeners\UserEventSubscriber@onUserUpdate'
+        );
+        $events->listen(
+            'App\Events\UserRegistered',
+            'App\Listeners\UserEventSubscriber@onUserRegister'
         );
     }
 

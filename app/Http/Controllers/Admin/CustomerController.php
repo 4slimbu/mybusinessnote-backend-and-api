@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Events\UserRegistered;
 use App\Http\Requests\Admin\CustomerValidation\CreateFormValidation;
 use App\Http\Requests\Admin\CustomerValidation\UpdateFormValidation;
 use App\Models\Role;
@@ -86,8 +87,13 @@ class CustomerController extends AdminBaseController
         $inputs = $request->all();
         $inputs['role_id'] = 2;
 
-        User::create($inputs);
+        $user = User::create($inputs);
 
+        //fire event
+        //$user won't return all fields so need another query
+        event(new UserRegistered(User::find($user->id)));
+
+        //response
         Session::flash('success', $this->panel_name.' created successfully.');
         return redirect()->route($this->base_route);
 

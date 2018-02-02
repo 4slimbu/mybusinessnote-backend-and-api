@@ -50,10 +50,9 @@ class CampaignMonitorLibrary
     {
         if ($this->user->is_marketing_emails) {
             $this->saveUserToTheList();
+        } else {
+            $this->unsubscribeUserFromTheList();
         }
-
-        $this->unsubscribeUserFromTheList();
-
     }
 
     /**
@@ -67,9 +66,9 @@ class CampaignMonitorLibrary
     {
         if ($this->isUserInTheList()) {
             $this->updateUserInTheList();
+        } else {
+            $this->addUserToTheList();
         }
-
-        $this->addUserToTheList();
     }
 
     /**
@@ -92,7 +91,7 @@ class CampaignMonitorLibrary
     /**
      * This adds new user to the list
      *
-     * @return bool
+     * @return void
      */
     private function addUserToTheList()
     {
@@ -108,7 +107,7 @@ class CampaignMonitorLibrary
     /**
      * This updates subscriber info in the list
      *
-     * @return bool
+     * @return void
      */
     private function updateUserInTheList()
     {

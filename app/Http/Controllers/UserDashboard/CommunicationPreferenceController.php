@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\UserDashboard;
 
 
-use App\Events\UserUpdated;
+use App\Events\BrontoSubscriptionUpdated;
+use App\Events\CampaignMonitorSubscriptionUpdated;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -54,18 +55,22 @@ class CommunicationPreferenceController extends BaseController
      */
     public function update(Request $request)
     {
-        //remove secure fields if present
+        //ignore user value and set the boolean depending upon whether key is present in the request
         $input = [
             'is_3rd_party_integration' => $request->get('is_3rd_party_integration') ? 1 : 0,
             'is_marketing_emails' => $request->get('is_marketing_emails') ? 1 : 0,
             'is_free_isb_subscription' => $request->get('is_free_isb_subscription') ? 1 : 0,
         ];
 
+        //update user
         $user = User::where('id', Auth::user()->id)->first();
-        $oldUser = clone $user;
         $user->update($input);
 
-        event(new UserUpdated($oldUser, $user));
+        //fire events
+//        event(new BrontoSubscriptionUpdated($user));
+        event(new CampaignMonitorSubscriptionUpdated($user));
+
+        //response
         Session::flash('success', $this->panel_name.' updated successfully.');
         return redirect()->route($this->base_route);
     }
