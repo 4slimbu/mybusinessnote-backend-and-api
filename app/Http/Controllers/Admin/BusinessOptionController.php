@@ -33,6 +33,16 @@ class BusinessOptionController extends AdminBaseController
      */
     protected $panel_name = 'Business Option';
 
+     /**
+     * Array of panel actions
+     * @var string
+     */
+    protected $panel_actions = array( 
+
+        [ 'link' => 'business-option/create', 'label' => 'Add New']
+        
+    );
+
     /**
      * Display a listing of the business option.
      *

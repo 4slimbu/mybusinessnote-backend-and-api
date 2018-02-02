@@ -57,16 +57,14 @@
                 <a class="nav-link" href="{{ route('admin.customer') }}"><i class="fa fa-address-book" aria-hidden="true"></i> Customers</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.partner') }}"><i class="fa fa-handshake-o" aria-hidden="true"></i> Partners</a>
+                <a class="nav-link" href="{{ route('admin.partner') }}"><i class="fas fa-handshake"></i> Partners</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.partner') }}"><i class="fa fa-handshake-o" aria-hidden="true"></i> Partners</a>
-            </li>
+          
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                        document.getElementById('side-logout-form').submit();">
-                    <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
+                    <i class="fas fa-sign-out-alt"></i> Logout
                 </a>
 
                 <form id="side-logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

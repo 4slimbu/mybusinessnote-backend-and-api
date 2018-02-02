@@ -32,6 +32,17 @@ class BusinessController extends AdminBaseController
      */
     protected $panel_name = 'Business';
 
+     /**
+     * Array of panel actions
+     * @var string
+     */
+    protected $panel_actions = array( 
+
+        [ 'link' => 'business/create', 'label' => 'Add New'],
+        [ 'link' => '#', 'label' => 'Export to Excel']
+        
+    );
+
     /**
      * Display a listing of the business.
      *

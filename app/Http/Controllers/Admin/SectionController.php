@@ -31,6 +31,17 @@ class SectionController extends AdminBaseController
      */
     protected $panel_name = 'Section';
 
+
+     /**
+     * Array of panel actions
+     * @var string
+     */
+    protected $panel_actions = array( 
+
+        [ 'link' => 'section/create', 'label' => 'Add New']
+        
+    );
+
     /**
      * Upload directory relative to public folder
      * @var string

@@ -14,6 +14,10 @@ class BaseController extends Controller
             $view->with('base_route', $this->base_route);
             $view->with('view_path', $this->view_path);
             $view->with('panel_name', $this->panel_name);
+            
+            if( isset($this->panel_actions) )
+            $view->with('panel_actions', $this->panel_actions);
+
             if (property_exists($this, 'upload_directory')) {
                 $view->with('upload_directory', $this->upload_directory);
             }

@@ -31,6 +31,18 @@ class CustomerController extends AdminBaseController
      */
     protected $panel_name = 'Customer';
 
+
+     /**
+     * Array of panel actions
+     * @var string
+     */
+    protected $panel_actions = array( 
+
+        [ 'link' => 'customer/create', 'label' => 'Add New'],
+        [ 'link' => '#', 'label' => 'Export to Excel']
+        
+    );
+
     /**
      * Display a listing of the customer.
      *

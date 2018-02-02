@@ -5,4 +5,17 @@
  */
 
 require('./bootstrap');
+import Vue from 'vue';
 
+import Useraction from "./components/Useraction";
+
+
+
+
+
+new Vue({
+
+	el: '#app',
+	components: { Useraction }
+
+});
