@@ -41,7 +41,14 @@ If you want to seed some sample data run the following bash command
 php artisan migrate:refresh --seed
 ```
 
+### Step 4
+Some api calls from the app (e.g. to bronto, campaign monitor) are queued.
+So, need to run: 
+php artisan queue:listen
 
+if you don't always want to run queue while developing, then update queue driver on .env file  
+from QUEUE_DRIVER=database to  
+QUEUE_DRIVER=sync
 ## Other Details
 
 Hosting: AWS

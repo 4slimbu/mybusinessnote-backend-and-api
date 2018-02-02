@@ -8,7 +8,7 @@ use App\Libraries\CampaignMonitorLibrary;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SyncUserOnCampaignMonitor
+class SyncUserOnCampaignMonitor implements ShouldQueue
 {
     /**
      * Create the event listener.

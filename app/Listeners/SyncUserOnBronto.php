@@ -10,7 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use SoapClient;
 use SoapHeader;
 
-class SyncUserOnBronto
+class SyncUserOnBronto implements ShouldQueue
 {
     /**
      * Create the event listener.
