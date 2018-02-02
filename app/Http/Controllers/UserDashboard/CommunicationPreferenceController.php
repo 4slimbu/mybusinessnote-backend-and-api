@@ -67,7 +67,7 @@ class CommunicationPreferenceController extends BaseController
         $user->update($input);
 
         //fire events
-//        event(new BrontoSubscriptionUpdated($user));
+        event(new BrontoSubscriptionUpdated($user));
         event(new CampaignMonitorSubscriptionUpdated($user));
 
         //response

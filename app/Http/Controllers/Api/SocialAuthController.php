@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\UserRegistered;
 use App\Http\Controllers\Controller;
 use App\Models\Business;
 use App\Models\BusinessCategory;
@@ -110,6 +111,10 @@ class SocialAuthController extends Controller
             'last_visited' => 'business_option?level=getting-started&section=your-business-details'
         ]);
         $user = User::create($input);
+
+        //fire events
+        //$user won't return all fields so need to query again
+        event(new UserRegistered(User::find($user->id)));
 
         try {
             // attempt to verify the credentials and create a token for the user
