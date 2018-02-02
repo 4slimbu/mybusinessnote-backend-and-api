@@ -11,30 +11,8 @@
           <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
       @else
           <li class="nav-item"><a class="nav-link" href="{{ url('home') }}">My Account</a></li>
-          <!-- <li class="nav-item dropdown">
-              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                  My Account <span class="caret"></span>
-              </a>
-
-              <ul class="dropdown-menu" role="menu">
-                  <li><a class="dropdown-item" href="{{url('home')}}">My Dashboard</a></li>
-                  <li><a class="dropdown-item" href="{{url('profiles')}}/{{ Auth::user()->id }}">My Profile</a></li>
-                  <li>
-                      <a class="dropdown-item" href="{{ route('logout') }}"
-                          onclick="event.preventDefault();
-                                   document.getElementById('logout-form').submit();">
-                          Logout
-                      </a>
-
-                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                          {{ csrf_field() }}
-                      </form>
-                  </li>
-              </ul>
-          </li> -->
-
       @endif
-      <li class="nav-item"><a class="nav-link" href="{{ config('app_url') }}">My Business Journey</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ config('mbj.main_app_url') }}">My Business Journey</a></li>
   </nav>
 
 </div>
