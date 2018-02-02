@@ -14,7 +14,7 @@ class UserEventSubscriber
      * @param $event
      */
     public function onUserRegister($event) {
-//        event(new BrontoSubscriptionUpdated($event->user));
+        event(new BrontoSubscriptionUpdated($event->user));
         event(new CampaignMonitorSubscriptionUpdated($event->user));
     }
 
