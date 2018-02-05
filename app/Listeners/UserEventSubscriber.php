@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\BrontoSubscriptionUpdated;
 use App\Events\CampaignMonitorSubscriptionUpdated;
+use App\Events\UnVerifiedUserEvent;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -14,8 +15,9 @@ class UserEventSubscriber
      * @param $event
      */
     public function onUserRegister($event) {
-        event(new BrontoSubscriptionUpdated($event->user));
-        event(new CampaignMonitorSubscriptionUpdated($event->user));
+//        event(new BrontoSubscriptionUpdated($event->user));
+//        event(new CampaignMonitorSubscriptionUpdated($event->user));
+        event(new UnVerifiedUserEvent($event->user));
     }
 
     /**

@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\CustomerValidation\CreateFormValidation;
 use App\Http\Requests\Admin\CustomerValidation\UpdateFormValidation;
 use App\Models\Role;
 use App\Models\User;
+use Carbon\Carbon;
 use Session, AppHelper;
 
 
@@ -86,8 +87,9 @@ class CustomerController extends AdminBaseController
     {
         $inputs = $request->all();
         $inputs['role_id'] = 2;
-
-        $user = User::create($inputs);
+        $inputs['email_verification_token'] = base64_encode($inputs['email']);
+        $inputs['email_verification_token_expiry_date'] = Carbon::now()->addDay(1);
+        $user = User::create($inputs)->refresh();
 
         //fire event
         //$user won't return all fields so need another query

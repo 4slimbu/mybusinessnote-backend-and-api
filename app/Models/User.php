@@ -30,8 +30,11 @@ class User extends Authenticatable
         'is_marketing_emails',
         'is_free_isb_subscription',
         'history',
-        'token',
-        'remember_token'
+        'remember_token',
+        'email_verification_token',
+        'email_verification_token_expiry_date',
+        'forgot_password_token',
+        'forgot_password_token_expiry_date',
     ];
 
     /**
@@ -40,7 +43,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'token'
+        'password', 'remember_token', 'email_verification_token'
     ];
 
     /**

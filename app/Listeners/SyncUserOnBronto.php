@@ -3,12 +3,8 @@
 namespace App\Listeners;
 
 use App\Events\BrontoSubscriptionUpdated;
-use App\Events\UserSubscriptionUpdated;
 use App\Libraries\BrontoLibrary;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use SoapClient;
-use SoapHeader;
 
 class SyncUserOnBronto implements ShouldQueue
 {

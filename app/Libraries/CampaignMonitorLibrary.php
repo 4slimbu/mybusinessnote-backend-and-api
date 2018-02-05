@@ -6,6 +6,7 @@ namespace App\Libraries;
 
 use App\Models\User;
 use CS_REST_Subscribers;
+use CS_REST_Transactional_SmartEmail;
 
 class CampaignMonitorLibrary
 {
@@ -14,6 +15,16 @@ class CampaignMonitorLibrary
      * @var string
      */
     protected $marketingListId = '1aa9558140c83c195c98ce5d73f8b8e5';
+
+    /**
+     * Smart Email id for sending email verification
+     */
+    protected $smartEmailIdForEmailVerification = '830ca7ad-50aa-4cf7-a166-ce07f0c8faf9';
+
+    /**
+     * Smart Email id for sending forgot password email
+     */
+    protected $smartEmailIdForForgotPassword = '830ca7ad-50aa-4cf7-a166-ce07f0c8faf9';
 
     /**
      * Auth Array to access Campaign Monitor
@@ -53,6 +64,22 @@ class CampaignMonitorLibrary
         } else {
             $this->unsubscribeUserFromTheList();
         }
+    }
+
+    /**
+     * Send Verification Email using Smart Transactional Email
+     */
+    public function sendVerificationEmail()
+    {
+        $this->sendSmartTransactionalMail($this->smartEmailIdForEmailVerification);
+    }
+
+    /**
+     * Send Forgot Password Email using Smart Transactional Email
+     */
+    public function sendForgotPasswordEmail()
+    {
+        $this->sendSmartTransactionalMail($this->smartEmailIdForForgotPassword);
     }
 
     /**
@@ -131,5 +158,25 @@ class CampaignMonitorLibrary
         $wrap = new CS_REST_Subscribers($this->marketingListId, $this->auth);
 
         $wrap->unsubscribe($this->user->email);
+    }
+
+    /**
+     * Send Smart Transactional Mail
+     */
+    private function sendSmartTransactionalMail($smartEmailId)
+    {
+        $messageData = array(
+            "To" => array(
+                "{$this->userName} <{$this->user->email}>",
+            ),
+            "Data" => array(
+                "email" => $this->user->email,
+                "email_verification_code" => $this->user->email_verification_token
+            )
+        );
+
+        $add_recipients_to_subscriber_list = false; //TODO: review - we are doing it in a separate event
+        $wrap = new CS_REST_Transactional_SmartEmail($smartEmailId, $this->auth);
+        $wrap->send($messageData, $add_recipients_to_subscriber_list);
     }
 }

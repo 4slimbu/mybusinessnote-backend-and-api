@@ -3,10 +3,10 @@ namespace App\Traits;
 
 use App\Events\UserRegistered;
 use App\Models\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 trait Authenticable
@@ -57,8 +57,12 @@ trait Authenticable
         try {
             //save data
             $input['role_id'] = 2; //role: customer
-            $input['verified'] = 1; //email verification not required for now
-            $user = User::create($input);
+            $input['history'] = json_encode([
+                'last_visited' => 'business_option?level=getting-started&section=your-business-details'
+            ]);
+            $input['email_verification_token'] = md5(uniqid(rand(), true));
+            $input['email_verification_token_expiry_date'] = Carbon::now()->addDay(1);
+            $user = User::create($input)->refresh();
 
             //fire events
             //$user won't return all fields so need to query again
@@ -67,7 +71,7 @@ trait Authenticable
             $credentials = [
                 'email' => $request->email,
                 'password' => $request->password,
-                'verified' => 1
+                //'verified' => 1 //TODO: enable this after fixing CORS issue
             ];
 
             // attempt to verify the credentials and create a token for the user
@@ -89,4 +93,5 @@ trait Authenticable
             'user' => $user
         ];
     }
+
 }

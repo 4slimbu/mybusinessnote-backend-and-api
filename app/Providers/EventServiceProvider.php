@@ -19,6 +19,12 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\CampaignMonitorSubscriptionUpdated' => [
             'App\Listeners\SyncUserOnCampaignMonitor',
         ],
+        'App\Events\UnVerifiedUserEvent' => [
+            'App\Listeners\SendVerificationEmail',
+        ],
+        'App\Events\ForgotPasswordEvent' => [
+            'App\Listeners\SendForgotPasswordEmail',
+        ],
     ];
 
     /**

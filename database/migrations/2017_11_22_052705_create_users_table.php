@@ -24,14 +24,15 @@ class CreateUsersTable extends Migration {
             $table->string('provider', 20)->nullable();
             $table->string('provider_id', 191)->nullable();
 			$table->boolean('verified')->default(0);
-			// TODO: block: better is to move this to separate table for customers only
 			$table->boolean('is_3rd_party_integration')->default(1);
 			$table->boolean('is_marketing_emails')->default(1);
 			$table->boolean('is_free_isb_subscription')->default(1);
-			// endblock
 			$table->text('history')->nullable();
-			$table->string('token', 191)->nullable();
-			$table->string('remember_token', 100)->nullable();
+            $table->string('remember_token', 100)->nullable();
+            $table->string('email_verification_token', 191)->nullable();
+            $table->timestamp('email_verification_token_expiry_date')->nullable();
+            $table->string('forgot_password_token', 191)->nullable();
+            $table->timestamp('forgot_password_token_expiry_date')->nullable();
 			$table->timestamps();
 		});
 	}
