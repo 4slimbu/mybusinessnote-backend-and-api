@@ -5,11 +5,14 @@ namespace App\Libraries;
 
 
 use App\Models\User;
+use App\Traits\Authenticable;
 use CS_REST_Subscribers;
 use CS_REST_Transactional_SmartEmail;
 
 class CampaignMonitorLibrary
 {
+    use Authenticable;
+
     /**
      * Campaign Monitor list id for Marketing
      * @var string
@@ -46,17 +49,17 @@ class CampaignMonitorLibrary
     protected $userName;
 
     /**
-     * Redirect Url to include in Forgot Password Email
+     * Redirect Url for React app
      * @var mixed
      */
-    protected $forgotPasswordRedirectUrl;
+    protected $reactAppUrl;
 
     public function __construct(User $user)
     {
         $this->user = $user;
         $this->userName = $user->first_name . ' ' . $user->last_name;
         $this->auth = array('api_key' => env('CAMPAIGN_MONITOR_API_KEY'));
-        $this->forgotPasswordRedirectUrl = env('FORGOT_PASSWORD_REDIRECT_URL');
+        $this->reactAppUrl = env('REACT_APP_URL');
     }
 
     /**
@@ -84,7 +87,9 @@ class CampaignMonitorLibrary
             ),
             "Data" => array(
                 "first_name" => $this->user->first_name,
-                "username" => $this->user->email
+                "username" => $this->user->email,
+                "continue_where_you_left" => $this->reactAppUrl . '?token=' . $this->getJwtTokenFromUser($this->user) . '&email_verification_token=' . $this->user->email_verification_token,
+                "forgot_password_link" => $this->reactAppUrl . '?forgot_password_token=' . $this->user->forgot_password_token,
             )
         );
 
@@ -101,7 +106,8 @@ class CampaignMonitorLibrary
                 "{$this->userName} <{$this->user->email}>",
             ),
             "Data" => array(
-                "reset_password_link" => $this->forgotPasswordRedirectUrl . '?forgot_password_token=' . $this->user->forgot_password_token,
+                "continue_where_you_left" => $this->reactAppUrl . '?token=' . $this->getJwtTokenFromUser($this->user) . '&email_verification_token=' . $this->user->email_verification_token,
+                "reset_password_link" => $this->reactAppUrl . '?forgot_password_token=' . $this->user->forgot_password_token,
             )
         );
 
@@ -196,6 +202,5 @@ class CampaignMonitorLibrary
         $add_recipients_to_subscriber_list = false; //TODO: review - we are doing it in a separate event
         $wrap = new CS_REST_Transactional_SmartEmail($smartEmailId, $this->auth);
         $result = $wrap->send($messageData, $add_recipients_to_subscriber_list);
-        dd($result);
     }
 }

@@ -242,11 +242,14 @@ class AuthController extends Controller
         if ($authUser) {
             try {
                 //save data
-                $authUser->fill([
-                    'password' => bcrypt($request->get('password')),
+                $data = [
+                    'password' => $request->get('password'),
                     'forgot_password_token' => null,
                     'forgot_password_token_expiry_date' => null
-                ])->save();
+                ];
+                $authUser->fill($data)->save();
+
+                $authUser->refresh();
 
                 $customClaims = [
                     "user" => $authUser
