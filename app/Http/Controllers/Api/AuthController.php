@@ -165,7 +165,7 @@ class AuthController extends Controller
         }
         $credentials = [
             'email' => $request->siwps,
-            'password' => bcrypt($request->sdlkw),
+            'password' => $request->sdlkw,
             //'verified' => 1 //TODO: enable this after fixing CORS issue
         ];
         try {

@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 trait Authenticable
@@ -94,4 +95,25 @@ trait Authenticable
         ];
     }
 
+    /**
+     * Generate Jwt Token from given user
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function getJwtTokenFromUser(User $user)
+    {
+        try {
+            $customClaims = [
+                "user" => $user
+            ];
+            if (! $token = JWTAuth::fromUser($user, $customClaims)) {
+                return false;
+            }
+
+            return $token;
+        } catch (JWTException $e) {
+            return false;
+        }
+    }
 }

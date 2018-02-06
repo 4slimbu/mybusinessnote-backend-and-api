@@ -17,7 +17,7 @@
           </li>
 
            <li class="nav-item">
-              <a target="_blank" href="{{ config('mbj.main_app_url') }}" class="nav-link" role="button" aria-expanded="false">
+              <a target="_blank" href="{{ getenv('REACT_APP_URL') . '/?token=' . addslashes(htmlspecialchars($jwt_token)) }}" class="nav-link" role="button" aria-expanded="false">
                   My Business Journey <span class="caret"></span>
               </a>
           </li>

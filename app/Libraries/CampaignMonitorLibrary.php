@@ -19,12 +19,12 @@ class CampaignMonitorLibrary
     /**
      * Smart Email id for sending email verification
      */
-    protected $smartEmailIdForEmailVerification = '830ca7ad-50aa-4cf7-a166-ce07f0c8faf9';
+    protected $smartEmailIdForEmailVerification = 'a1193040-c047-412b-8bc0-635db87e49e9';
 
     /**
      * Smart Email id for sending forgot password email
      */
-    protected $smartEmailIdForForgotPassword = '830ca7ad-50aa-4cf7-a166-ce07f0c8faf9';
+    protected $smartEmailIdForForgotPassword = 'c8219942-f704-4935-8353-569e3e5d274a';
 
     /**
      * Auth Array to access Campaign Monitor
@@ -45,11 +45,18 @@ class CampaignMonitorLibrary
      */
     protected $userName;
 
+    /**
+     * Redirect Url to include in Forgot Password Email
+     * @var mixed
+     */
+    protected $forgotPasswordRedirectUrl;
+
     public function __construct(User $user)
     {
         $this->user = $user;
         $this->userName = $user->first_name . ' ' . $user->last_name;
         $this->auth = array('api_key' => env('CAMPAIGN_MONITOR_API_KEY'));
+        $this->forgotPasswordRedirectUrl = env('FORGOT_PASSWORD_REDIRECT_URL');
     }
 
     /**
@@ -71,7 +78,17 @@ class CampaignMonitorLibrary
      */
     public function sendVerificationEmail()
     {
-        $this->sendSmartTransactionalMail($this->smartEmailIdForEmailVerification);
+        $messageData = array(
+            "To" => array(
+                "{$this->userName} <{$this->user->email}>",
+            ),
+            "Data" => array(
+                "first_name" => $this->user->first_name,
+                "username" => $this->user->email
+            )
+        );
+
+        $this->sendSmartTransactionalMail($this->smartEmailIdForEmailVerification, $messageData);
     }
 
     /**
@@ -79,7 +96,16 @@ class CampaignMonitorLibrary
      */
     public function sendForgotPasswordEmail()
     {
-        $this->sendSmartTransactionalMail($this->smartEmailIdForForgotPassword);
+        $messageData = array(
+            "To" => array(
+                "{$this->userName} <{$this->user->email}>",
+            ),
+            "Data" => array(
+                "reset_password_link" => $this->forgotPasswordRedirectUrl . '?forgot_password_token=' . $this->user->forgot_password_token,
+            )
+        );
+
+        $this->sendSmartTransactionalMail($this->smartEmailIdForForgotPassword, $messageData);
     }
 
     /**
@@ -162,19 +188,11 @@ class CampaignMonitorLibrary
 
     /**
      * Send Smart Transactional Mail
+     * @param $smartEmailId
+     * @param $messageData
      */
-    private function sendSmartTransactionalMail($smartEmailId)
+    private function sendSmartTransactionalMail($smartEmailId, $messageData)
     {
-        $messageData = array(
-            "To" => array(
-                "{$this->userName} <{$this->user->email}>",
-            ),
-            "Data" => array(
-                "email" => $this->user->email,
-                "email_verification_code" => $this->user->email_verification_token
-            )
-        );
-
         $add_recipients_to_subscriber_list = false; //TODO: review - we are doing it in a separate event
         $wrap = new CS_REST_Transactional_SmartEmail($smartEmailId, $this->auth);
         $wrap->send($messageData, $add_recipients_to_subscriber_list);

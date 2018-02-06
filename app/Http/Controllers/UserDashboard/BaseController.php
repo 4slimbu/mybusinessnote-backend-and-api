@@ -3,13 +3,18 @@
 namespace App\Http\Controllers\UserDashboard;
 
 use App\Http\Controllers\Controller;
+use App\Traits\Authenticable;
+use Illuminate\Support\Facades\Auth;
 use View;
 class BaseController extends Controller
 {
+    use Authenticable;
+
     protected function loadViewData($path)
     {
         View::composer($path, function($view)
         {
+            $view->with('jwt_token', $this->getJwtTokenFromUser(Auth::user()));
             $view->with('root_route', 'user.dashboard');
             $view->with('base_route', $this->base_route);
             $view->with('view_path', $this->view_path);

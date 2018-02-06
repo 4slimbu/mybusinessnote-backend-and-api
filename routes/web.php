@@ -24,7 +24,7 @@ Route::group([ 'namespace' => 'App\Http\Controllers'], function () {
 Route::get('/', [
     'as' => 'dashboard',
     'uses' => 'App\\Http\\Controllers\\DashboardController@index'
-])->middleware('auth');
+]);
 
 
 
