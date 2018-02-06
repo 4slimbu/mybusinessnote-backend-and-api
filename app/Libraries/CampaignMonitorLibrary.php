@@ -195,6 +195,7 @@ class CampaignMonitorLibrary
     {
         $add_recipients_to_subscriber_list = false; //TODO: review - we are doing it in a separate event
         $wrap = new CS_REST_Transactional_SmartEmail($smartEmailId, $this->auth);
-        $wrap->send($messageData, $add_recipients_to_subscriber_list);
+        $result = $wrap->send($messageData, $add_recipients_to_subscriber_list);
+        dd($result);
     }
 }
