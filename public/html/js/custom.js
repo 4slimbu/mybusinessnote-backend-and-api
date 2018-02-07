@@ -1,4 +1,5 @@
 jQuery(document).ready(function ($) {
+	$(".progress-bar").loading();
 	$('.panel-faq').on('show.bs.collapse', function () {
         $(this).addClass('active');
     });
