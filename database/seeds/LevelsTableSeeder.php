@@ -24,12 +24,10 @@ class LevelsTableSeeder extends Seeder
                 'slug' => 'getting-started',
                 'icon' => 'qQJtdh1JUNZ3F5zIHDoGyhfdWFUHdlgd.png',
                 'badge_icon' => 'PzAh8dpz6DuKYUzDao3evUAp4jt3t8mS.png',
-                'badge_message' => '<h5 class="obvious-h5">Getting started</h5>
-<p>&nbsp;</p>
+                'badge_message' => '
 <h1>Congratulations</h1>
-<p>&nbsp;</p>
 <p>Level 1 complete!</p>',
-                'content' => '<h1>Getting Started</h1>
+                'content' => '
 <p>Let\'s get you started by setting up your account. Click on continue to go through the steps<br />to register as well as to set up your business.</p>',
                 'tooltip' => '<p>level one tool tip</p>',
                 'created_at' => NULL,
