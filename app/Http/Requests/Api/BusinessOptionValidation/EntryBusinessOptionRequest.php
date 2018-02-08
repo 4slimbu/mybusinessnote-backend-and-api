@@ -30,7 +30,8 @@ class EntryBusinessOptionRequest extends FormRequest
             'phone_number' => 'required',
             'password' => 'required|min:8|max:20',
             'business_category_id' => 'required',
-            'sell_goods' => 'required'
+            'sell_goods' => 'required',
+            'captcha_response'=>'recaptcha'
         ];
     }
 

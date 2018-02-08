@@ -2,6 +2,7 @@
 namespace App\Traits;
 
 use App\Events\UserRegistered;
+use App\Http\Requests\Api\UserValidation\CreateFormValidation;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
@@ -32,29 +33,12 @@ trait Authenticable
     /**
      * API Register, on success return JWT Auth token
      *
-     * @param Request $request
+     * @param CreateFormValidation $request
      * @return array|\Illuminate\Http\JsonResponse
      * @throws Exception
      */
-    private function userRegister(Request $request)
+    private function userRegister(CreateFormValidation $request)
     {
-        $rules = [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email',
-            'phone_number' => 'required',
-            'password' => 'required',
-        ];
-
-
-        $input = $request->only('first_name', 'last_name', 'role_id', 'email', 'phone_number', 'password');
-        $validator = Validator::make($input, $rules);
-
-        if($validator->fails()) {
-            $error = $validator->messages();
-            return response()->json(['error_code'=> 'validation_error', 'error'=> $error], 422);
-        }
-
         try {
             //save data
             $input['role_id'] = 2; //role: customer
