@@ -137,8 +137,8 @@ class BusinessOptionResource extends Resource
         //get sections data and set completed_percent to 0
         //get levels data and set completed_percent to 0
         $data = $section->toArray();
-        $data["red_icon"] = asset('images/icons/sections/red/' . $section->icon );
-        $data["white_icon"] = asset('images/icons/sections/white/' . $section->icon );
+        $data["red_icon"] = asset('images/sections/' . $section->icon );
+        $data["white_icon"] = asset('images/sections/' . $section->icon );
         $data["completed_percent"] = 0;
         $data["section_first_bo"] = BusinessOption::where('level_id', $level->id)
             ->where('section_id', $section->id)->first();
@@ -208,8 +208,8 @@ class BusinessOptionResource extends Resource
         //get levels data and set completed_percent to 0
         foreach ($sections as $section) {
             $arr = $section->toArray();
-            $arr["red_icon"] = asset('images/icons/sections/red/' . $section->icon );
-            $arr["white_icon"] = asset('images/icons/sections/white/' . $section->icon );
+            $arr["red_icon"] = asset('images/sections/' . $section->icon );
+            $arr["white_icon"] = asset('images/sections/' . $section->icon );
             $arr["completed_percent"] = 0;
 
             $arr["section_first_bo"] = BusinessOption::where('level_id', $level->id)
