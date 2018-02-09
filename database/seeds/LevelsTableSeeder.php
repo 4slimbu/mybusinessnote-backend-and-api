@@ -39,13 +39,13 @@ class LevelsTableSeeder extends Seeder
                 'name' => 'Setting the Foundations',
                 'slug' => 'setting-the-foundations',
                 'icon' => 'oxI7FcevXpBbqMxIly2LJBnIcQGM3jge.png',
-                'badge_icon' => 'jReTUeH2BNyOm9339ddvjn1jH4st7XfA.png',
+                'badge_icon' => 'GXAAfUe5qBIpe0AxakxQcV0GXqIEOwz7.png',
                 'badge_message' => '<h1>Congratulation</h1>
 <p>Level 2 Completed</p>',
                 'content' => '<p>Level 2 content</p>',
                 'tooltip' => '<p>Level 2 tool tip</p>',
                 'created_at' => NULL,
-                'updated_at' => '2018-01-24 08:53:55',
+                'updated_at' => '2018-02-09 08:54:39',
             ),
             2 => 
             array (
@@ -53,13 +53,13 @@ class LevelsTableSeeder extends Seeder
                 'name' => 'Building up a Business',
                 'slug' => 'building-up-a-business',
                 'icon' => 'Bk9A87lgogIf8RtFJhQ5pXuXJOCYOJ3c.png',
-                'badge_icon' => 'qRwHJuaBxVeZl4BEFUuA3vsaqDQL5xRD.png',
+                'badge_icon' => 'mNLpbzaDNzFuX4kp2vtGsSNufMw7kHdi.png',
                 'badge_message' => '<h1>Congratulation</h1>
 <p>Level 3 completed</p>',
                 'content' => '<p>level 3 content</p>',
                 'tooltip' => '<p>level 3 tool tip</p>',
                 'created_at' => NULL,
-                'updated_at' => '2018-01-24 08:54:56',
+                'updated_at' => '2018-02-09 08:54:23',
             ),
         ));
         
