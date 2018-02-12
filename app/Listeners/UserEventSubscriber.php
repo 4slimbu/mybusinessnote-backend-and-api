@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Events\AddToEmailNotificationTrackerEvent;
 use App\Events\BrontoSubscriptionUpdated;
 use App\Events\CampaignMonitorSubscriptionUpdated;
 use App\Events\UnVerifiedUserEvent;
@@ -10,8 +11,6 @@ use App\Models\BusinessCategory;
 use App\Models\BusinessOption;
 use App\Traits\Authenticable;
 use App\Traits\BusinessOptionable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class UserEventSubscriber
 {
@@ -49,9 +48,10 @@ class UserEventSubscriber
         // Sync about you business option
         $this->syncBusinessPivotTables($business, BusinessOption::find(3), $data);
 
-//        event(new BrontoSubscriptionUpdated($event->user));
-//        event(new CampaignMonitorSubscriptionUpdated($event->user));
-//        event(new UnVerifiedUserEvent($event->user));
+        event(new BrontoSubscriptionUpdated($event->user));
+        event(new CampaignMonitorSubscriptionUpdated($event->user));
+        event(new UnVerifiedUserEvent($event->user));
+        event(new AddToEmailNotificationTrackerEvent($business));
     }
 
     /**

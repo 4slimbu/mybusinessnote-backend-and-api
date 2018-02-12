@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\Api\BusinessOptionValidation\EntryBusinessOptionRequest;
 use App\Http\Resources\Api\BusinessOptionResource;
 use App\Models\AffiliateLinkTracker;
-use App\Models\Business;
 use App\Models\BusinessCategory;
 use App\Models\BusinessMeta;
 use App\Models\BusinessOption;

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Events\ForgotPasswordEvent;
+use App\Events\LevelOneCompleteEvent;
 use App\Events\UnVerifiedUserEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Business;

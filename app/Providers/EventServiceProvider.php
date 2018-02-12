@@ -25,6 +25,18 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\ForgotPasswordEvent' => [
             'App\Listeners\SendForgotPasswordEmail',
         ],
+        'App\Events\AddToEmailNotificationTrackerEvent' => [
+            'App\Listeners\AddToEmailNotificationTrackerList',
+        ],
+        'App\Events\LevelOneNotCompleteAfterOneDayEvent' => [
+            'App\Listeners\SendLevelOneNotCompleteAfterOneDayReminderEmail',
+        ],
+        'App\Events\LevelTwoNotCompleteAfterOneWeekEvent' => [
+            'App\Listeners\SendLevelTwoNotCompleteAfterOneWeekReminderEmail',
+        ],
+        'App\Events\LevelOneCompleteEvent' => [
+            'App\Listeners\LevelOneCompleteListener',
+        ],
     ];
 
     /**

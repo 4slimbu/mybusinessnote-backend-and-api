@@ -25,6 +25,21 @@ class CampaignMonitorLibrary
     protected $smartEmailIdForEmailVerification = 'a1193040-c047-412b-8bc0-635db87e49e9';
 
     /**
+     * Smart Email id for sending reminder email for level one not complete after one day
+     */
+    protected $smartIdForLevelOneComplete = '962c4028-b389-4e39-b973-c6b99c6b066d';
+
+    /**
+     * Smart Email id for sending reminder email for level one not complete after one day
+     */
+    protected $smartIdForLevelOneNotCompleteAfterOneDay = '69de2b48-d9e6-4c77-9ba4-eeccb510c6f9';
+
+    /**
+     * Smart Email id for sending reminder email for level two not complete after one week
+     */
+    protected $smartIdForLevelTwoNotCompleteAfterOneWeek = 'cafec9fd-133f-42fd-982a-10de1c7b2e18';
+
+    /**
      * Smart Email id for sending forgot password email
      */
     protected $smartEmailIdForForgotPassword = 'c8219942-f704-4935-8353-569e3e5d274a';
@@ -112,6 +127,57 @@ class CampaignMonitorLibrary
         );
 
         $this->sendSmartTransactionalMail($this->smartEmailIdForForgotPassword, $messageData);
+    }
+
+    /**
+     * Send an achievement email to user when user completes level one
+     *
+     * @param User $user
+     */
+    public function sendLevelOneCompleteEmail(User $user)
+    {
+        $messageData = array(
+            "To" => array(
+                "{$user->first_name} {$user->last_name} <{$user->email}>",
+            ),
+            "Data" => []
+        );
+
+        $this->sendSmartTransactionalMail($this->smartIdForLevelOneComplete, $messageData);
+    }
+
+    /**
+     * Send reminder email for level one not complete after one day
+     *
+     * @param User $user
+     */
+    public function sendLevelOneNotCompleteAfterOneDayReminderEmail(User $user)
+    {
+        $messageData = array(
+            "To" => array(
+                "{$user->first_name} {$user->last_name} <{$user->email}>",
+            ),
+            "Data" => []
+        );
+
+        $this->sendSmartTransactionalMail($this->smartIdForLevelOneNotCompleteAfterOneDay, $messageData);
+    }
+
+    /**
+     * Send reminder email for level two not complete after one week
+     *
+     * @param User $user
+     */
+    public function sendLevelTwoNotCompleteAfterOneWeekReminderEmail(User $user)
+    {
+        $messageData = array(
+            "To" => array(
+                "{$user->first_name} {$user->last_name} <{$user->email}>",
+            ),
+            "Data" => []
+        );
+
+        $this->sendSmartTransactionalMail($this->smartIdForLevelTwoNotCompleteAfterOneWeek, $messageData);
     }
 
     /**

@@ -12,4 +12,9 @@ class Level extends Model
     public function sections() {
         return $this->hasMany(Section::class);
     }
+
+    public function businesses()
+    {
+        return $this->belongsToMany(Business::class)->withPivot("completed_percent");
+    }
 }

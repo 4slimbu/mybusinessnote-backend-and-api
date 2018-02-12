@@ -26,7 +26,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-        $schedule->command('send:reminderEmail')->daily();
+        $schedule->command('sendEmail:levelOneNotCompleteAfterOneDay')->hourly();
+        $schedule->command('sendEmail:levelTwoNotCompleteAfterOneWeek')->hourly();
         //24 hrs < time < 48 hrs
 
     }

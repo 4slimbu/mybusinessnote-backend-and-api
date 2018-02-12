@@ -1,6 +1,7 @@
 <?php
 namespace App\Traits;
 
+use App\Events\LevelOneCompleteEvent;
 use App\Models\Busines;
 use App\Models\Business;
 use App\Models\BusinessCategory;
@@ -325,6 +326,7 @@ trait BusinessOptionable
      * @param Business $business
      * @param BusinessOption $business_option
      * @param $data
+     * @return array
      */
     private function syncBusinessPivotTables(Business $business, BusinessOption $business_option, $data)
     {
@@ -356,6 +358,11 @@ trait BusinessOptionable
         $business->levels()->detach($business_option->level->id);
         $business->levels()->attach([$business_option->level->id => ['completed_percent' => $level_completed_percent]]);
         $response['level'] = ($level_current_completed_percent < 100 && $level_completed_percent >= 100) ? true : false;
+
+        //fire event
+        if ($business_option->level->id === 1 && $level_current_completed_percent < 100 && $level_completed_percent >= 100) {
+            event(new LevelOneCompleteEvent($business->user));
+        }
 
         return $response;
         //user earns a badge if level_completed percent is 100

@@ -54,4 +54,15 @@ class Business extends Model
     {
         return $this->hasMany(BusinessMeta::class);
     }
+
+    public function emailNotificationTracker()
+    {
+        return $this->hasOne(EmailNotificationTracker::class);
+    }
+
+    public function scopeWithAndWhereHas($query, $relation, $constraint)
+    {
+        return $query->whereHas($relation, $constraint)
+            ->with([$relation => $constraint]);
+    }
 }
