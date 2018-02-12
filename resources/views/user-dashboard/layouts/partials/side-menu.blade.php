@@ -20,6 +20,12 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('user-dashboard.categories-preference') }}">
+                    <i class="fas fa-comments"></i> Categories Preferences
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                        document.getElementById('side-logout-form').submit();">

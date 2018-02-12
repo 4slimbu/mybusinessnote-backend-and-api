@@ -353,6 +353,17 @@ Route::group([
         'uses' => 'CommunicationPreferenceController@update',
     ]);
 
+    /* Categories Preference */
+    Route::get('/categories-preference', [
+        'as' => 'categories-preference',
+        'uses' => 'CategoriesPreferenceController@index'
+    ]);
+
+    Route::post('categories-preference/update', [
+        'as' => 'categories-preference.update',
+        'uses' => 'CategoriesPreferenceController@update',
+    ]);
+
     /* Profile */
     Route::get('profile/edit', [
         'as' => 'profile.edit',
