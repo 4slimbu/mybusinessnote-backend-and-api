@@ -112,6 +112,10 @@ class CategoriesPreferenceController extends BaseController
                 if ($businessOption->section->slug === $section->slug) {
                     //status
                     $businessOptionWithStatus = $business->businessOptions()->select('status')->where('business_option_id', $businessOption->id)->first();
+                    //show only ones that are already viewed by user
+                    if ($businessOptionWithStatus->status === 'not_touched') {
+                        continue;
+                    }
                     $status = ($businessOptionWithStatus) ? $businessOptionWithStatus->status : '';
 
                     //business meta
