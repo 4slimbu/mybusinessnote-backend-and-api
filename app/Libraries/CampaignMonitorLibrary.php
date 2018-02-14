@@ -37,22 +37,22 @@ class CampaignMonitorLibrary
     /**
      * Smart Email id for sending reminder email for level one not complete after one month
      */
-    protected $smartIdForLevelOneNotCompleteAfterOneMonth = '69de2b48-d9e6-4c77-9ba4-eeccb510c6f9';
+    protected $smartIdForLevelOneNotCompleteAfterOneMonth = '9b98b509-94a5-4947-bfac-cea8188bdb2f';
 
     /**
      * Smart Email id : no activity after completing level one for one month
      */
-    protected $smartIdForNoActivityAfterCompletingLevelOneForOneMonth = '69de2b48-d9e6-4c77-9ba4-eeccb510c6f9';
+    protected $smartIdForNoActivityAfterCompletingLevelOneForOneMonth = '971ed0ed-6064-44b5-b42a-3e414f31306f';
 
     /**
      * Smart Email id : no activity after completing level two for one week
      */
-    protected $smartIdForNoActivityAfterCompletingLevelTwoForOneWeek = '69de2b48-d9e6-4c77-9ba4-eeccb510c6f9';
+    protected $smartIdForNoActivityAfterCompletingLevelTwoForOneWeek = '4d3b4f22-b19f-4f29-a259-417d3d938a50';
 
     /**
      * Smart Email id : no activity after completing level two for one month
      */
-    protected $smartIdForNoActivityAfterCompletingLevelTwoForOneMonth = '69de2b48-d9e6-4c77-9ba4-eeccb510c6f9';
+    protected $smartIdForNoActivityAfterCompletingLevelTwoForOneMonth = 'a029a12a-e4e7-45bc-964c-520758273638';
 
     /**
      * Smart Email id for sending reminder email for level two not complete after one week
