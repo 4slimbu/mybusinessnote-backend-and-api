@@ -41,26 +41,14 @@
 						<td>ABN : </td>
 						<td>{{ $data['user']->business->abn }}</td>
 					</tr>
-					<tr>
-						<td>ACN : </td>
-						<td>{{ $data['user']->business->acn }}</td>
-					</tr>
 
 					<tr>
 						<td>Email : </td>
-						<td>{{ $data['user']->business->business_email }}</td>
+						<td>{{ $data['user']->email }}</td>
 					</tr>
 					<tr>
 						<td>Phone (Mobile) : </td>
-						<td>{{ $data['user']->business->business_mobile }}</td>
-					</tr>
-					<tr>
-						<td>Phone (General) : </td>
-						<td>{{ $data['user']->business->business_general_phone }}</td>
-					</tr>
-					<tr>
-						<td>Address : </td>
-						<td>{{ $data['user']->business->address }}</td>
+						<td>{{ $data['user']->phone_number }}</td>
 					</tr>
 					</tbody>
 				</table>
