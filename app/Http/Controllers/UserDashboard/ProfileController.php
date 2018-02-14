@@ -70,6 +70,7 @@ class ProfileController extends BaseController
      */
     public function update(UpdateFormValidation $request)
     {
+
         //remove secure fields if present
         $request->offsetUnset('role_id', 'password');
         $input = $request->all();
@@ -78,7 +79,7 @@ class ProfileController extends BaseController
         $user->update($input);
 
         Session::flash('success', $this->panel_name.' updated successfully.');
-        return redirect()->route($this->base_route);
+        return redirect()->back();
     }
 
 

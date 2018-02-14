@@ -338,6 +338,12 @@ Route::group([
         'as' => 'dashboard',
         'uses' => 'DashboardController@index'
     ]);
+
+     Route::get('/profile', [
+        'as' => 'dashboard',
+        'uses' => 'DashboardController@index'
+    ]);
+   
     Route::get('/dashboard/profile/pdf', [
         'as' => 'dashboard.profile.pdf',
         'uses' => 'DashboardController@profileToPdf'

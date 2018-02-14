@@ -26,6 +26,12 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('user-dashboard.profile.edit-password') }}">
+                    <i class="fas fa-lock"></i> Change Password
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                        document.getElementById('side-logout-form').submit();">
