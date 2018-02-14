@@ -35,6 +35,26 @@ class CampaignMonitorLibrary
     protected $smartIdForLevelOneNotCompleteAfterOneDay = '69de2b48-d9e6-4c77-9ba4-eeccb510c6f9';
 
     /**
+     * Smart Email id for sending reminder email for level one not complete after one month
+     */
+    protected $smartIdForLevelOneNotCompleteAfterOneMonth = '69de2b48-d9e6-4c77-9ba4-eeccb510c6f9';
+
+    /**
+     * Smart Email id : no activity after completing level one for one month
+     */
+    protected $smartIdForNoActivityAfterCompletingLevelOneForOneMonth = '69de2b48-d9e6-4c77-9ba4-eeccb510c6f9';
+
+    /**
+     * Smart Email id : no activity after completing level two for one week
+     */
+    protected $smartIdForNoActivityAfterCompletingLevelTwoForOneWeek = '69de2b48-d9e6-4c77-9ba4-eeccb510c6f9';
+
+    /**
+     * Smart Email id : no activity after completing level two for one month
+     */
+    protected $smartIdForNoActivityAfterCompletingLevelTwoForOneMonth = '69de2b48-d9e6-4c77-9ba4-eeccb510c6f9';
+
+    /**
      * Smart Email id for sending reminder email for level two not complete after one week
      */
     protected $smartIdForLevelTwoNotCompleteAfterOneWeek = 'cafec9fd-133f-42fd-982a-10de1c7b2e18';
@@ -129,6 +149,7 @@ class CampaignMonitorLibrary
         $this->sendSmartTransactionalMail($this->smartEmailIdForForgotPassword, $messageData);
     }
 
+    //TODO: extract and combine all reminder emails to a single method
     /**
      * Send an achievement email to user when user completes level one
      *
@@ -164,6 +185,23 @@ class CampaignMonitorLibrary
     }
 
     /**
+     * Send reminder email for level one not complete after one month
+     *
+     * @param User $user
+     */
+    public function sendLevelOneNotCompleteAfterOneMonthReminderEmail(User $user)
+    {
+        $messageData = array(
+            "To" => array(
+                "{$user->first_name} {$user->last_name} <{$user->email}>",
+            ),
+            "Data" => []
+        );
+
+        $this->sendSmartTransactionalMail($this->smartIdForLevelOneNotCompleteAfterOneMonth, $messageData);
+    }
+
+    /**
      * Send reminder email for level two not complete after one week
      *
      * @param User $user
@@ -178,6 +216,57 @@ class CampaignMonitorLibrary
         );
 
         $this->sendSmartTransactionalMail($this->smartIdForLevelTwoNotCompleteAfterOneWeek, $messageData);
+    }
+
+    /**
+     * Send reminder email for no activity after completing level one for one month
+     *
+     * @param User $user
+     */
+    public function sendNoActivityAfterCompletingLevelOneForOneMonthReminderEmail(User $user)
+    {
+        $messageData = array(
+            "To" => array(
+                "{$user->first_name} {$user->last_name} <{$user->email}>",
+            ),
+            "Data" => []
+        );
+
+        $this->sendSmartTransactionalMail($this->smartIdForNoActivityAfterCompletingLevelOneForOneMonth, $messageData);
+    }
+
+    /**
+     * Send reminder email for no activity after completing level two for one week
+     *
+     * @param User $user
+     */
+    public function sendNoActivityAfterCompletingLevelTwoForOneWeekReminderEmail(User $user)
+    {
+        $messageData = array(
+            "To" => array(
+                "{$user->first_name} {$user->last_name} <{$user->email}>",
+            ),
+            "Data" => []
+        );
+
+        $this->sendSmartTransactionalMail($this->smartIdForNoActivityAfterCompletingLevelTwoForOneWeek, $messageData);
+    }
+
+    /**
+     * Send reminder email for no activity after completing level two for one month
+     *
+     * @param User $user
+     */
+    public function sendNoActivityAfterCompletingLevelTwoForOneMonthReminderEmail(User $user)
+    {
+        $messageData = array(
+            "To" => array(
+                "{$user->first_name} {$user->last_name} <{$user->email}>",
+            ),
+            "Data" => []
+        );
+
+        $this->sendSmartTransactionalMail($this->smartIdForNoActivityAfterCompletingLevelTwoForOneMonth, $messageData);
     }
 
     /**

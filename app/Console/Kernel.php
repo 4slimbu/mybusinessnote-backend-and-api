@@ -24,11 +24,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
         $schedule->command('sendEmail:levelOneNotCompleteAfterOneDay')->hourly();
-        $schedule->command('sendEmail:levelTwoNotCompleteAfterOneWeek')->hourly();
-        //24 hrs < time < 48 hrs
+        $schedule->command('sendEmail:levelOneNotCompleteAfterOneMonth')->daily();
+        $schedule->command('sendEmail:levelTwoNotCompleteAfterOneWeek')->daily();
+        $schedule->command('sendEmail:noActivityAfterCompletingLevelOneForOneMonth')->daily();
+        $schedule->command('sendEmail:noActivityAfterCompletingLevelTwoForOneWeek')->daily();
+        $schedule->command('sendEmail:noActivityAfterCompletingLevelTwoForOneMonth')->daily();
 
     }
 

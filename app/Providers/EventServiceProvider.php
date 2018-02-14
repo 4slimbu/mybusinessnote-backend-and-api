@@ -37,6 +37,18 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\LevelOneCompleteEvent' => [
             'App\Listeners\LevelOneCompleteListener',
         ],
+        'App\Events\LevelOneNotCompleteAfterOneMonthEvent' => [
+            'App\Listeners\SendLevelOneNotCompleteAfterOneMonthReminderEmail',
+        ],
+        'App\Events\NoActivityAfterCompletingLevelOneForOneMonthEvent' => [
+            'App\Listeners\SendNoActivityAfterCompletingLevelOneForOneMonthReminderEmail',
+        ],
+        'App\Events\NoActivityAfterCompletingLevelTwoForOneWeekEvent' => [
+            'App\Listeners\SendNoActivityAfterCompletingLevelTwoForOneWeekReminderEmail',
+        ],
+        'App\Events\NoActivityAfterCompletingLevelTwoForOneMonthEvent' => [
+            'App\Listeners\SendNoActivityAfterCompletingLevelTwoForOneMonthReminderEmail',
+        ],
     ];
 
     /**

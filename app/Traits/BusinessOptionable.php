@@ -9,6 +9,7 @@ use App\Models\BusinessOption;
 use App\Models\Level;
 use App\Models\Section;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -348,7 +349,10 @@ trait BusinessOptionable
             $business->sections()->where('id', $business_option->section->id)->first()->pivot->completed_percent : 0;
         $section_completed_percent = $this->getSectionCompletedPercent($business, $business_option, $business_category_id);
         $business->sections()->detach($business_option->section->id);
-        $business->sections()->attach([$business_option->section->id => ['completed_percent' => $section_completed_percent]]);
+        $business->sections()->attach([$business_option->section->id => [
+            'completed_percent' => $section_completed_percent,
+            'updated_at' => Carbon::now()
+        ]]);
         $response['section'] = ($section_current_completed_percent < 100 && $section_completed_percent >= 100) ? true : false;
 
         //sync business_level table
@@ -356,7 +360,10 @@ trait BusinessOptionable
             $business->levels()->where('id', $business_option->level->id)->first()->pivot->completed_percent : 0;
         $level_completed_percent = $this->getLevelCompletedPercent($business, $business_option);
         $business->levels()->detach($business_option->level->id);
-        $business->levels()->attach([$business_option->level->id => ['completed_percent' => $level_completed_percent]]);
+        $business->levels()->attach([$business_option->level->id => [
+            'completed_percent' => $level_completed_percent,
+            'updated_at' => Carbon::now()
+        ]]);
         $response['level'] = ($level_current_completed_percent < 100 && $level_completed_percent >= 100) ? true : false;
 
         //fire event
