@@ -180,7 +180,7 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'financing-option',
                 'content' => NULL,
                 'element' => 'FinancingOption',
-                'tooltip' => '<p>Financing Option</p>',
+                'tooltip' => '<p>Financing Option?</p>',
                 'menu_order' => 10,
                 'weight' => 1,
                 'show_everywhere' => 1,
