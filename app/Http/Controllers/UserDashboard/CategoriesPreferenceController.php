@@ -164,6 +164,9 @@ class CategoriesPreferenceController extends BaseController
                 if ($item->key === 'brand_color') {
                     $value = '<div width="30" height="30" style="width:20px; height:20px; background-color:'. $item->value .';"></div>';
                 }
+                if ($item->key === 'sec_brand_color') {
+                    $value = '<div width="30" height="30" style="width:20px; height:20px; background-color:'. $item->value .';"></div>';
+                }
 
                 $data[] = [
                     'id' => $item->id,
