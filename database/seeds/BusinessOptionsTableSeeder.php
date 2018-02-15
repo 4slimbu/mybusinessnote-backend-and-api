@@ -231,7 +231,7 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'merchant-facilities',
                 'content' => '<p>yet to decide</p>',
                 'element' => 'MerchantFacilities',
-                'tooltip' => '<p>Merchant Facilities</p>',
+                'tooltip' => '<p>Merchant Facilities?</p>',
                 'menu_order' => 13,
                 'weight' => 1,
                 'show_everywhere' => 1,
