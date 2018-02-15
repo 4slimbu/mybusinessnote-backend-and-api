@@ -85,7 +85,7 @@ class BusinessOptionResource extends Resource
             'tooltip' => $this->tooltip,
             'weight' => $this->weight,
             //prevent infinite loop when called using relationship
-            'affiliate_links' => $this->affiliateLinks,
+            'affiliate_links' => $this->affiliateLinks()->select('*', 'label')->get(),
             'business_meta' => $business_meta,
             'business_business_option_status' => $business_business_option_status,
             'links' => [

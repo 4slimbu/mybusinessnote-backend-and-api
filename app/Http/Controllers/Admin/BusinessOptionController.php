@@ -85,6 +85,7 @@ class BusinessOptionController extends AdminBaseController
         $data['elements'] = BusinessOption::elements();
         $data['selectedElement'] = []; //dynamic form is expecting this variable
         $data['selectedBusinessCategories'] = []; //dynamic form is expecting this variable
+        $data['selectedAffiliateLinkLabel'] = ''; //dynamic form is expecting this variable
         $data['selectedAffiliateLinks'] = []; //dynamic form is expecting this variable
 
         $affiliateLinks = AffiliateLink::with('partner', 'partner.userProfile')->get();
@@ -111,7 +112,13 @@ class BusinessOptionController extends AdminBaseController
         $businessOption = BusinessOption::create($input);
 
         if (isset($input['affiliate_link_id']) && $input['affiliate_link_id']) {
-            $businessOption->affiliateLinks()->sync(array_filter($input['affiliate_link_id']));
+            $syncData = [];
+            foreach (array_filter($input['affiliate_link_id']) as $id) {
+                $syncData[$id] = [
+                    'label' => ($input['affiliate_link_label']) ? $input['affiliate_link_label'] : ''
+                ];
+            }
+            $businessOption->affiliateLinks()->sync($syncData);
         }
 
         if ($input['show_everywhere']) {
@@ -152,6 +159,7 @@ class BusinessOptionController extends AdminBaseController
         //get data
         $data['row'] = $businessOption;
         $data['selectedBusinessCategories'] = $businessOption->businessCategories->pluck('id');
+        $data['selectedAffiliateLinkLabel'] = $businessOption->affiliateLinks()->pluck('label')[0];
         $data['selectedAffiliateLinks'] = $businessOption->affiliateLinks->pluck('id');
         $data['selectedElement'] = $businessOption->element;
 
@@ -189,7 +197,13 @@ class BusinessOptionController extends AdminBaseController
         $businessOption->fill($input)->save();
 
         if (isset($input['affiliate_link_id']) && $input['affiliate_link_id']) {
-            $businessOption->affiliateLinks()->sync(array_filter($input['affiliate_link_id']));
+            $syncData = [];
+            foreach (array_filter($input['affiliate_link_id']) as $id) {
+                $syncData[$id] = [
+                    'label' => ($input['affiliate_link_label']) ? $input['affiliate_link_label'] : ''
+                ];
+            }
+            $businessOption->affiliateLinks()->sync($syncData);
         }
 
         if ($input['show_everywhere']) {

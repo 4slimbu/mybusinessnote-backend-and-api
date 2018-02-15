@@ -69,6 +69,15 @@
     @endif
 </div>
 
+{{--Affiliate Link Label--}}
+<div class="form-group">
+    <label>Affiliate Link Label:</label>
+    {{ Form::text('affiliate_link_label', $data['selectedAffiliateLinkLabel'], ['class' => 'form-control']) }}
+    @if($errors->has('affiliate_link_label'))
+        <span class="text-danger">{{ $errors->first('affiliate_link_label') }}</span>
+    @endif
+</div>
+
 {{--Partner Affiliate Links--}}
 <div class="form-group">
     <label  class="display-block text-semibold">Affiliate Links:</label>

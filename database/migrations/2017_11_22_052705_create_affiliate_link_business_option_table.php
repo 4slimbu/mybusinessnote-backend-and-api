@@ -16,6 +16,7 @@ class CreateAffiliateLinkBusinessOptionTable extends Migration {
 		{
 			$table->integer('business_option_id')->unsigned();
 			$table->integer('affiliate_link_id')->unsigned();
+			$table->string('label')->default('Set Up Now');
 			$table->primary(['business_option_id','affiliate_link_id'], 'pivot_af_li_bu_op_id');
 		});
 	}
