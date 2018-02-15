@@ -367,7 +367,7 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'demographic-catchment-area',
                 'content' => NULL,
                 'element' => 'DemographicArea',
-                'tooltip' => '<p>Demographic catchment area?</p>',
+                'tooltip' => '<p>Demographic catchment area</p>',
                 'menu_order' => 21,
                 'weight' => 1,
                 'show_everywhere' => 1,
