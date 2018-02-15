@@ -28,7 +28,7 @@ class LevelsTableSeeder extends Seeder
 <h1>Congratulations</h1>
 <p>Level 1 complete!</p>',
                 'content' => '
-<p>Let\'s get you started by setting up your account. Click on continue to go through the steps<br />to register as well as to set up your business.</p>',
+<p>Let\'s get you started by setting up your account. Click on continue to go through the steps to register as well as to set up your business.</p>',
                 'tooltip' => '<p>level one tool tip</p>',
                 'created_at' => NULL,
                 'updated_at' => '2018-01-24 08:48:03',
