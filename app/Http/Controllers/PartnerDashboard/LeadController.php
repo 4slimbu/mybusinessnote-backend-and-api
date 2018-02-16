@@ -35,8 +35,7 @@ class LeadController extends BaseController
      * @var string
      */
     protected $panel_actions = array( 
-
-        [ 'link' => 'partner-dashboard/lead/download', 'label' => 'Export to Excel']
+        [ 'link' => '/partner-dashboard/lead/download', 'label' => 'Export to Excel']
     );
 
     /**
