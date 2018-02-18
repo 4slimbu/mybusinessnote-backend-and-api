@@ -28,10 +28,12 @@ class BusinessOptionResource extends Resource
     public function toArray($request)
     {
 //        \DB::enableQueryLog();
+        $business_id = null;
         $business_meta = [];
         $business_business_option_status = null;
         $user = $this->getAuthUser();
         if ($user) {
+            $business_id = $user->business->id;
             $business_meta = $this->businessMetas()->where('business_id', $user->business->id)->get();
             if (count($business_meta) > 0) {
                 $business_meta = $business_meta->pluck('value', 'key')->toArray();
@@ -55,14 +57,14 @@ class BusinessOptionResource extends Resource
             $user->save();
         }
 
-        $previousRecord = $this->getPreviousRecord($this, $business_category_id);
+        $previousRecord = $this->getPreviousRecord($this, $business_category_id, $business_id);
         if ($previousRecord) {
             $previousLink = '/business-option?level=' . $previousRecord->level->slug . '&section=' . $previousRecord->section->slug . '&bo=' . $previousRecord->id;
         } else {
             $previousLink = '/business-option?level=' . $this->level->slug . '&section=' . $this->section->slug;
         }
 
-        $nextRecord = $this->getNextRecord($this, $business_category_id);
+        $nextRecord = $this->getNextRecord($this, $business_category_id, $business_id);
         if ($nextRecord) {
             $nextLink = '/business-option?level=' . $nextRecord->level->slug . '&section=' . $nextRecord->section->slug . '&bo=' . $nextRecord->id;
         } else {

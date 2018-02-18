@@ -96,55 +96,61 @@ trait BusinessOptionable
     }
 
     /**
-     * This returns next business-option determined by menu-order
-     * filtered by business_category_id
-     *
-     * Complex oldGetNextRecord has been deprecated in favour of this simple solution.
-     *
-     * Old used complex calculation to find next child or next sibling or next section etc.
-     * This one uses more straight forward search using menu-order which will always put
-     * favourable child, sibling or section next to current business-option. This will be achieved
-     * by using drag-and-drop feature in the backend.
+     * This return next record
      *
      * @param $business_option
      * @param $business_category_id
+     * @param null $business_id
      * @return null
      */
-    private function getNextRecord( $business_option, $business_category_id)
+    private function getNextRecord( $business_option, $business_category_id, $business_id = null)
     {
         try {
-            $next = BusinessCategory::find($business_category_id)
-                ->businessOptions()->where('id', '>', $business_option->id)
-                ->orderBy('id', 'asc')
+
+            $query = BusinessOption::leftJoin('business_category_business_option', 'business_options.id', '=', 'business_category_business_option.business_option_id')
+                ->leftJoin('business_business_option', 'business_options.id', '=', 'business_business_option.business_option_id')
+                ->where('business_options.id', '>', $business_option->id)
+                ->where('business_category_business_option.business_category_id', $business_category_id);
+
+            if ($business_id) {
+                $query->where('business_business_option.business_id', '=', $business_id);
+            }
+
+            $next = $query->where('business_business_option.status', '!=', 'irrelevant')
+                ->orderBy('business_options.id', 'asc')
                 ->first();
+
             return $next;
         } catch (\Exception $exception) {
+            dd($exception);
             throw new ModelNotFoundException('not_found', 400);
         }
 
     }
 
     /**
-     * This returns previous business-option determined by menu-order
-     * filtered by business_category_id
      *
-     * Complex oldGetNextRecord has been deprecated in favour of this simple solution.
-     *
-     * Old used complex calculation to find previous child or previous sibling or previous section etc.
-     * This one uses more straight forward search using menu-order which will always put
-     * favourable child, sibling or section previous to current business-option. This will be achieved
-     * by using drag-and-drop feature in the backend.
+     * This returns previous record
      *
      * @param $business_option
      * @param $business_category_id
+     * @param null $business_id
      * @return null
      */
-    private function getPreviousRecord($business_option, $business_category_id)
+    private function getPreviousRecord($business_option, $business_category_id, $business_id = null)
     {
         try {
-            $previous = BusinessCategory::find($business_category_id)
-                ->businessOptions()->where('id', '<', $business_option->id)
-                ->orderBy('id', 'desc')
+            $query = BusinessOption::leftJoin('business_category_business_option', 'business_options.id', '=', 'business_category_business_option.business_option_id')
+                ->leftJoin('business_business_option', 'business_options.id', '=', 'business_business_option.business_option_id')
+                ->where('business_options.id', '<', $business_option->id)
+                ->where('business_category_business_option.business_category_id', $business_category_id);
+
+            if ($business_id) {
+                $query->where('business_business_option.business_id', '=', $business_id);
+            }
+
+            $previous = $query->where('business_business_option.status', '!=', 'irrelevant')
+                ->orderBy('business_options.id', 'desc')
                 ->first();
 
             return $previous;
