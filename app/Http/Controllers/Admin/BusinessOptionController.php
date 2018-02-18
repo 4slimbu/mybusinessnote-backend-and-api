@@ -159,7 +159,8 @@ class BusinessOptionController extends AdminBaseController
         //get data
         $data['row'] = $businessOption;
         $data['selectedBusinessCategories'] = $businessOption->businessCategories->pluck('id');
-        $data['selectedAffiliateLinkLabel'] = $businessOption->affiliateLinks()->pluck('label')[0];
+        $labels = $businessOption->affiliateLinks()->pluck('label');
+        $data['selectedAffiliateLinkLabel'] = count($labels) > 0 ? $labels[0] : '';
         $data['selectedAffiliateLinks'] = $businessOption->affiliateLinks->pluck('id');
         $data['selectedElement'] = $businessOption->element;
 
