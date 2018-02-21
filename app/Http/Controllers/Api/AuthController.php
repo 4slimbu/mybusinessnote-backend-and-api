@@ -204,7 +204,7 @@ class AuthController extends Controller
             return response()->json(['success' => true]);
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
-            return response()->json(['success' => false, 'error' => 'Failed to logout, please try again.'], 500);
+            return response()->json(['success' => false, 'error' => 'Failed to logout, please try again.'], HTTP);
         }
     }
 

@@ -8,5 +8,9 @@ return [
             ]
         ],
     ],
-    'main_app_url' => env('MAIN_APP_URL')
+    'main_app_url' => env('MAIN_APP_URL'),
+    'codes' => [
+        'TOKEN_NOT_PROVIDED' => 'TOKEN_NOT_PROVIDED',
+        'TOKEN_INVALID' => 'TOKEN_INVALID',
+    ]
 ];

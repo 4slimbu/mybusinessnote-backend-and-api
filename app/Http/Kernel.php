@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\AdminAuthenticate;
+use App\Http\Middleware\JWTAuthenticate;
 use App\Http\Middleware\PartnerAuthenticate;
 use App\Http\Middleware\UserAuthenticate;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -63,7 +64,9 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'jwt.auth' => 'Tymon\JWTAuth\Middleware\GetUserFromToken',
+        'jwt.auth' => JWTAuthenticate::class,
+//        'jwt.auth' => 'Tymon\JWTAuth\Middleware\GetUserFromToken',
         'jwt.refresh' => 'Tymon\JWTAuth\Middleware\RefreshToken',
+
     ];
 }

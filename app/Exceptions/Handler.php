@@ -6,6 +6,9 @@ use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
 class Handler extends ExceptionHandler
 {
@@ -73,6 +76,16 @@ class Handler extends ExceptionHandler
                     'errors' => $simplified_errors
                 ], 422);
             }
+
+            // JWT Exceptions
+            if ($exception instanceof TokenExpiredException) {
+                return response()->json(['token_expired'], $exception->getStatusCode());
+            } else if ($exception instanceof TokenInvalidException) {
+                return response()->json(['token_invalid'], $exception->getStatusCode());
+            } else if ($exception instanceof JWTException) {
+                return response()->json(['token_not_available'], $exception->getStatusCode());
+            }
+
 
             return response()->json([
                 'error_code' => $exception->getMessage()
