@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Api\BusinessCategoryValidation;
+namespace App\Http\Requests\Api\AuthValidation;
 
+use Dompdf\Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateFormValidation extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +26,8 @@ class CreateFormValidation extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required'
+            'email' => 'required|email',
+            'password' => 'required',
         ];
     }
 }

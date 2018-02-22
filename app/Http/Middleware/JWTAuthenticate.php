@@ -3,8 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class JWTAuthenticate
@@ -18,12 +16,15 @@ class JWTAuthenticate
      */
     public function handle($request, Closure $next)
     {
-        dd($request->path());
+        $path = $request->path();
+        $level = $request->get('level');
+        $section = $request->get('section');
+        /*
+         * Pass special entry level routes without authentication
+         */
         if (
-            $request->path() === 'api/level/1/section/3/business-option/4' ||
-            $request->path() === '' ||
-            $request->path() === '' ||
-            $request->path() === ''
+            ($path === 'api/business-option' && $level === 'getting-started' && $section === 'business-category') ||
+            ($path === 'api/business-option' && $level === 'getting-started' && $section === 'about-you')
         ) {
             //pass without authentication
         } else {

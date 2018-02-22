@@ -78,7 +78,6 @@ Route::group(['namespace' => 'App\\Http\\Controllers\Api\\'], function () {
 */
 
 Route::group(['namespace' => 'App\\Http\\Controllers\Api\\', 'middleware' => ['jwt.auth']], function() {
-//Route::group(['namespace' => 'App\\Http\\Controllers\Api\\'], function () {
     /*
      * User Routes
      */
