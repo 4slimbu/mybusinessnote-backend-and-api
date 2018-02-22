@@ -348,7 +348,7 @@ class BusinessOptionsTableSeeder extends Seeder
                 'level_id' => 2,
                 'section_id' => 7,
                 'parent_id' => NULL,
-                'name' => 'Have you set up your internet',
+                'name' => 'Have you set up your internet?',
                 'slug' => 'have-you-set-up-your-internet',
                 'content' => NULL,
                 'element' => 'SetUpInternet',
