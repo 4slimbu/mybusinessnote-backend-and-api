@@ -36,7 +36,7 @@ class DashboardController extends BaseController
      */
     protected $panel_actions = array( 
 
-        [ 'link' => 'user-dashboard/dashboard/profile/pdf', 'label' => 'Export to PDF']
+        [ 'link' => '/user-dashboard/dashboard/profile/pdf', 'label' => 'Export to PDF']
     );
 
 
