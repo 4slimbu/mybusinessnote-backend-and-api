@@ -6,6 +6,7 @@ use App\Events\ForgotPasswordEvent;
 use App\Events\LevelOneCompleteEvent;
 use App\Events\UnVerifiedUserEvent;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\AuthValidation\LoginRequest;
 use App\Models\Business;
 use App\Models\BusinessOption;
 use App\Models\Level;
@@ -148,43 +149,27 @@ class AuthController extends Controller
     /**
      * API Login, on success return JWT Auth token
      *
-     * @param Request $request
+     * @param LoginRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $rules = [
-            'siwps' => 'required|email',
-            'sdlkw' => 'required',
-        ];
-
-        $input = $request->only('siwps', 'sdlkw');
-        $validator = Validator::make($input, $rules);
-        if($validator->fails()) {
-            $error = $validator->messages();
-            return response()->json(['success'=> false, 'error'=> $error]);
-        }
         $credentials = [
-            'email' => $request->siwps,
-            'password' => $request->sdlkw,
-            //'verified' => 1 //TODO: enable this after fixing CORS issue
+            'email' => $request->email,
+            'password' => $request->password,
+            'verified' => 1
         ];
-        try {
-            // attempt to verify the credentials and create a token for the user
-            $authUser = User::where("email", $request->siwps)
-                //->where("verified", 1) //TODO: enable this after fixing CORS issue
-                ->first();
 
-            $customClaims = [
-                "user" => $authUser
-            ];
-            if (! $token = JWTAuth::attempt($credentials, $customClaims)) {
-                return response()->json(['success' => false, 'error' => ['form' => 'Invalid Credentials.']], 401);
-            }
-        } catch (JWTException $e) {
-            // something went wrong whilst attempting to encode the token
-            return response()->json(['success' => false, 'error' => 'could_not_create_token'], 500);
-        }
+        // attempt to verify the credentials and create a token for the user
+        $authUser = User::where("email", $request->email)
+            ->where("verified", 1)
+            ->first();
+
+        $customClaims = [
+            "user" => $authUser
+        ];
+
+        $token = JWTAuth::attempt($credentials, $customClaims);
         // all good so return the token
         return response()->json(['success' => true, 'token' => $token]);
     }
@@ -204,7 +189,7 @@ class AuthController extends Controller
             return response()->json(['success' => true]);
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
-            return response()->json(['success' => false, 'error' => 'Failed to logout, please try again.'], 500);
+            return response()->json(['success' => false, 'error' => 'Failed to logout, please try again.'], HTTP);
         }
     }
 
