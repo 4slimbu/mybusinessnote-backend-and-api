@@ -12,6 +12,12 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <style>
+        .bo-display-table td:first-child {
+            width: 65%;
+        }
+    </style>
 </head>
 
 <body>
