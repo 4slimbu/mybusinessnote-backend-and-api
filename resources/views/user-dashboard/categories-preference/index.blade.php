@@ -12,12 +12,13 @@
 				Business Status Grouped By Categories
 			</div>
 			<div class="card-body">
-				@if(count($data['groupedBusinessOptions']) > 0):
+				@if(count($data['groupedBusinessOptions']) > 0)
 				@foreach($data['groupedBusinessOptions'] as $section)
 					<div class="col-md-12">
 						<h4>{{ $section['name'] }}</h4>
-						<table class="table">
+						<table class="table bo-display-table">
 							<tbody>
+							@if(count($section['businessOptions']) > 0)
 							@foreach($section['businessOptions'] as $bo)
 								<tr>
 									<td><a href="{{ $bo['url'] }}" target="_blank">{{ $bo['name'] }}</a></td>
@@ -34,6 +35,12 @@
 									</td>
 								</tr>
 							@endforeach
+							@else
+								<tr>
+									<td>Not completed any {{$section['name']}} options</td>
+									<td></td>
+								</tr>
+							@endif
 							</tbody>
 						</table>
 					</div>
