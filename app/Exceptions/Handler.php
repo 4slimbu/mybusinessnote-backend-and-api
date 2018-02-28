@@ -56,16 +56,21 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         // Response For Api
-        if ($request->expectsJson()) {
+            if ($request->expectsJson()) {
 
             // Model Not Found Exception
             if ($exception instanceof ModelNotFoundException) {
                 return ResponseLibrary::error('MODEL_NOT_FOUND', 400, $exception);
             }
 
+            // Invalid Credentials
+            if ($exception instanceof InvalidCredentialException) {
+                return ResponseLibrary::error('ERR_INVALID_CREDENTIALS', 401, $exception);
+            }
+
             // Validation Exception
             if ($exception instanceof ValidationException) {
-                return ResponseLibrary::validationError($exception);
+                return ResponseLibrary::validationError('ERR_VALIDATION_FAILED', 422, $exception);
             }
 
             // JWT Exceptions

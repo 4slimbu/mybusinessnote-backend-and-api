@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Events\ForgotPasswordEvent;
-use App\Events\LevelOneCompleteEvent;
 use App\Events\UnVerifiedUserEvent;
+use App\Exceptions\InvalidCredentialException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\AuthValidation\LoginRequest;
 use App\Models\Business;
@@ -151,6 +151,7 @@ class AuthController extends Controller
      *
      * @param LoginRequest $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws InvalidCredentialException
      */
     public function login(LoginRequest $request)
     {
@@ -169,7 +170,9 @@ class AuthController extends Controller
             "user" => $authUser
         ];
 
-        $token = JWTAuth::attempt($credentials, $customClaims);
+        if (! $token = JWTAuth::attempt($credentials, $customClaims)) {
+            throw new InvalidCredentialException();
+        }
         // all good so return the token
         return response()->json(['success' => true, 'token' => $token]);
     }
