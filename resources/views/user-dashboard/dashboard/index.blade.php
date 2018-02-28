@@ -13,7 +13,7 @@
 				<a href="{{ route('user-dashboard.profile.edit') }}" class="btn btn-sm pull-right">Edit</a>
 			</div>
 			<div class="card-body">
-				<table class="table">
+				<table class="table bo-display-table">
 					<tbody>
 					<tr>
 						<td>First Name : </td>
@@ -69,7 +69,7 @@
 				<div>
 					<h3>Getting Started</h3>
 					<div class="col-md-12">
-						<table class="table">
+						<table class="table bo-display-table">
 							<tbody>
 							<tr>
 								<td>Business Category : </td>
@@ -91,7 +91,7 @@
 						@foreach($level['sections'] as $section)
 							<div class="col-md-12">
 								<h4>{{ $section['name'] }}</h4>
-								<table class="table">
+								<table class="table bo-display-table">
 									<tbody>
 									@foreach($section['businessOptions'] as $bo)
 											<tr>

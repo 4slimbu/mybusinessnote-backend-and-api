@@ -6,7 +6,7 @@ namespace App\Libraries;
 
 class ResponseLibrary
 {
-    public static function validationError($exception) {
+    public static function validationError($errorCode, $statusCode, $exception) {
         $errors = $exception->errors();
         // Default error returns multiple errors for each field in an array.
         // Let's simplify that to return only the first error for each field as string instead.
@@ -17,10 +17,10 @@ class ResponseLibrary
 
         return response()->json([
             'errorId' => uniqid(),
-            'errorCode' => 'VALIDATION_FAILED',
+            'errorCode' => $errorCode,
             'errorMessage' => $exception->getMessage(),
             'errors' => $simplified_errors
-        ], 422);
+        ], $statusCode);
     }
 
     public static function error($errorCode, $statusCode, $exception)
