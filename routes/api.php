@@ -37,6 +37,26 @@ Route::group(['namespace' => 'App\\Http\\Controllers\Api\\'], function () {
         'uses' => 'AuthController@login'
     ]);
 
+    Route::get('/user/send-verification-email', [
+        'as' => 'api.send-verification-email',
+        'uses' => 'AuthController@sendVerificationEmail'
+    ]);
+
+    Route::post('/user/verify-email', [
+        'as' => 'api.verify-email',
+        'uses' => 'AuthController@verifyEmail'
+    ]);
+
+    Route::post('/user/send-forgot-password-email', [
+        'as' => 'api.send-forgot-password-email',
+        'uses' => 'AuthController@sendForgotPasswordEmail'
+    ]);
+
+    Route::post('/user/update-password', [
+        'as' => 'api.update-password',
+        'uses' => 'AuthController@updatePassword'
+    ]);
+
     /* Social Auth */
     Route::get('/login/oauth/{driver}', 'SocialAuthController@redirectToProvider')->name('social.oauth');
     Route::get('/login/oauth/{driver}/callback', 'SocialAuthController@handleProviderCallback')->name('social.callback');
@@ -89,26 +109,6 @@ Route::group(['namespace' => 'App\\Http\\Controllers\Api\\', 'middleware' => ['j
     Route::post('/user/logout', [
         'as' => 'api.logout',
         'uses' => 'AuthController@logout'
-    ]);
-
-    Route::get('/user/send-verification-email', [
-        'as' => 'api.send-verification-email',
-        'uses' => 'AuthController@sendVerificationEmail'
-    ]);
-
-    Route::post('/user/verify-email', [
-        'as' => 'api.verify-email',
-        'uses' => 'AuthController@verifyEmail'
-    ]);
-
-    Route::post('/user/send-forgot-password-email', [
-        'as' => 'api.send-forgot-password-email',
-        'uses' => 'AuthController@sendForgotPasswordEmail'
-    ]);
-
-    Route::post('/user/update-password', [
-        'as' => 'api.update-password',
-        'uses' => 'AuthController@updatePassword'
     ]);
 
     /*

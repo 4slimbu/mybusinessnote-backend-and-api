@@ -240,7 +240,7 @@ class UsersTableSeeder extends Seeder
                 'first_name' => 'sudip',
                 'last_name' => 'limbu',
                 'phone_number' => '998238388',
-                'email' => 'sudiplimbu@gmail.com',
+                'email' => 'responsivesudip@gmail.com',
                 'password' => '$2y$10$NQ3DH1z/KpaNPHadhk.t/ei/lP.NgGu2n5HSz2jwfIh3WO/gZZcWK',
                 'provider' => NULL,
                 'provider_id' => NULL,

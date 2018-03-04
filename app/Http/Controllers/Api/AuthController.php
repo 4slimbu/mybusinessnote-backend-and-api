@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Events\ForgotPasswordEvent;
 use App\Events\UnVerifiedUserEvent;
 use App\Exceptions\InvalidCredentialException;
+use App\Exceptions\InvalidRequestException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\AuthValidation\LoginRequest;
+use App\Libraries\ResponseLibrary;
 use App\Models\Business;
 use App\Models\BusinessOption;
 use App\Models\Level;
@@ -15,6 +17,7 @@ use App\Models\User;
 use App\Traits\Authenticable;
 use App\Traits\BusinessOptionable;
 use Carbon\Carbon;
+use Dompdf\Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -197,23 +200,21 @@ class AuthController extends Controller
     }
 
     public function sendForgotPasswordEmail(Request $request) {
-        try {
-            $user = User::where('email', $request->get('email'))->first();
-            if ($user) {
-                $user->fill([
-                    'forgot_password_token' => md5(uniqid(rand(), true)),
-                    'forgot_password_token_expiry_date' => Carbon::now()->addDay(1)
-                ])->save();
+        $user = User::where('email', $request->get('email'))->firstOrFail();
 
-                event(new ForgotPasswordEvent($user));
+        $user->fill([
+            'forgot_password_token' => md5(uniqid(rand(), true)),
+            'forgot_password_token_expiry_date' => Carbon::now()->addDay(1)
+        ])->save();
 
-                return response()->json(['success' => true, 'message' => 'forgot_password_email_sent'], 200);
-            }
-            return response()->json(['success' => false, 'error' => 'send_forgot_password_email_failed'], 400);
-        } catch (\Exception $exception) {
-            dd($exception);
-            return response()->json(['success' => false, 'error' => 'send_forgot_password_email_failed'], 500);
-        }
+        event(new ForgotPasswordEvent($user));
+
+        return ResponseLibrary::success(
+            [
+                'successCode' => 'FORGOT_EMAIL_SENT',
+                'message' => 'Forgot password email sent'
+            ], 200
+        );
 
     }
 
@@ -221,6 +222,7 @@ class AuthController extends Controller
      * Update User Password
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws InvalidRequestException
      */
     public function updatePassword(Request $request)
     {
@@ -228,34 +230,26 @@ class AuthController extends Controller
             ->where('forgot_password_token_expiry_date', '>', Carbon::now())
             ->first();
 
-        if ($authUser) {
-            try {
-                //save data
-                $data = [
-                    'password' => $request->get('password'),
-                    'forgot_password_token' => null,
-                    'forgot_password_token_expiry_date' => null
-                ];
-                $authUser->fill($data)->save();
-
-                $authUser->refresh();
-
-                $customClaims = [
-                    "user" => $authUser
-                ];
-                if (! $token = JWTAuth::fromUser($authUser, $customClaims)) {
-                    return response()->json(['success' => false, 'error' => 'unable_to_create_token'], 500);
-                }
-            } catch (\Exception $e) {
-                // something went wrong whilst attempting to encode the token
-                return response()->json(['success' => false, 'error' => 'update_password_failed'], 500);
-            }
-            // all good so return the token
-            return response()->json(['success' => true, 'token' => $token]);
+        if (!$authUser) {
+            throw new InvalidRequestException();
         }
 
-        // failed response
-        return response()->json(['success' => false, 'error' => 'update_password_failed'], 400);
+        //save data
+        $data = [
+            'password' => $request->get('password'),
+            'forgot_password_token' => null,
+            'forgot_password_token_expiry_date' => null
+        ];
+
+        $authUser->fill($data)->save();
+
+        return ResponseLibrary::success(
+            [
+                'successCode' => 'PASSWORD_UPDATED',
+                'message' => 'Updated Password successfully'
+            ], 200
+        );
+
     }
 
     /**

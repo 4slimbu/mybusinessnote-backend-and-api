@@ -31,4 +31,9 @@ class ResponseLibrary
             'errorMessage' => $exception->getMessage()
         ], $statusCode);
     }
+
+    public static function success($data, $statusCode)
+    {
+        return response()->json($data, $statusCode);
+    }
 }

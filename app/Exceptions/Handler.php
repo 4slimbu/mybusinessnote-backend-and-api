@@ -60,7 +60,12 @@ class Handler extends ExceptionHandler
 
             // Model Not Found Exception
             if ($exception instanceof ModelNotFoundException) {
-                return ResponseLibrary::error('MODEL_NOT_FOUND', 400, $exception);
+                return ResponseLibrary::error('ERR_MODEL_NOT_FOUND', 400, $exception);
+            }
+
+            // Invalid Request
+            if ($exception instanceof InvalidRequestException) {
+                return ResponseLibrary::error('ERR_INVALID_REQUEST', 400, $exception);
             }
 
             // Invalid Credentials
@@ -75,15 +80,15 @@ class Handler extends ExceptionHandler
 
             // JWT Exceptions
             if ($exception instanceof TokenExpiredException) {
-                return ResponseLibrary::error('TOKEN_EXPIRED', 401, $exception);
+                return ResponseLibrary::error('ERR_TOKEN_EXPIRED', 401, $exception);
             } else if ($exception instanceof TokenInvalidException) {
-                return ResponseLibrary::error('TOKEN_INVALID', 400, $exception);
+                return ResponseLibrary::error('ERR_TOKEN_INVALID', 400, $exception);
             } else if ($exception instanceof JWTException) {
-                return ResponseLibrary::error('TOKEN_ERROR', 500, $exception);
+                return ResponseLibrary::error('ERR_TOKEN', 500, $exception);
             }
 
             // Unknown Exception
-            return ResponseLibrary::error('UNKNOWN_ERROR', 500, $exception);
+            return ResponseLibrary::error('ERR_UNKNOWN', 500, $exception);
         }
 
         // Response for Web
