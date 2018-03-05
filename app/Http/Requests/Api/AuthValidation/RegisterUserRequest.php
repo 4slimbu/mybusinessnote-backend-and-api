@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\BusinessValidation;
+namespace App\Http\Requests\Api\AuthValidation;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateFormValidation extends FormRequest
+class RegisterUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,12 @@ class UpdateFormValidation extends FormRequest
     public function rules()
     {
         return [
-            'business_name'             => '',
-            'business_category_id'      => 'numeric',
-            'website'                   => 'url',
-            'abn'                       => '',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|email|unique:users',
+            'phone_number' => 'required',
+            'password' => 'required|min:8|max:20',
+            'captcha_response'=>'recaptcha'
         ];
     }
 }

@@ -29,6 +29,8 @@ class JWTAuthenticate
             //pass without authentication
         } else {
             $token = JWTAuth::getToken();
+            //TODO: user need to be verified and have proper permission to access various sections
+            // so need to create scope and add it to token
             JWTAuth::authenticate($token);
         }
 

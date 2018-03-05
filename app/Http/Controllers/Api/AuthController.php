@@ -8,6 +8,9 @@ use App\Exceptions\InvalidCredentialException;
 use App\Exceptions\InvalidRequestException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\AuthValidation\LoginRequest;
+use App\Http\Requests\Api\AuthValidation\RegisterUserRequest;
+use App\Http\Requests\Api\AuthValidation\UpdateUserRequest;
+use App\Http\Resources\Api\UserResource;
 use App\Libraries\ResponseLibrary;
 use App\Models\Business;
 use App\Models\BusinessOption;
@@ -17,7 +20,6 @@ use App\Models\User;
 use App\Traits\Authenticable;
 use App\Traits\BusinessOptionable;
 use Carbon\Carbon;
-use Dompdf\Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -26,291 +28,17 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 class AuthController extends Controller
 {
     use BusinessOptionable, Authenticable;
-    /**
-     * API Register, on success return JWT Auth token
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function register(Request $request)
-    {
-        $rules = [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email',
-            'phone_number' => 'required',
-            'password' => 'required',
-        ];
 
-
-        $input = $request->only('first_name', 'last_name', 'role_id', 'email', 'phone_number', 'password');
-        $validator = Validator::make($input, $rules);
-
-        if($validator->fails()) {
-            $error = $validator->messages();
-            return response()->json(['success'=> false, 'error'=> $error], 422);
-        }
-
-        //save data
-        $input['role_id'] = 2; //role: customer
-        $user = User::create($input)->refresh();
-
-        $credentials = [
-            'email' => $request->email,
-            'password' => $request->password,
-            'verified' => 1
-        ];
-
-        try {
-            // attempt to verify the credentials and create a token for the user
-            $customClaims = [
-                "user" => $user
-            ];
-
-            if (! $token = JWTAuth::attempt($credentials, $customClaims)) {
-                return response()->json(['success' => false, 'error' => 'Invalid Credentials. Please make sure you entered the right information and you have verified your email address.'], 401);
-            }
-        } catch (JWTException $e) {
-            // something went wrong whilst attempting to encode the token
-            return response()->json(['success' => false, 'error' => 'could_not_create_token'], 500);
-        }
-
-        // all good so return the token
-        return response()->json([
-            'success' => true,
-            'token' => $token
-        ]);
-    }
-
-    /**
-     * API Update User Info
-     *
-     * @param Request $request
-     * @param User $user
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function update(Request $request, User $user)
-    {
-        $rules = [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'phone_number' => 'required',
-        ];
-
-
-        $input = $request->only('first_name', 'last_name', 'phone_number', 'password');
-        $validator = Validator::make($input, $rules);
-
-        if($validator->fails()) {
-            $error = $validator->messages();
-            return response()->json(['success'=> false, 'error'=> $error], 422);
-        }
-
-        //save data
-        $user->fill($input)->save();
-
-
-        // all good so return the user
-        return response()->json([
-            'success' => true,
-            'user' => $user
-        ]);
-    }
-
-    /**
-     * API Check If User Exists
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     * @internal param User $user
-     */
     public function checkIfUserExists(Request $request)
     {
-        $rules = [
-            'email' => 'required|email',
-        ];
-
-
-        $input = $request->only('email');
-        $validator = Validator::make($input, $rules);
-
-        if($validator->fails()) {
-            $error = $validator->messages();
-            return response()->json(['success'=> false, 'error'=> $error], 422);
-        }
-
         //check user
         $user = User::select('id')->where('email', $request->get('email'))->first();
 
-        //return response
-        return response()->json([
-            'user' => ($user) ? true : false
-        ]);
+        return ResponseLibrary::success([
+            'successCode' => 'USER_EXIST_CHECK',
+            'isPresent' => !!$user
+        ], 200);
     }
-
-
-    /**
-     * API Login, on success return JWT Auth token
-     *
-     * @param LoginRequest $request
-     * @return \Illuminate\Http\JsonResponse
-     * @throws InvalidCredentialException
-     */
-    public function login(LoginRequest $request)
-    {
-        $credentials = [
-            'email' => $request->email,
-            'password' => $request->password,
-            'verified' => 1
-        ];
-
-        // attempt to verify the credentials and create a token for the user
-        $authUser = User::where("email", $request->email)
-            ->where("verified", 1)
-            ->first();
-
-        $customClaims = [
-            "user" => $authUser
-        ];
-
-        if (! $token = JWTAuth::attempt($credentials, $customClaims)) {
-            throw new InvalidCredentialException();
-        }
-        // all good so return the token
-        return response()->json(['success' => true, 'token' => $token]);
-    }
-
-    /**
-     * Log out
-     * Invalidate the token, so user cannot use it anymore
-     * They have to re-login to get a new token
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function logout(Request $request) {
-
-        try {
-            JWTAuth::invalidate($request->bearerToken());
-            return response()->json(['success' => true]);
-        } catch (JWTException $e) {
-            // something went wrong whilst attempting to encode the token
-            return response()->json(['success' => false, 'error' => 'Failed to logout, please try again.'], HTTP);
-        }
-    }
-
-    public function sendForgotPasswordEmail(Request $request) {
-        $user = User::where('email', $request->get('email'))->firstOrFail();
-
-        $user->fill([
-            'forgot_password_token' => md5(uniqid(rand(), true)),
-            'forgot_password_token_expiry_date' => Carbon::now()->addDay(1)
-        ])->save();
-
-        event(new ForgotPasswordEvent($user));
-
-        return ResponseLibrary::success(
-            [
-                'successCode' => 'FORGOT_EMAIL_SENT',
-                'message' => 'Forgot password email sent'
-            ], 200
-        );
-
-    }
-
-    /**
-     * Update User Password
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     * @throws InvalidRequestException
-     */
-    public function updatePassword(Request $request)
-    {
-        $authUser = User::where('forgot_password_token', $request->get('forgot_password_token'))
-            ->where('forgot_password_token_expiry_date', '>', Carbon::now())
-            ->first();
-
-        if (!$authUser) {
-            throw new InvalidRequestException();
-        }
-
-        //save data
-        $data = [
-            'password' => $request->get('password'),
-            'forgot_password_token' => null,
-            'forgot_password_token_expiry_date' => null
-        ];
-
-        $authUser->fill($data)->save();
-
-        return ResponseLibrary::success(
-            [
-                'successCode' => 'PASSWORD_UPDATED',
-                'message' => 'Updated Password successfully'
-            ], 200
-        );
-
-    }
-
-    /**
-     * Send Verification Email
-     */
-    public function sendVerificationEmail() {
-        try {
-            if ($authUser = $this->getAuthUser()) {
-                $authUser->fill([
-                    'email_verification_token' => md5(uniqid(rand(), true)),
-                    'email_verification_token_expiry_date' => Carbon::now()->addDay(1)
-                ])->save();
-
-                event(new UnVerifiedUserEvent($authUser));
-
-                return response()->json(['success' => true, 'message' => 'verification_email_sent'], 200);
-            }
-            return response()->json(['success' => false, 'error' => 'authentication_failed'], 401);
-        } catch (\Exception $exception) {
-            return response()->json(['success' => false, 'error' => 'send_verification_email_failed'], 500);
-        }
-    }
-
-    /**
-     * Verify Email
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function verifyEmail(Request $request)
-    {
-        $authUser = User::where('email_verification_token', $request->get('email_verification_token'))
-            ->where('email_verification_token_expiry_date', '>', Carbon::now())
-            ->first();
-
-        if ($authUser) {
-            try {
-                //save data
-                $authUser->fill([
-                    'verified' => 1,
-                    'email_verification_token' => null,
-                    'email_verification_token_expiry_date' => null
-                ])->save();
-
-                $customClaims = [
-                    "user" => $authUser
-                ];
-                if (! $token = JWTAuth::fromUser($authUser, $customClaims)) {
-                    return response()->json(['success' => false, 'error' => ['form' => 'Invalid Credentials.']], 401);
-                }
-            } catch (\Exception $e) {
-                // something went wrong whilst attempting to encode the token
-                return response()->json(['success' => false, 'error' => 'verification_failed'], 500);
-            }
-            // all good so return the token
-            return response()->json(['success' => true, 'token' => $token]);
-        }
-
-        // un-authenticated user
-        return response()->json(['success' => false, 'error' => 'verification_failed'], 401);
-    }
-
 
     public function getBusinessStatus() {
         $business = null;
@@ -351,6 +79,161 @@ class AuthController extends Controller
         ];
 
         return response()->json($data, 200);
+    }
+
+    public function getUser()
+    {
+        return new UserResource($this->getAuthUser());
+    }
+
+    public function login(LoginRequest $request)
+    {
+        $credentials = [
+            'email' => $request->email,
+            'password' => $request->password,
+        ];
+
+        // attempt to verify the credentials and create a token for the user
+        $authUser = User::where("email", $request->email)
+            ->first();
+
+        $customClaims = [
+            "user" => new UserResource($authUser)
+        ];
+
+        if (! $token = JWTAuth::attempt($credentials, $customClaims)) {
+            throw new InvalidCredentialException();
+        }
+        // all good so return the token
+        return ResponseLibrary::success(['successCode' => 'LOGIN_SUCCESS', 'token' => $token], 200);
+    }
+
+    public function logout(Request $request) {
+        JWTAuth::invalidate($request->bearerToken());
+
+        return ResponseLibrary::success(['successCode' => 'LOGOUT_SUCCESS'], 200);
+    }
+
+    public function register(RegisterUserRequest $request)
+    {
+        $user = $this->userRegister($request);
+
+        return ResponseLibrary::success([
+            'successCode' => 'USER_REGISTERED',
+            'token' => $this->getJwtTokenFromUser($user)
+        ], 201);
+    }
+
+    public function sendForgotPasswordEmail(Request $request) {
+        $user = User::where('email', $request->get('email'))->firstOrFail();
+
+        $user->fill([
+            'forgot_password_token' => md5(uniqid(rand(), true)),
+            'forgot_password_token_expiry_date' => Carbon::now()->addDay(1)
+        ])->save();
+
+        event(new ForgotPasswordEvent($user));
+
+        return ResponseLibrary::success([
+                'successCode' => 'FORGOT_EMAIL_SENT',
+                'message' => 'Forgot password email sent'
+            ], 200);
+
+    }
+
+    public function sendVerificationEmail() {
+        try {
+            if ($authUser = $this->getAuthUser()) {
+                $authUser->fill([
+                    'email_verification_token' => md5(uniqid(rand(), true)),
+                    'email_verification_token_expiry_date' => Carbon::now()->addDay(1)
+                ])->save();
+
+                event(new UnVerifiedUserEvent($authUser));
+
+                return response()->json(['success' => true, 'message' => 'verification_email_sent'], 200);
+            }
+            return response()->json(['success' => false, 'error' => 'authentication_failed'], 401);
+        } catch (\Exception $exception) {
+            return response()->json(['success' => false, 'error' => 'send_verification_email_failed'], 500);
+        }
+    }
+
+    public function update(UpdateUserRequest $request)
+    {
+        $inputs = $request->only('first_name', 'last_name', 'phone_number');
+
+        $user = $this->getAuthUser();
+
+        $user->fill($inputs)->save();
+
+        $token = $this->getJwtTokenFromUser($user);
+
+        return ResponseLibrary::success([
+            'successCode' => 'SAVED',
+            'token' => $token
+        ], 200);
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $authUser = User::where('forgot_password_token', $request->get('forgot_password_token'))
+            ->where('forgot_password_token_expiry_date', '>', Carbon::now())
+            ->first();
+
+        if (!$authUser) {
+            throw new InvalidRequestException();
+        }
+
+        //save data
+        $data = [
+            'password' => $request->get('password'),
+            'forgot_password_token' => null,
+            'forgot_password_token_expiry_date' => null
+        ];
+
+        $authUser->fill($data)->save();
+
+        return ResponseLibrary::success(
+            [
+                'successCode' => 'PASSWORD_UPDATED',
+                'message' => 'Updated Password successfully'
+            ], 200
+        );
+
+    }
+
+    public function verifyEmail(Request $request)
+    {
+        $authUser = User::where('email_verification_token', $request->get('email_verification_token'))
+            ->where('email_verification_token_expiry_date', '>', Carbon::now())
+            ->first();
+
+        if ($authUser) {
+            try {
+                //save data
+                $authUser->fill([
+                    'verified' => 1,
+                    'email_verification_token' => null,
+                    'email_verification_token_expiry_date' => null
+                ])->save();
+
+                $customClaims = [
+                    "user" => $authUser
+                ];
+                if (! $token = JWTAuth::fromUser($authUser, $customClaims)) {
+                    return response()->json(['success' => false, 'error' => ['form' => 'Invalid Credentials.']], 401);
+                }
+            } catch (\Exception $e) {
+                // something went wrong whilst attempting to encode the token
+                return response()->json(['success' => false, 'error' => 'verification_failed'], 500);
+            }
+            // all good so return the token
+            return response()->json(['success' => true, 'token' => $token]);
+        }
+
+        // un-authenticated user
+        return response()->json(['success' => false, 'error' => 'verification_failed'], 401);
     }
 
     private function getLevels($business)

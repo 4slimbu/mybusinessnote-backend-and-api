@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\BusinessValidation;
+namespace App\Http\Requests\Api\AuthValidation;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateFormValidation extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,9 @@ class CreateFormValidation extends FormRequest
     public function rules()
     {
         return [
-            'business_name' => 'required',
-            'website' => 'required'
+            'first_name' => 'required_without_all:last_name,phone_number',
+            'last_name' => 'required_without_all:first_name,phone_number',
+            'phone_number' => 'required_without_all:first_name,last_name'
         ];
     }
 }

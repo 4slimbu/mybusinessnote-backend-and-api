@@ -101,7 +101,12 @@ Route::group(['namespace' => 'App\\Http\\Controllers\Api\\', 'middleware' => ['j
     /*
      * User Routes
      */
-    Route::put('/user/{user}', [
+    Route::get('/user', [
+        'as' => 'api.user',
+        'uses' => 'AuthController@getUser'
+    ]);
+
+    Route::put('/user', [
         'as' => 'api.user.update',
         'uses' => 'AuthController@update'
     ]);
@@ -109,6 +114,29 @@ Route::group(['namespace' => 'App\\Http\\Controllers\Api\\', 'middleware' => ['j
     Route::post('/user/logout', [
         'as' => 'api.logout',
         'uses' => 'AuthController@logout'
+    ]);
+
+    /*
+     * User Business
+     */
+    Route::get('/user/business', [
+        'as' => 'api.user.business',
+        'uses' => 'BusinessController@getUserBusiness'
+    ]);
+
+    Route::get('/user/business/status', [
+        'as' => 'api.user.business.status',
+        'uses' => 'BusinessController@getUserBusinessStatus'
+    ]);
+
+    Route::post('/user/{user}/business/setup', [
+        'as' => 'api.user.business.setUp',
+        'uses' => 'BusinessController@setUpUserBusiness'
+    ]);
+
+    Route::put('/user/business', [
+        'as' => 'api.user.business.save',
+        'uses' => 'BusinessController@saveUserBusiness'
     ]);
 
     /*

@@ -5,8 +5,10 @@ namespace App\Exceptions;
 use App\Libraries\ResponseLibrary;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
@@ -56,7 +58,19 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         // Response For Api
-            if ($request->expectsJson()) {
+        if ($request->expectsJson()) {
+
+            if ($exception instanceof MultipleBusinessException) {
+                return ResponseLibrary::error('ERR_MULTIPLE_BUSINESS', 400, $exception);
+            }
+
+            if ($exception instanceof QueryException) {
+                return ResponseLibrary::error('ERR_DATABASE', 500, $exception);
+            }
+            // Method Not Allowed Exception
+            if ($exception instanceof MethodNotAllowedHttpException) {
+                return ResponseLibrary::error('ERR_METHOD_NOT_ALLOWED', 405, $exception);
+            }
 
             // Model Not Found Exception
             if ($exception instanceof ModelNotFoundException) {

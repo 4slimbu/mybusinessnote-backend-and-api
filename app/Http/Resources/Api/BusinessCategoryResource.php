@@ -16,10 +16,10 @@ class BusinessCategoryResource extends Resource
     {
         return [
             'id'            => (string)$this->id,
-            'name' => $this->name,
-            'icon' => asset('images/business-categories/' . $this->icon ),
-            'hover_icon' => asset('images/business-categories/' . $this->hover_icon ),
-            'tooltip' => $this->tooltip
+            'name'          => $this->name,
+            'icon'          => asset('images/business-categories/' . $this->icon ),
+            'hover_icon'    => asset('images/business-categories/' . $this->hover_icon ),
+            'tooltip'       => $this->tooltip
         ];
     }
 }
