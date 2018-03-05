@@ -61,6 +61,9 @@ Route::group(['namespace' => 'App\\Http\\Controllers\Api\\'], function () {
     Route::get('/login/oauth/{driver}', 'SocialAuthController@redirectToProvider')->name('social.oauth');
     Route::get('/login/oauth/{driver}/callback', 'SocialAuthController@handleProviderCallback')->name('social.callback');
 
+    /* Levels */
+    Route::apiResource('levels', 'LevelController');
+
     /* Get Business Categories */
     Route::apiResource('business-categories', 'BusinessCategoryController');
 

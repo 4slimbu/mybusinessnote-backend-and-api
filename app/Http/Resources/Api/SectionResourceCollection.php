@@ -9,19 +9,11 @@ class SectionResourceCollection extends ResourceCollection
     /**
      * Transform the resource into an array.
      * @param \Illuminate\Http\Request $request
-     * @return array
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function toArray($request)
     {
         return SectionResource::collection($this->collection);
     }
 
-    public function with($request)
-    {
-        return [
-            'links'    => [
-                'self' => route('levels.index'),
-            ]
-        ];
-    }
 }

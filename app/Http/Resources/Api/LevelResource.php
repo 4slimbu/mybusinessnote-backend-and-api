@@ -15,19 +15,15 @@ class LevelResource extends Resource
     public function toArray($request)
     {
         return [
-            'id'            => (string)$this->id,
+            'id' => (string)$this->id,
             'name' => $this->name,
-//            'links'         => [
-//                'self' => route('levels.show', ['level' => $this->id]),
-//            ],
-            //prevent infinite loop when called using relationship
-            $this->mergeWhen(
-                Route::currentRouteName() != 'sections.show' &&
-                Route::currentRouteName() != 'sections.index'
-                , [
-                'sections' => new SectionResourceCollection($this->sections)
-            ]),
-
+            'slug' => $this->slug,
+            'icon' => $this->icon,
+            'badge_icon' => $this->icon,
+            'badge_message' => $this->badge_message,
+            'content' => $this->content,
+            'tooltip' => $this->tooltip,
+            'sections' => new SectionResourceCollection($this->sections)
         ];
     }
 }

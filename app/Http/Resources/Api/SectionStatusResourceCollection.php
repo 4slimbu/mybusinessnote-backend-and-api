@@ -9,7 +9,7 @@ class SectionStatusResourceCollection extends ResourceCollection
     /**
      * Transform the resource into an array.
      * @param \Illuminate\Http\Request $request
-     * @return array
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function toArray($request)
     {

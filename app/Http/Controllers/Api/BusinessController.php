@@ -43,7 +43,7 @@ class BusinessController extends BaseApiController
 
         return ResponseLibrary::success([
             'successCode' => 'RECEIVED',
-            'business_status' => new BusinessStatusResource($user->business, $data)
+            'businessStatus' => new BusinessStatusResource($user->business, $data)
         ], 200);
     }
 

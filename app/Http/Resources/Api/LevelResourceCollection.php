@@ -9,21 +9,10 @@ class LevelResourceCollection extends ResourceCollection
     /**
      * Transform the resource into an array.
      * @param \Illuminate\Http\Request $request
-     * @return array
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function toArray($request)
     {
-        return [
-            'data' => LevelResource::collection($this->collection)
-        ];
-    }
-
-    public function with($request)
-    {
-        return [
-            'links'    => [
-                'self' => route('levels.index'),
-            ],
-        ];
+        return LevelResource::collection($this->collection);
     }
 }

@@ -8,6 +8,8 @@ class BusinessCategory extends Model
 {
     protected $fillable = ['name', 'icon', 'hover_icon', 'tooltip'];
 
+    public $uploadDirectory = 'images/business-categories/';
+
     public function businesses()
     {
     	return $this->hasMany(Business::class);

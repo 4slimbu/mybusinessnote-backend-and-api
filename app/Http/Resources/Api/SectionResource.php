@@ -15,18 +15,12 @@ class SectionResource extends Resource
     public function toArray($request)
     {
         return [
-            'id'            => (string)$this->id,
+            'id' => $this->id,
+            'level_id' => $this->level_id,
             'name' => $this->name,
-            //prevent infinite loop when called using relationship
-            $this->mergeWhen(
-                Route::currentRouteName() != 'levels.show' &&
-                Route::currentRouteName() != 'levels.index'
-                , [
-                'level' => new LevelResource($this->level)
-            ]),
-//            'links'         => [
-//                'self' => route('levels.show', ['level' => $this->id]),
-//            ],
+            'slug' => $this->slug,
+            'icon' => $this->icon,
+            'tooltip' => $this->tooltip
         ];
     }
 }

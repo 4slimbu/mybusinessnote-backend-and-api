@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Resources\Api\LevelResource;
 use App\Http\Resources\Api\LevelResourceCollection;
+use App\Libraries\ResponseLibrary;
 use App\Models\Level;
 
 class LevelController extends BaseApiController
@@ -12,10 +13,12 @@ class LevelController extends BaseApiController
     {
         //get data
         $levels = Level::with('sections')
-            ->orderBy('menu_order')
             ->get();
 
-        return new LevelResourceCollection($levels);
+        return ResponseLibrary::success([
+            'successCode' => 'RECEIVED',
+            'levels' => new LevelResourceCollection($levels)
+        ], 200);
 
     }
 

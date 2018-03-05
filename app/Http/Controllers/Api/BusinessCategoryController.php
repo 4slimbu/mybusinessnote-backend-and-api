@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Resources\Api\BusinessCategoryResource;
 use App\Http\Resources\Api\BusinessCategoryResourceCollection;
+use App\Libraries\ResponseLibrary;
 use App\Models\BusinessCategory;
 
 class BusinessCategoryController extends BaseApiController
@@ -12,12 +13,10 @@ class BusinessCategoryController extends BaseApiController
     {
         //get data
         $business_categories = BusinessCategory::get();
-        return new BusinessCategoryResourceCollection($business_categories);
 
-    }
-
-    public function show(BusinessCategory $business_category)
-    {
-        return new BusinessCategoryResource($business_category);
+        return ResponseLibrary::success([
+            'successCode' => 'RECEIVED',
+            'businessCategories' => new BusinessCategoryResourceCollection($business_categories)
+        ], 200);
     }
 }
