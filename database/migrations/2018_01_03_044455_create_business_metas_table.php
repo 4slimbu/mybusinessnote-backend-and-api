@@ -17,6 +17,7 @@ class CreateBusinessMetasTable extends Migration
             $table->increments('id');
             $table->integer('business_id');
             $table->integer('business_option_id');
+            $table->enum('type', ['text', 'file'])->default('text');
             $table->string('key');
             $table->text('value');
             $table->timestamps();

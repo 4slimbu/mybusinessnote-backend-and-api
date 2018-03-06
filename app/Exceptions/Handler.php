@@ -64,6 +64,14 @@ class Handler extends ExceptionHandler
                 return ResponseLibrary::error('ERR_MULTIPLE_BUSINESS', 400, $exception);
             }
 
+            if ($exception instanceof SaveImageException) {
+                return ResponseLibrary::error('ERR_SAVE_IMAGE', 500, $exception);
+            }
+
+            if ($exception instanceof InvalidImageException) {
+                return ResponseLibrary::error('ERR_INVALID_IMAGE', 400, $exception);
+            }
+
             if ($exception instanceof QueryException) {
                 return ResponseLibrary::error('ERR_DATABASE', 500, $exception);
             }

@@ -7,7 +7,7 @@ use App\Http\Resources\Api\SectionResourceCollection;
 use App\Models\Level;
 use App\Models\Section;
 
-class SectionController extends BaseApiController
+class SectionController extends ApiBaseController
 {
     public function index()
     {

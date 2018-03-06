@@ -20,15 +20,7 @@ class CreateBusinessesTable extends Migration {
 			$table->string('business_name', 191)->nullable();
 			$table->string('website', 191)->nullable();
 			$table->string('abn', 191)->nullable();
-			$table->string('acn', 191)->nullable();
-			$table->string('business_email', 191)->nullable();
-			$table->string('business_mobile', 191)->nullable();
-			$table->string('business_general_phone', 191)->nullable();
-			$table->string('address', 191)->nullable();
 			$table->boolean('sell_goods')->nullable();
-			$table->string('tagline', 191)->nullable();
-			$table->string('logo', 191)->nullable();
-			$table->string('brand_color', 191)->nullable();
 			$table->timestamps();
 		});
 	}

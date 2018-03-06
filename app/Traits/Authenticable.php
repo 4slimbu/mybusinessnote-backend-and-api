@@ -3,13 +3,12 @@ namespace App\Traits;
 
 use App\Events\UserRegistered;
 use App\Http\Resources\Api\UserResource;
+use App\Models\BusinessBusinessOption;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 trait Authenticable
@@ -27,11 +26,12 @@ trait Authenticable
                 return  User::where('id', $decodedToken['user']['id'])->firstOrFail();
             }
         }
+
         throw new ModelNotFoundException();
     }
 
     /**
-     * API Register, on success return JWT Auth token
+     * Register Api user
      *
      * @param Request $request
      * @return array|\Illuminate\Http\JsonResponse
@@ -48,30 +48,53 @@ trait Authenticable
         $user = User::create($input)->refresh();
 
         //fire events
-        event(new UserRegistered(User::find($user->id)));
+        event(new UserRegistered($user));
 
         return $user;
     }
 
     /**
-     * Generate Jwt Token from given user
+     * Generate Jwt Token from given user instance
      *
      * @param User $user
      * @return bool
      */
     public function getJwtTokenFromUser(User $user)
     {
-        try {
-            $customClaims = [
-                "user" => new UserResource($user)
-            ];
-            if (! $token = JWTAuth::fromUser($user, $customClaims)) {
-                return false;
-            }
-
-            return $token;
-        } catch (JWTException $e) {
-            return false;
-        }
+        return JWTAuth::fromUser($user, $this->getCustomClaims());
     }
+
+    /**
+     * Authenticate user and return token
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function authenticate(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        $authUser = User::where("email", $request->get('email'))->firstOrFail();
+
+        return JWTAuth::attempt($credentials, $this->getCustomClaims($authUser));
+    }
+
+    private function getCustomClaims(User $user)
+    {
+        return [
+            "user" => new UserResource($user),
+            "scope" => $this->getScope($user)
+        ];
+    }
+
+    private function getScope(User $user)
+    {
+        $businessOptionScope = BusinessBusinessOption::where('business_id', $user->business->id)
+            ->where('status', '!=', 'locked')->select('business_option_id')->pluck('business_option_id')->toArray();
+
+        return [
+            "businessOption" => $businessOptionScope
+        ];
+    }
+
 }

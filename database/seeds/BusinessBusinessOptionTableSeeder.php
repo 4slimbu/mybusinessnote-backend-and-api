@@ -45,7 +45,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 7,
                 'business_option_id' => 4,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -53,7 +53,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 7,
                 'business_option_id' => 5,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -61,7 +61,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 7,
                 'business_option_id' => 6,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -69,7 +69,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 7,
                 'business_option_id' => 7,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -77,7 +77,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 7,
                 'business_option_id' => 8,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -85,7 +85,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 7,
                 'business_option_id' => 9,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -101,7 +101,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 7,
                 'business_option_id' => 11,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -109,7 +109,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 7,
                 'business_option_id' => 12,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -117,7 +117,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 7,
                 'business_option_id' => 13,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -125,7 +125,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 7,
                 'business_option_id' => 14,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -133,7 +133,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 7,
                 'business_option_id' => 15,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -141,7 +141,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 7,
                 'business_option_id' => 16,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -149,7 +149,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 7,
                 'business_option_id' => 17,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -181,7 +181,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 4,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -189,7 +189,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 5,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -197,7 +197,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 6,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -205,7 +205,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 7,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -213,7 +213,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 8,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -221,7 +221,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 9,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -229,7 +229,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 10,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -237,7 +237,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 11,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -245,7 +245,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 12,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -253,7 +253,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 13,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -261,7 +261,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 14,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -269,7 +269,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 15,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -277,7 +277,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 16,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -285,7 +285,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 17,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -293,7 +293,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 18,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -301,7 +301,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 19,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -309,7 +309,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 20,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -317,7 +317,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 21,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -325,7 +325,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 22,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -333,7 +333,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 23,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -341,7 +341,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 24,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -349,7 +349,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 25,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -357,7 +357,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 26,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -365,7 +365,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 27,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -373,7 +373,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 28,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -381,7 +381,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 29,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -389,7 +389,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 30,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -397,7 +397,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 31,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -405,7 +405,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 8,
                 'business_option_id' => 32,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -453,7 +453,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 6,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -461,7 +461,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 7,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -469,7 +469,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 8,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -477,7 +477,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 9,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -485,7 +485,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 10,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -493,7 +493,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 11,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -501,7 +501,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 12,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -509,7 +509,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 13,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -517,7 +517,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 14,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -525,7 +525,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 15,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -533,7 +533,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 16,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -541,7 +541,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 17,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -549,7 +549,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 18,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -557,7 +557,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 19,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -565,7 +565,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 20,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -573,7 +573,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 21,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -581,7 +581,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 22,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -589,7 +589,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 23,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -597,7 +597,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 24,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -605,7 +605,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 25,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -613,7 +613,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 26,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -621,7 +621,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 27,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -629,7 +629,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 28,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -637,7 +637,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 29,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -645,7 +645,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 30,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -653,7 +653,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 31,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -661,7 +661,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 9,
                 'business_option_id' => 32,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -685,7 +685,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 4,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -693,7 +693,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 5,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -701,7 +701,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 6,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -709,7 +709,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 7,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -717,7 +717,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 8,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -725,7 +725,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 9,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -733,7 +733,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 10,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -741,7 +741,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 11,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -749,7 +749,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 12,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -757,7 +757,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 13,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -765,7 +765,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 14,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -773,7 +773,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 15,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -781,7 +781,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 16,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -789,7 +789,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 17,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -797,7 +797,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 18,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -805,7 +805,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 19,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -813,7 +813,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 20,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -821,7 +821,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 21,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -829,7 +829,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 22,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -837,7 +837,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 23,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -845,7 +845,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 24,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -853,7 +853,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 25,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -861,7 +861,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 26,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -869,7 +869,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 27,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -877,7 +877,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 28,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -885,7 +885,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 29,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -893,7 +893,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 30,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -901,7 +901,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 31,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -909,7 +909,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 10,
                 'business_option_id' => 32,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -949,7 +949,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 5,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -957,7 +957,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 6,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -965,7 +965,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 7,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -973,7 +973,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 8,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -981,7 +981,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 9,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -989,7 +989,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 10,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -997,7 +997,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 11,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1005,7 +1005,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 12,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1013,7 +1013,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 13,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1021,7 +1021,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 14,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1029,7 +1029,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 15,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1037,7 +1037,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 16,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1045,7 +1045,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 17,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1053,7 +1053,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 18,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1061,7 +1061,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 19,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1069,7 +1069,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 20,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1077,7 +1077,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 21,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1085,7 +1085,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 22,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1093,7 +1093,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 23,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1101,7 +1101,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 24,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1109,7 +1109,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 25,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1117,7 +1117,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 26,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1125,7 +1125,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 27,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1133,7 +1133,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 28,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1141,7 +1141,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 29,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1149,7 +1149,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 30,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1157,7 +1157,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 31,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1165,7 +1165,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 11,
                 'business_option_id' => 32,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1237,7 +1237,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 12,
                 'business_option_id' => 9,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1245,7 +1245,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 12,
                 'business_option_id' => 10,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1253,7 +1253,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 12,
                 'business_option_id' => 11,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1261,7 +1261,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 12,
                 'business_option_id' => 12,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1269,7 +1269,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 12,
                 'business_option_id' => 13,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1277,7 +1277,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 12,
                 'business_option_id' => 14,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1285,7 +1285,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 12,
                 'business_option_id' => 15,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1293,7 +1293,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 12,
                 'business_option_id' => 16,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1301,7 +1301,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 12,
                 'business_option_id' => 17,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1309,7 +1309,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 12,
                 'business_option_id' => 18,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1317,7 +1317,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 12,
                 'business_option_id' => 19,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1325,7 +1325,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 12,
                 'business_option_id' => 20,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1333,7 +1333,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 12,
                 'business_option_id' => 21,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1341,7 +1341,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 12,
                 'business_option_id' => 22,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1349,7 +1349,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 12,
                 'business_option_id' => 23,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1357,7 +1357,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 12,
                 'business_option_id' => 24,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1365,7 +1365,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 12,
                 'business_option_id' => 25,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1373,7 +1373,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 12,
                 'business_option_id' => 26,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1381,7 +1381,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 12,
                 'business_option_id' => 27,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1389,7 +1389,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 12,
                 'business_option_id' => 28,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1397,7 +1397,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 12,
                 'business_option_id' => 29,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1405,7 +1405,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 12,
                 'business_option_id' => 30,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1413,7 +1413,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 12,
                 'business_option_id' => 31,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1421,7 +1421,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 12,
                 'business_option_id' => 32,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1565,7 +1565,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 13,
                 'business_option_id' => 18,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1573,7 +1573,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 13,
                 'business_option_id' => 19,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1581,7 +1581,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 13,
                 'business_option_id' => 20,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1589,7 +1589,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 13,
                 'business_option_id' => 21,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1597,7 +1597,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 13,
                 'business_option_id' => 22,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1605,7 +1605,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 13,
                 'business_option_id' => 23,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1613,7 +1613,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 13,
                 'business_option_id' => 24,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1621,7 +1621,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 13,
                 'business_option_id' => 25,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1629,7 +1629,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 13,
                 'business_option_id' => 26,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1637,7 +1637,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 13,
                 'business_option_id' => 27,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1645,7 +1645,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 13,
                 'business_option_id' => 28,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1653,7 +1653,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 13,
                 'business_option_id' => 29,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1661,7 +1661,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 13,
                 'business_option_id' => 30,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1669,7 +1669,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 13,
                 'business_option_id' => 31,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1677,7 +1677,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 13,
                 'business_option_id' => 32,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1861,7 +1861,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 14,
                 'business_option_id' => 23,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1869,7 +1869,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 14,
                 'business_option_id' => 24,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1877,7 +1877,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 14,
                 'business_option_id' => 25,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1885,7 +1885,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 14,
                 'business_option_id' => 26,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1893,7 +1893,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 14,
                 'business_option_id' => 27,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1901,7 +1901,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 14,
                 'business_option_id' => 28,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1909,7 +1909,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 14,
                 'business_option_id' => 29,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1917,7 +1917,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 14,
                 'business_option_id' => 30,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1925,7 +1925,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 14,
                 'business_option_id' => 31,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -1933,7 +1933,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 14,
                 'business_option_id' => 32,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
@@ -2189,7 +2189,7 @@ class BusinessBusinessOptionTableSeeder extends Seeder
             array (
                 'business_id' => 15,
                 'business_option_id' => 32,
-                'status' => 'not_touched',
+                'status' => 'locked',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),

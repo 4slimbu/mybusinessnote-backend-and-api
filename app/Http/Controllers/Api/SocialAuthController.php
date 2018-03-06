@@ -106,15 +106,14 @@ class SocialAuthController extends Controller
         }
         //add some default data to user
         $input['role_id'] = 2; //role: customer
-        $input['verified'] = 1; //email verification not required for now
+        $input['verified'] = 1; //email verification not required
         $input['history'] = json_encode([
             'last_visited' => 'business_option?level=getting-started&section=your-business-details'
         ]);
         $user = User::create($input);
 
         //fire events
-        //$user won't return all fields so need to query again
-        event(new UserRegistered(User::find($user->id)));
+        event(new UserRegistered($user->refresh()));
 
         try {
             // attempt to verify the credentials and create a token for the user

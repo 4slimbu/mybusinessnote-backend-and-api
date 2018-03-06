@@ -3,8 +3,9 @@
 namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Support\Facades\Route;
 
-class SectionResource extends Resource
+class AffiliateLinkResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -15,11 +16,8 @@ class SectionResource extends Resource
     {
         return [
             'id' => $this->id,
-            'level_id' => $this->level_id,
-            'name' => $this->name,
-            'slug' => $this->slug,
-            'icon' => asset($this->uploadDirectory . $this->icon),
-            'tooltip' => $this->tooltip
+            'label' => $this->pivot['label'],
+            'link' => $this->link,
         ];
     }
 }

@@ -18,6 +18,8 @@ class BusinessOption extends Model
         'weight'
     ];
 
+    public $uploadDirectory = 'images/business-options/';
+
     //each can have a parent
     public function parent()
     {
@@ -41,7 +43,7 @@ class BusinessOption extends Model
 
     public function affiliateLinks()
     {
-        return $this->belongsToMany(AffiliateLink::class);
+        return $this->belongsToMany(AffiliateLink::class)->withPivot("label");
     }
 
     public function section()

@@ -19,6 +19,7 @@ class BusinessResource extends Resource
             'business_name'         => $this->business_name,
             'user_id'               => $this->user_id,
             'business_category_id'  => $this->business_category_id,
+            'sell_goods'            => $this->sell_goods,
             'website'               => $this->website,
             'abn'                   => $this->abn,
         ];

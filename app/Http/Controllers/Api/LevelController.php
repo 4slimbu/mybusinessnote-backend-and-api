@@ -7,7 +7,7 @@ use App\Http\Resources\Api\LevelResourceCollection;
 use App\Libraries\ResponseLibrary;
 use App\Models\Level;
 
-class LevelController extends BaseApiController
+class LevelController extends ApiBaseController
 {
     public function index()
     {

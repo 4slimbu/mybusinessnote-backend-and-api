@@ -9,7 +9,7 @@ use App\Libraries\ResponseLibrary;
 use App\Traits\Authenticable;
 use Illuminate\Support\Facades\Cache;
 
-class BusinessController extends BaseApiController
+class BusinessController extends ApiBaseController
 {
     use Authenticable;
 
@@ -34,9 +34,9 @@ class BusinessController extends BaseApiController
 //        }
 
         $data = Cache::remember('business-status' . $user->id, 0, function () use($user) {
-            $array['level_status'] = $user->business->levels()->select('id')->get();
-            $array['section_status'] = $user->business->sections()->select('id', 'completed_percent')->get();
-            $array['business_option_status'] = $user->business->businessOptions()->select('id', 'status')->get();
+            $array['levelStatus'] = $user->business->levels()->get();
+            $array['sectionStatus'] = $user->business->sections()->get();
+            $array['businessOptionStatus'] = $user->business->businessOptions()->get();
 
             return $array;
         });

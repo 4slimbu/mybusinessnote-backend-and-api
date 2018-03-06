@@ -6,19 +6,19 @@ use Illuminate\Http\Resources\Json\Resource;
 
 class BusinessStatusResource extends Resource
 {
-    protected $level_status;
+    protected $levelStatus;
 
-    protected $section_status;
+    protected $sectionStatus;
 
-    protected $business_option_status;
+    protected $businessOptionStatus;
 
     public function __construct($resource, $data)
     {
         parent::__construct($resource);
 
-        $this->level_status = isset($data['level_status']) ? $data['level_status'] : [];
-        $this->section_status = isset($data['section_status']) ? $data['section_status'] : [];
-        $this->business_option_status = isset($data['business_option_status']) ? $data['business_option_status'] : [];
+        $this->levelStatus = isset($data['levelStatus']) ? $data['levelStatus'] : [];
+        $this->sectionStatus = isset($data['sectionStatus']) ? $data['sectionStatus'] : [];
+        $this->businessOptionStatus = isset($data['businessOptionStatus']) ? $data['businessOptionStatus'] : [];
     }
 
     /**
@@ -29,10 +29,14 @@ class BusinessStatusResource extends Resource
      */
     public function toArray($request)
     {
+        $levelStatus = $this->levelStatus ? new LevelStatusResourceCollection($this->levelStatus): [];
+        $sectionStatus = $this->sectionStatus ? new SectionStatusResourceCollection($this->sectionStatus): [];
+        $businessOptionStatus = $this->businessOptionStatus ? new BusinessOptionStatusResourceCollection($this->businessOptionStatus): [];
+
         return [
-            'level'                   => new LevelStatusResourceCollection($this->level_status),
-            'section'                 => new SectionStatusResourceCollection($this->section_status),
-            'business_option'         => new BusinessOptionStatusResourceCollection($this->business_option_status),
+            'level'                   => $levelStatus,
+            'section'                 => $sectionStatus,
+            'businessOption'         => $businessOptionStatus,
         ];
     }
 }

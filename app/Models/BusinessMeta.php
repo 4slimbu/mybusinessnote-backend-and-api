@@ -12,4 +12,6 @@ class BusinessMeta extends Model
         'key',
         'value'
     ];
+
+    public $uploadDirectory = 'images/business-options/';
 }

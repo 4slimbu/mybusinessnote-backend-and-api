@@ -3,7 +3,6 @@
 namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Resources\Json\Resource;
-use Illuminate\Support\Facades\Route;
 
 class LevelResource extends Resource
 {
@@ -19,7 +18,7 @@ class LevelResource extends Resource
             'name' => $this->name,
             'slug' => $this->slug,
             'icon' => $this->icon,
-            'badge_icon' => $this->icon,
+            'badge_icon' => asset($this->uploadDirectory . $this->icon),
             'badge_message' => $this->badge_message,
             'content' => $this->content,
             'tooltip' => $this->tooltip,

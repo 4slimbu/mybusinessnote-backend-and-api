@@ -113,7 +113,7 @@ class CategoriesPreferenceController extends BaseController
                     //status
                     $businessOptionWithStatus = $business->businessOptions()->select('status')->where('business_option_id', $businessOption->id)->first();
                     //show only ones that are already viewed by user
-                    if ($businessOptionWithStatus->status === 'not_touched') {
+                    if ($businessOptionWithStatus->status === 'locked') {
                         continue;
                     }
                     $status = ($businessOptionWithStatus) ? $businessOptionWithStatus->status : '';

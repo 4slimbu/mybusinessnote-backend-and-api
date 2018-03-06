@@ -8,6 +8,8 @@ class Level extends Model
 {
     protected $fillable = ['name', 'slug', 'icon', 'badge_icon', 'badge_message', 'content', 'tooltip'];
 
+    public $uploadDirectory = 'images/levels/';
+
     //Each level can have multiple sections
     public function sections() {
         return $this->hasMany(Section::class);

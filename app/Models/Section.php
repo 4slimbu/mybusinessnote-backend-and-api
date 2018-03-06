@@ -8,6 +8,8 @@ class Section extends Model
 {
     protected $fillable = ['name', 'slug', 'level_id', 'icon', 'tooltip'];
 
+    public $uploadDirectory = 'images/sections/';
+
     //Each section belong to a level
     public function level() {
         return $this->belongsTo(Level::class, 'level_id');

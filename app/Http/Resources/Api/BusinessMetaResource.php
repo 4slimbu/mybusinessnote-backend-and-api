@@ -3,8 +3,9 @@
 namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Support\Facades\Route;
 
-class SectionResource extends Resource
+class BusinessMetaResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -13,13 +14,11 @@ class SectionResource extends Resource
      */
     public function toArray($request)
     {
+        $value = ($this->type === 'file') ? asset($this->uploadDirectory . $this->value) : $this->value;
         return [
             'id' => $this->id,
-            'level_id' => $this->level_id,
-            'name' => $this->name,
-            'slug' => $this->slug,
-            'icon' => asset($this->uploadDirectory . $this->icon),
-            'tooltip' => $this->tooltip
+            'key' => $this->key,
+            'value' => $value,
         ];
     }
 }

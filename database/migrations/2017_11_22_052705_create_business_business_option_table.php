@@ -16,7 +16,7 @@ class CreateBusinessBusinessOptionTable extends Migration {
 		{
 			$table->integer('business_id')->unsigned();
 			$table->integer('business_option_id')->unsigned();
-            $table->enum('status', ["not_touched", "skipped", "irrelevant", "done"])->default("not_touched");
+            $table->enum('status', ["locked", "unlocked", "skipped", "irrelevant", "done"])->default("locked");
             $table->timestamps();
             $table->primary(['business_id','business_option_id'], 'pivot_bu_bu_op_id');
 		});
