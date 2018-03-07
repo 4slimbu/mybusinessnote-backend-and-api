@@ -2,20 +2,12 @@
 namespace App\Traits;
 
 use App\Events\LevelOneCompleteEvent;
-use App\Models\Busines;
 use App\Models\Business;
-use App\Models\BusinessCategory;
+use App\Models\BusinessBusinessOption;
+use App\Models\BusinessCategoryBusinessOption;
+use App\Models\BusinessMeta;
 use App\Models\BusinessOption;
-use App\Models\Level;
-use App\Models\Section;
-use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Mockery\Exception;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 trait BusinessOptionable
 {
@@ -119,6 +111,55 @@ trait BusinessOptionable
         $completed_sections = $business->sections()->where('level_id', $businessOption->level_id)->where('completed_percent', 100)->count();
         //calculate percent
         return ($completed_sections/$total_sections) * 100;
+    }
+
+    /**
+     * Refresh Pivot table business_business_option for given business
+     *
+     * This function refresh or create relation data between business and business_option which will be used to
+     * generate relevant business option list for particular business. It removes the intense calculation and persistence
+     * of database which otherwise would be needed in every request. Also, it facilitates performing
+     * various tracking tasks.
+     *
+     * This function need to be called only if any changes to the database are made that affects the
+     * visibility of business-option on any particular business:
+     * 1. admin updates business option's category list
+     * 2. admin adds/deletes business option
+     * 3. admin updates menu order of business option
+     * 3. obviously when user register as business need to be setup automatically for the user
+     *
+     * @param Business $business
+     */
+    public function refreshBusinessBusinessOption(Business $business)
+    {
+        $existingBusinessOptionIds = BusinessBusinessOption::where('business_id', $business->id)->pluck('business_option_id');
+        $newBusinessOptionIds = BusinessOption::pluck('id');
+        $irrelevantBusinessOptionIds = BusinessCategoryBusinessOption::where('business_category_id', $business->business_category_id)->pluck('business_option_id');
+
+        $needToAddBusinessOptionIds = $newBusinessOptionIds->diff($existingBusinessOptionIds)->values();
+        $needToRemoveBusinessOptionIds = $existingBusinessOptionIds->diff($newBusinessOptionIds)->values();
+        $needToUpdateBusinessOptionIds = $existingBusinessOptionIds->diff($irrelevantBusinessOptionIds)->values();
+
+        if (count($needToAddBusinessOptionIds) > 0) {
+            if (count($needToAddBusinessOptionIds) === count($newBusinessOptionIds)) {
+                $business->businessOptions()->attach($needToAddBusinessOptionIds);
+            } else {
+                //TODO: if any of the higher menu order business option id is not locked then status = unlocked else locked
+                $business->businessOptions()->attach($needToAddBusinessOptionIds, ['status' => 'unlocked']);
+            }
+        }
+
+        if (count($needToRemoveBusinessOptionIds) > 0) {
+            $business->businessOptions()->detach($needToRemoveBusinessOptionIds);
+            //remove related data from business_meta table as well
+            BusinessMeta::where('business_id', $business->id)
+                ->whereIn('business_option_id', $needToRemoveBusinessOptionIds)->delete();
+        }
+
+        if (count($needToUpdateBusinessOptionIds) > 0) {
+            BusinessBusinessOption::where('business_id', $business->id)
+                ->whereIn('business_option_id', $needToUpdateBusinessOptionIds)->update(['status' => 'irrelevant']);
+        }
     }
 
 }

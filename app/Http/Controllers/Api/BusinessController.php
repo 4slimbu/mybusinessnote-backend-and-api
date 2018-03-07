@@ -13,6 +13,11 @@ class BusinessController extends ApiBaseController
 {
     use Authenticable;
 
+    /**
+     * Get business of authenticated user
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getUserBusiness()
     {
         $user = $this->getAuthUser();
@@ -23,23 +28,19 @@ class BusinessController extends ApiBaseController
         ], 200);
     }
 
+    /**
+     * Get level, section and business option statuses of authenticated user's business
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getUserBusinessStatus()
     {
         $user = $this->getAuthUser();
 
-//        TODO: make this pseudo-code work
-//        if ($business->needRefresh) {
-//            Cache::forget('business-status' . $user->id);
-//            Business::fill(['needRefresh' => 0])->save();
-//        }
-
-        $data = Cache::remember('business-status' . $user->id, 0, function () use($user) {
-            $array['levelStatus'] = $user->business->levels()->get();
-            $array['sectionStatus'] = $user->business->sections()->get();
-            $array['businessOptionStatus'] = $user->business->businessOptions()->get();
-
-            return $array;
-        });
+        $data = [];
+        $data['levelStatus'] = $user->business->levels()->get();
+        $data['sectionStatus'] = $user->business->sections()->get();
+        $data['businessOptionStatus'] = $user->business->businessOptions()->get();
 
         return ResponseLibrary::success([
             'successCode' => 'RECEIVED',
@@ -47,6 +48,12 @@ class BusinessController extends ApiBaseController
         ], 200);
     }
 
+    /**
+     * Save authenticated user's business
+     *
+     * @param UpdateFormValidation $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function saveUserBusiness(UpdateFormValidation $request)
     {
         $inputs = $request->only('business_name', 'business_category_id', 'website', 'abn');

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class AffiliateLinkTrackerController extends ApiBaseController
 {
     use Authenticable;
+
     /**
      * This tracks the user click on Partner Link
      *

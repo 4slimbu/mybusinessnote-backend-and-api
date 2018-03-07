@@ -14,11 +14,11 @@ class LevelResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => (string)$this->id,
+            'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
-            'icon' => $this->icon,
-            'badge_icon' => asset($this->uploadDirectory . $this->icon),
+            'icon' => asset($this->uploadDirectory . $this->icon),
+            'badge_icon' => asset($this->uploadDirectory . $this->badge_icon),
             'badge_message' => $this->badge_message,
             'content' => $this->content,
             'tooltip' => $this->tooltip,

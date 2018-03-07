@@ -34,9 +34,9 @@ class BusinessStatusResource extends Resource
         $businessOptionStatus = $this->businessOptionStatus ? new BusinessOptionStatusResourceCollection($this->businessOptionStatus): [];
 
         return [
-            'level'                   => $levelStatus,
-            'section'                 => $sectionStatus,
-            'businessOption'         => $businessOptionStatus,
+            'levelStatuses'                   => $levelStatus,
+            'sectionStatuses'                 => $sectionStatus,
+            'businessOptionStatuses'         => $businessOptionStatus,
         ];
     }
 }

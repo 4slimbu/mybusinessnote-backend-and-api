@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Traits\Authenticable;
 use App\Traits\BusinessOptionable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 class Business extends Model
 {
@@ -71,6 +70,7 @@ class Business extends Model
             ->with([$relation => $constraint]);
     }
 
+    //TODO: move this to repository
     public function setUp(User $user)
     {
         $request = app('request');

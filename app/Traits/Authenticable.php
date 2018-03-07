@@ -2,6 +2,7 @@
 namespace App\Traits;
 
 use App\Events\UserRegistered;
+use App\Exceptions\InvalidCredentialException;
 use App\Http\Resources\Api\UserResource;
 use App\Models\BusinessBusinessOption;
 use App\Models\User;
@@ -15,6 +16,7 @@ trait Authenticable
 {
     /**
      * Get user using jwt-token
+     *
      * @return mixed
      */
     private function getAuthUser()
@@ -37,7 +39,7 @@ trait Authenticable
      * @return array|\Illuminate\Http\JsonResponse
      * @throws Exception
      */
-    private function userRegister(Request $request)
+    private function registerUser(Request $request)
     {
         $input = $request->only('first_name', 'last_name', 'role_id', 'email', 'phone_number', 'password');
 
@@ -69,14 +71,23 @@ trait Authenticable
      *
      * @param Request $request
      * @return mixed
+     * @throws InvalidCredentialException
      */
     public function authenticate(Request $request)
     {
         $credentials = $request->only('email', 'password');
 
-        $authUser = User::where("email", $request->get('email'))->firstOrFail();
+        $authUser = User::where("email", $request->get('email'))->first();
 
-        return JWTAuth::attempt($credentials, $this->getCustomClaims($authUser));
+        if (! $authUser) {
+            throw new InvalidCredentialException();
+        }
+
+        if (! $token = JWTAuth::attempt($credentials, $this->getCustomClaims($authUser))) {
+            throw new InvalidCredentialException();
+        }
+
+        return $token;
     }
 
     private function getCustomClaims(User $user)

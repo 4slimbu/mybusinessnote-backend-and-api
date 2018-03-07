@@ -15,6 +15,13 @@ class BusinessOptionController extends ApiBaseController
 {
     use BusinessOptionable, Authenticable;
 
+    /**
+     * Get business option with business meta and partner's affiliate links
+     * associated with it
+     *
+     * @param BusinessOption $business_option
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function show(BusinessOption $business_option)
     {
         $data = [];
@@ -37,15 +44,12 @@ class BusinessOptionController extends ApiBaseController
     }
 
     /**
-     * Insert/Update specified Business Option
-     *
-     * It also insert/update related pivot tables to track progress
-     * and also insert/update business-meta data
+     * Save business option of authenticated user
+     * It also trigger various events to sync the business status
      *
      * @param Request $request
      * @param BusinessOption $business_option
      * @return \Illuminate\Http\JsonResponse
-     * @throws \Exception
      */
     public function save(Request $request, BusinessOption $business_option)
     {

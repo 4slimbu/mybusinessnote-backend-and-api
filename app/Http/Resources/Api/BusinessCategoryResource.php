@@ -15,7 +15,7 @@ class BusinessCategoryResource extends Resource
     public function toArray($request)
     {
         return [
-            'id'            => (string)$this->id,
+            'id'            => $this->id,
             'name'          => $this->name,
             'icon'          => asset($this->uploadDirectory . $this->icon ),
             'hover_icon'    => asset($this->uploadDirectory . $this->hover_icon ),
