@@ -19,7 +19,7 @@ class LevelController extends ApiBaseController
             ->get();
 
         return ResponseLibrary::success([
-            'successCode' => 'RECEIVED',
+            'successCode' => 'FETCHED',
             'levels' => new LevelResourceCollection($levels)
         ], 200);
 

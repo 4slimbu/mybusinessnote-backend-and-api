@@ -16,6 +16,7 @@ class SectionStatusResource extends Resource
     {
         return [
             'id' => $this->id,
+            'level_id' => $this->level_id,
             'completed_percent' => $this->pivot['completed_percent'],
             'last_updated' => $this->pivot['updated_at']
         ];

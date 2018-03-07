@@ -23,7 +23,7 @@ class BusinessCategoryController extends ApiBaseController
         $business_categories = BusinessCategory::get();
 
         return ResponseLibrary::success([
-            'successCode' => 'RECEIVED',
+            'successCode' => 'FETCHED',
             'businessCategories' => new BusinessCategoryResourceCollection($business_categories)
         ], 200);
     }

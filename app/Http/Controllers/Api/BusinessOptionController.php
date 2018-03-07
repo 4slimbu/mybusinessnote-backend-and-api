@@ -38,7 +38,7 @@ class BusinessOptionController extends ApiBaseController
         $data['affiliateLinks'] = $business_option->affiliateLinks()->get();
 
         return ResponseLibrary::success([
-            'successCode' => 'RECEIVED',
+            'successCode' => 'FETCHED',
             'businessOption' => new BusinessOptionResource($business_option, $data)
         ], 200);
     }

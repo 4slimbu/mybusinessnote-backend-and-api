@@ -23,7 +23,7 @@ class BusinessController extends ApiBaseController
         $user = $this->getAuthUser();
 
         return ResponseLibrary::success([
-            'successCode' => 'RECEIVED',
+            'successCode' => 'FETCHED',
             'business' => new BusinessResource($user->business)
         ], 200);
     }
@@ -43,7 +43,7 @@ class BusinessController extends ApiBaseController
         $data['businessOptionStatus'] = $user->business->businessOptions()->get();
 
         return ResponseLibrary::success([
-            'successCode' => 'RECEIVED',
+            'successCode' => 'FETCHED',
             'businessStatus' => new BusinessStatusResource($user->business, $data)
         ], 200);
     }

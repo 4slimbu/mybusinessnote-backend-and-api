@@ -47,7 +47,7 @@ class ApiAuthController extends Controller
     public function getUser()
     {
         return ResponseLibrary::success([
-            'successCode' => 'RECEIVED',
+            'successCode' => 'FETCHED',
             'user' => new UserResource($this->getAuthUser())
         ], 200);
     }

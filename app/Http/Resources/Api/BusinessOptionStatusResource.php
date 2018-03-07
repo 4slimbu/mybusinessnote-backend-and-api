@@ -16,6 +16,8 @@ class BusinessOptionStatusResource extends Resource
     {
         return [
             'id' => $this->id,
+            'level_id' => $this->level_id,
+            'section_id' => $this->section_id,
             'status' => $this->pivot['status'],
             'last_updated' => $this->pivot['updated_at']
         ];
