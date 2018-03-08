@@ -98,7 +98,7 @@ class ApiAuthController extends Controller
 
         return ResponseLibrary::success([
             'successCode' => 'USER_REGISTERED',
-            'token' => $this->getJwtTokenFromUser($user)
+            'token' => $this->getTokenFromUser($user)
         ], 201);
     }
 
@@ -161,7 +161,7 @@ class ApiAuthController extends Controller
 
         $user->fill($inputs)->save();
 
-        $token = $this->getJwtTokenFromUser($user);
+        $token = $this->getTokenFromUser($user);
 
         return ResponseLibrary::success([
             'successCode' => 'SAVED',
@@ -231,7 +231,7 @@ class ApiAuthController extends Controller
 
         return ResponseLibrary::success([
             'successCode' => 'VERIFIED',
-            'token' => $this->getJwtTokenFromUser($authUser)
+            'token' => $this->getTokenFromUser($authUser)
         ], 200);
     }
 

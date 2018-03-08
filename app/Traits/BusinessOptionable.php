@@ -2,6 +2,7 @@
 namespace App\Traits;
 
 use App\Events\LevelOneCompleteEvent;
+use App\Http\Resources\Api\BusinessStatusResource;
 use App\Models\Business;
 use App\Models\BusinessBusinessOption;
 use App\Models\BusinessCategoryBusinessOption;
@@ -31,18 +32,12 @@ trait BusinessOptionable
         $business_option_status = ($data['business_option_status']) ? $data['business_option_status'] : null;
 
         //sync business_business_option table
-        $business->businessOptions()->detach($business_option->id);
-        $business->businessOptions()->attach([$business_option->id => ['status' => $business_option_status]]);
-
-        //TODO: improve
-        //sync business_section table
-        //when there is business_category_id as filter, it is applied to section only for now
-        //assuming at least one business-option will be there in a section and no of section in a level is constant
-        //but it can change in the future
+        BusinessBusinessOption::where('business_id', $business->id)
+            ->where('business_option_id', $business_option->id)->update(['status' => $business_option_status]);
 
         $section_current_completed_percent = $business->sections()->where('id', $business_option->section->id)->first() ?
             $business->sections()->where('id', $business_option->section->id)->first()->pivot->completed_percent : 0;
-        $section_completed_percent = $this->getSectionCompletedPercent($business, $business_option, $business_category_id);
+        $section_completed_percent = $this->getSectionCompletedPercent($business, $business_option);
         $business->sections()->detach($business_option->section->id);
         $business->sections()->attach([$business_option->section->id => [
             'completed_percent' => $section_completed_percent,
@@ -78,14 +73,13 @@ trait BusinessOptionable
      * @param Business $business
      * @param BusinessOption $business_option
      * @return float|int
-     * @internal param null $business_category_id
      */
     private function getSectionCompletedPercent(Business $business, BusinessOption $business_option)
     {
-        //get total weight of  business options under given business_category_id and section
+        //get total weight of  business options under given business
         $business_options_total_weight = $business->businessOptions()
             ->where('section_id', $business_option->section->id)
-            ->where('status', '!=', 'irrelevant')->sum('weight');;
+            ->where('status', '!=', 'irrelevant')->sum('weight');
         //get total weight of completed business options under given section
         $completed_business_options_weight = $business->businessOptions()
             ->where('section_id', $business_option->section->id)
@@ -140,15 +134,39 @@ trait BusinessOptionable
         $needToRemoveBusinessOptionIds = $existingBusinessOptionIds->diff($newBusinessOptionIds)->values();
         $needToUpdateBusinessOptionIds = $existingBusinessOptionIds->diff($irrelevantBusinessOptionIds)->values();
 
+        // add new business options
         if (count($needToAddBusinessOptionIds) > 0) {
+            // first time
             if (count($needToAddBusinessOptionIds) === count($newBusinessOptionIds)) {
                 $business->businessOptions()->attach($needToAddBusinessOptionIds);
+
+                // unlock the default business options
+                $defaultUnlockedBusinessOptionIds = config('mbj.unlocked_business_option');
+                foreach ($defaultUnlockedBusinessOptionIds as $item) {
+                    BusinessBusinessOption::where('business_id', $business->id)
+                        ->where('business_option_id', $item)->update(['status' => 'unlocked']);
+                }
+                // unlock next relevant business option
+                $this->unlockNextBusinessOption($business, BusinessOption::find(max($defaultUnlockedBusinessOptionIds)));
             } else {
-                //TODO: if any of the higher menu order business option id is not locked then status = unlocked else locked
-                $business->businessOptions()->attach($needToAddBusinessOptionIds, ['status' => 'unlocked']);
+                // add new business options
+                foreach ($needToAddBusinessOptionIds as $item) {
+                    // if other business options exist whose menu_order is higher than the current one and have status unlocked
+                    // then current business option should also have status unlocked else it should have status locked
+                    $currentBusinessOption = BusinessOption::find($item);
+                    $higherUnlockedBusinessOptionCount = $business->businessOptions()->where('menu_order', '>', $currentBusinessOption->menu_order)
+                        ->where('status', '!=', 'locked')->count();
+
+                    if ($higherUnlockedBusinessOptionCount > 0) {
+                        $business->businessOptions()->attach($item, ['status' => 'unlocked']);
+                    } else {
+                        $business->businessOptions()->attach($needToAddBusinessOptionIds, ['status' => 'locked']);
+                    }
+                }
             }
         }
 
+        // remove deleted business options
         if (count($needToRemoveBusinessOptionIds) > 0) {
             $business->businessOptions()->detach($needToRemoveBusinessOptionIds);
             //remove related data from business_meta table as well
@@ -156,10 +174,38 @@ trait BusinessOptionable
                 ->whereIn('business_option_id', $needToRemoveBusinessOptionIds)->delete();
         }
 
+        // update unwanted business options status to irrelevant
         if (count($needToUpdateBusinessOptionIds) > 0) {
             BusinessBusinessOption::where('business_id', $business->id)
                 ->whereIn('business_option_id', $needToUpdateBusinessOptionIds)->update(['status' => 'irrelevant']);
         }
     }
 
+    /**
+     * Unlock next relevant business option for given business
+     *
+     * @param Business $business
+     * @param BusinessOption $currentBusinessOption
+     */
+    public function unlockNextBusinessOption(Business $business, BusinessOption $currentBusinessOption)
+    {
+        $nextBusinessOption = $business->businessOptions()
+            ->where('menu_order', '>', $currentBusinessOption->menu_order)->first();
+
+        if ($nextBusinessOption) {
+            if ($nextBusinessOption->pivot['status'] === 'locked') {
+                BusinessBusinessOption::where('business_id', $business->id)
+                    ->where('business_option_id', $nextBusinessOption->id)->update(['status' => 'unlocked']);
+            }
+        }
+    }
+
+    public function refreshAllRelatedStatusForCurrentBusinessOption($business, $currentBusinessOption)
+    {
+        $data['levelStatus'] = $business->levels()->where('id', $currentBusinessOption->level_id)->get();
+        $data['sectionStatus'] = $business->sections()->where('id', $currentBusinessOption->section_id)->get();
+        $data['businessOptionStatus'] = $business->businessOptions()->where('id', $currentBusinessOption->id)->get();
+
+        return new BusinessStatusResource($business, $data);
+    }
 }

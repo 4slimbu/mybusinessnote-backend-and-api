@@ -132,7 +132,7 @@ class CategoriesPreferenceController extends BaseController
                         'status' => $status,
                         'url' => getenv('REACT_APP_URL') . '/level/' . $businessOption->level->slug . '/section/'
                             . $businessOption->section->slug . '/bo/' . $businessOption->id . '/?token='
-                            . $this->getJwtTokenFromUser(Auth::user()),
+                            . $this->getTokenFromUser(Auth::user()),
                         'businessMetas' => $transformedBusinessMetaData
                     ];
                 }

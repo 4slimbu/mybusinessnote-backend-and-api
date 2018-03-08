@@ -15,7 +15,7 @@ class BaseController extends Controller
         View::composer($path, function($view)
         {
             $view->with('react_app_url', getenv('REACT_APP_URL'));
-            $view->with('jwt_token', $this->getJwtTokenFromUser(Auth::user()));
+            $view->with('jwt_token', $this->getTokenFromUser(Auth::user()));
             $view->with('root_route', 'user.dashboard');
             $view->with('base_route', $this->base_route);
             $view->with('view_path', $this->view_path);

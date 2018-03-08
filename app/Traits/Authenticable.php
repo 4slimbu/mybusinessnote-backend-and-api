@@ -4,12 +4,13 @@ namespace App\Traits;
 use App\Events\UserRegistered;
 use App\Exceptions\InvalidCredentialException;
 use App\Http\Resources\Api\UserResource;
-use App\Models\BusinessBusinessOption;
+use App\Models\BusinessOption;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 trait Authenticable
@@ -61,9 +62,33 @@ trait Authenticable
      * @param User $user
      * @return bool
      */
-    public function getJwtTokenFromUser(User $user)
+    public function getTokenFromUser(User $user)
     {
-        return JWTAuth::fromUser($user, $this->getCustomClaims());
+        return JWTAuth::fromUser($user, $this->getCustomClaims($user));
+    }
+
+    /**
+     * This invalidates the current token and generate new token with latest user information
+     * and user scope
+     *
+     * @return bool
+     * @throws JWTException
+     */
+    public function refreshToken()
+    {
+        $token = JWTAuth::getToken();
+        if ($token) {
+            $decodedToken = JWTAuth::decode($token);
+
+            if ($decodedToken) {
+                $user = User::where('id', $decodedToken['user']['id'])->firstOrFail();
+                // if user, invalidate the current token and return new token
+                JWTAuth::invalidate($token);
+                return $this->getTokenFromUser($user);
+            }
+            throw new JWTException();
+        }
+        throw new JWTException();
     }
 
     /**
@@ -90,6 +115,12 @@ trait Authenticable
         return $token;
     }
 
+    /**
+     * Returns array of data to be attached to token
+     *
+     * @param User $user
+     * @return array
+     */
     private function getCustomClaims(User $user)
     {
         return [
@@ -98,13 +129,24 @@ trait Authenticable
         ];
     }
 
+    /**
+     * Return array of sections and business options user has access to
+     *
+     * @param User $user
+     * @return array
+     */
     private function getScope(User $user)
     {
-        $businessOptionScope = BusinessBusinessOption::where('business_id', $user->business->id)
-            ->where('status', '!=', 'locked')->select('business_option_id')->pluck('business_option_id')->toArray();
+        // business options id whose status isn't locked
+        $businessOptionScope = $user->business->businessOptions()
+            ->where('status', '!=', 'locked')->pluck('business_option_id');
+
+        // get section_id of business options which are unlocked
+        $sectionScope = BusinessOption::whereIn('id', $businessOptionScope)->pluck('section_id')->unique()->values();
 
         return [
-            "businessOption" => $businessOptionScope
+            "sectionScope" => $sectionScope,
+            "businessOptionScope" => $businessOptionScope
         ];
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Resources\Api\BusinessMetaResourceCollection;
 use App\Http\Resources\Api\BusinessOptionResource;
 use App\Libraries\ImageLibrary;
 use App\Libraries\ResponseLibrary;
@@ -58,6 +59,65 @@ class BusinessOptionController extends ApiBaseController
         $business = $authUser->business;
         $business_meta = $request->get('business_meta') ? $request->get('business_meta') : [];
 
+        if ($business_meta) {
+            // save business metas
+            $this->saveBusinessMetas($business, $business_option, $business_meta);
+            $data = [
+                'business_category_id' => $business->business_category_id,
+                'business_option_status' => 'done'
+            ];
+            $this->unlockNextBusinessOption($business, $business_option);
+            $this->syncBusinessPivotTables($business, $business_option, $data);
+
+        } else {
+            if (
+                $request->get('business_option_status') === 'irrelevant' ||
+                $request->get('business_option_status') === 'skipped'
+            ) {
+                $business_option_status = $request->get('business_option_status');
+                BusinessMeta::where('business_id', $business->id)->where('business_option_id', $business_option->id)->delete();
+
+                $data = [
+                    'business_category_id' => $business->business_category_id,
+                    'business_option_status' => $business_option_status
+                ];
+                $this->unlockNextBusinessOption($business, $business_option);
+                $this->syncBusinessPivotTables($business, $business_option, $data);
+            }
+        }
+
+        // prepare data
+        $business_option = $authUser->business->businessOptions()
+            ->where('business_business_option.business_option_id', $business_option->id)->first();
+
+        $businessMetas = $business_option->businessMetas()
+            ->where('business_id', $authUser->business->id)->get();
+
+        $businessStatus = $this->refreshAllRelatedStatusForCurrentBusinessOption($business, $business_option);
+        //return response
+        return ResponseLibrary::success([
+            'successCode' => 'SAVED',
+            'businessOption' => [
+                'id' => $business_option->id,
+                'level_id' => $business_option->level_id,
+                'section_id' => $business_option->section_id,
+                'status' => $business_option->pivot['status'],
+                'businessMetas' => new BusinessMetaResourceCollection($businessMetas)
+            ],
+            'businessStatus' => $businessStatus,
+            'token' => $this->getTokenFromUser($authUser)
+        ], 200);
+    }
+
+    /**
+     * Save business metas related to business option
+     *
+     * @param $business
+     * @param $business_option
+     * @param $business_meta
+     */
+    private function saveBusinessMetas($business, $business_option, $business_meta)
+    {
         foreach ($business_meta as $key => $value) {
             //TODO: improve image handling
             if (ImageLibrary::isBase64Image($value)) {
@@ -81,38 +141,6 @@ class BusinessOptionController extends ApiBaseController
             }
 
         }
-
-        // Sync business option status
-        $business_option_status = 'done';
-        if (
-                $request->get('business_option_status') === 'irrelevant' ||
-                $request->get('business_option_status') === 'skipped'
-            ) {
-            $business_option_status = $request->get('business_option_status');
-            BusinessMeta::where('business_id', $business->id)->where('business_option_id', $business_option->id)->delete();
-        }
-
-        $data = [
-            'business_category_id' => $business->business_category_id,
-            'business_option_status' => $business_option_status
-        ];
-        $this->syncBusinessPivotTables($business, $business_option, $data);
-
-        if ($authUser) {
-            $business_option = $authUser->business->businessOptions()
-                ->where('business_business_option.business_option_id', $business_option->id)->first();
-
-            $data['businessMetas'] = $business_option->businessMetas()
-                ->where('business_id', $authUser->business->id)->get();
-        }
-
-        $data['affiliateLinks'] = $business_option->affiliateLinks()->get();
-
-        //return response
-        return ResponseLibrary::success([
-            'successCode' => 'SAVED',
-            'businessOption' => new BusinessOptionResource($business_option, $data),
-        ], 200);
     }
 
 }

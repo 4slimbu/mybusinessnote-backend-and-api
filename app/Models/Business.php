@@ -84,9 +84,7 @@ class Business extends Model
         ]);
 
         // Set up business_business_options with all the available business_options
-        $relevant_business_options = BusinessCategory::find($business_category_id)->businessOptions()
-            ->where('business_category_id', $business_category_id)->pluck('id');
-        $business->businessOptions()->attach($relevant_business_options);
+        $this->refreshBusinessBusinessOption($business);
 
         //sync business with default business options determined by business_category_id
         $data = [

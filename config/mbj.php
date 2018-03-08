@@ -9,4 +9,5 @@ return [
         ],
     ],
     'main_app_url' => env('MAIN_APP_URL'),
+    'unlocked_business_option' => [1, 2, 3]
 ];
