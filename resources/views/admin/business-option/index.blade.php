@@ -5,9 +5,6 @@
         
         <useraction title="{{ $panel_name }}" useractions="{{ json_encode($panel_actions) }}"></useraction>
         
-        {{--<p>Note: Supported nesting depth: 4 <br />--}}
-            {{--Eg: Top Business Option -> Business Option -> Child Business Option -> Grand Child Business Option--}}
-        {{--</p>--}}
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>

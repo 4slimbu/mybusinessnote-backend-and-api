@@ -4,9 +4,7 @@ namespace App\Http\Controllers\UserDashboard;
 
 
 use App\Models\BusinessMeta;
-use App\Models\Level;
 use App\Models\Section;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Session, AppHelper, PDF;
 
@@ -52,8 +50,9 @@ class CategoriesPreferenceController extends BaseController
         $data = [];
 
         //get data
-        $data['user'] = User::with('business')->where('id', Auth::user()->id)->first();
+        $data['user'] = Auth::user()->load('business');
         $relatedBusinessOptions = $data['user']->business->businessOptions()->select('id', 'level_id', 'section_id', 'name', 'status')->get();
+        $relatedBusinessOptions->load('level', 'section');
         $data['groupedBusinessOptions'] = $this->groupBySectionSlug($data['user']->business, $relatedBusinessOptions);
 
         return view(parent::loadViewData($this->view_path . '.index'), compact('data'));
@@ -84,7 +83,7 @@ class CategoriesPreferenceController extends BaseController
                 $data[] = [
                     'id' => $section->id,
                     'name' => $section->name,
-                    'businessOptions' => $this->getRelatedBusinessOptions($section, $business, $businessOptions, $businessMetas)
+                    'businessOptions' => $this->getRelatedBusinessOptions($section, $businessOptions, $businessMetas)
                 ];
             }
         }
@@ -96,27 +95,25 @@ class CategoriesPreferenceController extends BaseController
      * Get related business options for given section, business and business options
      *
      * @param $section
-     * @param $business
      * @param $businessOptions
      * @param $businessMetas
      * @return array
      * @internal param $business
+     * @internal param $business
      */
-    private function getRelatedBusinessOptions($section, $business, $businessOptions, $businessMetas)
+    private function getRelatedBusinessOptions($section, $businessOptions, $businessMetas)
     {
         $data = [];
-        $businessOptions->load('level', 'section');
 
         if ($section && $businessOptions) {
             foreach ($businessOptions as $businessOption) {
                 if ($businessOption->section->slug === $section->slug) {
                     //status
-                    $businessOptionWithStatus = $business->businessOptions()->select('status')->where('business_option_id', $businessOption->id)->first();
                     //show only ones that are already viewed by user
-                    if ($businessOptionWithStatus->status === 'locked') {
+                    $status = ($businessOption->status) ? $businessOption->status : '';
+                    if ($status === 'not_touched') {
                         continue;
                     }
-                    $status = ($businessOptionWithStatus) ? $businessOptionWithStatus->status : '';
 
                     //business meta
                     $businessMetaData = $businessMetas->filter(function ($value, $key) use($businessOption) {

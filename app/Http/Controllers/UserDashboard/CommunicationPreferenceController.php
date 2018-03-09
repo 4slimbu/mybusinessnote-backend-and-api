@@ -5,7 +5,6 @@ namespace App\Http\Controllers\UserDashboard;
 
 use App\Events\BrontoSubscriptionUpdated;
 use App\Events\CampaignMonitorSubscriptionUpdated;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Session, AppHelper, PDF;
@@ -42,7 +41,7 @@ class CommunicationPreferenceController extends BaseController
         $data = [];
 
         //get data
-        $data['user'] = User::with('business')->where('id', Auth::user()->id)->first();
+        $data['user'] = Auth::user()->load('business');
 
         return view(parent::loadViewData($this->view_path . '.edit'), compact('data'));
     }
@@ -63,7 +62,7 @@ class CommunicationPreferenceController extends BaseController
         ];
 
         //update user
-        $user = User::where('id', Auth::user()->id)->first();
+        $user = Auth::user();
         $user->update($input);
 
         //fire events
