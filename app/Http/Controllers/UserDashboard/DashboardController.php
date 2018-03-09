@@ -5,7 +5,6 @@ namespace App\Http\Controllers\UserDashboard;
 
 use App\Models\BusinessMeta;
 use App\Models\Level;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Session, AppHelper, PDF;
 
@@ -52,7 +51,7 @@ class DashboardController extends BaseController
         $data = [];
 
         //get data
-        $data['user'] = User::with('business')->where('id', Auth::user()->id)->first();
+        $data['user'] = Auth::user()->load('business');
         $relatedBusinessOptions = $data['user']->business->businessOptions()->select('id', 'section_id', 'name', 'status')->get();
         $data['groupedBusinessOptions'] = $this->groupByLevelAndSection($data['user']->business, $relatedBusinessOptions);
 
@@ -66,7 +65,7 @@ class DashboardController extends BaseController
         $data = [];
 
         //get data
-        $data['user'] = User::with('business')->where('id', Auth::user()->id)->first();
+        $data['user'] = Auth::user()->load('business');
         $relatedBusinessOptions = $data['user']->business->businessOptions()->select('id', 'section_id', 'name', 'status')->get();
         $data['groupedBusinessOptions'] = $this->groupByLevelAndSection($data['user']->business, $relatedBusinessOptions);
 
@@ -103,7 +102,7 @@ class DashboardController extends BaseController
                 $data[] = [
                     'id' => $level->id,
                     'name' => $level->name,
-                    'sections' => $this->getRelatedSections($level, $business, $businessOptions, $businessMetas)
+                    'sections' => $this->getRelatedSections($level, $businessOptions, $businessMetas)
                 ];
             }
         }
@@ -115,13 +114,13 @@ class DashboardController extends BaseController
      * Gets related section for given level, business and business options
      *
      * @param $level
-     * @param $business
      * @param $businessOptions
      * @param $businessMetas
      * @return array
      * @internal param $business
+     * @internal param $business
      */
-    private function getRelatedSections($level, $business, $businessOptions, $businessMetas)
+    private function getRelatedSections($level, $businessOptions, $businessMetas)
     {
         $data = [];
         if ($level->sections) {
@@ -129,7 +128,7 @@ class DashboardController extends BaseController
                 $data[] = [
                     'id' => $section->id,
                     'name' => $section->name,
-                    'businessOptions' => $this->getRelatedBusinessOptions($section, $business, $businessOptions, $businessMetas)
+                    'businessOptions' => $this->getRelatedBusinessOptions($section, $businessOptions, $businessMetas)
                 ];
             }
         }
@@ -141,22 +140,20 @@ class DashboardController extends BaseController
      * Get related business options for given section, business and business options
      *
      * @param $section
-     * @param $business
      * @param $businessOptions
      * @param $businessMetas
      * @return array
      * @internal param $business
+     * @internal param $business
      */
-    private function getRelatedBusinessOptions($section, $business, $businessOptions, $businessMetas)
+    private function getRelatedBusinessOptions($section, $businessOptions, $businessMetas)
     {
         $data = [];
-
         if ($section && $businessOptions) {
             foreach ($businessOptions as $businessOption) {
                 if ($businessOption->section_id === $section->id) {
                     //status
-                    $businessOptionWithStatus = $business->businessOptions()->select('status')->where('business_option_id', $businessOption->id)->first();
-                    $status = ($businessOptionWithStatus) ? $businessOptionWithStatus->status : '';
+                    $status = ($businessOption->status) ? $businessOption->status : '';
 
                     //business meta
                     $businessMetaData = $businessMetas->filter(function ($value, $key) use($businessOption) {
