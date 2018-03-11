@@ -17,14 +17,13 @@ class JWTAuthenticate
     public function handle($request, Closure $next)
     {
         $path = $request->path();
-        $level = $request->get('level');
-        $section = $request->get('section');
         /*
          * Pass special entry level routes without authentication
          */
         if (
-            ($path === 'api/business-option' && $level === 'getting-started' && $section === 'business-category') ||
-            ($path === 'api/business-option' && $level === 'getting-started' && $section === 'about-you')
+            ($path === 'api/business-option/1') ||
+            ($path === 'api/business-option/2') ||
+            ($path === 'api/business-option/3')
         ) {
             //pass without authentication
         } else {

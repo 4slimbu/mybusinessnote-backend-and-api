@@ -12,7 +12,6 @@ use Carbon\Carbon;
 
 trait BusinessOptionable
 {
-
     /**
      * Sync Business related pivot tables: business_business_option, business_section, business_level
      *
@@ -208,4 +207,5 @@ trait BusinessOptionable
 
         return new BusinessStatusResource($business, $data);
     }
+
 }

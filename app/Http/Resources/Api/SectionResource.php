@@ -2,12 +2,14 @@
 
 namespace App\Http\Resources\Api;
 
+use App\Models\BusinessSection;
 use App\Traits\Authenticable;
+use App\Traits\BusinessOptionable;
 use Illuminate\Http\Resources\Json\Resource;
 
 class SectionResource extends Resource
 {
-    use Authenticable;
+    use Authenticable, BusinessOptionable;
     /**
      * Transform the resource into an array.
      * @param \Illuminate\Http\Request $request
@@ -15,17 +17,7 @@ class SectionResource extends Resource
      */
     public function toArray($request)
     {
-        try {
-            $user =  $this->getAuthUser();
-        } catch (\Exception $exception) {
-            $user = null;
-        }
-
-        if ($user) {
-            $businessOptions = $user->business->businessOptions()->where('section_id', $this->id)->pluck('id');
-        } else {
-            $businessOptions = $this->businessOptions->pluck('id');
-        }
+        $businessOptions = $this->businessOptions()->whereIn('id', $this->unlockedBusinessOptionIds())->pluck('id');
 
         return [
             'id' => $this->id,

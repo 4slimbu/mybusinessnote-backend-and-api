@@ -48,7 +48,7 @@ class ApiAuthController extends Controller
     {
         return ResponseLibrary::success([
             'successCode' => 'FETCHED',
-            'user' => new UserResource($this->getAuthUser())
+            'user' => new UserResource($this->getAuthUserOrFail())
         ], 200);
     }
 
@@ -59,6 +59,7 @@ class ApiAuthController extends Controller
      *
      * @param LoginRequest $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \App\Exceptions\InvalidCredentialException
      */
     public function login(LoginRequest $request)
     {
@@ -91,6 +92,7 @@ class ApiAuthController extends Controller
      *
      * @param RegisterUserRequest $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function register(RegisterUserRequest $request)
     {
@@ -133,7 +135,7 @@ class ApiAuthController extends Controller
      */
     public function sendVerificationEmail()
     {
-        $authUser = $this->getAuthUser();
+        $authUser = $this->getAuthUserOrFail();
 
         $authUser->fill([
             'email_verification_token' => md5(uniqid(rand(), true)),
@@ -157,7 +159,7 @@ class ApiAuthController extends Controller
     {
         $inputs = $request->only('first_name', 'last_name', 'phone_number');
 
-        $user = $this->getAuthUser();
+        $user = $this->getAuthUserOrFail();
 
         $user->fill($inputs)->save();
 

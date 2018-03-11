@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Resources\Api\LevelResource;
 use App\Http\Resources\Api\LevelResourceCollection;
 use App\Http\Resources\Api\SectionResourceCollection;
 use App\Libraries\ResponseLibrary;
@@ -10,7 +9,7 @@ use App\Models\Level;
 use App\Models\Section;
 use Illuminate\Http\Request;
 
-class LevelController extends ApiBaseController
+class SectionController extends ApiBaseController
 {
     /**
      * Get levels along with related sections
@@ -27,7 +26,7 @@ class LevelController extends ApiBaseController
 
 
         $relations = explode(',', $request->get('with'));
-
+        
         if (in_array('sections', $relations)) {
             $sections = Section::whereIn('level_id', $levels->pluck('id'))->get();
             $data['sections'] = new SectionResourceCollection($sections);
@@ -35,23 +34,5 @@ class LevelController extends ApiBaseController
 
         return ResponseLibrary::success(['successCode' => 'FETCHED'] + $data, 200);
 
-    }
-
-    public function show(Request $request, Level $level)
-    {
-        //get data
-
-        $data = [];
-        $data['level'] = new LevelResource($level);
-
-
-        $relations = explode(',', $request->get('with'));
-
-        if (in_array('sections', $relations)) {
-            $sections = Section::where('level_id', $level->id)->get();
-            $data['sections'] = new SectionResourceCollection($sections);
-        }
-
-        return ResponseLibrary::success(['successCode' => 'FETCHED'] + $data, 200);
     }
 }

@@ -16,22 +16,38 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 trait Authenticable
 {
     /**
-     * Get user using jwt-token
+     * Get auth user using token
+     *
+     * @return user|null
+     */
+    private function getAuthUser()
+    {
+        try {
+            return $this->getAuthUserOrFail();
+        } catch (\Exception $exception) {
+        }
+
+        return null;
+    }
+
+    /**
+     * Get auth user using token or fail
      *
      * @return mixed
      */
-    private function getAuthUser()
+    public function getAuthUserOrFail()
     {
         if (JWTAuth::getToken()) {
             $decodedToken = JWTAuth::decode(JWTAuth::getToken());
 
             if ($decodedToken) {
-                return  User::where('id', $decodedToken['user']['id'])->firstOrFail();
+                return User::where('id', $decodedToken['user']['id'])->firstOrFail();
             }
         }
 
         throw new ModelNotFoundException();
     }
+
 
     /**
      * Register Api user
@@ -64,7 +80,11 @@ trait Authenticable
      */
     public function getTokenFromUser(User $user)
     {
-        return JWTAuth::fromUser($user, $this->getCustomClaims($user));
+        try {
+            return JWTAuth::fromUser($user, $this->getCustomClaims($user));
+        } catch (\Exception $exception) {
+            return null;
+        }
     }
 
     /**
@@ -139,7 +159,7 @@ trait Authenticable
     {
         // business options id whose status isn't locked
         $businessOptionScope = $user->business->businessOptions()
-            ->where('status', '!=', 'locked')->pluck('business_option_id');
+            ->where('status', '!=', 'locked')->where('status', '!=', 'irrelevant')->pluck('business_option_id');
 
         // get section_id of business options which are unlocked
         $sectionScope = BusinessOption::whereIn('id', $businessOptionScope)->pluck('section_id')->unique()->values();
@@ -148,6 +168,34 @@ trait Authenticable
             "sectionScope" => $sectionScope,
             "businessOptionScope" => $businessOptionScope
         ];
+    }
+
+    public function getScopeFromToken()
+    {
+        try {
+            if (JWTAuth::getToken()) {
+                $decodedToken = JWTAuth::decode(JWTAuth::getToken());
+
+                if ($decodedToken) {
+                    return $decodedToken['scope'];
+                }
+            }
+        } catch (\Exception $exception) {
+        }
+
+        return null;
+    }
+
+    public function unlockedBusinessOptionIds()
+    {
+        $scope = $this->getScopeFromToken();
+        $ids = $scope['businessOptionScope'];
+
+        if (! $ids) {
+            $ids = BusinessOption::whereIn('id', config('mbj.unlocked_business_option'))->pluck('id');
+        }
+
+        return $ids;
     }
 
 }

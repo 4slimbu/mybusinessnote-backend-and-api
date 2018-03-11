@@ -51,10 +51,12 @@ class BusinessOptionController extends ApiBaseController
      * @param Request $request
      * @param BusinessOption $business_option
      * @return \Illuminate\Http\JsonResponse
+     * @throws \App\Exceptions\InvalidImageException
+     * @throws \App\Exceptions\SaveImageException
      */
     public function save(Request $request, BusinessOption $business_option)
     {
-        $authUser = $this->getAuthUser();
+        $authUser = $this->getAuthUserOrFail();
 
         $business = $authUser->business;
         $business_meta = $request->get('business_meta') ? $request->get('business_meta') : [];
@@ -115,6 +117,8 @@ class BusinessOptionController extends ApiBaseController
      * @param $business
      * @param $business_option
      * @param $business_meta
+     * @throws \App\Exceptions\InvalidImageException
+     * @throws \App\Exceptions\SaveImageException
      */
     private function saveBusinessMetas($business, $business_option, $business_meta)
     {
