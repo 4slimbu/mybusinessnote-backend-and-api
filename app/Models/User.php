@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -47,7 +47,7 @@ class User extends Authenticatable
         'email_verification_token',
         'email_verification_token_expiry_date',
         'forgot_password_token',
-        'forgot_password_token_expiry_date'
+        'forgot_password_token_expiry_date',
     ];
 
     /**

@@ -2,25 +2,22 @@
 
 namespace App\Listeners;
 
-use App\Events\AddToEmailNotificationTrackerEvent;
 use App\Events\BrontoSubscriptionUpdated;
 use App\Events\CampaignMonitorSubscriptionUpdated;
-use App\Events\UnVerifiedUserEvent;
-use App\Http\Controllers\Api\BusinessController;
 use App\Models\Business;
-use App\Models\BusinessCategory;
-use App\Models\BusinessOption;
 use App\Traits\Authenticable;
 use App\Traits\BusinessOptionable;
 
 class UserEventSubscriber
 {
     use Authenticable, BusinessOptionable;
+
     /**
      * Handle user register events.
      * @param $event
      */
-    public function onUserRegister($event) {
+    public function onUserRegister($event)
+    {
         (new Business)->setUp($event->user);
 
 //        event(new BrontoSubscriptionUpdated($event->user));
@@ -33,7 +30,8 @@ class UserEventSubscriber
      * Handle user update events.
      * @param $event
      */
-    public function onUserUpdate($event) {
+    public function onUserUpdate($event)
+    {
         if ($event->oldUser->is_free_isb_subscription !== $event->user->is_free_isb_subscription) {
             event(new BrontoSubscriptionUpdated($event->user));
         }

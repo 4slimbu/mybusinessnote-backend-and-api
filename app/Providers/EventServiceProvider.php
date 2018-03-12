@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -13,37 +12,37 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\BrontoSubscriptionUpdated' => [
+        'App\Events\BrontoSubscriptionUpdated'                         => [
             'App\Listeners\SyncUserOnBronto',
         ],
-        'App\Events\CampaignMonitorSubscriptionUpdated' => [
+        'App\Events\CampaignMonitorSubscriptionUpdated'                => [
             'App\Listeners\SyncUserOnCampaignMonitor',
         ],
-        'App\Events\UnVerifiedUserEvent' => [
+        'App\Events\UnVerifiedUserEvent'                               => [
             'App\Listeners\SendVerificationEmail',
         ],
-        'App\Events\ForgotPasswordEvent' => [
+        'App\Events\ForgotPasswordEvent'                               => [
             'App\Listeners\SendForgotPasswordEmail',
         ],
-        'App\Events\AddToEmailNotificationTrackerEvent' => [
+        'App\Events\AddToEmailNotificationTrackerEvent'                => [
             'App\Listeners\AddToEmailNotificationTrackerList',
         ],
-        'App\Events\LevelOneNotCompleteAfterOneDayEvent' => [
+        'App\Events\LevelOneNotCompleteAfterOneDayEvent'               => [
             'App\Listeners\SendLevelOneNotCompleteAfterOneDayReminderEmail',
         ],
-        'App\Events\LevelTwoNotCompleteAfterOneWeekEvent' => [
+        'App\Events\LevelTwoNotCompleteAfterOneWeekEvent'              => [
             'App\Listeners\SendLevelTwoNotCompleteAfterOneWeekReminderEmail',
         ],
-        'App\Events\LevelOneCompleteEvent' => [
+        'App\Events\LevelOneCompleteEvent'                             => [
             'App\Listeners\LevelOneCompleteListener',
         ],
-        'App\Events\LevelOneNotCompleteAfterOneMonthEvent' => [
+        'App\Events\LevelOneNotCompleteAfterOneMonthEvent'             => [
             'App\Listeners\SendLevelOneNotCompleteAfterOneMonthReminderEmail',
         ],
         'App\Events\NoActivityAfterCompletingLevelOneForOneMonthEvent' => [
             'App\Listeners\SendNoActivityAfterCompletingLevelOneForOneMonthReminderEmail',
         ],
-        'App\Events\NoActivityAfterCompletingLevelTwoForOneWeekEvent' => [
+        'App\Events\NoActivityAfterCompletingLevelTwoForOneWeekEvent'  => [
             'App\Listeners\SendNoActivityAfterCompletingLevelTwoForOneWeekReminderEmail',
         ],
         'App\Events\NoActivityAfterCompletingLevelTwoForOneMonthEvent' => [

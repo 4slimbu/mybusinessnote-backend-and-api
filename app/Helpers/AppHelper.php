@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Helpers;
 
 use App\Models\BusinessOption;
@@ -39,8 +40,8 @@ class AppHelper
         }
 
         //return site config value from app config file if present
-        if (config($this->admin_config_path . '.settings.'. $config_key . '.value')){
-            return config($this->admin_config_path . '.settings.'. $config_key . '.value');
+        if (config($this->admin_config_path . '.settings.' . $config_key . '.value')) {
+            return config($this->admin_config_path . '.settings.' . $config_key . '.value');
         }
 
         //return false

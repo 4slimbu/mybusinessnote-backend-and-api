@@ -2,13 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Events\LevelOneNotCompleteAfterOneDayEvent;
 use App\Events\LevelTwoNotCompleteAfterOneWeekEvent;
 use App\Models\Business;
-use App\Models\Level;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 
 class LevelTwoNotCompleteAfterOneWeekCommand extends Command
 {
@@ -56,7 +53,7 @@ class LevelTwoNotCompleteAfterOneWeekCommand extends Command
 
             // update email sent count
             $business->emailNotificationTracker->fill([
-                'level_two_not_complete_after_one_week' => 1
+                'level_two_not_complete_after_one_week' => 1,
             ])->save();
         }
     }

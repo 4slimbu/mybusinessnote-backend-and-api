@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\AffiliateLinkTracker;
 use Illuminate\Database\Seeder;
 
 class DynamicTableSeeder extends Seeder

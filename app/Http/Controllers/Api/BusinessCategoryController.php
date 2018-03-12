@@ -11,6 +11,7 @@ use App\Traits\BusinessOptionable;
 class BusinessCategoryController extends ApiBaseController
 {
     use BusinessOptionable;
+
     /**
      * Get all the business categories
      *
@@ -23,8 +24,8 @@ class BusinessCategoryController extends ApiBaseController
         $business_categories = BusinessCategory::get();
 
         return ResponseLibrary::success([
-            'successCode' => 'FETCHED',
-            'businessCategories' => new BusinessCategoryResourceCollection($business_categories)
+            'successCode'        => 'FETCHED',
+            'businessCategories' => new BusinessCategoryResourceCollection($business_categories),
         ], 200);
     }
 }

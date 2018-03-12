@@ -108,7 +108,7 @@
 
 @if(! isset($data['row']))
     <p>
-        <a href="javascript:void(0)" class="show-more" >
+        <a href="javascript:void(0)" class="show-more">
             {{ Form::checkbox('same_address') }}
         </a> Is Physical Address same as Business Address?
     </p>
@@ -179,7 +179,7 @@
 
 {{--Role--}}
 <div class="form-group">
-    <label  class="display-block text-semibold">Role:</label>
+    <label class="display-block text-semibold">Role:</label>
     {{ Form::select('role_id', $data['roles'], null, ['class' => 'form-control']) }}
     @if($errors->has('role_id'))
         <span class="text-danger">{{ $errors->first('role_id') }}</span>

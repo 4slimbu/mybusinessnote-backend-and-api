@@ -20,13 +20,13 @@
 <body>
 <div id="app">
     <!-- Top Nav -->
-    {{--@include('user-dashboard.layouts.partials.nav')--}}
-    <!-- /top nap -->
+{{--@include('user-dashboard.layouts.partials.nav')--}}
+<!-- /top nap -->
 
     <div class="row">
         <!-- Left Sidebar Menu -->
-        {{--@include('user-dashboard.layouts.partials.side-menu')--}}
-        <!-- /left sidebar menu -->
+    {{--@include('user-dashboard.layouts.partials.side-menu')--}}
+    <!-- /left sidebar menu -->
 
         <main class="col-md-12 ml-sm-auto col-lg-12 pt-5 px-5" role="main">
 

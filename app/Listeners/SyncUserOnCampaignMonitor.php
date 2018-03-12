@@ -5,7 +5,6 @@ namespace App\Listeners;
 use App\Events\CampaignMonitorSubscriptionUpdated;
 use App\Events\UserSubscriptionUpdated;
 use App\Libraries\CampaignMonitorLibrary;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SyncUserOnCampaignMonitor implements ShouldQueue

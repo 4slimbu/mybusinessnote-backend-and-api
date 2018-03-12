@@ -6,9 +6,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\Admin\SectionValidation\CreateFormValidation;
 use App\Http\Requests\Admin\SectionValidation\UpdateFormValidation;
 use App\Models\Level;
-use App\Models\Role;
 use App\Models\Section;
-use Session, AppHelper;
+use AppHelper;
+use Session;
 
 
 class SectionController extends AdminBaseController
@@ -32,15 +32,15 @@ class SectionController extends AdminBaseController
     protected $panel_name = 'Section';
 
 
-     /**
+    /**
      * Array of panel actions
      * @var string
      */
-    protected $panel_actions = array( 
+    protected $panel_actions = [
 
-        [ 'link' => 'section/create', 'label' => 'Add New']
-        
-    );
+        ['link' => 'section/create', 'label' => 'Add New'],
+
+    ];
 
     /**
      * Upload directory relative to public folder
@@ -103,7 +103,8 @@ class SectionController extends AdminBaseController
         $input['slug'] = str_slug($request->get('name'));
         Section::create($input);
 
-        Session::flash('success', $this->panel_name.' created successfully.');
+        Session::flash('success', $this->panel_name . ' created successfully.');
+
         return redirect()->route($this->base_route);
 
     }
@@ -164,7 +165,8 @@ class SectionController extends AdminBaseController
 
         $section->fill($input)->save();
 
-        Session::flash('success', $this->panel_name.' updated successfully.');
+        Session::flash('success', $this->panel_name . ' updated successfully.');
+
         return redirect()->route($this->base_route);
     }
 
@@ -182,7 +184,8 @@ class SectionController extends AdminBaseController
 
         $section->delete();
 
-        Session::flash('success', $this->panel_name.' deleted successfully.');
+        Session::flash('success', $this->panel_name . ' deleted successfully.');
+
         return redirect()->route($this->base_route);
     }
 }

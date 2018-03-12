@@ -9,7 +9,7 @@
 
 {{--Owner Name--}}
 <div class="form-group">
-    <label  class="display-block text-semibold">Owner:</label>
+    <label class="display-block text-semibold">Owner:</label>
     {{ Form::select('user_id', $data['users'], null, ['class' => 'form-control']) }}
     @if($errors->has('user_id'))
         <span class="text-danger">{{ $errors->first('user_id') }}</span>
@@ -18,7 +18,7 @@
 
 {{--Business Category--}}
 <div class="form-group">
-    <label  class="display-block text-semibold">Business Category:</label>
+    <label class="display-block text-semibold">Business Category:</label>
     {{ Form::select('business_category_id', $data['businessCategories'], null, ['class' => 'form-control']) }}
     @if($errors->has('business_category_id'))
         <span class="text-danger">{{ $errors->first('business_category_id') }}</span>

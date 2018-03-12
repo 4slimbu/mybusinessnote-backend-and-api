@@ -7,7 +7,8 @@ use App\Http\Requests\Admin\BadgeValidation\CreateFormValidation;
 use App\Http\Requests\Admin\BadgeValidation\UpdateFormValidation;
 use App\Models\Badge;
 use App\Models\BusinessCategory;
-use Session, AppHelper;
+use AppHelper;
+use Session;
 
 
 class BadgeController extends AdminBaseController
@@ -84,6 +85,7 @@ class BadgeController extends AdminBaseController
         Badge::create($input);
 
         Session::flash('success', $this->panel_name . ' created successfully.');
+
         return redirect()->route($this->base_route);
 
     }
@@ -146,6 +148,7 @@ class BadgeController extends AdminBaseController
         $badge->fill($input)->save();
 
         Session::flash('success', $this->panel_name . ' updated successfully.');
+
         return redirect()->route($this->base_route);
     }
 
@@ -164,6 +167,7 @@ class BadgeController extends AdminBaseController
         $badge->delete();
 
         Session::flash('success', $this->panel_name . ' deleted successfully.');
+
         return redirect()->route($this->base_route);
     }
 }

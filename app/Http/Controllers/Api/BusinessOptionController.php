@@ -39,8 +39,8 @@ class BusinessOptionController extends ApiBaseController
         $data['affiliateLinks'] = $business_option->affiliateLinks()->get();
 
         return ResponseLibrary::success([
-            'successCode' => 'FETCHED',
-            'businessOption' => new BusinessOptionResource($business_option, $data)
+            'successCode'    => 'FETCHED',
+            'businessOption' => new BusinessOptionResource($business_option, $data),
         ], 200);
     }
 
@@ -65,8 +65,8 @@ class BusinessOptionController extends ApiBaseController
             // save business metas
             $this->saveBusinessMetas($business, $business_option, $business_meta);
             $data = [
-                'business_category_id' => $business->business_category_id,
-                'business_option_status' => 'done'
+                'business_category_id'   => $business->business_category_id,
+                'business_option_status' => 'done',
             ];
             $this->unlockNextBusinessOption($business, $business_option);
             $this->syncBusinessPivotTables($business, $business_option, $data);
@@ -80,8 +80,8 @@ class BusinessOptionController extends ApiBaseController
                 BusinessMeta::where('business_id', $business->id)->where('business_option_id', $business_option->id)->delete();
 
                 $data = [
-                    'business_category_id' => $business->business_category_id,
-                    'business_option_status' => $business_option_status
+                    'business_category_id'   => $business->business_category_id,
+                    'business_option_status' => $business_option_status,
                 ];
                 $this->unlockNextBusinessOption($business, $business_option);
                 $this->syncBusinessPivotTables($business, $business_option, $data);
@@ -96,18 +96,19 @@ class BusinessOptionController extends ApiBaseController
             ->where('business_id', $authUser->business->id)->get();
 
         $businessStatus = $this->refreshAllRelatedStatusForCurrentBusinessOption($business, $business_option);
+
         //return response
         return ResponseLibrary::success([
-            'successCode' => 'SAVED',
+            'successCode'    => 'SAVED',
             'businessOption' => [
-                'id' => $business_option->id,
-                'level_id' => $business_option->level_id,
-                'section_id' => $business_option->section_id,
-                'status' => $business_option->pivot['status'],
-                'businessMetas' => new BusinessMetaResourceCollection($businessMetas)
+                'id'            => $business_option->id,
+                'level_id'      => $business_option->level_id,
+                'section_id'    => $business_option->section_id,
+                'status'        => $business_option->pivot['status'],
+                'businessMetas' => new BusinessMetaResourceCollection($businessMetas),
             ],
             'businessStatus' => $businessStatus,
-            'token' => $this->getTokenFromUser($authUser)
+            'token'          => $this->getTokenFromUser($authUser),
         ], 200);
     }
 
@@ -139,8 +140,8 @@ class BusinessOptionController extends ApiBaseController
             } else {
                 $business->businessMetas()->create([
                     'business_option_id' => $business_option->id,
-                    'key' => $key,
-                    'value' => $value
+                    'key'                => $key,
+                    'value'              => $value,
                 ]);
             }
 

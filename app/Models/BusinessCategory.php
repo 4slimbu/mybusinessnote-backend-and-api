@@ -6,13 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class BusinessCategory extends Model
 {
-    protected $fillable = ['name', 'icon', 'hover_icon', 'tooltip'];
-
     public $uploadDirectory = 'images/business-categories/';
+    protected $fillable = ['name', 'icon', 'hover_icon', 'tooltip'];
 
     public function businesses()
     {
-    	return $this->hasMany(Business::class);
+        return $this->hasMany(Business::class);
     }
 
     public function businessOptions()

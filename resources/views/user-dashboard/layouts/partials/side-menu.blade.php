@@ -2,20 +2,22 @@
     <div class="sidebar-sticky">
 
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-          <span>User Dashboard</span>
-          <a class="d-flex align-items-center text-muted" href="#">
-           <i class="fa fa-briefcase" aria-hidden="true"></i>
-          </a>
+            <span>User Dashboard</span>
+            <a class="d-flex align-items-center text-muted" href="#">
+                <i class="fa fa-briefcase" aria-hidden="true"></i>
+            </a>
         </h6>
         <ul class="nav flex-column">
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('user-dashboard.dashboard') }}"><i class="fa fa-briefcase" aria-hidden="true"></i> My Business Profile</a>
+                <a class="nav-link" href="{{ route('user-dashboard.dashboard') }}"><i class="fa fa-briefcase"
+                                                                                      aria-hidden="true"></i> My
+                    Business Profile</a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('user-dashboard.communication-preference') }}">
-                  <i class="fas fa-comments"></i> Contact Preferences
+                    <i class="fas fa-comments"></i> Contact Preferences
                 </a>
             </li>
 

@@ -53,7 +53,7 @@ class LevelOneNotCompleteAfterOneDayCommand extends Command
 
             // update email sent count
             $business->emailNotificationTracker->fill([
-                'level_one_not_complete_after_one_day' => 1
+                'level_one_not_complete_after_one_day' => 1,
             ])->save();
         }
 

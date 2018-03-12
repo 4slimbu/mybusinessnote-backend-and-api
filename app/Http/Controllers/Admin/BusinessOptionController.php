@@ -6,11 +6,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\Admin\BusinessOptionValidation\CreateFormValidation;
 use App\Http\Requests\Admin\BusinessOptionValidation\UpdateFormValidation;
 use App\Models\AffiliateLink;
-use App\Models\BusinessOption;
 use App\Models\BusinessCategory;
-use App\Models\Level;
+use App\Models\BusinessOption;
 use App\Models\Section;
-use Session, AppHelper;
+use AppHelper;
+use Session;
 
 
 class BusinessOptionController extends AdminBaseController
@@ -33,15 +33,15 @@ class BusinessOptionController extends AdminBaseController
      */
     protected $panel_name = 'Business Option';
 
-     /**
+    /**
      * Array of panel actions
      * @var string
      */
-    protected $panel_actions = array( 
+    protected $panel_actions = [
 
-        [ 'link' => 'business-option/create', 'label' => 'Add New']
-        
-    );
+        ['link' => 'business-option/create', 'label' => 'Add New'],
+
+    ];
 
     /**
      * Display a listing of the business option.
@@ -77,7 +77,8 @@ class BusinessOptionController extends AdminBaseController
             ->get();
         $data['sections'] = $sections->mapWithKeys(function ($item) {
             $prefix = isset($item->level) ? $item->level->name . ' - ' : '';
-            return [ $item->id => $prefix . $item->name ];
+
+            return [$item->id => $prefix . $item->name];
         });
 
         $data['businessOptions'] = BusinessOption::pluck('name', 'id');
@@ -90,7 +91,7 @@ class BusinessOptionController extends AdminBaseController
 
         $affiliateLinks = AffiliateLink::with('partner', 'partner.userProfile')->get();
         $data['affiliateLinks'] = $affiliateLinks->mapWithKeys(function ($item) {
-           return [ $item->id => $item->partner->userProfile->company . ' - ' . $item->name ];
+            return [$item->id => $item->partner->userProfile->company . ' - ' . $item->name];
         });
 
         return view(parent::loadViewData($this->view_path . '.create'), compact('data'));
@@ -115,7 +116,7 @@ class BusinessOptionController extends AdminBaseController
             $syncData = [];
             foreach (array_filter($input['affiliate_link_id']) as $id) {
                 $syncData[$id] = [
-                    'label' => ($input['affiliate_link_label']) ? $input['affiliate_link_label'] : ''
+                    'label' => ($input['affiliate_link_label']) ? $input['affiliate_link_label'] : '',
                 ];
             }
             $businessOption->affiliateLinks()->sync($syncData);
@@ -129,7 +130,8 @@ class BusinessOptionController extends AdminBaseController
             }
         }
 
-        Session::flash('success', $this->panel_name.' created successfully.');
+        Session::flash('success', $this->panel_name . ' created successfully.');
+
         return redirect()->route($this->base_route);
 
     }
@@ -168,7 +170,8 @@ class BusinessOptionController extends AdminBaseController
             ->get();
         $data['sections'] = $sections->mapWithKeys(function ($item) {
             $prefix = isset($item->level) ? $item->level->name . ' - ' : '';
-            return [ $item->id => $prefix . $item->name ];
+
+            return [$item->id => $prefix . $item->name];
         });
 
         $data['businessOptions'] = BusinessOption::where('id', '!=', $businessOption->id)->pluck('name', 'id');
@@ -177,7 +180,7 @@ class BusinessOptionController extends AdminBaseController
 
         $affiliateLinks = AffiliateLink::with('partner', 'partner.userProfile')->get();
         $data['affiliateLinks'] = $affiliateLinks->mapWithKeys(function ($item) {
-            return [ $item->id => $item->partner->userProfile->company . ' - ' . $item->name ];
+            return [$item->id => $item->partner->userProfile->company . ' - ' . $item->name];
         });
 
         return view(parent::loadViewData($this->view_path . '.edit'), compact('data'));
@@ -201,7 +204,7 @@ class BusinessOptionController extends AdminBaseController
             $syncData = [];
             foreach (array_filter($input['affiliate_link_id']) as $id) {
                 $syncData[$id] = [
-                    'label' => ($input['affiliate_link_label']) ? $input['affiliate_link_label'] : ''
+                    'label' => ($input['affiliate_link_label']) ? $input['affiliate_link_label'] : '',
                 ];
             }
             $businessOption->affiliateLinks()->sync($syncData);
@@ -215,7 +218,8 @@ class BusinessOptionController extends AdminBaseController
             }
         }
 
-        Session::flash('success', $this->panel_name.' updated successfully.');
+        Session::flash('success', $this->panel_name . ' updated successfully.');
+
         return redirect()->route($this->base_route);
     }
 
@@ -229,7 +233,8 @@ class BusinessOptionController extends AdminBaseController
     {
         $businessOption->delete();
 
-        Session::flash('success', $this->panel_name.' deleted successfully.');
+        Session::flash('success', $this->panel_name . ' deleted successfully.');
+
         return redirect()->route($this->base_route);
     }
 }

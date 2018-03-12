@@ -2,13 +2,13 @@
 
 namespace App\Http\Resources\Api;
 
-use App\Models\BusinessLevel;
 use App\Traits\Authenticable;
 use Illuminate\Http\Resources\Json\Resource;
 
 class LevelResource extends Resource
 {
     use Authenticable;
+
     /**
      * Transform the resource into an array.
      * @param \Illuminate\Http\Request $request
@@ -18,8 +18,8 @@ class LevelResource extends Resource
     {
         // always returned data
         $data = [
-            'id' => $this->id,
-            'name' => $this->name
+            'id'   => $this->id,
+            'name' => $this->name,
         ];
 
         // query params

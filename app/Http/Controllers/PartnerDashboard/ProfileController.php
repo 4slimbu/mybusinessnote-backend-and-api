@@ -7,8 +7,9 @@ use App\Http\Requests\PartnerDashboard\ProfileValidation\UpdateFormValidation;
 use App\Http\Requests\PartnerDashboard\ProfileValidation\UpdatePasswordFormValidation;
 use App\Models\Role;
 use App\Models\User;
+use AppHelper;
 use Illuminate\Support\Facades\Auth;
-use Session, AppHelper;
+use Session;
 
 
 class ProfileController extends BaseController
@@ -70,7 +71,8 @@ class ProfileController extends BaseController
             $affiliateLink->save();
         }
 
-        Session::flash('success', $this->panel_name.' updated successfully.');
+        Session::flash('success', $this->panel_name . ' updated successfully.');
+
         return redirect()->route($this->base_route);
     }
 
@@ -96,7 +98,8 @@ class ProfileController extends BaseController
         $profile = User::where('id', Auth::user()->id)->first();
         $profile->fill($input)->save();
 
-        Session::flash('success', $this->panel_name.' updated successfully.');
+        Session::flash('success', $this->panel_name . ' updated successfully.');
+
         return redirect()->back();
     }
 

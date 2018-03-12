@@ -12,11 +12,10 @@ class BadgeUserTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
 //        \DB::table('badge_user')->delete();
-        
-        
-        
+
+
     }
 }

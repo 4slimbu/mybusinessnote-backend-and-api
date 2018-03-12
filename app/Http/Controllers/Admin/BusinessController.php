@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Admin\BusinessValidation\CreateFormValidation;
 use App\Http\Requests\Admin\BusinessValidation\UpdateFormValidation;
-use App\Models\Badge;
 use App\Models\Business;
 use App\Models\BusinessCategory;
 use App\Models\User;
-use Session, AppHelper;
+use AppHelper;
+use Session;
 
 
 class BusinessController extends AdminBaseController
@@ -32,16 +32,16 @@ class BusinessController extends AdminBaseController
      */
     protected $panel_name = 'Business';
 
-     /**
+    /**
      * Array of panel actions
      * @var string
      */
-    protected $panel_actions = array( 
+    protected $panel_actions = [
 
-        [ 'link' => 'business/create', 'label' => 'Add New'],
-        [ 'link' => '#', 'label' => 'Export to Excel']
-        
-    );
+        ['link' => 'business/create', 'label' => 'Add New'],
+        ['link' => '#', 'label' => 'Export to Excel'],
+
+    ];
 
     /**
      * Display a listing of the business.
@@ -74,7 +74,7 @@ class BusinessController extends AdminBaseController
         //get data
         $users = User::select('id', 'first_name', 'last_name')->where('role_id', 2)->get();
         $data['users'] = $users->mapWithKeys(function ($item) {
-            return [ $item->id => $item->first_name . ' ' . $item->last_name ];
+            return [$item->id => $item->first_name . ' ' . $item->last_name];
         });
 
         $data['businessCategories'] = BusinessCategory::pluck('name', 'id');
@@ -92,7 +92,8 @@ class BusinessController extends AdminBaseController
     {
         Business::create($request->all());
 
-        Session::flash('success', $this->panel_name.' created successfully.');
+        Session::flash('success', $this->panel_name . ' created successfully.');
+
         return redirect()->route($this->base_route);
 
     }
@@ -124,7 +125,7 @@ class BusinessController extends AdminBaseController
 
         $users = User::select('id', 'first_name', 'last_name')->where('role_id', 2)->get();
         $data['users'] = $users->mapWithKeys(function ($item) {
-            return [ $item->id => $item->first_name . ' ' . $item->last_name ];
+            return [$item->id => $item->first_name . ' ' . $item->last_name];
         });
 
         $data['businessCategories'] = BusinessCategory::pluck('name', 'id');
@@ -145,7 +146,8 @@ class BusinessController extends AdminBaseController
         $input = $request->all();
         $business->fill($input)->save();
 
-        Session::flash('success', $this->panel_name.' updated successfully.');
+        Session::flash('success', $this->panel_name . ' updated successfully.');
+
         return redirect()->route($this->base_route);
     }
 
@@ -159,7 +161,8 @@ class BusinessController extends AdminBaseController
     {
         $business->delete();
 
-        Session::flash('success', $this->panel_name.' deleted successfully.');
+        Session::flash('success', $this->panel_name . ' deleted successfully.');
+
         return redirect()->route($this->base_route);
     }
 }

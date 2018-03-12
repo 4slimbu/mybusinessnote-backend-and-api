@@ -17,6 +17,7 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 class SocialAuthController extends Controller
 {
     use BusinessOptionable;
+
     /**
      * Redirect the user to the GitHub authentication page.
      *
@@ -44,11 +45,11 @@ class SocialAuthController extends Controller
                 $last_name = array_pop($name);
                 $first_name = implode(' ', $name);
                 $input = [
-                    'first_name' => $first_name,
-                    'last_name' => $last_name,
-                    'email' => $account->getEmail(),
-                    'provider' => $provider,
-                    'provider_id' => $account->getId()
+                    'first_name'  => $first_name,
+                    'last_name'   => $last_name,
+                    'email'       => $account->getEmail(),
+                    'provider'    => $provider,
+                    'provider_id' => $account->getId(),
                 ];
 
                 switch ($provider) {
@@ -63,8 +64,8 @@ class SocialAuthController extends Controller
             }
         } catch (\Exception $exception) {
             return response()->json([
-                'success' => false,
-                'error_code' => $exception->getMessage()
+                'success'    => false,
+                'error_code' => $exception->getMessage(),
             ]);
         }
     }
@@ -80,15 +81,29 @@ class SocialAuthController extends Controller
         }
     }
 
-    public function loginUsingFacebook($input)
+    /**
+     * API Login, on success return JWT Auth token
+     *
+     * @param $user
+     * @return \Illuminate\Http\JsonResponse
+     * @internal param Request $request
+     */
+    public function login($user)
     {
-        $user = User::where('provider_id', $input['provider_id'])->where('verified', 1)->first();
-
-        if ($user) {
-            return $this->login($user);
-        } else {
-            return $this->register($input);
+        try {
+            $customClaims = [
+                "user" => $user,
+            ];
+            if (!$token = JWTAuth::fromUser($user, $customClaims)) {
+                return response()->json(['success' => false, 'error' => ['form' => 'Invalid Credentials.']], 401);
+            }
+        } catch (JWTException $e) {
+            // something went wrong whilst attempting to encode the token
+            return response()->json(['success' => false, 'error' => 'could_not_create_token'], 500);
         }
+
+        // all good so return the token
+        return response()->json(['success' => true, 'token' => $token]);
     }
 
     /**
@@ -108,7 +123,7 @@ class SocialAuthController extends Controller
         $input['role_id'] = 2; //role: customer
         $input['verified'] = 1; //email verification not required
         $input['history'] = json_encode([
-            'last_visited' => 'business_option?level=getting-started&section=your-business-details'
+            'last_visited' => 'business_option?level=getting-started&section=your-business-details',
         ]);
         $user = User::create($input);
 
@@ -118,9 +133,9 @@ class SocialAuthController extends Controller
         try {
             // attempt to verify the credentials and create a token for the user
             $customClaims = [
-                "user" => $user
+                "user" => $user,
             ];
-            if (! $token = JWTAuth::fromUser($user, $customClaims)) {
+            if (!$token = JWTAuth::fromUser($user, $customClaims)) {
                 return response()->json(['success' => false, 'error' => 'Invalid Credentials. Please make sure you entered the right information and you have verified your email address.'], 401);
             }
         } catch (JWTException $e) {
@@ -130,37 +145,13 @@ class SocialAuthController extends Controller
 
         //set up business for user with default data
         $this->setUpUserBusiness($user);
+
         // all good so return the token
         return response()->json([
             'success' => true,
-            'token' => $token
+            'token'   => $token,
         ]);
     }
-
-    /**
-     * API Login, on success return JWT Auth token
-     *
-     * @param $user
-     * @return \Illuminate\Http\JsonResponse
-     * @internal param Request $request
-     */
-    public function login($user)
-    {
-        try {
-            $customClaims = [
-                "user" => $user
-            ];
-            if (! $token = JWTAuth::fromUser($user, $customClaims)) {
-                return response()->json(['success' => false, 'error' => ['form' => 'Invalid Credentials.']], 401);
-            }
-        } catch (JWTException $e) {
-            // something went wrong whilst attempting to encode the token
-            return response()->json(['success' => false, 'error' => 'could_not_create_token'], 500);
-        }
-        // all good so return the token
-        return response()->json(['success' => true, 'token' => $token]);
-    }
-
 
     /**
      * Saves Business Option: business-category, about-you, sell-goods
@@ -176,9 +167,9 @@ class SocialAuthController extends Controller
             //create business with business_category_id, user_id and sell_goods
             $business_category_id = 1;
             $business = Business::create([
-                'user_id' => $user->id,
+                'user_id'              => $user->id,
                 'business_category_id' => $business_category_id,
-                'sell_goods' => false
+                'sell_goods'           => false,
             ]);
 
             // Set up business_business_options with all the available business_options
@@ -188,8 +179,8 @@ class SocialAuthController extends Controller
 
             //sync business with default business options determined by business_category_id
             $data = [
-                'business_category_id' => $business_category_id,
-                'business_option_status' => 'done'
+                'business_category_id'   => $business_category_id,
+                'business_option_status' => 'done',
             ];
             // Sync business_category business option
             $this->syncBusinessPivotTables($business, BusinessOption::find(1), $data);
@@ -204,5 +195,16 @@ class SocialAuthController extends Controller
             throw new Exception('unknown_error', 500);
         }
 
+    }
+
+    public function loginUsingFacebook($input)
+    {
+        $user = User::where('provider_id', $input['provider_id'])->where('verified', 1)->first();
+
+        if ($user) {
+            return $this->login($user);
+        } else {
+            return $this->register($input);
+        }
     }
 }

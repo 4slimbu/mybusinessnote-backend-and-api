@@ -8,7 +8,8 @@
 
                 <div class="panel-body panel-business-list">
                     <p class="lead">
-                        Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus.
+                        Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non
+                        commodo luctus.
                     </p>
 
                     @foreach ($businesses as $business)
@@ -17,7 +18,8 @@
                                 <h4>{{ $business->business_name }}</h4>
                             </div>
                             <div class="card-body">
-                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional
+                                    content.</p>
                                 <a href="{{ $business->path() }}" class="btn btn-primary">View Details</a>
                             </div>
                             <div class="card-footer text-muted">

@@ -13,10 +13,11 @@ class AffiliateLinkTracker extends Model
         'business_id',
         'business_option_id',
         'browser',
-        'ip'
+        'ip',
     ];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
@@ -35,7 +36,8 @@ class AffiliateLinkTracker extends Model
         return $this->belongsTo(AffiliateLink::class);
     }
 
-    public function scopeWithAndWhereHas($query, $relation, $constraint){
+    public function scopeWithAndWhereHas($query, $relation, $constraint)
+    {
         return $query->whereHas($relation, $constraint)
             ->with([$relation => $constraint]);
     }

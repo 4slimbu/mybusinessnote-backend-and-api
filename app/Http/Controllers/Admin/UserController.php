@@ -7,7 +7,8 @@ use App\Http\Requests\Admin\UserValidation\CreateFormValidation;
 use App\Http\Requests\Admin\UserValidation\UpdateFormValidation;
 use App\Models\Role;
 use App\Models\User;
-use Session, AppHelper;
+use AppHelper;
+use Session;
 
 
 class UserController extends AdminBaseController
@@ -83,7 +84,8 @@ class UserController extends AdminBaseController
 
         User::create($inputs);
 
-        Session::flash('success', $this->panel_name.' created successfully.');
+        Session::flash('success', $this->panel_name . ' created successfully.');
+
         return redirect()->route($this->base_route);
 
     }
@@ -130,7 +132,8 @@ class UserController extends AdminBaseController
         $input = $request->all();
         $user->fill($input)->save();
 
-        Session::flash('success', $this->panel_name.' updated successfully.');
+        Session::flash('success', $this->panel_name . ' updated successfully.');
+
         return redirect()->route($this->base_route);
     }
 
@@ -144,7 +147,8 @@ class UserController extends AdminBaseController
     {
         $user->delete();
 
-        Session::flash('success', $this->panel_name.' deleted successfully.');
+        Session::flash('success', $this->panel_name . ' deleted successfully.');
+
         return redirect()->route($this->base_route);
     }
 }

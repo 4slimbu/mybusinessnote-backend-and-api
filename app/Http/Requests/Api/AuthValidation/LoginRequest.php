@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests\Api\AuthValidation;
 
-use Dompdf\Exception;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Http\FormRequest;
 
 class LoginRequest extends FormRequest
@@ -26,7 +24,7 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email',
+            'email'    => 'required|email',
             'password' => 'required',
         ];
     }

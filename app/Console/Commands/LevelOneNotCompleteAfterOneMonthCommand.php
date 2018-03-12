@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Events\LevelOneNotCompleteAfterOneDayEvent;
 use App\Events\LevelOneNotCompleteAfterOneMonthEvent;
 use App\Models\Business;
 use Carbon\Carbon;
@@ -56,7 +55,7 @@ class LevelOneNotCompleteAfterOneMonthCommand extends Command
 
             // update email sent count
             $business->emailNotificationTracker->fill([
-                'level_one_not_complete_after_one_month' => 1
+                'level_one_not_complete_after_one_month' => 1,
             ])->save();
         }
 

@@ -9,7 +9,7 @@
 
 {{--Level--}}
 <div class="form-group">
-    <label  class="display-block text-semibold">Level:</label>
+    <label class="display-block text-semibold">Level:</label>
     {{ Form::select('level_id', $data['levels'], null, ['class' => 'form-control']) }}
     @if($errors->has('level_id'))
         <span class="text-danger">{{ $errors->first('level_id') }}</span>
@@ -18,7 +18,7 @@
 
 {{--Icon--}}
 <div class="form-group">
-    <label  class="display-block text-semibold">Icon:</label>
+    <label class="display-block text-semibold">Icon:</label>
     {{ Form::file('icon', null, ['class' => 'form-control']) }}
     @if(isset($data['row']) && $data['row']->icon)
         <img width="150" src="{{ asset($upload_directory . $data['row']->icon) }}" alt="">

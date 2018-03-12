@@ -3,7 +3,7 @@
 @section('content')
     <div class="content-wrapper">
 
-       <useraction title="{{ $panel_name }}" useractions="{{ json_encode($panel_actions) }}"></useraction>
+        <useraction title="{{ $panel_name }}" useractions="{{ json_encode($panel_actions) }}"></useraction>
 
         <div class="table-responsive">
             <table class="table table-striped">
@@ -20,17 +20,17 @@
                 </thead>
                 <tbody>
                 @if(isset($data['rows']) && $data['rows']->count() > 0)
-                @foreach ($data['rows'] as $item)
-                    <tr>
-                        <td></td>
-                        <td>{{ $item->user->first_name }}</td>
-                        <td>{{ $item->user->last_name }}</td>
-                        <td>{{ $item->user->phone_number }}</td>
-                        <td>{{ $item->user->email }}</td>
-                        <td>{{ $item->created_at }}</td>
-                    </tr>
+                    @foreach ($data['rows'] as $item)
+                        <tr>
+                            <td></td>
+                            <td>{{ $item->user->first_name }}</td>
+                            <td>{{ $item->user->last_name }}</td>
+                            <td>{{ $item->user->phone_number }}</td>
+                            <td>{{ $item->user->email }}</td>
+                            <td>{{ $item->created_at }}</td>
+                        </tr>
 
-                @endforeach
+                    @endforeach
                 @else
                     <tr>
                         <td>No records Found!</td>

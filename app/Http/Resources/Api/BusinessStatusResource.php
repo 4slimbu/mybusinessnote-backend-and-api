@@ -29,14 +29,14 @@ class BusinessStatusResource extends Resource
      */
     public function toArray($request)
     {
-        $levelStatus = $this->levelStatus ? new LevelStatusResourceCollection($this->levelStatus): [];
-        $sectionStatus = $this->sectionStatus ? new SectionStatusResourceCollection($this->sectionStatus): [];
-        $businessOptionStatus = $this->businessOptionStatus ? new BusinessOptionStatusResourceCollection($this->businessOptionStatus): [];
+        $levelStatus = $this->levelStatus ? new LevelStatusResourceCollection($this->levelStatus) : [];
+        $sectionStatus = $this->sectionStatus ? new SectionStatusResourceCollection($this->sectionStatus) : [];
+        $businessOptionStatus = $this->businessOptionStatus ? new BusinessOptionStatusResourceCollection($this->businessOptionStatus) : [];
 
         return [
-            'levelStatuses'                   => $levelStatus,
-            'sectionStatuses'                 => $sectionStatus,
-            'businessOptionStatuses'         => $businessOptionStatus,
+            'levelStatuses'          => $levelStatus,
+            'sectionStatuses'        => $sectionStatus,
+            'businessOptionStatuses' => $businessOptionStatus,
         ];
     }
 }

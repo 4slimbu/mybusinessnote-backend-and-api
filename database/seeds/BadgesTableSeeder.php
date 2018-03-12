@@ -12,7 +12,7 @@ class BadgesTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
 //        \DB::table('badges')->delete();
 //
@@ -46,6 +46,6 @@ class BadgesTableSeeder extends Seeder
 //            ),
 //        ));
 //
-        
+
     }
 }

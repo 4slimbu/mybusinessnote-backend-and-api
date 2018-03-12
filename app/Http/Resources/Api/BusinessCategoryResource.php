@@ -3,7 +3,6 @@
 namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Resources\Json\Resource;
-use Illuminate\Support\Facades\Route;
 
 class BusinessCategoryResource extends Resource
 {
@@ -15,11 +14,11 @@ class BusinessCategoryResource extends Resource
     public function toArray($request)
     {
         return [
-            'id'            => $this->id,
-            'name'          => $this->name,
-            'icon'          => asset($this->uploadDirectory . $this->icon ),
-            'hover_icon'    => asset($this->uploadDirectory . $this->hover_icon ),
-            'tooltip'       => $this->tooltip
+            'id'         => $this->id,
+            'name'       => $this->name,
+            'icon'       => asset($this->uploadDirectory . $this->icon),
+            'hover_icon' => asset($this->uploadDirectory . $this->hover_icon),
+            'tooltip'    => $this->tooltip,
         ];
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Resources\Json\Resource;
-use Illuminate\Support\Facades\Route;
 
 class AffiliateLinkResource extends Resource
 {
@@ -15,9 +14,9 @@ class AffiliateLinkResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id'    => $this->id,
             'label' => $this->pivot['label'],
-            'link' => $this->link,
+            'link'  => $this->link,
         ];
     }
 }

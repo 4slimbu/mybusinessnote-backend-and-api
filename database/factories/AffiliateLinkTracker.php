@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\AffiliateLink;
-use App\Models\Business;
 use Faker\Generator as Faker;
 
 $factory->define(\App\Models\AffiliateLinkTracker::class, function (Faker $faker) {

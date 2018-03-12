@@ -24,8 +24,8 @@ class UpdatePasswordFormValidation extends FormRequest
     public function rules()
     {
         return [
-            'password' => 'required|confirmed',
-            'password_confirmation' => 'required'
+            'password'              => 'required|confirmed',
+            'password_confirmation' => 'required',
         ];
     }
 }

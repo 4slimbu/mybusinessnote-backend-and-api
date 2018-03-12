@@ -5,8 +5,10 @@ namespace App\Http\Controllers\UserDashboard;
 
 use App\Models\BusinessMeta;
 use App\Models\Level;
+use AppHelper;
 use Illuminate\Support\Facades\Auth;
-use Session, AppHelper, PDF;
+use PDF;
+use Session;
 
 
 class DashboardController extends BaseController
@@ -33,11 +35,10 @@ class DashboardController extends BaseController
      * Array of panel actions
      * @var string
      */
-    protected $panel_actions = array( 
+    protected $panel_actions = [
 
-        [ 'link' => '/user-dashboard/dashboard/profile/pdf', 'label' => 'Export to PDF']
-    );
-
+        ['link' => '/user-dashboard/dashboard/profile/pdf', 'label' => 'Export to PDF'],
+    ];
 
 
     /**
@@ -57,27 +58,6 @@ class DashboardController extends BaseController
 
 
         return view(parent::loadViewData($this->view_path . '.index'), compact('data'));
-    }
-
-    public function profileToPdf()
-    {
-        //initialize
-        $data = [];
-
-        //get data
-        $data['user'] = Auth::user()->load('business');
-        $relatedBusinessOptions = $data['user']->business->businessOptions()->select('id', 'section_id', 'name', 'status')->get();
-        $data['groupedBusinessOptions'] = $this->groupByLevelAndSection($data['user']->business, $relatedBusinessOptions);
-
-        try {
-            $pdf = PDF::loadView(parent::loadViewData($this->view_path . '.profile-pdf'), compact('data'));
-            return $pdf->download('business_profile.pdf');
-        } catch (\Exception $exception) {
-//            dd($exception);
-            Session::flash('error', 'Something went wrong!');
-        }
-
-        return redirect()->back();
     }
 
     /**
@@ -100,9 +80,9 @@ class DashboardController extends BaseController
         if ($levels) {
             foreach ($levels as $level) {
                 $data[] = [
-                    'id' => $level->id,
-                    'name' => $level->name,
-                    'sections' => $this->getRelatedSections($level, $businessOptions, $businessMetas)
+                    'id'       => $level->id,
+                    'name'     => $level->name,
+                    'sections' => $this->getRelatedSections($level, $businessOptions, $businessMetas),
                 ];
             }
         }
@@ -126,9 +106,9 @@ class DashboardController extends BaseController
         if ($level->sections) {
             foreach ($level->sections as $section) {
                 $data[] = [
-                    'id' => $section->id,
-                    'name' => $section->name,
-                    'businessOptions' => $this->getRelatedBusinessOptions($section, $businessOptions, $businessMetas)
+                    'id'              => $section->id,
+                    'name'            => $section->name,
+                    'businessOptions' => $this->getRelatedBusinessOptions($section, $businessOptions, $businessMetas),
                 ];
             }
         }
@@ -156,7 +136,7 @@ class DashboardController extends BaseController
                     $status = ($businessOption->status) ? $businessOption->status : '';
 
                     //business meta
-                    $businessMetaData = $businessMetas->filter(function ($value, $key) use($businessOption) {
+                    $businessMetaData = $businessMetas->filter(function ($value, $key) use ($businessOption) {
                         return $value->business_option_id === $businessOption->id;
                     });
 
@@ -164,10 +144,10 @@ class DashboardController extends BaseController
 
                     //return data
                     $data[] = [
-                        'id' => $businessOption->id,
-                        'name' => $businessOption->name,
-                        'status' => $status,
-                        'businessMetas' => $transformedBusinessMetaData
+                        'id'            => $businessOption->id,
+                        'name'          => $businessOption->name,
+                        'status'        => $status,
+                        'businessMetas' => $transformedBusinessMetaData,
                     ];
                 }
             }
@@ -196,22 +176,44 @@ class DashboardController extends BaseController
                 }
                 //for brand color
                 if ($item->key === 'brand_color') {
-                    $value = '<div width="30" height="30" style="width:20px; height:20px; background-color:'. $item->value .';"></div>';
+                    $value = '<div width="30" height="30" style="width:20px; height:20px; background-color:' . $item->value . ';"></div>';
                 }
                 if ($item->key === 'sec_brand_color') {
-                    $value = '<div width="30" height="30" style="width:20px; height:20px; background-color:'. $item->value .';"></div>';
+                    $value = '<div width="30" height="30" style="width:20px; height:20px; background-color:' . $item->value . ';"></div>';
                 }
 
                 $data[] = [
-                    'id' => $item->id,
-                    'business_id' => $item->business_id,
+                    'id'                 => $item->id,
+                    'business_id'        => $item->business_id,
                     'business_option_id' => $item->business_option_id,
-                    'value' => $value
+                    'value'              => $value,
                 ];
             }
         }
 
         return $data;
+    }
+
+    public function profileToPdf()
+    {
+        //initialize
+        $data = [];
+
+        //get data
+        $data['user'] = Auth::user()->load('business');
+        $relatedBusinessOptions = $data['user']->business->businessOptions()->select('id', 'section_id', 'name', 'status')->get();
+        $data['groupedBusinessOptions'] = $this->groupByLevelAndSection($data['user']->business, $relatedBusinessOptions);
+
+        try {
+            $pdf = PDF::loadView(parent::loadViewData($this->view_path . '.profile-pdf'), compact('data'));
+
+            return $pdf->download('business_profile.pdf');
+        } catch (\Exception $exception) {
+//            dd($exception);
+            Session::flash('error', 'Something went wrong!');
+        }
+
+        return redirect()->back();
     }
 
 }

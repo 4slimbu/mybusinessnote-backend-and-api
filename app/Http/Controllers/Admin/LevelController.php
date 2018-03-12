@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Admin\LevelValidation\CreateFormValidation;
 use App\Http\Requests\Admin\LevelValidation\UpdateFormValidation;
-use App\Models\Role;
 use App\Models\Level;
-use Session, AppHelper;
+use App\Models\Role;
+use AppHelper;
+use Session;
 
 
 class LevelController extends AdminBaseController
@@ -31,15 +32,15 @@ class LevelController extends AdminBaseController
     protected $panel_name = 'Level';
 
 
-     /**
+    /**
      * Array of panel actions
      * @var string
      */
-    protected $panel_actions = array( 
+    protected $panel_actions = [
 
-        [ 'link' => 'level/create', 'label' => 'Add New']
-        
-    );
+        ['link' => 'level/create', 'label' => 'Add New'],
+
+    ];
 
     /**
      * Upload directory relative to public folder
@@ -106,7 +107,8 @@ class LevelController extends AdminBaseController
         $input['slug'] = str_slug($request->get('name'));
         Level::create($input);
 
-        Session::flash('success', $this->panel_name.' created successfully.');
+        Session::flash('success', $this->panel_name . ' created successfully.');
+
         return redirect()->route($this->base_route);
 
     }
@@ -182,7 +184,8 @@ class LevelController extends AdminBaseController
 
         $level->fill($input)->save();
 
-        Session::flash('success', $this->panel_name.' updated successfully.');
+        Session::flash('success', $this->panel_name . ' updated successfully.');
+
         return redirect()->route($this->base_route);
     }
 
@@ -204,7 +207,8 @@ class LevelController extends AdminBaseController
 
         $level->delete();
 
-        Session::flash('success', $this->panel_name.' deleted successfully.');
+        Session::flash('success', $this->panel_name . ' deleted successfully.');
+
         return redirect()->route($this->base_route);
     }
 }

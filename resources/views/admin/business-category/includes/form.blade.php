@@ -9,7 +9,7 @@
 
 {{--Icon--}}
 <div class="form-group">
-    <label  class="display-block text-semibold">Icon:</label>
+    <label class="display-block text-semibold">Icon:</label>
     {{ Form::file('icon', null, ['class' => 'form-control']) }}
     @if(isset($data['row']) && $data['row']->icon)
         <img width="150" src="{{ asset($upload_directory . $data['row']->icon) }}" alt="">
@@ -21,7 +21,7 @@
 
 {{--Hover Icon--}}
 <div class="form-group">
-    <label  class="display-block text-semibold">Hover Icon:</label>
+    <label class="display-block text-semibold">Hover Icon:</label>
     {{ Form::file('hover_icon', null, ['class' => 'form-control']) }}
     @if(isset($data['row']) && $data['row']->hover_icon)
         <img width="150" src="{{ asset($upload_directory . $data['row']->hover_icon) }}" alt="">

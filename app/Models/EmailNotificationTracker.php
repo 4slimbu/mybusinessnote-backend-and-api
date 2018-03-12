@@ -16,6 +16,6 @@ class EmailNotificationTracker extends Model
         'level_two_not_complete_after_one_week',
         'no_activity_after_completing_level_one_for_one_month',
         'no_activity_after_completing_level_two_for_one_week',
-        'no_activity_after_completing_level_two_for_one_month'
+        'no_activity_after_completing_level_two_for_one_month',
     ];
 }

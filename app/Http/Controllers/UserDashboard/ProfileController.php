@@ -7,8 +7,9 @@ use App\Http\Requests\UserDashboard\ProfileValidation\UpdateFormValidation;
 use App\Http\Requests\UserDashboard\ProfileValidation\UpdatePasswordFormValidation;
 use App\Models\Role;
 use App\Models\User;
+use AppHelper;
 use Illuminate\Support\Facades\Auth;
-use Session, AppHelper;
+use Session;
 
 
 class ProfileController extends BaseController
@@ -32,14 +33,14 @@ class ProfileController extends BaseController
     protected $panel_name = 'Profile';
 
 
-     /**
+    /**
      * Array of panel actions
      * @var string
      */
-    protected $panel_actions = array( 
+    protected $panel_actions = [
 
-        [ 'link' => '/user-dashboard/dashboard/profile/pdf', 'label' => 'Export to PDF']
-    );
+        ['link' => '/user-dashboard/dashboard/profile/pdf', 'label' => 'Export to PDF'],
+    ];
 
     /**
      * Show the edit page for Profile
@@ -78,7 +79,8 @@ class ProfileController extends BaseController
         $user = User::where('id', Auth::user()->id)->first();
         $user->update($input);
 
-        Session::flash('success', $this->panel_name.' updated successfully.');
+        Session::flash('success', $this->panel_name . ' updated successfully.');
+
         return redirect()->back();
     }
 
@@ -104,7 +106,8 @@ class ProfileController extends BaseController
         $profile = User::where('id', Auth::user()->id)->first();
         $profile->fill($input)->save();
 
-        Session::flash('success', $this->panel_name.' updated successfully.');
+        Session::flash('success', $this->panel_name . ' updated successfully.');
+
         return redirect()->back();
     }
 

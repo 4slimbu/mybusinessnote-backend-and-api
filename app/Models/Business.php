@@ -78,9 +78,9 @@ class Business extends Model
         //create business with business_category_id, user_id and sell_goods
         $business_category_id = $request->get('business_category_id') ? $request->get('business_category_id') : 1;
         $business = Business::create([
-            'user_id' => $user->id,
+            'user_id'              => $user->id,
             'business_category_id' => $business_category_id,
-            'sell_goods' => $request->get('sell_goods') ? $request->get('sell_goods') : false
+            'sell_goods'           => $request->get('sell_goods') ? $request->get('sell_goods') : false,
         ]);
 
         // Set up business_business_options with all the available business_options
@@ -88,8 +88,8 @@ class Business extends Model
 
         //sync business with default business options determined by business_category_id
         $data = [
-            'business_category_id' => $business_category_id,
-            'business_option_status' => 'done'
+            'business_category_id'   => $business_category_id,
+            'business_option_status' => 'done',
         ];
         // Sync business_category business option
         $this->syncBusinessPivotTables($business, BusinessOption::find(1), $data);

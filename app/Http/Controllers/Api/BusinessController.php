@@ -27,7 +27,7 @@ class BusinessController extends ApiBaseController
 
         return ResponseLibrary::success([
             'successCode' => 'FETCHED',
-            'business' => new BusinessResource($user->business)
+            'business'    => new BusinessResource($user->business),
         ], 200);
     }
 
@@ -46,8 +46,8 @@ class BusinessController extends ApiBaseController
         $data['businessOptionStatus'] = $user->business->businessOptions()->get();
 
         return ResponseLibrary::success([
-            'successCode' => 'FETCHED',
-            'businessStatus' => new BusinessStatusResource($user->business, $data)
+            'successCode'    => 'FETCHED',
+            'businessStatus' => new BusinessStatusResource($user->business, $data),
         ], 200);
     }
 
@@ -61,7 +61,7 @@ class BusinessController extends ApiBaseController
     public function saveUserBusiness(UpdateFormValidation $request)
     {
         $business_option_id = $request->get('business_option_id');
-        if (! $business_option_id) {
+        if (!$business_option_id) {
             throw new InvalidRequestException();
         }
 
@@ -78,24 +78,25 @@ class BusinessController extends ApiBaseController
             $this->refreshBusinessBusinessOption($business);
         }
         $this->syncBusinessPivotTables($business, $business_option, [
-            'business_category_id' => $business->business_category_id,
-            'business_option_status' => 'done'
+            'business_category_id'   => $business->business_category_id,
+            'business_option_status' => 'done',
         ]);
         $businessStatus = $this->refreshAllRelatedStatusForCurrentBusinessOption($business, $business_option);
         $business_option_status = BusinessBusinessOption::where('business_id', $business->id)
             ->where('business_option_id', $business_option->id)->first()->status;
+
         //return response
         return ResponseLibrary::success([
-            'successCode' => 'SAVED',
-            'business' => new BusinessResource($business->refresh()),
+            'successCode'    => 'SAVED',
+            'business'       => new BusinessResource($business->refresh()),
             'businessOption' => [
-                'id' => $business_option->id,
-                'level_id' => $business_option->level_id,
+                'id'         => $business_option->id,
+                'level_id'   => $business_option->level_id,
                 'section_id' => $business_option->section_id,
-                'status' => $business_option_status
+                'status'     => $business_option_status,
             ],
             'businessStatus' => $businessStatus,
-            'token' => $this->getTokenFromUser($user)
+            'token'          => $this->getTokenFromUser($user),
         ], 200);
     }
 }

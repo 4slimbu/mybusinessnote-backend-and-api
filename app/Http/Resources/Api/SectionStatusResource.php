@@ -15,10 +15,10 @@ class SectionStatusResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'level_id' => $this->level_id,
+            'id'                => $this->id,
+            'level_id'          => $this->level_id,
             'completed_percent' => $this->pivot['completed_percent'],
-            'last_updated' => $this->pivot['updated_at']
+            'last_updated'      => $this->pivot['updated_at'],
         ];
     }
 }

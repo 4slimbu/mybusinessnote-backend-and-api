@@ -5,6 +5,6 @@
         <h4>
             {{ $panel_name }}
         </h4>
-        
+
     </div>
 @endsection

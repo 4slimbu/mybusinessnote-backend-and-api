@@ -7,7 +7,7 @@
   }
 
   .nav-pills {
-      margin-top: 0.5rem;
+    margin-top: 0.5rem;
     .nav-link {
       color: inherit;
       background-color: transparent;
@@ -20,7 +20,7 @@
       font-weight: bold;
       transition: background-color 0.5s ease;
 
-      &:hover,&.active {
+      &:hover, &.active {
         color: #fff;
         background-color: $brand-success;
         border: 2px solid darken($brand-success, 20%);
@@ -46,8 +46,6 @@
     position: relative;
     padding: 0 2rem 2rem 2rem;
   }
-
-
 
   .card {
 

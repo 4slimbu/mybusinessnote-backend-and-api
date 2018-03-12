@@ -17,12 +17,12 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
     static $password;
 
     return [
-        'first_name' => $faker->firstName,
-        'last_name' => $faker->lastName,
-        'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('password'),
-        'verified' => true,
-        'role_id' => $faker->randomElement([1, 2, 3]),
+        'first_name'     => $faker->firstName,
+        'last_name'      => $faker->lastName,
+        'email'          => $faker->unique()->safeEmail,
+        'password'       => $password ?: $password = bcrypt('password'),
+        'verified'       => true,
+        'role_id'        => $faker->randomElement([1, 2, 3]),
         'remember_token' => str_random(10),
     ];
 });

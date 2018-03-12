@@ -8,8 +8,9 @@ use App\Http\Requests\Admin\CustomerValidation\CreateFormValidation;
 use App\Http\Requests\Admin\CustomerValidation\UpdateFormValidation;
 use App\Models\Role;
 use App\Models\User;
+use AppHelper;
 use Carbon\Carbon;
-use Session, AppHelper;
+use Session;
 
 
 class CustomerController extends AdminBaseController
@@ -33,16 +34,16 @@ class CustomerController extends AdminBaseController
     protected $panel_name = 'Customer';
 
 
-     /**
+    /**
      * Array of panel actions
      * @var string
      */
-    protected $panel_actions = array( 
+    protected $panel_actions = [
 
-        [ 'link' => 'customer/create', 'label' => 'Add New'],
-        [ 'link' => '#', 'label' => 'Export to Excel']
-        
-    );
+        ['link' => 'customer/create', 'label' => 'Add New'],
+        ['link' => '#', 'label' => 'Export to Excel'],
+
+    ];
 
     /**
      * Display a listing of the customer.
@@ -96,7 +97,8 @@ class CustomerController extends AdminBaseController
         event(new UserRegistered(User::find($user->id)));
 
         //response
-        Session::flash('success', $this->panel_name.' created successfully.');
+        Session::flash('success', $this->panel_name . ' created successfully.');
+
         return redirect()->route($this->base_route);
 
     }
@@ -144,7 +146,8 @@ class CustomerController extends AdminBaseController
         $input = $request->all();
         $customer->fill($input)->save();
 
-        Session::flash('success', $this->panel_name.' updated successfully.');
+        Session::flash('success', $this->panel_name . ' updated successfully.');
+
         return redirect()->route($this->base_route);
     }
 
@@ -158,7 +161,8 @@ class CustomerController extends AdminBaseController
     {
         $customer->delete();
 
-        Session::flash('success', $this->panel_name.' deleted successfully.');
+        Session::flash('success', $this->panel_name . ' deleted successfully.');
+
         return redirect()->route($this->base_route);
     }
 }

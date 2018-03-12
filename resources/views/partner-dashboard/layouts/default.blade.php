@@ -17,17 +17,17 @@
 <body>
 <div id="app">
     <!-- Top Nav -->
-    @include('partner-dashboard.layouts.partials.nav')
-    <!-- /top nap -->
+@include('partner-dashboard.layouts.partials.nav')
+<!-- /top nap -->
     <div class="container-fluid">
         <div class="row">
             <!-- Left Sidebar Menu -->
-            @include('partner-dashboard.layouts.partials.side-menu')
-            <!-- /left sidebar menu -->
+        @include('partner-dashboard.layouts.partials.side-menu')
+        <!-- /left sidebar menu -->
 
             <main class="col-md-9 ml-sm-auto col-lg-10 pt-5 px-5" role="main">
 
-               <!--  <h2>{{ $panel_name }}</h2> -->
+            <!--  <h2>{{ $panel_name }}</h2> -->
 
                 @if(Session::has('success'))
                     <p class="alert alert-success">{{ Session::get('success') }}</p>

@@ -8,7 +8,7 @@
 | Routes to authenticate backend users.
 |
 */
-Route::group([ 'namespace' => 'App\Http\Controllers'], function () {
+Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Auth::routes();
 });
 
@@ -22,10 +22,9 @@ Route::group([ 'namespace' => 'App\Http\Controllers'], function () {
 */
 
 Route::get('/', [
-    'as' => 'dashboard',
-    'uses' => 'App\\Http\\Controllers\\DashboardController@index'
+    'as'   => 'dashboard',
+    'uses' => 'App\\Http\\Controllers\\DashboardController@index',
 ]);
-
 
 
 /*
@@ -39,225 +38,225 @@ Route::get('/', [
 
 
 Route::group([
-    'prefix' => 'admin',
-    'as' => 'admin.',
+    'prefix'     => 'admin',
+    'as'         => 'admin.',
     'middleware' => 'auth.admin',
-    'namespace' => 'App\Http\Controllers\Admin'
-], function() {
+    'namespace'  => 'App\Http\Controllers\Admin',
+], function () {
 
     Route::get('/', [
-        'as' => 'dashboard',
-        'uses' => 'DashboardController@index'
+        'as'   => 'dashboard',
+        'uses' => 'DashboardController@index',
     ]);
 
     /* Business Category */
     Route::get('business-category', [
-        'as' => 'business-category',
+        'as'   => 'business-category',
         'uses' => 'BusinessCategoryController@index',
     ]);
     Route::get('business-category/create', [
-        'as' => 'business-category.create',
+        'as'   => 'business-category.create',
         'uses' => 'BusinessCategoryController@create',
     ]);
     Route::post('business-category/store', [
-        'as' => 'business-category.store',
+        'as'   => 'business-category.store',
         'uses' => 'BusinessCategoryController@store',
     ]);
     Route::get('business-category/edit/{businessCategory}', [
-        'as' => 'business-category.edit',
-        'uses' => 'BusinessCategoryController@edit'
+        'as'   => 'business-category.edit',
+        'uses' => 'BusinessCategoryController@edit',
     ]);
     Route::post('business-category/update/{businessCategory}', [
-        'as' => 'business-category.update',
+        'as'   => 'business-category.update',
         'uses' => 'BusinessCategoryController@update',
     ]);
     Route::delete('business-category/destroy/{businessCategory}', [
-        'as' => 'business-category.destroy',
-        'uses' => 'BusinessCategoryController@destroy'
+        'as'   => 'business-category.destroy',
+        'uses' => 'BusinessCategoryController@destroy',
     ]);
 
 
     /* User */
     Route::get('user', [
-        'as' => 'user',
+        'as'   => 'user',
         'uses' => 'UserController@index',
     ]);
     Route::get('user/create', [
-        'as' => 'user.create',
+        'as'   => 'user.create',
         'uses' => 'UserController@create',
     ]);
     Route::post('user/store', [
-        'as' => 'user.store',
+        'as'   => 'user.store',
         'uses' => 'UserController@store',
     ]);
     Route::get('user/edit/{user}', [
-        'as' => 'user.edit',
-        'uses' => 'UserController@edit'
+        'as'   => 'user.edit',
+        'uses' => 'UserController@edit',
     ]);
     Route::post('user/update/{user}', [
-        'as' => 'user.update',
+        'as'   => 'user.update',
         'uses' => 'UserController@update',
     ]);
     Route::delete('user/destroy/{user}', [
-        'as' => 'user.destroy',
-        'uses' => 'UserController@destroy'
+        'as'   => 'user.destroy',
+        'uses' => 'UserController@destroy',
     ]);
 
 
     /* Partner */
     Route::get('partner', [
-        'as' => 'partner',
+        'as'   => 'partner',
         'uses' => 'PartnerController@index',
     ]);
     Route::get('partner/create', [
-        'as' => 'partner.create',
+        'as'   => 'partner.create',
         'uses' => 'PartnerController@create',
     ]);
     Route::post('partner/store', [
-        'as' => 'partner.store',
+        'as'   => 'partner.store',
         'uses' => 'PartnerController@store',
     ]);
     Route::get('partner/edit/{partner}', [
-        'as' => 'partner.edit',
-        'uses' => 'PartnerController@edit'
+        'as'   => 'partner.edit',
+        'uses' => 'PartnerController@edit',
     ]);
     Route::post('partner/update/{partner}', [
-        'as' => 'partner.update',
+        'as'   => 'partner.update',
         'uses' => 'PartnerController@update',
     ]);
     Route::delete('partner/destroy/{partner}', [
-        'as' => 'partner.destroy',
-        'uses' => 'PartnerController@destroy'
+        'as'   => 'partner.destroy',
+        'uses' => 'PartnerController@destroy',
     ]);
 
     /* Customer */
     Route::get('customer', [
-        'as' => 'customer',
+        'as'   => 'customer',
         'uses' => 'CustomerController@index',
     ]);
     Route::get('customer/create', [
-        'as' => 'customer.create',
+        'as'   => 'customer.create',
         'uses' => 'CustomerController@create',
     ]);
     Route::post('customer/store', [
-        'as' => 'customer.store',
+        'as'   => 'customer.store',
         'uses' => 'CustomerController@store',
     ]);
     Route::get('customer/edit/{customer}', [
-        'as' => 'customer.edit',
-        'uses' => 'CustomerController@edit'
+        'as'   => 'customer.edit',
+        'uses' => 'CustomerController@edit',
     ]);
     Route::post('customer/update/{customer}', [
-        'as' => 'customer.update',
+        'as'   => 'customer.update',
         'uses' => 'CustomerController@update',
     ]);
     Route::delete('customer/destroy/{customer}', [
-        'as' => 'customer.destroy',
-        'uses' => 'CustomerController@destroy'
+        'as'   => 'customer.destroy',
+        'uses' => 'CustomerController@destroy',
     ]);
 
     /* Business */
     Route::get('business', [
-        'as' => 'business',
+        'as'   => 'business',
         'uses' => 'BusinessController@index',
     ]);
     Route::get('business/create', [
-        'as' => 'business.create',
+        'as'   => 'business.create',
         'uses' => 'BusinessController@create',
     ]);
     Route::post('business/store', [
-        'as' => 'business.store',
+        'as'   => 'business.store',
         'uses' => 'BusinessController@store',
     ]);
     Route::get('business/edit/{business}', [
-        'as' => 'business.edit',
-        'uses' => 'BusinessController@edit'
+        'as'   => 'business.edit',
+        'uses' => 'BusinessController@edit',
     ]);
     Route::post('business/update/{business}', [
-        'as' => 'business.update',
+        'as'   => 'business.update',
         'uses' => 'BusinessController@update',
     ]);
     Route::delete('business/destroy/{business}', [
-        'as' => 'business.destroy',
-        'uses' => 'BusinessController@destroy'
+        'as'   => 'business.destroy',
+        'uses' => 'BusinessController@destroy',
     ]);
 
     /* Business Option */
     Route::get('business-option', [
-        'as' => 'business-option',
+        'as'   => 'business-option',
         'uses' => 'BusinessOptionController@index',
     ]);
     Route::get('business-option/create', [
-        'as' => 'business-option.create',
+        'as'   => 'business-option.create',
         'uses' => 'BusinessOptionController@create',
     ]);
     Route::post('business-option/store', [
-        'as' => 'business-option.store',
+        'as'   => 'business-option.store',
         'uses' => 'BusinessOptionController@store',
     ]);
     Route::get('business-option/edit/{businessOption}', [
-        'as' => 'business-option.edit',
-        'uses' => 'BusinessOptionController@edit'
+        'as'   => 'business-option.edit',
+        'uses' => 'BusinessOptionController@edit',
     ]);
     Route::post('business-option/update/{businessOption}', [
-        'as' => 'business-option.update',
+        'as'   => 'business-option.update',
         'uses' => 'BusinessOptionController@update',
     ]);
     Route::delete('business-option/destroy/{businessOption}', [
-        'as' => 'business-option.destroy',
-        'uses' => 'BusinessOptionController@destroy'
+        'as'   => 'business-option.destroy',
+        'uses' => 'BusinessOptionController@destroy',
     ]);
 
     /* Level */
     Route::get('level', [
-        'as' => 'level',
+        'as'   => 'level',
         'uses' => 'LevelController@index',
     ]);
     Route::get('level/create', [
-        'as' => 'level.create',
+        'as'   => 'level.create',
         'uses' => 'LevelController@create',
     ]);
     Route::post('level/store', [
-        'as' => 'level.store',
+        'as'   => 'level.store',
         'uses' => 'LevelController@store',
     ]);
     Route::get('level/edit/{level}', [
-        'as' => 'level.edit',
-        'uses' => 'LevelController@edit'
+        'as'   => 'level.edit',
+        'uses' => 'LevelController@edit',
     ]);
     Route::post('level/update/{level}', [
-        'as' => 'level.update',
+        'as'   => 'level.update',
         'uses' => 'LevelController@update',
     ]);
     Route::delete('level/destroy/{level}', [
-        'as' => 'level.destroy',
-        'uses' => 'LevelController@destroy'
+        'as'   => 'level.destroy',
+        'uses' => 'LevelController@destroy',
     ]);
 
     /* Section */
     Route::get('section', [
-        'as' => 'section',
+        'as'   => 'section',
         'uses' => 'SectionController@index',
     ]);
     Route::get('section/create', [
-        'as' => 'section.create',
+        'as'   => 'section.create',
         'uses' => 'SectionController@create',
     ]);
     Route::post('section/store', [
-        'as' => 'section.store',
+        'as'   => 'section.store',
         'uses' => 'SectionController@store',
     ]);
     Route::get('section/edit/{section}', [
-        'as' => 'section.edit',
-        'uses' => 'SectionController@edit'
+        'as'   => 'section.edit',
+        'uses' => 'SectionController@edit',
     ]);
     Route::post('section/update/{section}', [
-        'as' => 'section.update',
+        'as'   => 'section.update',
         'uses' => 'SectionController@update',
     ]);
     Route::delete('section/destroy/{section}', [
-        'as' => 'section.destroy',
-        'uses' => 'SectionController@destroy'
+        'as'   => 'section.destroy',
+        'uses' => 'SectionController@destroy',
     ]);
 
 });
@@ -274,43 +273,43 @@ Route::group([
 
 
 Route::group([
-    'prefix' => 'partner-dashboard',
-    'as' => 'partner-dashboard.',
+    'prefix'     => 'partner-dashboard',
+    'as'         => 'partner-dashboard.',
     'middleware' => 'auth.partner',
-    'namespace' => 'App\\Http\\Controllers\\PartnerDashboard'
-], function() {
+    'namespace'  => 'App\\Http\\Controllers\\PartnerDashboard',
+], function () {
 
     Route::get('/', [
-        'as' => 'dashboard',
-        'uses' => 'DashboardController@index'
+        'as'   => 'dashboard',
+        'uses' => 'DashboardController@index',
     ]);
 
     /* Profile */
     Route::get('profile', [
-        'as' => 'profile',
+        'as'   => 'profile',
         'uses' => 'ProfileController@index',
     ]);
     Route::post('profile/update/password', [
-        'as' => 'profile.update-password',
-        'uses' => 'ProfileController@updatePassword'
+        'as'   => 'profile.update-password',
+        'uses' => 'ProfileController@updatePassword',
     ]);
     Route::post('profile/update', [
-        'as' => 'profile.update',
+        'as'   => 'profile.update',
         'uses' => 'ProfileController@update',
     ]);
     Route::get('profile/edit/password', [
-        'as' => 'profile.edit-password',
-        'uses' => 'ProfileController@editPassword'
+        'as'   => 'profile.edit-password',
+        'uses' => 'ProfileController@editPassword',
     ]);
 
     /* Lead */
     Route::get('lead', [
-        'as' => 'lead',
+        'as'   => 'lead',
         'uses' => 'LeadController@index',
     ]);
 
     Route::get('lead/download', [
-        'as' => 'lead.download',
+        'as'   => 'lead.download',
         'uses' => 'LeadController@download',
     ]);
 });
@@ -327,64 +326,64 @@ Route::group([
 
 
 Route::group([
-    'prefix' => 'user-dashboard',
-    'as' => 'user-dashboard.',
+    'prefix'     => 'user-dashboard',
+    'as'         => 'user-dashboard.',
     'middleware' => 'auth.user',
-    'namespace' => 'App\\Http\\Controllers\\UserDashboard'
-], function() {
+    'namespace'  => 'App\\Http\\Controllers\\UserDashboard',
+], function () {
 
     /* Dashboard */
     Route::get('/', [
-        'as' => 'dashboard',
-        'uses' => 'DashboardController@index'
+        'as'   => 'dashboard',
+        'uses' => 'DashboardController@index',
     ]);
 
-     Route::get('/profile', [
-        'as' => 'dashboard',
-        'uses' => 'DashboardController@index'
+    Route::get('/profile', [
+        'as'   => 'dashboard',
+        'uses' => 'DashboardController@index',
     ]);
-   
+
     Route::get('/dashboard/profile/pdf', [
-        'as' => 'dashboard.profile.pdf',
-        'uses' => 'DashboardController@profileToPdf'
+        'as'   => 'dashboard.profile.pdf',
+        'uses' => 'DashboardController@profileToPdf',
     ]);
 
     /* Communication Preference */
     Route::get('/communication-preference', [
-        'as' => 'communication-preference',
-        'uses' => 'CommunicationPreferenceController@index'
+        'as'   => 'communication-preference',
+        'uses' => 'CommunicationPreferenceController@index',
     ]);
     Route::post('communication-preference/update', [
-        'as' => 'communication-preference.update',
+        'as'   => 'communication-preference.update',
         'uses' => 'CommunicationPreferenceController@update',
     ]);
 
     /* Categories Preference */
     Route::get('/categories-preference', [
-        'as' => 'categories-preference',
-        'uses' => 'CategoriesPreferenceController@index'
+        'as'   => 'categories-preference',
+        'uses' => 'CategoriesPreferenceController@index',
     ]);
 
     Route::post('categories-preference/update', [
-        'as' => 'categories-preference.update',
+        'as'   => 'categories-preference.update',
         'uses' => 'CategoriesPreferenceController@update',
     ]);
 
     /* Profile */
     Route::get('profile/edit', [
-        'as' => 'profile.edit',
+        'as'   => 'profile.edit',
         'uses' => 'ProfileController@edit',
     ]);
     Route::post('profile/update/password', [
-        'as' => 'profile.update-password',
-        'uses' => 'ProfileController@updatePassword'
+        'as'   => 'profile.update-password',
+        'uses' => 'ProfileController@updatePassword',
     ]);
     Route::post('profile/update', [
-        'as' => 'profile.update',
+        'as'   => 'profile.update',
         'uses' => 'ProfileController@update',
     ]);
     Route::get('profile/edit/password', [
-        'as' => 'profile.edit-password',
-        'uses' => 'ProfileController@editPassword'
+        'as'   => 'profile.edit-password',
+        'uses' => 'ProfileController@editPassword',
     ]);
 });

@@ -93,7 +93,7 @@ class CampaignMonitorLibrary
     {
         $this->user = $user;
         $this->userName = $user->first_name . ' ' . $user->last_name;
-        $this->auth = array('api_key' => env('CAMPAIGN_MONITOR_API_KEY'));
+        $this->auth = ['api_key' => env('CAMPAIGN_MONITOR_API_KEY')];
         $this->reactAppUrl = env('REACT_APP_URL');
     }
 
@@ -109,164 +109,6 @@ class CampaignMonitorLibrary
         } else {
             $this->unsubscribeUserFromTheList();
         }
-    }
-
-    /**
-     * Send Verification Email using Smart Transactional Email
-     */
-    public function sendVerificationEmail()
-    {
-        $messageData = array(
-            "To" => array(
-                "{$this->userName} <{$this->user->email}>",
-            ),
-            "Data" => array(
-                "first_name" => $this->user->first_name,
-                "username" => $this->user->email,
-                "continue_where_you_left" => $this->reactAppUrl . '?token=' . $this->getJwtTokenFromUser($this->user) . '&email_verification_token=' . $this->user->email_verification_token,
-                "forgot_password_link" => $this->reactAppUrl . '/login/?forgot_password_token=' . $this->user->forgot_password_token,
-            )
-        );
-
-        $this->sendSmartTransactionalMail($this->smartEmailIdForEmailVerification, $messageData);
-    }
-
-    /**
-     * Send Forgot Password Email using Smart Transactional Email
-     */
-    public function sendForgotPasswordEmail()
-    {
-        $messageData = array(
-            "To" => array(
-                "{$this->userName} <{$this->user->email}>",
-            ),
-            "Data" => array(
-                "continue_where_you_left" => $this->reactAppUrl . '?token=' . $this->getJwtTokenFromUser($this->user) . '&email_verification_token=' . $this->user->email_verification_token,
-                "reset_password_link" => $this->reactAppUrl . '/login/?forgot_password_token=' . $this->user->forgot_password_token,
-            )
-        );
-
-        $this->sendSmartTransactionalMail($this->smartEmailIdForForgotPassword, $messageData);
-    }
-
-    //TODO: extract and combine all reminder emails to a single method
-    /**
-     * Send an achievement email to user when user completes level one
-     *
-     * @param User $user
-     */
-    public function sendLevelOneCompleteEmail(User $user)
-    {
-        $messageData = array(
-            "To" => array(
-                "{$user->first_name} {$user->last_name} <{$user->email}>",
-            ),
-            "Data" => []
-        );
-
-        $this->sendSmartTransactionalMail($this->smartIdForLevelOneComplete, $messageData);
-    }
-
-    /**
-     * Send reminder email for level one not complete after one day
-     *
-     * @param User $user
-     */
-    public function sendLevelOneNotCompleteAfterOneDayReminderEmail(User $user)
-    {
-        $messageData = array(
-            "To" => array(
-                "{$user->first_name} {$user->last_name} <{$user->email}>",
-            ),
-            "Data" => []
-        );
-
-        $this->sendSmartTransactionalMail($this->smartIdForLevelOneNotCompleteAfterOneDay, $messageData);
-    }
-
-    /**
-     * Send reminder email for level one not complete after one month
-     *
-     * @param User $user
-     */
-    public function sendLevelOneNotCompleteAfterOneMonthReminderEmail(User $user)
-    {
-        $messageData = array(
-            "To" => array(
-                "{$user->first_name} {$user->last_name} <{$user->email}>",
-            ),
-            "Data" => []
-        );
-
-        $this->sendSmartTransactionalMail($this->smartIdForLevelOneNotCompleteAfterOneMonth, $messageData);
-    }
-
-    /**
-     * Send reminder email for level two not complete after one week
-     *
-     * @param User $user
-     */
-    public function sendLevelTwoNotCompleteAfterOneWeekReminderEmail(User $user)
-    {
-        $messageData = array(
-            "To" => array(
-                "{$user->first_name} {$user->last_name} <{$user->email}>",
-            ),
-            "Data" => []
-        );
-
-        $this->sendSmartTransactionalMail($this->smartIdForLevelTwoNotCompleteAfterOneWeek, $messageData);
-    }
-
-    /**
-     * Send reminder email for no activity after completing level one for one month
-     *
-     * @param User $user
-     */
-    public function sendNoActivityAfterCompletingLevelOneForOneMonthReminderEmail(User $user)
-    {
-        $messageData = array(
-            "To" => array(
-                "{$user->first_name} {$user->last_name} <{$user->email}>",
-            ),
-            "Data" => []
-        );
-
-        $this->sendSmartTransactionalMail($this->smartIdForNoActivityAfterCompletingLevelOneForOneMonth, $messageData);
-    }
-
-    /**
-     * Send reminder email for no activity after completing level two for one week
-     *
-     * @param User $user
-     */
-    public function sendNoActivityAfterCompletingLevelTwoForOneWeekReminderEmail(User $user)
-    {
-        $messageData = array(
-            "To" => array(
-                "{$user->first_name} {$user->last_name} <{$user->email}>",
-            ),
-            "Data" => []
-        );
-
-        $this->sendSmartTransactionalMail($this->smartIdForNoActivityAfterCompletingLevelTwoForOneWeek, $messageData);
-    }
-
-    /**
-     * Send reminder email for no activity after completing level two for one month
-     *
-     * @param User $user
-     */
-    public function sendNoActivityAfterCompletingLevelTwoForOneMonthReminderEmail(User $user)
-    {
-        $messageData = array(
-            "To" => array(
-                "{$user->first_name} {$user->last_name} <{$user->email}>",
-            ),
-            "Data" => []
-        );
-
-        $this->sendSmartTransactionalMail($this->smartIdForNoActivityAfterCompletingLevelTwoForOneMonth, $messageData);
     }
 
     /**
@@ -295,11 +137,29 @@ class CampaignMonitorLibrary
         $wrap = new CS_REST_Subscribers($this->marketingListId, $this->auth);
         $result = $wrap->get($this->user->email);
 
-        if($result->was_successful()) {
+        if ($result->was_successful()) {
             return true;
         }
 
         return false;
+    }
+
+    //TODO: extract and combine all reminder emails to a single method
+
+    /**
+     * This updates subscriber info in the list
+     *
+     * @return void
+     */
+    private function updateUserInTheList()
+    {
+        $wrap = new CS_REST_Subscribers($this->marketingListId, $this->auth);
+
+        $wrap->update($this->user->email, [
+            'Name'        => $this->userName,
+            'Resubscribe' => true,
+        ]);
+
     }
 
     /**
@@ -311,27 +171,11 @@ class CampaignMonitorLibrary
     {
         $wrap = new CS_REST_Subscribers($this->marketingListId, $this->auth);
 
-        $wrap->add(array(
+        $wrap->add([
             'EmailAddress' => $this->user->email,
-            'Name' => $this->userName,
-            'Resubscribe' => true
-        ));
-    }
-
-    /**
-     * This updates subscriber info in the list
-     *
-     * @return void
-     */
-    private function updateUserInTheList()
-    {
-        $wrap = new CS_REST_Subscribers($this->marketingListId, $this->auth);
-
-        $wrap->update($this->user->email, array(
-            'Name' => $this->userName,
-            'Resubscribe' => true
-        ));
-
+            'Name'         => $this->userName,
+            'Resubscribe'  => true,
+        ]);
     }
 
     /**
@@ -348,6 +192,26 @@ class CampaignMonitorLibrary
     }
 
     /**
+     * Send Verification Email using Smart Transactional Email
+     */
+    public function sendVerificationEmail()
+    {
+        $messageData = [
+            "To"   => [
+                "{$this->userName} <{$this->user->email}>",
+            ],
+            "Data" => [
+                "first_name"              => $this->user->first_name,
+                "username"                => $this->user->email,
+                "continue_where_you_left" => $this->reactAppUrl . '?token=' . $this->getJwtTokenFromUser($this->user) . '&email_verification_token=' . $this->user->email_verification_token,
+                "forgot_password_link"    => $this->reactAppUrl . '/login/?forgot_password_token=' . $this->user->forgot_password_token,
+            ],
+        ];
+
+        $this->sendSmartTransactionalMail($this->smartEmailIdForEmailVerification, $messageData);
+    }
+
+    /**
      * Send Smart Transactional Mail
      * @param $smartEmailId
      * @param $messageData
@@ -357,5 +221,142 @@ class CampaignMonitorLibrary
         $add_recipients_to_subscriber_list = false; //TODO: review - we are doing it in a separate event
         $wrap = new CS_REST_Transactional_SmartEmail($smartEmailId, $this->auth);
         $result = $wrap->send($messageData, $add_recipients_to_subscriber_list);
+    }
+
+    /**
+     * Send Forgot Password Email using Smart Transactional Email
+     */
+    public function sendForgotPasswordEmail()
+    {
+        $messageData = [
+            "To"   => [
+                "{$this->userName} <{$this->user->email}>",
+            ],
+            "Data" => [
+                "continue_where_you_left" => $this->reactAppUrl . '?token=' . $this->getJwtTokenFromUser($this->user) . '&email_verification_token=' . $this->user->email_verification_token,
+                "reset_password_link"     => $this->reactAppUrl . '/login/?forgot_password_token=' . $this->user->forgot_password_token,
+            ],
+        ];
+
+        $this->sendSmartTransactionalMail($this->smartEmailIdForForgotPassword, $messageData);
+    }
+
+    /**
+     * Send an achievement email to user when user completes level one
+     *
+     * @param User $user
+     */
+    public function sendLevelOneCompleteEmail(User $user)
+    {
+        $messageData = [
+            "To"   => [
+                "{$user->first_name} {$user->last_name} <{$user->email}>",
+            ],
+            "Data" => [],
+        ];
+
+        $this->sendSmartTransactionalMail($this->smartIdForLevelOneComplete, $messageData);
+    }
+
+    /**
+     * Send reminder email for level one not complete after one day
+     *
+     * @param User $user
+     */
+    public function sendLevelOneNotCompleteAfterOneDayReminderEmail(User $user)
+    {
+        $messageData = [
+            "To"   => [
+                "{$user->first_name} {$user->last_name} <{$user->email}>",
+            ],
+            "Data" => [],
+        ];
+
+        $this->sendSmartTransactionalMail($this->smartIdForLevelOneNotCompleteAfterOneDay, $messageData);
+    }
+
+    /**
+     * Send reminder email for level one not complete after one month
+     *
+     * @param User $user
+     */
+    public function sendLevelOneNotCompleteAfterOneMonthReminderEmail(User $user)
+    {
+        $messageData = [
+            "To"   => [
+                "{$user->first_name} {$user->last_name} <{$user->email}>",
+            ],
+            "Data" => [],
+        ];
+
+        $this->sendSmartTransactionalMail($this->smartIdForLevelOneNotCompleteAfterOneMonth, $messageData);
+    }
+
+    /**
+     * Send reminder email for level two not complete after one week
+     *
+     * @param User $user
+     */
+    public function sendLevelTwoNotCompleteAfterOneWeekReminderEmail(User $user)
+    {
+        $messageData = [
+            "To"   => [
+                "{$user->first_name} {$user->last_name} <{$user->email}>",
+            ],
+            "Data" => [],
+        ];
+
+        $this->sendSmartTransactionalMail($this->smartIdForLevelTwoNotCompleteAfterOneWeek, $messageData);
+    }
+
+    /**
+     * Send reminder email for no activity after completing level one for one month
+     *
+     * @param User $user
+     */
+    public function sendNoActivityAfterCompletingLevelOneForOneMonthReminderEmail(User $user)
+    {
+        $messageData = [
+            "To"   => [
+                "{$user->first_name} {$user->last_name} <{$user->email}>",
+            ],
+            "Data" => [],
+        ];
+
+        $this->sendSmartTransactionalMail($this->smartIdForNoActivityAfterCompletingLevelOneForOneMonth, $messageData);
+    }
+
+    /**
+     * Send reminder email for no activity after completing level two for one week
+     *
+     * @param User $user
+     */
+    public function sendNoActivityAfterCompletingLevelTwoForOneWeekReminderEmail(User $user)
+    {
+        $messageData = [
+            "To"   => [
+                "{$user->first_name} {$user->last_name} <{$user->email}>",
+            ],
+            "Data" => [],
+        ];
+
+        $this->sendSmartTransactionalMail($this->smartIdForNoActivityAfterCompletingLevelTwoForOneWeek, $messageData);
+    }
+
+    /**
+     * Send reminder email for no activity after completing level two for one month
+     *
+     * @param User $user
+     */
+    public function sendNoActivityAfterCompletingLevelTwoForOneMonthReminderEmail(User $user)
+    {
+        $messageData = [
+            "To"   => [
+                "{$user->first_name} {$user->last_name} <{$user->email}>",
+            ],
+            "Data" => [],
+        ];
+
+        $this->sendSmartTransactionalMail($this->smartIdForNoActivityAfterCompletingLevelTwoForOneMonth, $messageData);
     }
 }

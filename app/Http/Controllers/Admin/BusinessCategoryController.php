@@ -6,8 +6,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\Admin\BusinessCategoryValidation\CreateFormValidation;
 use App\Http\Requests\Admin\BusinessCategoryValidation\UpdateFormValidation;
 use App\Models\BusinessCategory;
-use Session, AppHelper;
+use AppHelper;
 use Illuminate\Http\Request;
+use Session;
 
 
 class BusinessCategoryController extends AdminBaseController
@@ -30,15 +31,15 @@ class BusinessCategoryController extends AdminBaseController
      */
     protected $panel_name = 'Business Category';
 
-     /**
+    /**
      * Array of panel actions
      * @var string
      */
-    protected $panel_actions = array( 
+    protected $panel_actions = [
 
-        [ 'link' => 'business-category/create', 'label' => 'Add New']
-        
-    );
+        ['link' => 'business-category/create', 'label' => 'Add New'],
+
+    ];
 
     /**
      * Upload directory relative to public folder
@@ -100,7 +101,8 @@ class BusinessCategoryController extends AdminBaseController
 
         BusinessCategory::create($input);
 
-        Session::flash('success', $this->panel_name.' created successfully.');
+        Session::flash('success', $this->panel_name . ' created successfully.');
+
         return redirect()->route($this->base_route);
 
     }
@@ -174,7 +176,8 @@ class BusinessCategoryController extends AdminBaseController
 
         $businessCategory->fill($input)->save();
 
-        Session::flash('success', $this->panel_name.' updated successfully.');
+        Session::flash('success', $this->panel_name . ' updated successfully.');
+
         return redirect()->route($this->base_route);
     }
 
@@ -195,7 +198,8 @@ class BusinessCategoryController extends AdminBaseController
         }
         $businessCategory->delete();
 
-        Session::flash('success', $this->panel_name.' deleted successfully.');
+        Session::flash('success', $this->panel_name . ' deleted successfully.');
+
         return redirect()->route($this->base_route);
     }
 }

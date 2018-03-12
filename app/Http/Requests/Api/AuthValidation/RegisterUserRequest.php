@@ -24,12 +24,12 @@ class RegisterUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email|unique:users',
-            'phone_number' => 'required',
-            'password' => 'required|min:8|max:20',
-            'captcha_response'=>'recaptcha'
+            'first_name'       => 'required',
+            'last_name'        => 'required',
+            'email'            => 'required|email|unique:users',
+            'phone_number'     => 'required',
+            'password'         => 'required|min:8|max:20',
+            'captcha_response' => 'recaptcha',
         ];
     }
 }

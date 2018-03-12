@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\PartnerDashboard;
 
 
-use App\Http\Requests\Admin\UserValidation\CreateFormValidation;
-use App\Http\Requests\Admin\UserValidation\UpdateFormValidation;
-use App\Models\Role;
-use App\Models\User;
-use Session, AppHelper;
+use AppHelper;
+use Session;
 
 
 class DashboardController extends BaseController

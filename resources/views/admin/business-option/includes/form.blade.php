@@ -9,7 +9,7 @@
 
 {{--Section--}}
 <div class="form-group">
-    <label  class="display-block text-semibold">Section:</label>
+    <label class="display-block text-semibold">Section:</label>
     {{ Form::select('section_id', $data['sections'], null, ['class' => 'form-control', 'placeholder' => '-- Select Section --']) }}
     @if($errors->has('section_id'))
         <span class="text-danger">{{ $errors->first('section_id') }}</span>
@@ -19,14 +19,14 @@
 {{--Show Everywhere--}}
 <div class="form-group">
     <a href="javascript:void(0)" class="show-more">
-    {{ Form::checkbox('show_everywhere', 1, null) }}
+        {{ Form::checkbox('show_everywhere', 1, null) }}
     </a>
-    <label  class="display-block text-semibold">Show Everywhere</label>
+    <label class="display-block text-semibold">Show Everywhere</label>
 </div>
 
 {{--Business Category--}}
 <div class="form-group more-inputs">
-    <label  class="display-block text-semibold">Business Category:</label>
+    <label class="display-block text-semibold">Business Category:</label>
     {{ Form::select('business_category_id[]', $data['businessCategories'], $data['selectedBusinessCategories'], ['placeholder' => '-- Choose Business Category --', 'class' => 'form-control', 'multiple' => 'multiple', 'height' => 200]) }}
     @if($errors->has('business_category_id'))
         <span class="text-danger">{{ $errors->first('business_category_id') }}</span>
@@ -35,11 +35,11 @@
 
 {{--Parent Business Option--}}
 {{--<div class="form-group">--}}
-    {{--<label  class="display-block text-semibold">Parent Business Option:</label>--}}
-    {{--{{ Form::select('parent_id', $data['businessOptions'], null, ['placeholder' => '-- Choose Parent Busines Option --', 'class' => 'form-control']) }}--}}
-    {{--@if($errors->has('parent_id'))--}}
-        {{--<span class="text-danger">{{ $errors->first('parent_id') }}</span>--}}
-    {{--@endif--}}
+{{--<label  class="display-block text-semibold">Parent Business Option:</label>--}}
+{{--{{ Form::select('parent_id', $data['businessOptions'], null, ['placeholder' => '-- Choose Parent Busines Option --', 'class' => 'form-control']) }}--}}
+{{--@if($errors->has('parent_id'))--}}
+{{--<span class="text-danger">{{ $errors->first('parent_id') }}</span>--}}
+{{--@endif--}}
 {{--</div>--}}
 
 {{--Content--}}
@@ -53,7 +53,7 @@
 
 {{--Elements--}}
 <div class="form-group">
-    <label  class="display-block text-semibold">Element:</label>
+    <label class="display-block text-semibold">Element:</label>
     {{ Form::select('element', $data['elements'], $data['selectedElement'], ['placeholder' => '-- Choose Element --', 'class' => 'form-control']) }}
     @if($errors->has('element'))
         <span class="text-danger">{{ $errors->first('element') }}</span>
@@ -80,7 +80,7 @@
 
 {{--Partner Affiliate Links--}}
 <div class="form-group">
-    <label  class="display-block text-semibold">Affiliate Links:</label>
+    <label class="display-block text-semibold">Affiliate Links:</label>
     {{ Form::select('affiliate_link_id[]', $data['affiliateLinks'], $data['selectedAffiliateLinks'], ['placeholder' => '-- Choose Affiliate Links --', 'class' => 'form-control']) }}
     @if($errors->has('affiliate_link_id'))
         <span class="text-danger">{{ $errors->first('affiliate_link_id') }}</span>

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
-use Illuminate\Http\Request;
-use App\Mail\WelcomeEmail;
 use App\Http\Controllers\Controller;
-use Validator;
+use App\Mail\WelcomeEmail;
+use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Validator;
 
 class RegisterController extends Controller
 {
@@ -42,24 +42,6 @@ class RegisterController extends Controller
     }
 
     /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'phone_number' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
-    }
-
-
-    /**
      *  Over-ridden the register method from the "RegistersUsers" trait
      *  Remember to take care while upgrading laravel
      */
@@ -67,8 +49,7 @@ class RegisterController extends Controller
     {
         // Laravel validation
         $validator = $this->validator($request->all());
-        if ($validator->fails())
-        {
+        if ($validator->fails()) {
             return redirect('/register')
                 ->withErrors($validator)
                 ->withInput();
@@ -85,23 +66,38 @@ class RegisterController extends Controller
 
     }
 
-
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'first_name'   => 'required|string|max:255',
+            'last_name'    => 'required|string|max:255',
+            'phone_number' => 'required|string|max:255',
+            'email'        => 'required|string|email|max:255|unique:users',
+            'password'     => 'required|string|min:6|confirmed',
+        ]);
+    }
 
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return \App\Models\User
      */
     protected function create(array $data)
     {
-        $user =  User::create([
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
+        $user = User::create([
+            'first_name'   => $data['first_name'],
+            'last_name'    => $data['last_name'],
             'phone_number' => $data['phone_number'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-            'token' => str_random(10),
+            'email'        => $data['email'],
+            'password'     => bcrypt($data['password']),
+            'token'        => str_random(10),
         ]);
 
         return $user;
@@ -111,13 +107,14 @@ class RegisterController extends Controller
     /**
      * Handles email validation request.
      *
-     * @param  string  $token
+     * @param  string $token
      * @return string
      */
     public function verify($token)
     {
 
-        User::where('token',$token)->firstOrFail()->verified();
+        User::where('token', $token)->firstOrFail()->verified();
+
         return redirect('login');
 
     }

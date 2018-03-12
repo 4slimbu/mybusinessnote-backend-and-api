@@ -5,8 +5,10 @@ namespace App\Http\Controllers\UserDashboard;
 
 use App\Models\BusinessMeta;
 use App\Models\Section;
+use AppHelper;
 use Illuminate\Support\Facades\Auth;
-use Session, AppHelper, PDF;
+use PDF;
+use Session;
 
 
 class CategoriesPreferenceController extends BaseController
@@ -33,10 +35,10 @@ class CategoriesPreferenceController extends BaseController
      * Array of panel actions
      * @var string
      */
-    protected $panel_actions = array( 
+    protected $panel_actions = [
 
-        [ ]
-    );
+        [],
+    ];
 
 
     /**
@@ -81,9 +83,9 @@ class CategoriesPreferenceController extends BaseController
         if ($sections) {
             foreach ($sections as $section) {
                 $data[] = [
-                    'id' => $section->id,
-                    'name' => $section->name,
-                    'businessOptions' => $this->getRelatedBusinessOptions($section, $businessOptions, $businessMetas)
+                    'id'              => $section->id,
+                    'name'            => $section->name,
+                    'businessOptions' => $this->getRelatedBusinessOptions($section, $businessOptions, $businessMetas),
                 ];
             }
         }
@@ -116,7 +118,7 @@ class CategoriesPreferenceController extends BaseController
                     }
 
                     //business meta
-                    $businessMetaData = $businessMetas->filter(function ($value, $key) use($businessOption) {
+                    $businessMetaData = $businessMetas->filter(function ($value, $key) use ($businessOption) {
                         return $value->business_option_id === $businessOption->id;
                     });
 
@@ -124,13 +126,13 @@ class CategoriesPreferenceController extends BaseController
 
                     //return data
                     $data[] = [
-                        'id' => $businessOption->id,
-                        'name' => $businessOption->name,
-                        'status' => $status,
-                        'url' => getenv('REACT_APP_URL') . '/level/' . $businessOption->level->slug . '/section/'
+                        'id'            => $businessOption->id,
+                        'name'          => $businessOption->name,
+                        'status'        => $status,
+                        'url'           => getenv('REACT_APP_URL') . '/level/' . $businessOption->level->slug . '/section/'
                             . $businessOption->section->slug . '/bo/' . $businessOption->id . '/?token='
                             . $this->getTokenFromUser(Auth::user()),
-                        'businessMetas' => $transformedBusinessMetaData
+                        'businessMetas' => $transformedBusinessMetaData,
                     ];
                 }
             }
@@ -159,17 +161,17 @@ class CategoriesPreferenceController extends BaseController
                 }
                 //for brand color
                 if ($item->key === 'brand_color') {
-                    $value = '<div width="30" height="30" style="width:20px; height:20px; background-color:'. $item->value .';"></div>';
+                    $value = '<div width="30" height="30" style="width:20px; height:20px; background-color:' . $item->value . ';"></div>';
                 }
                 if ($item->key === 'sec_brand_color') {
-                    $value = '<div width="30" height="30" style="width:20px; height:20px; background-color:'. $item->value .';"></div>';
+                    $value = '<div width="30" height="30" style="width:20px; height:20px; background-color:' . $item->value . ';"></div>';
                 }
 
                 $data[] = [
-                    'id' => $item->id,
-                    'business_id' => $item->business_id,
+                    'id'                 => $item->id,
+                    'business_id'        => $item->business_id,
                     'business_option_id' => $item->business_option_id,
-                    'value' => $value
+                    'value'              => $value,
                 ];
             }
         }

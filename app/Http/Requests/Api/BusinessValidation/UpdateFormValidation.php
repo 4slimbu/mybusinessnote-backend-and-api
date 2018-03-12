@@ -24,10 +24,10 @@ class UpdateFormValidation extends FormRequest
     public function rules()
     {
         return [
-            'business_name'             => '',
-            'business_category_id'      => 'numeric',
-            'website'                   => 'url',
-            'abn'                       => '',
+            'business_name'        => '',
+            'business_category_id' => 'numeric',
+            'website'              => 'url',
+            'abn'                  => '',
         ];
     }
 }

@@ -69,19 +69,19 @@ class BrontoLibrary
     public function prepareClient()
     {
         if (!$this->client) {
-            $client = new SoapClient($this->wdsl, array('trace' => 1,
-                'features' => SOAP_SINGLE_ELEMENT_ARRAYS));
+            $client = new SoapClient($this->wdsl, ['trace'    => 1,
+                                                   'features' => SOAP_SINGLE_ELEMENT_ARRAYS]);
 
             try {
                 $token = $this->token;
 
-                $sessionId = $client->login(array('apiToken' => $token))->return;
+                $sessionId = $client->login(['apiToken' => $token])->return;
 
                 $session_header = new SoapHeader($this->url,
                     'sessionHeader',
-                    array('sessionId' => $sessionId));
+                    ['sessionId' => $sessionId]);
 
-                $client->__setSoapHeaders(array($session_header));
+                $client->__setSoapHeaders([$session_header]);
 
                 return $client;
             } catch (\Exception $exception) {
@@ -108,6 +108,34 @@ class BrontoLibrary
     }
 
     /**
+     * Add or Update contact to current Bronto list
+     */
+    public function addUpdateContact()
+    {
+        //contacts
+        $contacts = [
+            'email'   => $this->user->email,
+            'listIds' => $this->listId,
+        ];
+
+        $this->client->addOrUpdateContacts([$contacts])->return;
+    }
+
+    /**
+     * Un-subscribe contact from current Bronto list
+     */
+    public function unSubscribeContact()
+    {
+        //contacts
+        $contacts = [
+            'email'   => $this->user->email,
+            'listIds' => '',
+        ];
+
+        $this->client->updateContacts([$contacts])->return;
+    }
+
+    /**
      * Gets the contact object from Bronto using current user email
      *
      * @return bool
@@ -116,15 +144,15 @@ class BrontoLibrary
     {
         try {
             // set up a filter to read contacts and match on either of two email addresses
-            $filter = array(
-                'email' => array(array(
-                    'value' => $this->user->email
-                )),
-            );
-            $contacts = $this->client->readContacts(array('pageNumber' => 1,
-                    'includeLists' => true,
-                    'filter' => $filter,
-                )
+            $filter = [
+                'email' => [[
+                    'value' => $this->user->email,
+                ]],
+            ];
+            $contacts = $this->client->readContacts(['pageNumber'   => 1,
+                                                     'includeLists' => true,
+                                                     'filter'       => $filter,
+                ]
             );
 
             if (property_exists($contacts, 'return')) {
@@ -146,13 +174,13 @@ class BrontoLibrary
     {
         try {
             // set up a filter to read contacts and match on either of two email addresses
-            $filter = array(
-                'listId' => $this->listId
-            );
-            $contacts = $this->client->readContacts(array('pageNumber' => 1,
-                    'includeLists' => true,
-                    'filter' => $filter,
-                )
+            $filter = [
+                'listId' => $this->listId,
+            ];
+            $contacts = $this->client->readContacts(['pageNumber'   => 1,
+                                                     'includeLists' => true,
+                                                     'filter'       => $filter,
+                ]
             );
 
             if (property_exists($contacts, 'return')) {
@@ -164,34 +192,6 @@ class BrontoLibrary
         } catch (Exception $e) {
             return false;
         }
-    }
-
-    /**
-     * Add or Update contact to current Bronto list
-     */
-    public function addUpdateContact()
-    {
-        //contacts
-        $contacts = [
-            'email' => $this->user->email,
-            'listIds' => $this->listId,
-        ];
-
-        $this->client->addOrUpdateContacts([$contacts])->return;
-    }
-
-    /**
-     * Un-subscribe contact from current Bronto list
-     */
-    public function unSubscribeContact()
-    {
-        //contacts
-        $contacts = [
-            'email' => $this->user->email,
-            'listIds' => '',
-        ];
-
-        $this->client->updateContacts([$contacts])->return;
     }
 
 }

@@ -9,7 +9,7 @@
 
 {{--Icon--}}
 <div class="form-group">
-    <label  class="display-block text-semibold">Icon:</label>
+    <label class="display-block text-semibold">Icon:</label>
     {{ Form::file('icon', null, ['class' => 'form-control']) }}
     @if(isset($data['row']) && $data['row']->icon)
         <img width="150" src="{{ asset($upload_directory . $data['row']->icon) }}" alt="">
@@ -21,7 +21,7 @@
 
 {{--Badge Icon--}}
 <div class="form-group">
-    <label  class="display-block text-semibold">Badge Icon:</label>
+    <label class="display-block text-semibold">Badge Icon:</label>
     {{ Form::file('badge_icon', null, ['class' => 'form-control']) }}
     @if(isset($data['row']) && $data['row']->badge_icon)
         <img width="150" src="{{ asset($upload_directory . $data['row']->badge_icon) }}" alt="">

@@ -19,28 +19,31 @@
                 </thead>
                 <tbody>
                 @if(isset($data['rows']) && $data['rows']->count() > 0)
-                @foreach ($data['rows'] as $item)
-                    <tr>
-                        <td>{{ $item->id }}</td>
-                        <td>{{ $item->name }}</td>
-                        <td>
-                            <img src="{{ asset($upload_directory . $item->icon) }}" alt="">
-                        </td>
-                        <td>{{ $item->message }}</td>
-                        <td>
+                    @foreach ($data['rows'] as $item)
+                        <tr>
+                            <td>{{ $item->id }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>
+                                <img src="{{ asset($upload_directory . $item->icon) }}" alt="">
+                            </td>
+                            <td>{{ $item->message }}</td>
+                            <td>
 
-                            <div class="">
-                                <a href="{{ route('admin.badge.edit', $item->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                <form class="form-inline" method="POST" action="{{ route('admin.badge.destroy', $item->id) }}">
-                                    {{ csrf_field() }}
-                                    {{ method_field('DELETE') }}
-                                    <button onclick="javascript: return confirm('Are you sure?');" type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                </form>
-                            </div>
+                                <div class="">
+                                    <a href="{{ route('admin.badge.edit', $item->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                    <form class="form-inline" method="POST"
+                                          action="{{ route('admin.badge.destroy', $item->id) }}">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
+                                        <button onclick="javascript: return confirm('Are you sure?');" type="submit"
+                                                class="btn btn-sm btn-danger">Delete
+                                        </button>
+                                    </form>
+                                </div>
 
-                        </td>
-                    </tr>
-                @endforeach
+                            </td>
+                        </tr>
+                    @endforeach
                 @else
                     <tr>
                         <td>No records Found!</td>

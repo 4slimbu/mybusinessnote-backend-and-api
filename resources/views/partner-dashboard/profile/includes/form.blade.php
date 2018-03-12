@@ -118,7 +118,7 @@
 
 @if(! isset($data['row']))
     <p>
-        <a href="javascript:void(0)" class="show-more" >
+        <a href="javascript:void(0)" class="show-more">
             {{ Form::checkbox('same_address') }}
         </a> Is Physical Address same as Business Address?
     </p>

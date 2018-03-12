@@ -24,9 +24,9 @@ class UpdateFormValidation extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'icon' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'message' => 'required'
+            'name'    => 'required',
+            'icon'    => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'message' => 'required',
         ];
     }
 }

@@ -10,8 +10,8 @@ class UserAuthenticate
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -20,6 +20,7 @@ class UserAuthenticate
         if (!Auth::user() || (Auth::user()->role->id !== 2)) {
             return redirect()->route('dashboard');
         }
+
         return $next($request);
     }
 }

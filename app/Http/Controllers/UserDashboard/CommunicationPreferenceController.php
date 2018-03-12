@@ -5,9 +5,11 @@ namespace App\Http\Controllers\UserDashboard;
 
 use App\Events\BrontoSubscriptionUpdated;
 use App\Events\CampaignMonitorSubscriptionUpdated;
+use AppHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Session, AppHelper, PDF;
+use PDF;
+use Session;
 
 
 class CommunicationPreferenceController extends BaseController
@@ -57,7 +59,7 @@ class CommunicationPreferenceController extends BaseController
         //ignore user value and set the boolean depending upon whether key is present in the request
         $input = [
             'is_3rd_party_integration' => $request->get('is_3rd_party_integration') ? 1 : 0,
-            'is_marketing_emails' => $request->get('is_marketing_emails') ? 1 : 0,
+            'is_marketing_emails'      => $request->get('is_marketing_emails') ? 1 : 0,
             'is_free_isb_subscription' => $request->get('is_free_isb_subscription') ? 1 : 0,
         ];
 
@@ -70,7 +72,8 @@ class CommunicationPreferenceController extends BaseController
         event(new CampaignMonitorSubscriptionUpdated($user));
 
         //response
-        Session::flash('success', $this->panel_name.' updated successfully.');
+        Session::flash('success', $this->panel_name . ' updated successfully.');
+
         return redirect()->route($this->base_route);
     }
 

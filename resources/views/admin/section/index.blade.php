@@ -2,10 +2,10 @@
 
 @section('content')
     <div class="content-wrapper">
-        
 
-       <useraction title="{{ $panel_name }}" useractions="{{ json_encode($panel_actions) }}"></useraction>
-        
+
+        <useraction title="{{ $panel_name }}" useractions="{{ json_encode($panel_actions) }}"></useraction>
+
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
@@ -19,26 +19,30 @@
                 </thead>
                 <tbody>
                 @if(isset($data['rows']) && $data['rows']->count() > 0)
-                @foreach ($data['rows'] as $item)
-                    <tr>
-                        <td>{{ $item->id }}</td>
-                        <td>{{ $item->name }}</td>
-                        <td>
-                            {{ $item->level->name }}
-                        </td>
-                        <td>
-                            <div class="">
-                                <a href="{{ route('admin.section.edit', $item->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                <form class="form-inline" method="POST" action="{{ route('admin.section.destroy', $item->id) }}">
-                                    {{ csrf_field() }}
-                                    {{ method_field('DELETE') }}
-                                    <button onclick="javascript: return confirm('Are you sure?');" type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
+                    @foreach ($data['rows'] as $item)
+                        <tr>
+                            <td>{{ $item->id }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>
+                                {{ $item->level->name }}
+                            </td>
+                            <td>
+                                <div class="">
+                                    <a href="{{ route('admin.section.edit', $item->id) }}"
+                                       class="btn btn-sm btn-primary">Edit</a>
+                                    <form class="form-inline" method="POST"
+                                          action="{{ route('admin.section.destroy', $item->id) }}">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
+                                        <button onclick="javascript: return confirm('Are you sure?');" type="submit"
+                                                class="btn btn-sm btn-danger">Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
 
-                @endforeach
+                    @endforeach
                 @else
                     <tr>
                         <td>No records Found!</td>

@@ -26,7 +26,7 @@ class SectionController extends ApiBaseController
 
 
         $relations = explode(',', $request->get('with'));
-        
+
         if (in_array('sections', $relations)) {
             $sections = Section::whereIn('level_id', $levels->pluck('id'))->get();
             $data['sections'] = new SectionResourceCollection($sections);

@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-use Illuminate\Http\Request;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -39,21 +39,6 @@ class LoginController extends Controller
     }
 
     /**
-     * Override validateLogin method from the authenticateUsers
-     *
-     * @return void
-     */
-    protected function validateLogin()
-    {
-
-        $this->validate(request(), [
-            'email' => 'required|exists:users,email,verified,1', 'password' => 'required'
-        ], [
-            'email.exists' => 'The selected email is invalid or the account has not been activated.'
-        ]);
-    }
-
-    /**
      * Override credentials method from the authenticateUsers
      *
      * @param Request $request
@@ -63,10 +48,25 @@ class LoginController extends Controller
     public function credentials(Request $request)
     {
         return [
-            'email' => $request->email,
+            'email'    => $request->email,
             'password' => $request->password,
             'verified' => 1,
         ];
+    }
+
+    /**
+     * Override validateLogin method from the authenticateUsers
+     *
+     * @return void
+     */
+    protected function validateLogin()
+    {
+
+        $this->validate(request(), [
+            'email' => 'required|exists:users,email,verified,1', 'password' => 'required',
+        ], [
+            'email.exists' => 'The selected email is invalid or the account has not been activated.',
+        ]);
     }
 
     /**
@@ -88,7 +88,6 @@ class LoginController extends Controller
 
 //        return redirect()->back();
     }
-
 
 
 }

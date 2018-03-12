@@ -35,7 +35,7 @@ class ApiAuthController extends Controller
 
         return ResponseLibrary::success([
             'successCode' => 'USER_EXIST_CHECK',
-            'isPresent' => !!$user
+            'isPresent'   => !!$user,
         ], 200);
     }
 
@@ -48,7 +48,7 @@ class ApiAuthController extends Controller
     {
         return ResponseLibrary::success([
             'successCode' => 'FETCHED',
-            'user' => new UserResource($this->getAuthUserOrFail())
+            'user'        => new UserResource($this->getAuthUserOrFail()),
         ], 200);
     }
 
@@ -66,7 +66,7 @@ class ApiAuthController extends Controller
         $token = $this->authenticate($request);
 
         return ResponseLibrary::success([
-            'successCode' => 'LOGIN_SUCCESS', 'token' => $token
+            'successCode' => 'LOGIN_SUCCESS', 'token' => $token,
         ], 200);
     }
 
@@ -83,7 +83,7 @@ class ApiAuthController extends Controller
         JWTAuth::invalidate($request->bearerToken());
 
         return ResponseLibrary::success([
-            'successCode' => 'LOGOUT_SUCCESS'
+            'successCode' => 'LOGOUT_SUCCESS',
         ], 200);
     }
 
@@ -100,7 +100,7 @@ class ApiAuthController extends Controller
 
         return ResponseLibrary::success([
             'successCode' => 'USER_REGISTERED',
-            'token' => $this->getTokenFromUser($user)
+            'token'       => $this->getTokenFromUser($user),
         ], 201);
     }
 
@@ -115,15 +115,15 @@ class ApiAuthController extends Controller
         $user = User::where('email', $request->get('email'))->firstOrFail();
 
         $user->fill([
-            'forgot_password_token' => md5(uniqid(rand(), true)),
-            'forgot_password_token_expiry_date' => Carbon::now()->addDay(1)
+            'forgot_password_token'             => md5(uniqid(rand(), true)),
+            'forgot_password_token_expiry_date' => Carbon::now()->addDay(1),
         ])->save();
 
         event(new ForgotPasswordEvent($user));
 
         return ResponseLibrary::success([
             'successCode' => 'FORGOT_EMAIL_SENT',
-            'message' => 'Forgot password email sent'
+            'message'     => 'Forgot password email sent',
         ], 200);
 
     }
@@ -138,14 +138,14 @@ class ApiAuthController extends Controller
         $authUser = $this->getAuthUserOrFail();
 
         $authUser->fill([
-            'email_verification_token' => md5(uniqid(rand(), true)),
-            'email_verification_token_expiry_date' => Carbon::now()->addDay(1)
+            'email_verification_token'             => md5(uniqid(rand(), true)),
+            'email_verification_token_expiry_date' => Carbon::now()->addDay(1),
         ])->save();
 
         event(new UnVerifiedUserEvent($authUser));
 
         return ResponseLibrary::success([
-            'successCode' => 'VERIFICATION_EMAIL_SENT'
+            'successCode' => 'VERIFICATION_EMAIL_SENT',
         ], 200);
     }
 
@@ -167,7 +167,7 @@ class ApiAuthController extends Controller
 
         return ResponseLibrary::success([
             'successCode' => 'SAVED',
-            'token' => $token
+            'token'       => $token,
         ], 200);
     }
 
@@ -190,9 +190,9 @@ class ApiAuthController extends Controller
 
         //save data
         $data = [
-            'password' => $request->get('password'),
-            'forgot_password_token' => null,
-            'forgot_password_token_expiry_date' => null
+            'password'                          => $request->get('password'),
+            'forgot_password_token'             => null,
+            'forgot_password_token_expiry_date' => null,
         ];
 
         $authUser->fill($data)->save();
@@ -200,7 +200,7 @@ class ApiAuthController extends Controller
         return ResponseLibrary::success(
             [
                 'successCode' => 'PASSWORD_UPDATED',
-                'message' => 'Updated Password successfully'
+                'message'     => 'Updated Password successfully',
             ], 200
         );
 
@@ -224,16 +224,16 @@ class ApiAuthController extends Controller
         }
 
         $data = [
-            'verified' => 1,
-            'email_verification_token' => null,
-            'email_verification_token_expiry_date' => null
+            'verified'                             => 1,
+            'email_verification_token'             => null,
+            'email_verification_token_expiry_date' => null,
         ];
 
         $authUser->fill($data)->save()->refresh();
 
         return ResponseLibrary::success([
             'successCode' => 'VERIFIED',
-            'token' => $this->getTokenFromUser($authUser)
+            'token'       => $this->getTokenFromUser($authUser),
         ], 200);
     }
 

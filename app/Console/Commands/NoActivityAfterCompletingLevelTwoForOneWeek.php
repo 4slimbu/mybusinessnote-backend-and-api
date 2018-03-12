@@ -62,7 +62,7 @@ class NoActivityAfterCompletingLevelTwoForOneWeek extends Command
 
             // update email sent count
             $business->emailNotificationTracker->fill([
-                'no_activity_after_completing_level_two_for_one_week' => 1
+                'no_activity_after_completing_level_two_for_one_week' => 1,
             ])->save();
         }
 

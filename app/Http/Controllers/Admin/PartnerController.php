@@ -9,7 +9,8 @@ use App\Models\AffiliateLink;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\UserProfile;
-use Session, AppHelper;
+use AppHelper;
+use Session;
 
 
 class PartnerController extends AdminBaseController
@@ -33,16 +34,16 @@ class PartnerController extends AdminBaseController
     protected $panel_name = 'Partner';
 
 
-     /**
+    /**
      * Array of panel actions
      * @var string
      */
-    protected $panel_actions = array( 
+    protected $panel_actions = [
 
-        [ 'link' => 'partner/create', 'label' => 'Add New'],
-        [ 'link' => '#', 'label' => 'Export to Excel']
-        
-    );
+        ['link' => 'partner/create', 'label' => 'Add New'],
+        ['link' => '#', 'label' => 'Export to Excel'],
+
+    ];
 
 
     /**
@@ -71,7 +72,7 @@ class PartnerController extends AdminBaseController
     {
         //initialize
         $data = [];
-    
+
         return view(parent::loadViewData($this->view_path . '.create'), compact('data'));
     }
 
@@ -96,7 +97,7 @@ class PartnerController extends AdminBaseController
         $inputs['role_id'] = 3;
 
         $user = User::create($inputs);
-        if (! $user->userProfile) {
+        if (!$user->userProfile) {
             $inputs['user_id'] = $user->id;
             UserProfile::create($inputs);
         }
@@ -109,7 +110,8 @@ class PartnerController extends AdminBaseController
             $affiliateLink->save();
         }
 
-        Session::flash('success', $this->panel_name.' created successfully.');
+        Session::flash('success', $this->panel_name . ' created successfully.');
+
         return redirect()->route($this->base_route);
 
     }
@@ -167,7 +169,8 @@ class PartnerController extends AdminBaseController
             $affiliateLink->save();
         }
 
-        Session::flash('success', $this->panel_name.' updated successfully.');
+        Session::flash('success', $this->panel_name . ' updated successfully.');
+
         return redirect()->route($this->base_route);
     }
 
@@ -182,7 +185,8 @@ class PartnerController extends AdminBaseController
         $partner->delete();
         $partner->userProfile->delete();
 
-        Session::flash('success', $this->panel_name.' deleted successfully.');
+        Session::flash('success', $this->panel_name . ' deleted successfully.');
+
         return redirect()->route($this->base_route);
     }
 }

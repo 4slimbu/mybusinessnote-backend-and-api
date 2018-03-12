@@ -15,9 +15,9 @@ class LevelStatusResource extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id'                => $this->id,
             'completed_percent' => $this->pivot['completed_percent'],
-            'last_updated' => $this->pivot['updated_at']
+            'last_updated'      => $this->pivot['updated_at'],
         ];
     }
 }
