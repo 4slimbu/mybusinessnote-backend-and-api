@@ -203,7 +203,7 @@ class CampaignMonitorLibrary
             "Data" => [
                 "first_name"              => $this->user->first_name,
                 "username"                => $this->user->email,
-                "continue_where_you_left" => $this->reactAppUrl . '?token=' . $this->getJwtTokenFromUser($this->user) . '&email_verification_token=' . $this->user->email_verification_token,
+                "continue_where_you_left" => $this->reactAppUrl . '?token=' . $this->getTokenFromUser($this->user) . '&email_verification_token=' . $this->user->email_verification_token,
                 "forgot_password_link"    => $this->reactAppUrl . '/login/?forgot_password_token=' . $this->user->forgot_password_token,
             ],
         ];
@@ -233,7 +233,7 @@ class CampaignMonitorLibrary
                 "{$this->userName} <{$this->user->email}>",
             ],
             "Data" => [
-                "continue_where_you_left" => $this->reactAppUrl . '?token=' . $this->getJwtTokenFromUser($this->user) . '&email_verification_token=' . $this->user->email_verification_token,
+                "continue_where_you_left" => $this->reactAppUrl . '?token=' . $this->getTokenFromUser($this->user) . '&email_verification_token=' . $this->user->email_verification_token,
                 "reset_password_link"     => $this->reactAppUrl . '/login/?forgot_password_token=' . $this->user->forgot_password_token,
             ],
         ];

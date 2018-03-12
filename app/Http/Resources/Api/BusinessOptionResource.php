@@ -10,14 +10,9 @@ class BusinessOptionResource extends Resource
 {
     use Authenticable, BusinessOptionable;
 
-    protected $affiliateLinks;
-    protected $businessMetas;
-
     public function __construct($resource, $data = null)
     {
         parent::__construct($resource);
-        $this->affiliateLinks = isset($data['affiliateLinks']) ? $data['affiliateLinks'] : [];
-        $this->businessMetas = isset($data['businessMetas']) ? $data['businessMetas'] : [];
     }
 
     /**
@@ -27,8 +22,6 @@ class BusinessOptionResource extends Resource
      */
     public function toArray($request)
     {
-        $affiliateLinks = ($this->affiliateLinks) ? new AffiliateLinkResourceCollection($this->affiliateLinks) : [];
-        $businessMetas = ($this->businessMetas) ? new BusinessMetaResourceCollection($this->businessMetas) : [];
         $returnData = [
             'id'             => $this->id,
             'level_id'       => $this->level_id,
@@ -40,8 +33,8 @@ class BusinessOptionResource extends Resource
             'tooltip'        => $this->tooltip,
             'menu_order'     => $this->menu_order,
             'weight'         => $this->weight,
-            'affiliateLinks' => $affiliateLinks,
-            'businessMetas'  => $businessMetas,
+            'affiliateLinks' => new AffiliateLinkResourceCollection($this->affiliateLinks),
+            'businessMetas'  => new BusinessMetaResourceCollection($this->businessMetas),
             'status'         => $this->pivot['status'],
         ];
 

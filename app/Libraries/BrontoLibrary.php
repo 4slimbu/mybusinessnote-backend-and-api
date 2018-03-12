@@ -145,13 +145,17 @@ class BrontoLibrary
         try {
             // set up a filter to read contacts and match on either of two email addresses
             $filter = [
-                'email' => [[
-                    'value' => $this->user->email,
-                ]],
+                'email' => [
+                    [
+                        'value' => $this->user->email,
+                    ],
+                ],
             ];
-            $contacts = $this->client->readContacts(['pageNumber'   => 1,
-                                                     'includeLists' => true,
-                                                     'filter'       => $filter,
+            $contacts = $this->client->readContacts(
+                [
+                    'pageNumber'   => 1,
+                    'includeLists' => true,
+                    'filter'       => $filter,
                 ]
             );
 
@@ -177,9 +181,12 @@ class BrontoLibrary
             $filter = [
                 'listId' => $this->listId,
             ];
-            $contacts = $this->client->readContacts(['pageNumber'   => 1,
-                                                     'includeLists' => true,
-                                                     'filter'       => $filter,
+
+            $contacts = $this->client->readContacts(
+                [
+                    'pageNumber'   => 1,
+                    'includeLists' => true,
+                    'filter'       => $filter,
                 ]
             );
 

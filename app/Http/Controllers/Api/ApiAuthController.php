@@ -229,11 +229,11 @@ class ApiAuthController extends Controller
             'email_verification_token_expiry_date' => null,
         ];
 
-        $authUser->fill($data)->save()->refresh();
+        $authUser->fill($data)->save();
 
         return ResponseLibrary::success([
             'successCode' => 'VERIFIED',
-            'token'       => $this->getTokenFromUser($authUser),
+            'token'       => $this->getTokenFromUser($authUser->refresh()),
         ], 200);
     }
 

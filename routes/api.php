@@ -122,6 +122,11 @@ Route::group(['namespace' => 'App\\Http\\Controllers\Api\\', 'middleware' => ['j
     /*
      * Business Option
      */
+    Route::get('/business-options', [
+        'as'   => 'api.business-options',
+        'uses' => 'BusinessOptionController@index',
+    ]);
+
     Route::get('/business-option/{business_option}', [
         'as'   => 'api.business-option.show',
         'uses' => 'BusinessOptionController@show',

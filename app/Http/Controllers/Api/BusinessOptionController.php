@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Resources\Api\BusinessMetaResourceCollection;
 use App\Http\Resources\Api\BusinessOptionResource;
+use App\Http\Resources\Api\BusinessOptionResourceCollection;
+use App\Http\Resources\Api\BusinessResource;
 use App\Libraries\ImageLibrary;
 use App\Libraries\ResponseLibrary;
 use App\Models\BusinessMeta;
 use App\Models\BusinessOption;
+use App\Models\Level;
+use App\Models\Section;
 use App\Traits\Authenticable;
 use App\Traits\BusinessOptionable;
 use Illuminate\Http\Request;
@@ -15,6 +19,63 @@ use Illuminate\Http\Request;
 class BusinessOptionController extends ApiBaseController
 {
     use BusinessOptionable, Authenticable;
+
+    public function index(Request $request)
+    {
+        $data = [];
+        $authUser = $this->getAuthUser();
+
+        if ($authUser) {
+            $business = $authUser->business;
+            $query = $business->businessOptions();
+
+            // if level
+            if ($request->get('level')) {
+                $query->where('level_id', $request->get('level'));
+            }
+
+            // if section
+            if ($request->get('section')) {
+                $query->where('section_id', $request->get('section'));
+            }
+
+            // not with status irrelevant and locked
+            // order by menu_order
+            $business_options = $query->where('status', '!=', 'irrelevant')
+                ->where('status', '!=', 'locked')
+                ->orderBy('menu_order')->get();
+
+            // load business meta
+            $business_options->load(['businessMetas' => function ($query) use($business) {
+                $query->where('business_id', $business->id);
+            }]);
+
+        } else {
+            // get only unlocked by default business options
+            $query = BusinessOption::whereIn('id', config('mbj.unlocked_business_option'));
+
+            // if level
+            if ($request->get('level')) {
+                $query->where('level_id', $request->get('level'));
+            }
+
+            // if section, get only business option with section_id
+            if ($request->get('section')) {
+                $query->where('section_id', $request->get('section'));
+            }
+
+            // order by menu order
+            $business_options = $query->orderBy('menu_order')->get();
+        }
+
+        //get affiliate links
+        $business_options->load('affiliateLinks');
+
+        return ResponseLibrary::success([
+            'successCode'    => 'FETCHED',
+            'businessOptions' => new BusinessOptionResourceCollection($business_options),
+        ], 200);
+    }
 
     /**
      * Get business option with business meta and partner's affiliate links
@@ -29,18 +90,22 @@ class BusinessOptionController extends ApiBaseController
         $authUser = $this->getAuthUser();
 
         if ($authUser) {
-            $business_option = $authUser->business->businessOptions()
+            $business = $authUser->business;
+            $business_option = $business->businessOptions()
                 ->where('business_business_option.business_option_id', $business_option->id)->first();
 
-            $data['businessMetas'] = $business_option->businessMetas()
-                ->where('business_id', $authUser->business->id)->get();
+            // load business meta
+            $business_option->load(['businessMetas' => function ($query) use($business) {
+                $query->where('business_id', $business->id);
+            }]);
         }
 
-        $data['affiliateLinks'] = $business_option->affiliateLinks()->get();
+        //get affiliate links
+        $business_option->load('affiliateLinks');
 
         return ResponseLibrary::success([
             'successCode'    => 'FETCHED',
-            'businessOption' => new BusinessOptionResource($business_option, $data),
+            'businessOption' => new BusinessOptionResource($business_option),
         ], 200);
     }
 
@@ -89,24 +154,20 @@ class BusinessOptionController extends ApiBaseController
         }
 
         // prepare data
-        $business_option = $authUser->business->businessOptions()
+        $business_option = $business->businessOptions()
             ->where('business_business_option.business_option_id', $business_option->id)->first();
 
-        $businessMetas = $business_option->businessMetas()
-            ->where('business_id', $authUser->business->id)->get();
+        // load business meta
+        $business_option->load(['businessMetas' => function ($query) use($business) {
+            $query->where('business_id', $business->id);
+        }]);
 
         $businessStatus = $this->refreshAllRelatedStatusForCurrentBusinessOption($business, $business_option);
 
         //return response
         return ResponseLibrary::success([
             'successCode'    => 'SAVED',
-            'businessOption' => [
-                'id'            => $business_option->id,
-                'level_id'      => $business_option->level_id,
-                'section_id'    => $business_option->section_id,
-                'status'        => $business_option->pivot['status'],
-                'businessMetas' => new BusinessMetaResourceCollection($businessMetas),
-            ],
+            'businessOption' => new BusinessOptionResource($business_option),
             'businessStatus' => $businessStatus,
             'token'          => $this->getTokenFromUser($authUser),
         ], 200);
