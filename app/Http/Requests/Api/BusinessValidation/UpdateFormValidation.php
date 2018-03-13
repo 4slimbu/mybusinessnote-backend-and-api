@@ -25,6 +25,7 @@ class UpdateFormValidation extends FormRequest
     {
         return [
             'business_name'        => '',
+            'sell_goods'           => 'boolean',
             'business_category_id' => 'numeric',
             'website'              => 'url',
             'abn'                  => '',

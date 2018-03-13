@@ -34,7 +34,7 @@ class ApiAuthController extends Controller
         $user = User::select('id')->where('email', $request->get('email'))->first();
 
         return ResponseLibrary::success([
-            'successCode' => 'USER_EXIST_CHECK',
+            'successCode' => 'FETCHED',
             'isPresent'   => !!$user,
         ], 200);
     }

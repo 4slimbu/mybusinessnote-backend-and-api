@@ -69,7 +69,7 @@ class BusinessController extends ApiBaseController
         $business = $user->business;
         $business_option = BusinessOption::findOrFail($business_option_id);
 
-        $inputs = $request->only('business_name', 'business_category_id', 'website', 'abn');
+        $inputs = $request->only('business_name', 'sell_goods', 'business_category_id', 'website', 'abn');
 
 
         $business->fill($inputs)->save();
