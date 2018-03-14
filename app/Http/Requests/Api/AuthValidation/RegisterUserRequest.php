@@ -29,7 +29,7 @@ class RegisterUserRequest extends FormRequest
             'email'            => 'required|email|unique:users',
             'phone_number'     => 'required',
             'password'         => 'required|min:8|max:20',
-            'captcha_response' => 'recaptcha',
+            'captcha_response' => 'required|recaptcha',
         ];
     }
 }
