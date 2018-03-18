@@ -10,6 +10,7 @@ class BusinessMeta extends Model
     protected $fillable = [
         'business_id',
         'business_option_id',
+        'type',
         'key',
         'value',
     ];

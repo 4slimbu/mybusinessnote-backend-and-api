@@ -185,10 +185,12 @@ class BusinessOptionController extends ApiBaseController
     private function saveBusinessMetas($business, $business_option, $business_meta)
     {
         foreach ($business_meta as $key => $value) {
+            $data = [];
             //TODO: improve image handling
             if (ImageLibrary::isBase64Image($value)) {
                 $newImageName = uniqid($key . "_") . '.jpg';
                 $value = ImageLibrary::saveBase64Image($value, $business_option->uploadDirectory, $newImageName);
+                $data['type'] = 'file';
             }
 
             $businessMeta = $business->businessMetas()
@@ -197,13 +199,17 @@ class BusinessOptionController extends ApiBaseController
                 ->first();
 
             if ($businessMeta) {
-                $businessMeta->fill(['value' => $value])->save();
+                $data = $data + ['value' => $value];
+                $businessMeta->fill($data)->save();
             } else {
-                $business->businessMetas()->create([
-                    'business_option_id' => $business_option->id,
-                    'key'                => $key,
-                    'value'              => $value,
-                ]);
+                $data = $data + [
+                        'business_option_id' => $business_option->id,
+                        'key'                => $key,
+                        'value'              => $value,
+                    ];
+                return response()->json($data, 500);
+
+                $business->businessMetas()->create($data);
             }
 
         }
