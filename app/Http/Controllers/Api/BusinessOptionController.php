@@ -207,7 +207,6 @@ class BusinessOptionController extends ApiBaseController
                         'key'                => $key,
                         'value'              => $value,
                     ];
-                return response()->json($data, 500);
 
                 $business->businessMetas()->create($data);
             }
