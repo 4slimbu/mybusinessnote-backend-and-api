@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Resources\Api\BusinessMetaResourceCollection;
 use App\Http\Resources\Api\BusinessOptionResource;
 use App\Http\Resources\Api\BusinessOptionResourceCollection;
-use App\Http\Resources\Api\BusinessResource;
 use App\Libraries\ImageLibrary;
 use App\Libraries\ResponseLibrary;
 use App\Models\BusinessMeta;
 use App\Models\BusinessOption;
-use App\Models\Level;
-use App\Models\Section;
 use App\Traits\Authenticable;
 use App\Traits\BusinessOptionable;
 use Illuminate\Http\Request;
