@@ -2,7 +2,7 @@
 
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-class UserAuthTestCest
+class BusinessOptionTestCest
 {
     /* @test */
     public function testLoginIsSuccess(ApiTester $I)

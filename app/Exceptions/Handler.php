@@ -106,7 +106,7 @@ class Handler extends ExceptionHandler
             } else if ($exception instanceof TokenInvalidException) {
                 return ResponseLibrary::error('ERR_TOKEN_INVALID', 400, $exception);
             } else if ($exception instanceof JWTException) {
-                return ResponseLibrary::error('ERR_TOKEN', 500, $exception);
+                return ResponseLibrary::error('ERR_TOKEN', 400, $exception);
             }
 
             // Unknown Exception

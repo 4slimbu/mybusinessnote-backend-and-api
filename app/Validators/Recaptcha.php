@@ -15,6 +15,9 @@ class Recaptcha
         $validator
     )
     {
+        if (getenv('APP_ENV') === 'testing') {
+            return true;
+        }
 
         $client = new Client();
 
