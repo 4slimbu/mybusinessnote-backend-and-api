@@ -24,9 +24,9 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name'   => 'required_without_all:last_name,phone_number',
-            'last_name'    => 'required_without_all:first_name,phone_number',
-            'phone_number' => 'required_without_all:first_name,last_name',
+    //            'first_name'   => 'required_without_all:last_name,phone_number',
+    //            'last_name'    => 'required_without_all:first_name,phone_number',
+    //            'phone_number' => 'required_without_all:first_name,last_name',
         ];
     }
 }

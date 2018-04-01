@@ -1,11 +1,11 @@
 <?php
 
-use App\Models\Busines;
+use App\Models\Business;
 use App\Models\BusinessCategory;
 use App\Models\User;
 use Faker\Generator as Faker;
 
-$factory->define(Busines::class, function (Faker $faker) {
+$factory->define(Business::class, function (Faker $faker) {
     return [
         'user_id'                => function () {
             return User::select('id')->get()->random()->id;

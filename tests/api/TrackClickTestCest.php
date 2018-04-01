@@ -1,6 +1,6 @@
 <?php
 
-class BusinessCategoriesTestCest
+class TrackClickTestCest
 {
     /* @test */
     public function testIfTrackClickOfAuthUser(ApiTester $I)

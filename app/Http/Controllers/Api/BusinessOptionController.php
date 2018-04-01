@@ -21,7 +21,7 @@ class BusinessOptionController extends ApiBaseController
         $data = [];
         $authUser = $this->getAuthUser();
 
-        if ($authUser) {
+        if ($authUser && $authUser->verified) {
             $business = $authUser->business;
             $query = $business->businessOptions();
 
