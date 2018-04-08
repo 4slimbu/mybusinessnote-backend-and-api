@@ -85,7 +85,7 @@ class PartnerController extends AdminBaseController
     public function store(CreateFormValidation $request)
     {
         $inputs = $request->all();
-        if ($inputs['same_address']) {
+        if ($request->get('same_address')) {
             $inputs['residential_street1'] = $inputs['billing_street1'];
             $inputs['residential_street2'] = $inputs['billing_street2'];
             $inputs['residential_postcode'] = $inputs['billing_postcode'];

@@ -138,16 +138,13 @@
     @endif
 </div>
 
-@if(! isset($data['row']))
-    <p>
-        <a href="javascript:void(0)" class="show-more">
-            {{ Form::checkbox('same_address') }}
-        </a> Is Physical Address same as Business Address?
-    </p>
-@endif
+<p>
+    {{ Form::checkbox('same_address', 0, false, ['id' => 'show_physical_address']) }}
+    Is Physical Address same as Business Address?
+</p>
 
 {{--Street 1--}}
-<div class="form-group more-inputs">
+<div class="form-group physical_address">
     <label>Street 1:</label>
     {{ Form::text('residential_street1', isset( $data['userProfile']->residential_street1 ) ? $data['userProfile']->residential_street1 : '' , ['class' => 'form-control']) }}
     @if($errors->has('residential_street1'))
@@ -156,7 +153,7 @@
 </div>
 
 {{--Street 2--}}
-<div class="form-group more-inputs">
+<div class="form-group physical_address">
     <label>Street 2:</label>
     {{ Form::text('residential_street2', isset( $data['userProfile']->residential_street2 ) ? $data['userProfile']->residential_street2 : '' , ['class' => 'form-control']) }}
     @if($errors->has('residential_street2'))
@@ -165,7 +162,7 @@
 </div>
 
 {{--Post Code--}}
-<div class="form-group more-inputs">
+<div class="form-group physical_address">
     <label>Post Code:</label>
     {{ Form::text('residential_postcode', isset( $data['userProfile']->residential_postcode ) ? $data['userProfile']->residential_postcode : '' , ['class' => 'form-control']) }}
     @if($errors->has('residential_postcode'))
@@ -174,7 +171,7 @@
 </div>
 
 {{--State--}}
-<div class="form-group more-inputs">
+<div class="form-group physical_address">
     <label>State:</label>
     {{ Form::text('residential_state', isset( $data['userProfile']->residential_state ) ? $data['userProfile']->residential_state : '', ['class' => 'form-control']) }}
     @if($errors->has('residential_state'))
@@ -183,7 +180,7 @@
 </div>
 
 {{--Sub Urb--}}
-<div class="form-group more-inputs">
+<div class="form-group physical_address">
     <label>Sub Urb:</label>
     {{ Form::text('residential_suburb', isset( $data['userProfile']->residential_suburb ) ? $data['userProfile']->residential_suburb : '', ['class' => 'form-control']) }}
     @if($errors->has('residential_suburb'))
@@ -192,7 +189,7 @@
 </div>
 
 {{--Country--}}
-<div class="form-group more-inputs">
+<div class="form-group physical_address">
     <label>Country:</label>
     {{ Form::text('residential_country', isset( $data['userProfile']->residential_country ) ? $data['userProfile']->residential_country : '' , ['class' => 'form-control']) }}
     @if($errors->has('residential_country'))

@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Collection;
 
 class ViewHelper
 {
-    public function generateList(Collection $list)
+    public function generateList(Collection $list, $businessCategoriesCount)
     {
-        if (count($list) > 0) {
+        if (count($list) === $businessCategoriesCount ) {
+            echo 'Everywhere';
+        } else if (count($list) > 0) {
             $html = '<ul>';
             foreach ($list as $item) {
                 $html .= '<li>' . $item->name . '</li>';
@@ -17,7 +19,7 @@ class ViewHelper
 
             echo $html;
         } else {
-            echo 'Everywhere';
+            echo 'No Categories Assigned';
         }
     }
 }

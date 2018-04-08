@@ -59,6 +59,8 @@ class BusinessOptionController extends AdminBaseController
             ->orderBy('menu_order')
             ->paginate(100);
 
+        $data['businessCategoriesCount'] = BusinessCategory::count();
+
         return view(parent::loadViewData($this->view_path . '.index'), compact('data'));
     }
 
@@ -84,10 +86,13 @@ class BusinessOptionController extends AdminBaseController
         $data['businessOptions'] = BusinessOption::pluck('name', 'id');
         $data['businessCategories'] = BusinessCategory::pluck('name', 'id');
         $data['elements'] = BusinessOption::elements();
-        $data['selectedElement'] = []; //dynamic form is expecting this variable
-        $data['selectedBusinessCategories'] = []; //dynamic form is expecting this variable
-        $data['selectedAffiliateLinkLabel'] = ''; //dynamic form is expecting this variable
-        $data['selectedAffiliateLinks'] = []; //dynamic form is expecting this variable
+
+        // Html Collective Form is expecting these variables
+        $data['selectedElement'] = [];
+        $data['selectedBusinessCategories'] = [];
+        $data['selectedAffiliateLinkLabel'] = '';
+        $data['selectedAffiliateLinks'] = [];
+        $data['showEveryWhere'] = true;
 
         $affiliateLinks = AffiliateLink::with('partner', 'partner.userProfile')->get();
         $data['affiliateLinks'] = $affiliateLinks->mapWithKeys(function ($item) {
@@ -177,6 +182,7 @@ class BusinessOptionController extends AdminBaseController
         $data['businessOptions'] = BusinessOption::where('id', '!=', $businessOption->id)->pluck('name', 'id');
         $data['businessCategories'] = BusinessCategory::pluck('name', 'id');
         $data['elements'] = BusinessOption::elements();
+        $data['showEveryWhere'] = ($businessOption->businessCategories->count() === BusinessCategory::count()) ? 1 : 0;
 
         $affiliateLinks = AffiliateLink::with('partner', 'partner.userProfile')->get();
         $data['affiliateLinks'] = $affiliateLinks->mapWithKeys(function ($item) {
@@ -228,6 +234,7 @@ class BusinessOptionController extends AdminBaseController
      *
      * @param  \App\Models\BusinessOption $businessOption
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(BusinessOption $businessOption)
     {

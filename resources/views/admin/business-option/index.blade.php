@@ -25,7 +25,7 @@
                             <td>{{ $businessOption->name }}</td>
                             <td>{{ $businessOption->section->level->name }}</td>
                             <td>{{ $businessOption->section->name }}</td>
-                            <td>{{ ViewHelper::generateList($businessOption->businessCategories) }}</td>
+                            <td>{{ ViewHelper::generateList($businessOption->businessCategories, $data['businessCategoriesCount']) }}</td>
                             <td>
                                 <div class="">
                                     <a href="{{ route('admin.business-option.edit', $businessOption->id) }}"
@@ -48,7 +48,7 @@
                                     <td style="padding-left: 100px;">{{ $BO->name }}</td>
                                     <td>{{ $BO->section->level->name }}</td>
                                     <td>{{ $BO->section->name }}</td>
-                                    <td>{{ ViewHelper::generateList($BO->businessCategories) }}</td>
+                                    <td>{{ ViewHelper::generateList($BO->businessCategories, $data['businessCategoriesCount']) }}</td>
                                     <td>
                                         <div class="">
                                             <a href="{{ route('admin.business-option.edit', $BO->id) }}"
@@ -71,7 +71,7 @@
                                             <td style="padding-left: 150px;">{{ $childBO->name }}</td>
                                             <td>{{ $childBO->section->level->name }}</td>
                                             <td>{{ $childBO->section->name }}</td>
-                                            <td>{{ ViewHelper::generateList($childBO->businessCategories) }}</td>
+                                            <td>{{ ViewHelper::generateList($childBO->businessCategories, $data['businessCategoriesCount']) }}</td>
                                             <td>
                                                 <div class="">
                                                     <a href="{{ route('admin.business-option.edit', $childBO->id) }}"
@@ -94,7 +94,7 @@
                                                     <td style="padding-left: 200px;">{{ $grandChildBO->name }}</td>
                                                     <td>{{ $grandChildBO->section->level->name }}</td>
                                                     <td>{{ $grandChildBO->section->name }}</td>
-                                                    <td>{{ ViewHelper::generateList($grandChildBO->businessCategories) }}</td>
+                                                    <td>{{ ViewHelper::generateList($grandChildBO->businessCategories, $data['businessCategoriesCount']) }}</td>
                                                     <td>
                                                         <div class="">
                                                             <a href="{{ route('admin.business-option.edit', $grandChildBO->id) }}"

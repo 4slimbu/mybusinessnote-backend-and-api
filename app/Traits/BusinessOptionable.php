@@ -129,6 +129,10 @@ trait BusinessOptionable
      */
     private function syncBusinessPivotTables(Business $business, BusinessOption $business_option, $data)
     {
+        // update business business option with: status, created_at, updated_at
+        // update business_section table with: completed_percent, status, created_at, updated_at
+        // update business_level table with: completed_percent, status, created_at, updated_at
+
         $response = [];
         $business_category_id = ($data['business_category_id']) ? $data['business_category_id'] : null;
         $business_option_status = ($data['business_option_status']) ? $data['business_option_status'] : null;

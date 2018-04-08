@@ -47,11 +47,60 @@
 <script src="{{ asset('admin-public/js/tinymce/jquery.tinymce.min.js') }}"></script>
 <script src="{{ asset('admin-public/js/tinymce/tinymce.min.js') }}"></script>
 <script>
+    // initialize tinymce
     if (document.getElementsByClassName("myeditablediv")) {
         tinymce.init({
             selector: '.myeditablediv'
         });
     }
+
+    // toggle show categories checkbox and select options
+    if ($("#show_everywhere").length && $("#business_categories").length) {
+        $(window).on('load', function() {
+            // init
+            if ($('#show_everywhere').is(':checked')) {
+                $("#business_categories").hide();
+            } else {
+                $("#business_categories").show();
+            }
+
+            // on click
+            $("#show_everywhere").on('click', function () {
+                if ($('#show_everywhere').is(':checked')) {
+                    $('#show_everywhere').val(1);
+                    $("#business_categories").slideUp();
+                } else {
+                    $('#show_everywhere').val(0);
+                    $("#business_categories").slideDown();
+                }
+            });
+        });
+    }
+
+    // toggle physical address
+    // toggle show categories checkbox and select options
+    if ($("#show_physical_address").length && $(".physical_address").length) {
+        $(window).on('load', function() {
+            // init
+            if ($('#show_physical_address').is(':checked')) {
+                $(".physical_address").hide();
+            } else {
+                $(".physical_address").show();
+            }
+
+            // on click
+            $("#show_physical_address").on('click', function () {
+                if ($('#show_physical_address').is(':checked')) {
+                    $('#show_physical_address').val(1);
+                    $(".physical_address").slideUp();
+                } else {
+                    $('#show_physical_address').val(0);
+                    $(".physical_address").slideDown();
+                }
+            });
+        });
+    }
+
 </script>
 </body>
 </html>

@@ -71,16 +71,21 @@ class BusinessController extends ApiBaseController
 
         $inputs = $request->only('business_name', 'sell_goods', 'business_category_id', 'website', 'abn');
 
-
+        // Save User Business
         $business->fill($inputs)->save();
 
+        // If Business Category Field present for saving, then need to refresh the business_business_option table
         if ($request->get('business_category_id')) {
             $this->refreshBusinessBusinessOption($business);
         }
+
+        // Sync business_business_option table with current business_option new status
         $this->syncBusinessPivotTables($business, $business_option, [
             'business_category_id'   => $business->business_category_id,
             'business_option_status' => 'done',
         ]);
+
+        // Refresh the statuses tables with new data
         $businessStatus = $this->refreshAllRelatedStatusForCurrentBusinessOption($business, $business_option);
         $business_option_status = BusinessBusinessOption::where('business_id', $business->id)
             ->where('business_option_id', $business_option->id)->first()->status;
