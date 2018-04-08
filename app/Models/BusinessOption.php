@@ -16,6 +16,7 @@ class BusinessOption extends Model
         'content',
         'element',
         'tooltip',
+        'menu_order',
         'weight',
     ];
 

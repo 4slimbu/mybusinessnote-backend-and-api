@@ -137,11 +137,12 @@
         <span class="text-danger">{{ $errors->first('billing_country') }}</span>
     @endif
 </div>
-
+@if(! isset($data['row']))
 <p>
     {{ Form::checkbox('same_address', 0, false, ['id' => 'show_physical_address']) }}
     Is Physical Address same as Business Address?
 </p>
+@endif
 
 {{--Street 1--}}
 <div class="form-group physical_address">

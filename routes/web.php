@@ -206,6 +206,14 @@ Route::group([
         'as'   => 'business-option.destroy',
         'uses' => 'BusinessOptionController@destroy',
     ]);
+    Route::get('business-option/move-up/{businessOption}', [
+        'as'   => 'business-option.move-up',
+        'uses' => 'BusinessOptionController@moveUp',
+    ]);
+    Route::get('business-option/move-down/{businessOption}', [
+        'as'   => 'business-option.move-down',
+        'uses' => 'BusinessOptionController@movedown',
+    ]);
 
     /* Level */
     Route::get('level', [

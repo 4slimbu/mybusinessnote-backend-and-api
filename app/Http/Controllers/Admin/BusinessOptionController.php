@@ -10,6 +10,7 @@ use App\Models\BusinessCategory;
 use App\Models\BusinessOption;
 use App\Models\Section;
 use AppHelper;
+use form;
 use Session;
 
 
@@ -117,6 +118,14 @@ class BusinessOptionController extends AdminBaseController
 
         $businessOption = BusinessOption::create($input);
 
+
+        // set menu_order
+        $lastItemInSection = BusinessOption::select('id', 'menu_order')->where('section_id', $input['section_id'])
+            ->orderBy('menu_order', 'desc')->first();
+
+        $this->moveTo($businessOption, $lastItemInSection->menu_order);
+
+        // set related tables
         if (isset($input['affiliate_link_id']) && $input['affiliate_link_id']) {
             $syncData = [];
             foreach (array_filter($input['affiliate_link_id']) as $id) {
@@ -204,8 +213,19 @@ class BusinessOptionController extends AdminBaseController
 
         $input = $request->all();
         $input['show_everywhere'] = isset($input['show_everywhere']) ? 1 : 0;
+
+        if ($request->get('section_id') && $businessOption->section_id !== $request->get('section_id')) {
+            // set menu_order
+            $lastItemInSection = BusinessOption::select('id', 'menu_order')->where('section_id', $request->get('section_id'))
+                ->orderBy('menu_order', 'desc')->first();
+
+            $this->moveTo($businessOption, $lastItemInSection->menu_order);
+        }
+
+        // Save business option
         $businessOption->fill($input)->save();
 
+        // set related tables
         if (isset($input['affiliate_link_id']) && $input['affiliate_link_id']) {
             $syncData = [];
             foreach (array_filter($input['affiliate_link_id']) as $id) {
@@ -244,4 +264,59 @@ class BusinessOptionController extends AdminBaseController
 
         return redirect()->route($this->base_route);
     }
+
+
+    public function moveUp(BusinessOption $businessOption)
+    {
+        $previousBusinessOption = BusinessOption::where('menu_order', '<', $businessOption->menu_order)
+            ->orderBy('menu_order', 'desc')
+            ->first();
+
+        if ($previousBusinessOption) {
+            $previousMenuOrder= $previousBusinessOption->menu_order;
+            $currentMenuOrder = $businessOption->menu_order;
+
+            $previousBusinessOption->fill(['menu_order' => 999999999])->save();
+            $businessOption->fill(['menu_order' => $previousMenuOrder])->save();
+            $previousBusinessOption->fill(['menu_order' => $currentMenuOrder])->save();
+        }
+
+        return redirect()->back();
+    }
+
+    public function moveDown(BusinessOption $businessOption)
+    {
+        $nextBusinessOption = BusinessOption::where('menu_order', '>', $businessOption->menu_order)
+            ->orderBy('menu_order', 'asc')
+            ->first();
+
+        if ($nextBusinessOption) {
+            $nextMenuOrder= $nextBusinessOption->menu_order;
+            $currentMenuOrder = $businessOption->menu_order;
+
+            $nextBusinessOption->fill(['menu_order' => 999999999])->save();
+            $businessOption->fill(['menu_order' => $nextMenuOrder])->save();
+            $nextBusinessOption->fill(['menu_order' => $currentMenuOrder])->save();
+        }
+
+        return redirect()->back();
+    }
+
+    private function moveTo(BusinessOption $businessOption, $finalMenuOrder)
+    {
+        //get the last_menu_order of section
+        $inBetweenBusinessOptions = BusinessOption::where('menu_order', '>', $finalMenuOrder)
+            ->orderBy('menu_order', 'desc')
+            ->get();
+
+        if (count($inBetweenBusinessOptions) === 0) return false;
+
+        foreach ($inBetweenBusinessOptions as $inBetweenBusinessOption) {
+            $inBetweenBusinessOption->fill(['menu_order' => $inBetweenBusinessOption->menu_order + 1])->save();
+        }
+
+        $businessOption->fill(['menu_order' => $finalMenuOrder + 1])->save();
+
+    }
+
 }

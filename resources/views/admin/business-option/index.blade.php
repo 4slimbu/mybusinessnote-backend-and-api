@@ -14,6 +14,7 @@
                     <th>Section</th>
                     <th>Show On</th>
                     <th>Actions</th>
+                    <th>Move</th>
 
                 </tr>
                 </thead>
@@ -29,8 +30,8 @@
                             <td>
                                 <div class="">
                                     <a href="{{ route('admin.business-option.edit', $businessOption->id) }}"
-                                       class="btn btn-sm btn-primary">Edit</a>
-                                    <form class="form-inline" method="POST"
+                                       class="btn btn-sm btn-primary float-left">Edit</a>
+                                    <form class="form-inline float-left" method="POST"
                                           action="{{ route('admin.business-option.destroy', $businessOption->id) }}">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
@@ -39,6 +40,10 @@
                                         </button>
                                     </form>
                                 </div>
+                            </td>
+                            <td>
+                                <a href="{{ route('admin.business-option.move-up', $businessOption->id) }}">up</a>
+                                <a href="{{ route('admin.business-option.move-down', $businessOption->id) }}">down</a>
                             </td>
                         </tr>
                         @if(!empty($businessOption->children))

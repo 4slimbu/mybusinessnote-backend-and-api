@@ -20,6 +20,7 @@
 <div class="form-group">
     {{ Form::checkbox('show_everywhere', $data['showEveryWhere'], $data['showEveryWhere'], ['id' => 'show_everywhere']) }}
     <label class="display-block text-semibold">Show Everywhere</label>
+    <p>If ticked, this will show this business option on each and every business category.</p>
 </div>
 
 {{--Business Category--}}
