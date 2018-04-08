@@ -30,10 +30,10 @@
         <!--  <h2>{{ $panel_name }}</h2> -->
 
             @if(Session::has('success'))
-                <p class="alert alert-success">{{ Session::get('success') }}</p>
+                <p class="alert alert-success flash-message">{{ Session::get('success') }}</p>
             @endif
             @if(Session::has('error'))
-                <p class="alert alert-error">{{ Session::get('error') }}</p>
+                <p class="alert alert-error flash-message">{{ Session::get('error') }}</p>
             @endif
 
             @yield('content')
@@ -54,9 +54,18 @@
         });
     }
 
+    // Flash session message
+    $(window).on('load', function () {
+        if ($(".flash-message").length) {
+            setTimeout(function () {
+                $(".flash-message").fadeOut();
+            }, 5000);
+        }
+    });
+
     // toggle show categories checkbox and select options
     if ($("#show_everywhere").length && $("#business_categories").length) {
-        $(window).on('load', function() {
+        $(window).on('load', function () {
             // init
             if ($('#show_everywhere').is(':checked')) {
                 $("#business_categories").hide();
@@ -80,7 +89,7 @@
     // toggle physical address
     // toggle show categories checkbox and select options
     if ($("#show_physical_address").length && $(".physical_address").length) {
-        $(window).on('load', function() {
+        $(window).on('load', function () {
             // init
             if ($('#show_physical_address').is(':checked')) {
                 $(".physical_address").hide();

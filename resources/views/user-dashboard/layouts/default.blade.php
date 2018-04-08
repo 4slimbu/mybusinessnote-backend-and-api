@@ -36,10 +36,10 @@
             <!--  <h2>{{ $panel_name }}</h2> -->
 
                 @if(Session::has('success'))
-                    <p class="alert alert-success">{{ Session::get('success') }}</p>
+                    <p class="alert alert-success flash-message">{{ Session::get('success') }}</p>
                 @endif
                 @if(Session::has('error'))
-                    <p class="alert alert-error">{{ Session::get('error') }}</p>
+                    <p class="alert alert-error flash-message">{{ Session::get('error') }}</p>
                 @endif
 
                 @yield('content')
@@ -52,6 +52,17 @@
 <!-- Scripts -->
 
 <script src="{{ asset('js/app.js') }}"></script>
+
+<script>
+    // Flash session message
+    $(window).on('load', function () {
+        if ($(".flash-message").length) {
+            setTimeout(function () {
+                $(".flash-message").fadeOut();
+            }, 5000);
+        }
+    });
+</script>
 
 </body>
 </html>
