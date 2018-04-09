@@ -3,6 +3,8 @@ modules:
     enabled:
         - \Helper\Api
         - Asserts
+        - Laravel5:
+            environment_file: .env.testing
         - REST:
               url: /api
               depends: Laravel5

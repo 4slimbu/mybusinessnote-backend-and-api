@@ -273,11 +273,11 @@ class BusinessOptionController extends AdminBaseController
             ->first();
 
         if ($previousBusinessOption) {
-            $previousMenuOrder= $previousBusinessOption->menu_order;
+            $previousMenuOrder = $previousBusinessOption->menu_order;
             $currentMenuOrder = $businessOption->menu_order;
 
             $previousBusinessOption->fill(['menu_order' => 999999999])->save();
-            $businessOption->fill(['menu_order' => $previousMenuOrder])->save();
+            $businessOption->fill(['section_id' => $previousBusinessOption->section_id, 'menu_order' => $previousMenuOrder])->save();
             $previousBusinessOption->fill(['menu_order' => $currentMenuOrder])->save();
         }
 
@@ -291,31 +291,88 @@ class BusinessOptionController extends AdminBaseController
             ->first();
 
         if ($nextBusinessOption) {
-            $nextMenuOrder= $nextBusinessOption->menu_order;
+            $nextMenuOrder = $nextBusinessOption->menu_order;
             $currentMenuOrder = $businessOption->menu_order;
 
             $nextBusinessOption->fill(['menu_order' => 999999999])->save();
-            $businessOption->fill(['menu_order' => $nextMenuOrder])->save();
+            $businessOption->fill(['section_id' => $nextBusinessOption->section_id, 'menu_order' => $nextMenuOrder])->save();
             $nextBusinessOption->fill(['menu_order' => $currentMenuOrder])->save();
         }
 
         return redirect()->back();
     }
 
-    private function moveTo(BusinessOption $businessOption, $finalMenuOrder)
+    private function moveTo(BusinessOption $businessOption, $to)
     {
-        //get the last_menu_order of section
-        $inBetweenBusinessOptions = BusinessOption::where('menu_order', '>', $finalMenuOrder)
-            ->orderBy('menu_order', 'desc')
-            ->get();
-
-        if (count($inBetweenBusinessOptions) === 0) return false;
-
-        foreach ($inBetweenBusinessOptions as $inBetweenBusinessOption) {
-            $inBetweenBusinessOption->fill(['menu_order' => $inBetweenBusinessOption->menu_order + 1])->save();
+        if (!$businessOption || !$to) {
+            return false;
         }
 
-        $businessOption->fill(['menu_order' => $finalMenuOrder + 1])->save();
+        if (!$businessOption->menu_order) {
+            // case: insert
+            $inBetweenBusinessOptions = BusinessOption::where('menu_order', '>', $to)
+                ->orderBy('menu_order', 'desc')
+                ->get();
+
+            if (count($inBetweenBusinessOptions) === 0) return false;
+
+            foreach ($inBetweenBusinessOptions as $inBetweenBusinessOption) {
+                $inBetweenBusinessOption->fill(['menu_order' => $inBetweenBusinessOption->menu_order + 1])->save();
+            }
+
+            $finalDestination = BusinessOption::where('menu_order', $to)->select('id', 'section_id')->first();
+
+            $businessOption->fill(['section_id' => $finalDestination->section_id, 'menu_order' => $to + 1])->save();
+
+        } elseif ($businessOption->menu_order > $to) {
+            // case: move down
+            // get the affected business option by the move in desc order
+            $inBetweenBusinessOptions = BusinessOption::whereBetween('menu_order', [$to, $businessOption->menu_order])
+                ->where('menu_order', '!=', $businessOption->menu_order)
+                ->where('menu_order', '!=', $to)
+                ->orderBy('menu_order', 'desc')
+                ->get();
+
+            if (count($inBetweenBusinessOptions) === 0) return false;
+
+            // get destination section
+            $toSection = BusinessOption::where('menu_order', $to)->select('id', 'section_id')->first()->section_id;
+
+            // set the last item in the range, which is current business option, to very high menu_order
+            $businessOption->fill(['menu_order' => 999999])->save();
+            // as the last item has menu_order set very high, its position can be considered vacant and let's
+            // increase menu_order of business Options in between the range by one
+            foreach ($inBetweenBusinessOptions as $inBetweenBusinessOption) {
+                $inBetweenBusinessOption->fill(['menu_order' => $inBetweenBusinessOption->menu_order + 1])->save();
+            }
+
+            // now let's save the business option to destination place with new section
+            $businessOption->fill(['section_id' => $toSection, 'menu_order' => ($to + 1)])->save();
+        } else {
+            // case: move up
+            // get the affected business option by the move in asc order
+            $inBetweenBusinessOptions = BusinessOption::whereBetween('menu_order', [$businessOption->menu_order, $to])
+                ->orderBy('menu_order', 'asc')
+                ->get();
+
+            if (count($inBetweenBusinessOptions) === 0) return false;
+
+            // get destination section
+            $toSection = $inBetweenBusinessOptions->last()->section_id;
+
+            // set the first item in the range, which is current business option, to very high menu_order
+            $businessOption->fill(['menu_order' => 999999])->save();
+
+            // as the last item has menu_order set very high, its position can be considered vacant and let's
+            // decrease menu_order of business Options in between the range by one
+            foreach ($inBetweenBusinessOptions as $inBetweenBusinessOption) {
+                $inBetweenBusinessOption->fill(['menu_order' => $inBetweenBusinessOption->menu_order - 1])->save();
+            }
+
+            // now let's save the business option to destination place with new section
+            $businessOption->fill(['section_id' => $toSection, 'menu_order' => $to])->save();
+        }
+
 
     }
 
