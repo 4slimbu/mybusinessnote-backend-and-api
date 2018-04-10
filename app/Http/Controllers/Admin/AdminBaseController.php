@@ -16,9 +16,7 @@ class AdminBaseController extends Controller
             $view->with('panel_name', $this->panel_name);
 
             if (isset($this->panel_actions)) {
-
                 $view->with('panel_actions', $this->panel_actions);
-
             }
 
             if (property_exists($this, 'upload_directory')) {

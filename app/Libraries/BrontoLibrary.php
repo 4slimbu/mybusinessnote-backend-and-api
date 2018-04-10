@@ -12,7 +12,7 @@ use SoapHeader;
 class BrontoLibrary
 {
     /**
-     * Bronto WDSL url
+     * Bronto WSDL url
      */
     protected $wdsl = 'https://api.bronto.com/v4?wsdl';
 
@@ -69,8 +69,10 @@ class BrontoLibrary
     public function prepareClient()
     {
         if (!$this->client) {
-            $client = new SoapClient($this->wdsl, ['trace'    => 1,
-                                                   'features' => SOAP_SINGLE_ELEMENT_ARRAYS]);
+            $client = new SoapClient($this->wdsl, [
+                'trace'    => 1,
+                'features' => SOAP_SINGLE_ELEMENT_ARRAYS
+            ]);
 
             try {
                 $token = $this->token;
@@ -143,7 +145,7 @@ class BrontoLibrary
     public function getCurrentUserContact()
     {
         try {
-            // set up a filter to read contacts and match on either of two email addresses
+            // set up a filter
             $filter = [
                 'email' => [
                     [
@@ -177,7 +179,7 @@ class BrontoLibrary
     public function getContactsFromList()
     {
         try {
-            // set up a filter to read contacts and match on either of two email addresses
+            // set up a filter
             $filter = [
                 'listId' => $this->listId,
             ];
