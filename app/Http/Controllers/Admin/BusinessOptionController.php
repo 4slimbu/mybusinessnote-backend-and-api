@@ -268,7 +268,6 @@ class BusinessOptionController extends AdminBaseController
 
     public function moveUp(BusinessOption $businessOption)
     {
-        dd("here");
         $previousBusinessOption = BusinessOption::where('menu_order', '<', $businessOption->menu_order)
             ->orderBy('menu_order', 'desc')
             ->first();
@@ -303,7 +302,7 @@ class BusinessOptionController extends AdminBaseController
         return redirect()->back();
     }
 
-    private function moveTo(BusinessOption $businessOption, $to)
+    public function moveTo(BusinessOption $businessOption, $to)
     {
         if (!$businessOption || !$to) {
             return false;
