@@ -352,6 +352,7 @@ class BusinessOptionController extends AdminBaseController
             // case: move up
             // get the affected business option by the move in asc order
             $inBetweenBusinessOptions = BusinessOption::whereBetween('menu_order', [$businessOption->menu_order, $to])
+                ->where('menu_order', '!=', $businessOption->menu_order)
                 ->orderBy('menu_order', 'asc')
                 ->get();
 
@@ -362,6 +363,7 @@ class BusinessOptionController extends AdminBaseController
 
             // set the first item in the range, which is current business option, to very high menu_order
             $businessOption->fill(['menu_order' => 999999])->save();
+
 
             // as the last item has menu_order set very high, its position can be considered vacant and let's
             // decrease menu_order of business Options in between the range by one
