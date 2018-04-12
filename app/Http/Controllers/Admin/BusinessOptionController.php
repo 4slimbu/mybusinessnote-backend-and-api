@@ -11,6 +11,7 @@ use App\Models\BusinessOption;
 use App\Models\Section;
 use AppHelper;
 use form;
+use Illuminate\Support\Facades\Bus;
 use Session;
 
 
@@ -214,12 +215,15 @@ class BusinessOptionController extends AdminBaseController
         $input = $request->all();
         $input['show_everywhere'] = isset($input['show_everywhere']) ? 1 : 0;
 
+        // move to specific menu_order location
         if ($request->get('section_id') && $businessOption->section_id !== $request->get('section_id')) {
-            // set menu_order
-            $lastItemInSection = BusinessOption::select('id', 'menu_order')->where('section_id', $request->get('section_id'))
-                ->orderBy('menu_order', 'desc')->first();
+            $itemsInCurrentSection = BusinessOption::where('section_id', $businessOption->section_id)->count();
+            if (! ($itemsInCurrentSection > 1)) {
+                Session::flash('error', 'Section cannot be empty');
+                return redirect()->back();
+            }
 
-            $this->moveTo($businessOption, $lastItemInSection->menu_order);
+            $this->moveToSection($businessOption, $request->get('section_id'));
         }
 
         // Save business option
@@ -268,6 +272,12 @@ class BusinessOptionController extends AdminBaseController
 
     public function moveUp(BusinessOption $businessOption)
     {
+        $itemsInCurrentSection = BusinessOption::where('section_id', $businessOption->section_id)->count();
+        if (! ($itemsInCurrentSection > 1)) {
+            Session::flash('error', 'Section cannot be empty');
+            return redirect()->back();
+        }
+
         $previousBusinessOption = BusinessOption::where('menu_order', '<', $businessOption->menu_order)
             ->orderBy('menu_order', 'desc')
             ->first();
@@ -286,6 +296,12 @@ class BusinessOptionController extends AdminBaseController
 
     public function moveDown(BusinessOption $businessOption)
     {
+        $itemsInCurrentSection = BusinessOption::where('section_id', $businessOption->section_id)->count();
+        if (! ($itemsInCurrentSection > 1)) {
+            Session::flash('error', 'Section cannot be empty');
+            return redirect()->back();
+        }
+
         $nextBusinessOption = BusinessOption::where('menu_order', '>', $businessOption->menu_order)
             ->orderBy('menu_order', 'asc')
             ->first();
@@ -376,6 +392,34 @@ class BusinessOptionController extends AdminBaseController
         }
 
 
+    }
+
+    public function moveToSection(BusinessOption $businessOption, $destSectionId)
+    {
+        // set menu_order
+        $lastItemInSection = BusinessOption::select('id', 'menu_order')->where('section_id', $destSectionId)
+            ->orderBy('menu_order', 'desc')->first();
+        if ($lastItemInSection) {
+            $destMenuOrder = $lastItemInSection->menu_order + 1;
+        } else {
+            $lastItemInPreviousSection = BusinessOption::select('id', 'menu_order')->where('section_id', $destSectionId - 1)
+                ->orderBy('menu_order', 'desc')->first();
+            if ($lastItemInPreviousSection) {
+                $destMenuOrder = $lastItemInPreviousSection->menu_order + 1;
+            } else {
+                $firstItemInNextSection = BusinessOption::select('id', 'menu_order')->where('section_id', $destSectionId + 1)
+                    ->orderBy('menu_order', 'asc')->first();
+                if ($firstItemInNextSection) {
+                    $destMenuOrder = $firstItemInNextSection->menu_order - 1;
+                } else {
+                    $lastItem = BusinessOption::select('id', 'menu_order')
+                        ->orderBy('menu_order', 'desc')->first();
+                    $destMenuOrder = $lastItem->menu_order + 1;
+                }
+            }
+        }
+
+        $this->moveTo($businessOption, $destMenuOrder);
     }
 
 }
