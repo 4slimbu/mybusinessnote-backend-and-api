@@ -7,12 +7,249 @@ use App\Http\Resources\Api\BusinessStatusResource;
 use App\Models\Business;
 use App\Models\BusinessBusinessOption;
 use App\Models\BusinessCategoryBusinessOption;
+use App\Models\BusinessLevel;
 use App\Models\BusinessMeta;
 use App\Models\BusinessOption;
+use App\Models\BusinessSection;
+use App\Models\Level;
+use App\Models\Section;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Bus;
 
 trait BusinessOptionable
 {
+    /**
+     * Set up Business related pivot tables with default values
+     *
+     * @param Business $business
+     */
+    public function setupBusiness(Business $business)
+    {
+        $this->setupBusinessBusinessOptions($business);
+        $this->setupBusinessLevels($business);
+        $this->setupBusinessSections($business);
+    }
+
+    /**
+     * Set up Business's related business options with default values
+     *
+     * @param $business
+     */
+    public function setupBusinessBusinessOptions($business)
+    {
+        // Only pick business options that fall on the business's category.
+        $relatedBusinessOptionIds = $business->businessCategory->businessOptions()->pluck('id')->toArray();
+
+        // Start from clean slate
+        $existingBusinessOptionIds = BusinessBusinessOption::where('business_id', $business->id)->pluck('business_id');
+        if ($existingBusinessOptionIds) {
+            BusinessBusinessOption::whereIn('business_id', $existingBusinessOptionIds)->delete();
+        }
+
+        // Set up related business options for current business.
+        if ($relatedBusinessOptionIds > 0) {
+            foreach ($relatedBusinessOptionIds as $item) {
+                $business->businessOptions()->attach($item, ['status' => 'locked', 'created_at' => Carbon::now()]);
+            }
+        }
+    }
+
+    /**
+     * Set up Business's related levels with default values
+     *
+     * @param $business
+     */
+    public function setupBusinessLevels($business)
+    {
+        $levelIds = Level::pluck('id')->toArray();
+
+        // Start from clean slate
+        $existingBusinessOptionIds = BusinessLevel::where('business_id', $business->id)->pluck('business_id');
+        if ($existingBusinessOptionIds) {
+            BusinessLevel::whereIn('business_id', $existingBusinessOptionIds)->delete();
+        }
+
+        // Set up related business options for current business.
+        if ($levelIds > 0) {
+            foreach ($levelIds as $item) {
+                $business->levels()->attach($item, ['completed_percent' => 0, 'created_at' => Carbon::now()]);
+            }
+        }
+    }
+
+    /**
+     * Set up business's related sections with default values
+     *
+     * @param $business
+     */
+    public function setupBusinessSections($business)
+    {
+        $sectionIds = Section::pluck('id')->toArray();
+
+        // Start from clean slate
+        $existingBusinessOptionIds = BusinessSection::where('business_id', $business->id)->pluck('business_id');
+        if ($existingBusinessOptionIds) {
+            BusinessSection::whereIn('business_id', $existingBusinessOptionIds)->delete();
+        }
+
+        // Set up related business options for current business.
+        if ($sectionIds > 0) {
+            foreach ($sectionIds as $item) {
+                $business->sections()->attach($item, ['completed_percent' => 0, 'created_at' => Carbon::now()]);
+            }
+        }
+    }
+
+    /**
+     * Refresh Business related pivot tables with default values
+     *
+     * Cases to Use:
+     * When admin deletes/adds/changes-business-option-menu-order or when user updates business category
+     *
+     * @param Business $business
+     */
+    public function refreshBusiness(Business $business)
+    {
+        $this->refreshBusinessBusinessOptions($business);
+        $this->refreshBusinessLevels($business);
+        $this->refreshBusinessSections($business);
+    }
+
+    /**
+     * Refresh Business's related business options with default values
+     *
+     * @param $business
+     */
+    public function refreshBusinessBusinessOptions($business)
+    {
+        $this->refreshBusinessBusinessOptionsWhenAdded();
+        $this->refreshBusinessBusinessOptionsWhenDeleted();
+        $this->refreshBusinessBusinessOptionsWhenChanged();
+        // Only pick business options that fall on the business's category.
+        $relatedBusinessOptionIds = $business->businessCategory->businessOptions()->pluck('id')->toArray();
+
+        // Start from clean slate
+        $existingBusinessOptionIds = BusinessBusinessOption::where('business_id', $business->id)->pluck('business_id');
+        if ($existingBusinessOptionIds) {
+            BusinessBusinessOption::whereIn('business_id', $existingBusinessOptionIds)->delete();
+        }
+
+        // Set up related business options for current business.
+        if ($relatedBusinessOptionIds > 0) {
+            foreach ($relatedBusinessOptionIds as $item) {
+                $business->businessOptions()->attach($item, ['status' => 'locked', 'created_at' => Carbon::now()]);
+            }
+        }
+
+        $existingBusinessOptionIds = BusinessBusinessOption::where('business_id', $business->id)->pluck('business_option_id');
+        $newBusinessOptionIds = BusinessOption::pluck('id');
+        $irrelevantBusinessOptionIds = BusinessCategoryBusinessOption::where('business_category_id', $business->business_category_id)->pluck('business_option_id');
+
+        $needToAddBusinessOptionIds = $newBusinessOptionIds->diff($existingBusinessOptionIds)->values();
+        $needToRemoveBusinessOptionIds = $existingBusinessOptionIds->diff($newBusinessOptionIds)->values();
+        $needToUpdateBusinessOptionIds = $existingBusinessOptionIds->diff($irrelevantBusinessOptionIds)->values();
+
+        // add new business options
+        if (count($needToAddBusinessOptionIds) > 0) {
+            // first time
+            if (count($needToAddBusinessOptionIds) === count($newBusinessOptionIds)) {
+                $business->businessOptions()->attach($needToAddBusinessOptionIds);
+
+                // unlock the default business options
+                $defaultUnlockedBusinessOptionIds = config('mbj.unlocked_business_option');
+                foreach ($defaultUnlockedBusinessOptionIds as $item) {
+                    BusinessBusinessOption::where('business_id', $business->id)
+                        ->where('business_option_id', $item)->update(['status' => 'unlocked']);
+                }
+                // unlock next relevant business option
+                $this->unlockNextBusinessOption($business, BusinessOption::find(max($defaultUnlockedBusinessOptionIds)));
+            } else {
+                // add new business options
+                foreach ($needToAddBusinessOptionIds as $item) {
+                    // if other business options exist whose menu_order is higher than the current one and have status unlocked
+                    // then current business option should also have status unlocked else it should have status locked
+                    $currentBusinessOption = BusinessOption::find($item);
+                    $higherUnlockedBusinessOptionCount = $business->businessOptions()->where('menu_order', '>', $currentBusinessOption->menu_order)
+                        ->where('status', '!=', 'locked')->count();
+
+                    if ($higherUnlockedBusinessOptionCount > 0) {
+                        $business->businessOptions()->attach($item, ['status' => 'unlocked']);
+                    } else {
+                        $business->businessOptions()->attach($needToAddBusinessOptionIds, ['status' => 'locked']);
+                    }
+                }
+            }
+        }
+
+        // remove deleted business options
+        if (count($needToRemoveBusinessOptionIds) > 0) {
+            $business->businessOptions()->detach($needToRemoveBusinessOptionIds);
+            //remove related data from business_meta table as well
+            BusinessMeta::where('business_id', $business->id)
+                ->whereIn('business_option_id', $needToRemoveBusinessOptionIds)->delete();
+        }
+
+        // update unwanted business options status to irrelevant
+        if (count($needToUpdateBusinessOptionIds) > 0) {
+            BusinessBusinessOption::where('business_id', $business->id)
+                ->whereIn('business_option_id', $needToUpdateBusinessOptionIds)->update(['status' => 'irrelevant']);
+        }
+    }
+
+    /**
+     * Refresh Business's related levels with default values
+     *
+     * @param $business
+     */
+    public function refreshBusinessLevels($business)
+    {
+        $levelIds = Level::pluck('id')->toArray();
+
+        // Start from clean slate
+        $existingBusinessOptionIds = BusinessLevel::where('business_id', $business->id)->pluck('business_id');
+        if ($existingBusinessOptionIds) {
+            BusinessLevel::whereIn('business_id', $existingBusinessOptionIds)->delete();
+        }
+
+        // Set up related business options for current business.
+        if ($levelIds > 0) {
+            foreach ($levelIds as $item) {
+                $business->levels()->attach($item, ['completed_percent' => 0, 'created_at' => Carbon::now()]);
+            }
+        }
+    }
+
+    /**
+     * Refresh Business's related sections with default values
+     *
+     * @param $business
+     */
+    public function refreshBusinessSections($business)
+    {
+        $sectionIds = Section::pluck('id')->toArray();
+
+        // Start from clean slate
+        $existingBusinessOptionIds = BusinessSection::where('business_id', $business->id)->pluck('business_id');
+        if ($existingBusinessOptionIds) {
+            BusinessSection::whereIn('business_id', $existingBusinessOptionIds)->delete();
+        }
+
+        // Set up related business options for current business.
+        if ($sectionIds > 0) {
+            foreach ($sectionIds as $item) {
+                $business->sections()->attach($item, ['completed_percent' => 0, 'created_at' => Carbon::now()]);
+            }
+        }
+    }
+
+    public function checkIfCompletedJustNow()
+    {
+        // check if level has been completed in this request
+        // check if section has been completed in this request
+        // return event response [ event: [{type: 'levelcompleted', id: 1}, {type: 'sectionCompleted', id: 1}], refresh: true ]
+    }
+
+
     /**
      * Refresh Pivot table business_business_option for given business
      *

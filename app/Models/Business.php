@@ -84,7 +84,7 @@ class Business extends Model
         ]);
 
         // Set up business_business_options with all the available business_options
-        $this->refreshBusinessBusinessOption($business);
+        $this->setupBusiness($business);
 
         //sync business with default business options determined by business_category_id
         $data = [

@@ -24,6 +24,7 @@ class BusinessController extends ApiBaseController
     public function getUserBusiness()
     {
         $user = $this->getAuthUserOrFail();
+        $this->setupBusiness($user->business);
 
         return ResponseLibrary::success([
             'successCode' => 'FETCHED',
