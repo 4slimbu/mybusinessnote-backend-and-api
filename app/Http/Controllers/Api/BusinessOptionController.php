@@ -130,7 +130,7 @@ class BusinessOptionController extends ApiBaseController
                 'business_option_status' => 'done',
             ];
             $this->unlockNextBusinessOption($business, $business_option);
-            $this->syncBusinessPivotTables($business, $business_option, $data);
+            $syncResponse = $this->syncBusinessPivotTables($business, $business_option, $data);
 
         } else {
             if (
@@ -145,7 +145,7 @@ class BusinessOptionController extends ApiBaseController
                     'business_option_status' => $business_option_status,
                 ];
                 $this->unlockNextBusinessOption($business, $business_option);
-                $this->syncBusinessPivotTables($business, $business_option, $data);
+                $syncResponse = $this->syncBusinessPivotTables($business, $business_option, $data);
             }
         }
 
@@ -166,7 +166,7 @@ class BusinessOptionController extends ApiBaseController
             'businessOption' => new BusinessOptionResource($business_option),
             'businessStatus' => $businessStatus,
             'token'          => $this->getTokenFromUser($authUser),
-        ], 200);
+        ] + $syncResponse, 200);
     }
 
     /**

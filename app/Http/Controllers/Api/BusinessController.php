@@ -80,7 +80,7 @@ class BusinessController extends ApiBaseController
         }
 
         // Sync business_business_option table with current business_option new status
-        $this->syncBusinessPivotTables($business, $business_option, [
+        $syncResponse = $this->syncBusinessPivotTables($business, $business_option, [
             'business_category_id'   => $business->business_category_id,
             'business_option_status' => 'done',
         ]);
@@ -90,7 +90,7 @@ class BusinessController extends ApiBaseController
         $business_option_status = BusinessBusinessOption::where('business_id', $business->id)
             ->where('business_option_id', $business_option->id)->first()->status;
 
-        //return response
+        // Return response
         return ResponseLibrary::success([
             'successCode'    => 'SAVED',
             'business'       => new BusinessResource($business->refresh()),
@@ -102,6 +102,6 @@ class BusinessController extends ApiBaseController
             ],
             'businessStatus' => $businessStatus,
             'token'          => $this->getTokenFromUser($user),
-        ], 200);
+        ] + $syncResponse, 200);
     }
 }

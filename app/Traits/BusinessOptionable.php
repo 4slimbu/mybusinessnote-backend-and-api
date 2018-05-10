@@ -250,14 +250,6 @@ trait BusinessOptionable
         }
     }
 
-    public function checkIfCompletedJustNow()
-    {
-        // check if level has been completed in this request
-        // check if section has been completed in this request
-        // return event response [ event: [{type: 'levelcompleted', id: 1}, {type: 'sectionCompleted', id: 1}], refresh: true ]
-    }
-
-
     /**
      * Unlock next relevant business option for given business
      *
@@ -277,6 +269,13 @@ trait BusinessOptionable
         }
     }
 
+    /**
+     * This will get level, section and business option statuses for current business option
+     *
+     * @param $business
+     * @param $currentBusinessOption
+     * @return BusinessStatusResource
+     */
     public function refreshAllRelatedStatusForCurrentBusinessOption($business, $currentBusinessOption)
     {
         $data['levelStatus'] = $business->levels()->where('id', $currentBusinessOption->level_id)->get();
