@@ -19,7 +19,7 @@ class BusinessCategoryController extends ApiBaseController
      */
     public function index()
     {
-        $this->refreshBusinessBusinessOption(Business::find(13));
+        $this->refreshBusinessBusinessOptions(Business::find(13));
 
         $business_categories = BusinessCategory::get();
 

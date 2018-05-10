@@ -24,7 +24,6 @@ class BusinessController extends ApiBaseController
     public function getUserBusiness()
     {
         $user = $this->getAuthUserOrFail();
-        $this->setupBusiness($user->business);
 
         return ResponseLibrary::success([
             'successCode' => 'FETCHED',
@@ -77,7 +76,7 @@ class BusinessController extends ApiBaseController
 
         // If Business Category Field present for saving, then need to refresh the business_business_option table
         if ($request->get('business_category_id')) {
-            $this->refreshBusinessBusinessOption($business);
+            $this->refreshBusinessBusinessOptions($business);
         }
 
         // Sync business_business_option table with current business_option new status

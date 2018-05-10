@@ -14,7 +14,6 @@ use App\Models\BusinessSection;
 use App\Models\Level;
 use App\Models\Section;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Bus;
 
 trait BusinessOptionable
 {
@@ -38,16 +37,16 @@ trait BusinessOptionable
     public function setupBusinessBusinessOptions($business)
     {
         // Only pick business options that fall on the business's category.
-        $relatedBusinessOptionIds = $business->businessCategory->businessOptions()->pluck('id')->toArray();
+        $relatedBusinessOptionIds = $business->businessCategory->businessOptions()->pluck('id');
 
         // Start from clean slate
-        $existingBusinessOptionIds = BusinessBusinessOption::where('business_id', $business->id)->pluck('business_id');
-        if ($existingBusinessOptionIds) {
-            BusinessBusinessOption::whereIn('business_id', $existingBusinessOptionIds)->delete();
+        $existingBusinessIds = BusinessBusinessOption::where('business_id', $business->id)->pluck('business_id');
+        if ($existingBusinessIds) {
+            BusinessBusinessOption::whereIn('business_id', $existingBusinessIds)->delete();
         }
 
         // Set up related business options for current business.
-        if ($relatedBusinessOptionIds > 0) {
+        if (count($relatedBusinessOptionIds) > 0) {
             foreach ($relatedBusinessOptionIds as $item) {
                 $business->businessOptions()->attach($item, ['status' => 'locked', 'created_at' => Carbon::now()]);
             }
@@ -61,16 +60,16 @@ trait BusinessOptionable
      */
     public function setupBusinessLevels($business)
     {
-        $levelIds = Level::pluck('id')->toArray();
+        $levelIds = Level::pluck('id');
 
         // Start from clean slate
-        $existingBusinessOptionIds = BusinessLevel::where('business_id', $business->id)->pluck('business_id');
-        if ($existingBusinessOptionIds) {
-            BusinessLevel::whereIn('business_id', $existingBusinessOptionIds)->delete();
+        $existingBusinessIds = BusinessLevel::where('business_id', $business->id)->pluck('business_id');
+        if ($existingBusinessIds) {
+            BusinessLevel::whereIn('business_id', $existingBusinessIds)->delete();
         }
 
         // Set up related business options for current business.
-        if ($levelIds > 0) {
+        if (count($levelIds) > 0) {
             foreach ($levelIds as $item) {
                 $business->levels()->attach($item, ['completed_percent' => 0, 'created_at' => Carbon::now()]);
             }
@@ -84,16 +83,16 @@ trait BusinessOptionable
      */
     public function setupBusinessSections($business)
     {
-        $sectionIds = Section::pluck('id')->toArray();
+        $sectionIds = Section::pluck('id');
 
         // Start from clean slate
-        $existingBusinessOptionIds = BusinessSection::where('business_id', $business->id)->pluck('business_id');
-        if ($existingBusinessOptionIds) {
-            BusinessSection::whereIn('business_id', $existingBusinessOptionIds)->delete();
+        $existingBusinessIds = BusinessSection::where('business_id', $business->id)->pluck('business_id');
+        if ($existingBusinessIds) {
+            BusinessSection::whereIn('business_id', $existingBusinessIds)->delete();
         }
 
         // Set up related business options for current business.
-        if ($sectionIds > 0) {
+        if (count($sectionIds) > 0) {
             foreach ($sectionIds as $item) {
                 $business->sections()->attach($item, ['completed_percent' => 0, 'created_at' => Carbon::now()]);
             }
@@ -116,67 +115,60 @@ trait BusinessOptionable
     }
 
     /**
-     * Refresh Business's related business options with default values
+     * Refresh Pivot table business_business_option for given business
      *
-     * @param $business
+     * This function refresh or create relation data between business and business_option which will be used to
+     * generate relevant business option list for particular business. It removes the intense calculation and persistence
+     * of database which otherwise would be needed in every request. Also, it facilitates performing
+     * various tracking tasks.
+     *
+     * This function need to be called only if any changes to the database are made that affects the
+     * visibility of business-option on any particular business:
+     * 1. admin updates business option's category list
+     * 2. admin adds/deletes business option
+     * 3. admin updates menu order of business option
+     * 3. obviously when user register as business need to be setup automatically for the user
+     *
+     * @param Business $business
      */
     public function refreshBusinessBusinessOptions($business)
     {
-        $this->refreshBusinessBusinessOptionsWhenAdded();
-        $this->refreshBusinessBusinessOptionsWhenDeleted();
-        $this->refreshBusinessBusinessOptionsWhenChanged();
-        // Only pick business options that fall on the business's category.
-        $relatedBusinessOptionIds = $business->businessCategory->businessOptions()->pluck('id')->toArray();
-
-        // Start from clean slate
-        $existingBusinessOptionIds = BusinessBusinessOption::where('business_id', $business->id)->pluck('business_id');
-        if ($existingBusinessOptionIds) {
-            BusinessBusinessOption::whereIn('business_id', $existingBusinessOptionIds)->delete();
-        }
-
-        // Set up related business options for current business.
-        if ($relatedBusinessOptionIds > 0) {
-            foreach ($relatedBusinessOptionIds as $item) {
-                $business->businessOptions()->attach($item, ['status' => 'locked', 'created_at' => Carbon::now()]);
-            }
-        }
-
+        // This returns list of business_option_ids for current business from business_business_option table
         $existingBusinessOptionIds = BusinessBusinessOption::where('business_id', $business->id)->pluck('business_option_id');
-        $newBusinessOptionIds = BusinessOption::pluck('id');
-        $irrelevantBusinessOptionIds = BusinessCategoryBusinessOption::where('business_category_id', $business->business_category_id)->pluck('business_option_id');
 
-        $needToAddBusinessOptionIds = $newBusinessOptionIds->diff($existingBusinessOptionIds)->values();
-        $needToRemoveBusinessOptionIds = $existingBusinessOptionIds->diff($newBusinessOptionIds)->values();
-        $needToUpdateBusinessOptionIds = $existingBusinessOptionIds->diff($irrelevantBusinessOptionIds)->values();
+        // This returns all business_options
+        $allBusinessOptionIds = BusinessOption::pluck('id');
+
+        // This returns all the business_options available for current business_option category
+        $relatedBusinessOptionIds = BusinessCategoryBusinessOption::where('business_category_id', $business->business_category_id)->pluck('business_option_id');
+
+        // We will always add all the business options for each business, but un-related business options will have status: irrelevant
+        // So, diff of allbusinessOptions and already existingBusinessOptions will give the business options that we need to add
+        // This case will arise only when business option is added to the system
+        $needToAddBusinessOptionIds = $allBusinessOptionIds->diff($existingBusinessOptionIds)->values();
+
+        // This will return ids of businessOptions that we need to remove.
+        // This case will arise when business options is deleted from the system
+        $needToRemoveBusinessOptionIds = $existingBusinessOptionIds->diff($allBusinessOptionIds)->values();
+
+        // This will return ids of business options whose status we need to update
+        // This case will arise when user change business category, in which case, some business options may become irrelevant to current business
+        $needToUpdateBusinessOptionIds = $existingBusinessOptionIds->diff($relatedBusinessOptionIds)->values();
 
         // add new business options
         if (count($needToAddBusinessOptionIds) > 0) {
-            // first time
-            if (count($needToAddBusinessOptionIds) === count($newBusinessOptionIds)) {
-                $business->businessOptions()->attach($needToAddBusinessOptionIds);
+            // add new business options
+            foreach ($needToAddBusinessOptionIds as $item) {
+                // if other business options exist whose menu_order is higher than the current one and have status unlocked
+                // then current business option should also have status unlocked else it should have status locked
+                $currentBusinessOption = BusinessOption::find($item);
+                $higherUnlockedBusinessOptionCount = $business->businessOptions()->where('menu_order', '>', $currentBusinessOption->menu_order)
+                    ->where('status', '!=', 'locked')->count();
 
-                // unlock the default business options
-                $defaultUnlockedBusinessOptionIds = config('mbj.unlocked_business_option');
-                foreach ($defaultUnlockedBusinessOptionIds as $item) {
-                    BusinessBusinessOption::where('business_id', $business->id)
-                        ->where('business_option_id', $item)->update(['status' => 'unlocked']);
-                }
-                // unlock next relevant business option
-                $this->unlockNextBusinessOption($business, BusinessOption::find(max($defaultUnlockedBusinessOptionIds)));
-            } else {
-                // add new business options
-                foreach ($needToAddBusinessOptionIds as $item) {
-                    // if other business options exist whose menu_order is higher than the current one and have status unlocked
-                    // then current business option should also have status unlocked else it should have status locked
-                    $currentBusinessOption = BusinessOption::find($item);
-                    $higherUnlockedBusinessOptionCount = $business->businessOptions()->where('menu_order', '>', $currentBusinessOption->menu_order)
-                        ->where('status', '!=', 'locked')->count();
-
-                    if ($higherUnlockedBusinessOptionCount > 0) {
-                        $business->businessOptions()->attach($item, ['status' => 'unlocked']);
-                    } else {
-                        $business->businessOptions()->attach($needToAddBusinessOptionIds, ['status' => 'locked']);
-                    }
+                if ($higherUnlockedBusinessOptionCount > 0) {
+                    $business->businessOptions()->attach($item, ['status' => 'unlocked']);
+                } else {
+                    $business->businessOptions()->attach($needToAddBusinessOptionIds, ['status' => 'locked']);
                 }
             }
         }
@@ -203,19 +195,27 @@ trait BusinessOptionable
      */
     public function refreshBusinessLevels($business)
     {
-        $levelIds = Level::pluck('id')->toArray();
+        $levelIds = Level::pluck('id');
 
-        // Start from clean slate
-        $existingBusinessOptionIds = BusinessLevel::where('business_id', $business->id)->pluck('business_id');
-        if ($existingBusinessOptionIds) {
-            BusinessLevel::whereIn('business_id', $existingBusinessOptionIds)->delete();
-        }
+        // Get all the related levels for current business
+        $existingLevelIds = BusinessLevel::where('business_id', $business->id)->pluck('level_id');
 
-        // Set up related business options for current business.
-        if ($levelIds > 0) {
+        // This case will arise only when level is added to the system
+        $needToAddLevelIds = $levelIds->diff($existingLevelIds)->values();
+
+        // This case will arise when level is deleted from the system
+        $needToDeleteLevelIds = $existingLevelIds->diff($levelIds)->values();
+
+        // This will add new levels to the business_level table
+        if (count($needToAddLevelIds) > 0) {
             foreach ($levelIds as $item) {
                 $business->levels()->attach($item, ['completed_percent' => 0, 'created_at' => Carbon::now()]);
             }
+        }
+
+        // This will remove deleted levels from the business_level table
+        if (count($needToDeleteLevelIds) > 0) {
+            BusinessLevel::whereIn('level_id', $needToDeleteLevelIds)->delete();
         }
     }
 
@@ -226,19 +226,27 @@ trait BusinessOptionable
      */
     public function refreshBusinessSections($business)
     {
-        $sectionIds = Section::pluck('id')->toArray();
+        $sectionIds = Section::pluck('id');
 
-        // Start from clean slate
-        $existingBusinessOptionIds = BusinessSection::where('business_id', $business->id)->pluck('business_id');
-        if ($existingBusinessOptionIds) {
-            BusinessSection::whereIn('business_id', $existingBusinessOptionIds)->delete();
-        }
+        // Get all the related sections for current business
+        $existingSectionIds = BusinessSection::where('business_id', $business->id)->pluck('section_id');
 
-        // Set up related business options for current business.
-        if ($sectionIds > 0) {
+        // This case will arise only when section is added to the system
+        $needToAddSectionIds = $sectionIds->diff($existingSectionIds)->values();
+
+        // This case will arise when section is deleted from the system
+        $needToDeleteSectionIds = $existingSectionIds->diff($sectionIds)->values();
+
+        // This will add new sections to the business_section table
+        if (count($needToAddSectionIds) > 0) {
             foreach ($sectionIds as $item) {
                 $business->sections()->attach($item, ['completed_percent' => 0, 'created_at' => Carbon::now()]);
             }
+        }
+
+        // This will remove deleted sections from the business_section table
+        if (count($needToDeleteSectionIds) > 0) {
+            BusinessSection::whereIn('section_id', $needToDeleteSectionIds)->delete();
         }
     }
 
@@ -249,80 +257,6 @@ trait BusinessOptionable
         // return event response [ event: [{type: 'levelcompleted', id: 1}, {type: 'sectionCompleted', id: 1}], refresh: true ]
     }
 
-
-    /**
-     * Refresh Pivot table business_business_option for given business
-     *
-     * This function refresh or create relation data between business and business_option which will be used to
-     * generate relevant business option list for particular business. It removes the intense calculation and persistence
-     * of database which otherwise would be needed in every request. Also, it facilitates performing
-     * various tracking tasks.
-     *
-     * This function need to be called only if any changes to the database are made that affects the
-     * visibility of business-option on any particular business:
-     * 1. admin updates business option's category list
-     * 2. admin adds/deletes business option
-     * 3. admin updates menu order of business option
-     * 3. obviously when user register as business need to be setup automatically for the user
-     *
-     * @param Business $business
-     */
-    public function refreshBusinessBusinessOption(Business $business)
-    {
-        $existingBusinessOptionIds = BusinessBusinessOption::where('business_id', $business->id)->pluck('business_option_id');
-        $newBusinessOptionIds = BusinessOption::pluck('id');
-        $irrelevantBusinessOptionIds = BusinessCategoryBusinessOption::where('business_category_id', $business->business_category_id)->pluck('business_option_id');
-
-        $needToAddBusinessOptionIds = $newBusinessOptionIds->diff($existingBusinessOptionIds)->values();
-        $needToRemoveBusinessOptionIds = $existingBusinessOptionIds->diff($newBusinessOptionIds)->values();
-        $needToUpdateBusinessOptionIds = $existingBusinessOptionIds->diff($irrelevantBusinessOptionIds)->values();
-
-        // add new business options
-        if (count($needToAddBusinessOptionIds) > 0) {
-            // first time
-            if (count($needToAddBusinessOptionIds) === count($newBusinessOptionIds)) {
-                $business->businessOptions()->attach($needToAddBusinessOptionIds);
-
-                // unlock the default business options
-                $defaultUnlockedBusinessOptionIds = config('mbj.unlocked_business_option');
-                foreach ($defaultUnlockedBusinessOptionIds as $item) {
-                    BusinessBusinessOption::where('business_id', $business->id)
-                        ->where('business_option_id', $item)->update(['status' => 'unlocked']);
-                }
-                // unlock next relevant business option
-                $this->unlockNextBusinessOption($business, BusinessOption::find(max($defaultUnlockedBusinessOptionIds)));
-            } else {
-                // add new business options
-                foreach ($needToAddBusinessOptionIds as $item) {
-                    // if other business options exist whose menu_order is higher than the current one and have status unlocked
-                    // then current business option should also have status unlocked else it should have status locked
-                    $currentBusinessOption = BusinessOption::find($item);
-                    $higherUnlockedBusinessOptionCount = $business->businessOptions()->where('menu_order', '>', $currentBusinessOption->menu_order)
-                        ->where('status', '!=', 'locked')->count();
-
-                    if ($higherUnlockedBusinessOptionCount > 0) {
-                        $business->businessOptions()->attach($item, ['status' => 'unlocked']);
-                    } else {
-                        $business->businessOptions()->attach($needToAddBusinessOptionIds, ['status' => 'locked']);
-                    }
-                }
-            }
-        }
-
-        // remove deleted business options
-        if (count($needToRemoveBusinessOptionIds) > 0) {
-            $business->businessOptions()->detach($needToRemoveBusinessOptionIds);
-            //remove related data from business_meta table as well
-            BusinessMeta::where('business_id', $business->id)
-                ->whereIn('business_option_id', $needToRemoveBusinessOptionIds)->delete();
-        }
-
-        // update unwanted business options status to irrelevant
-        if (count($needToUpdateBusinessOptionIds) > 0) {
-            BusinessBusinessOption::where('business_id', $business->id)
-                ->whereIn('business_option_id', $needToUpdateBusinessOptionIds)->update(['status' => 'irrelevant']);
-        }
-    }
 
     /**
      * Unlock next relevant business option for given business
