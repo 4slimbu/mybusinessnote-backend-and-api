@@ -300,40 +300,69 @@ trait BusinessOptionable
      */
     private function syncBusinessPivotTables(Business $business, BusinessOption $business_option, $data)
     {
-        // update business business option with: status, created_at, updated_at
-        // update business_section table with: completed_percent, status, created_at, updated_at
-        // update business_level table with: completed_percent, status, created_at, updated_at
-
         $response = [];
-        $business_category_id = ($data['business_category_id']) ? $data['business_category_id'] : null;
         $business_option_status = ($data['business_option_status']) ? $data['business_option_status'] : null;
 
+        //-----------------------------------
         //sync business_business_option table
+        //-----------------------------------
         BusinessBusinessOption::where('business_id', $business->id)
             ->where('business_option_id', $business_option->id)->update(['status' => $business_option_status]);
 
-        $section_current_completed_percent = $business->sections()->where('id', $business_option->section->id)->first() ?
-            $business->sections()->where('id', $business_option->section->id)->first()->pivot->completed_percent : 0;
-        $section_completed_percent = $this->getSectionCompletedPercent($business, $business_option);
+        //---------------------------
+        //sync business_section table
+        //---------------------------
+
+        // Get initial section completed_percent
+        $initialSectionCompletedPercent = BusinessSection::where('business_id', $business->id)
+            ->where('section_id', $business_option->section->id)->first()->completed_percent;
+
+        // Get current section completed percent
+        $currentSectionCompletedPercent = $this->getSectionCompletedPercent($business, $business_option);
+
+        // Update section completed percent with new value
         $business->sections()->detach($business_option->section->id);
         $business->sections()->attach([$business_option->section->id => [
-            'completed_percent' => $section_completed_percent,
+            'completed_percent' => $currentSectionCompletedPercent,
             'updated_at'        => Carbon::now(),
         ]]);
-        $response['section'] = ($section_current_completed_percent < 100 && $section_completed_percent >= 100) ? true : false;
 
+        // Add event object to response if section has completed just now
+        if (($initialSectionCompletedPercent < 100 && $currentSectionCompletedPercent >= 100)) {
+            $response['event'][] = [
+                'type' => 'sectionCompleted',
+                'section_id' => $business_option->section->id,
+            ];
+        }
+
+        //-------------------------
         //sync business_level table
-        $level_current_completed_percent = $business->levels()->where('id', $business_option->level->id)->first() ?
-            $business->levels()->where('id', $business_option->level->id)->first()->pivot->completed_percent : 0;
+        //-------------------------
+
+        // Get initial section completed_percent
+        $level_current_completed_percent = BusinessLevel::where('business_id', $business->id)
+            ->where('level_id', $business_option->level->id)->first()->completed_percent;
+
+        // Get current section completed percent
         $level_completed_percent = $this->getLevelCompletedPercent($business, $business_option);
+
+        // Update section completed percent with new value
         $business->levels()->detach($business_option->level->id);
         $business->levels()->attach([$business_option->level->id => [
             'completed_percent' => $level_completed_percent,
             'updated_at'        => Carbon::now(),
         ]]);
-        $response['level'] = ($level_current_completed_percent < 100 && $level_completed_percent >= 100) ? true : false;
+
+        // Add event object to response if section has completed just now
+        if (($initialSectionCompletedPercent < 100 && $currentSectionCompletedPercent >= 100)) {
+            $response['event'][] = [
+                'type' => 'levelCompleted',
+                'level_id' => $business_option->level->id,
+            ];
+        }
 
         //fire event
+        //Todo: Improve this part
         if ($business_option->level->id === 1 && $level_current_completed_percent < 100 && $level_completed_percent >= 100) {
             event(new LevelOneCompleteEvent($business->user));
         }
