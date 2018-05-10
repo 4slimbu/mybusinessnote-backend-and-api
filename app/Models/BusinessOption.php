@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\Authenticable;
 use Illuminate\Database\Eloquent\Model;
 
 class BusinessOption extends Model
 {
+    use Authenticable;
+
     public $uploadDirectory = 'images/business-options/';
     protected $fillable = [
         'level_id',
@@ -62,7 +65,6 @@ class BusinessOption extends Model
     }
 
     //Each can have multiple children
-
     public function parent()
     {
         return $this->belongsTo(BusinessOption::class, 'parent_id');
@@ -101,6 +103,47 @@ class BusinessOption extends Model
     public function businessMetas()
     {
         return $this->hasMany(BusinessMeta::class);
+    }
+
+    public function next()
+    {
+        if ($currentUser = $this->getAuthUser()) {
+            $nextBusinessOption = $currentUser->business->businessOptions()
+                ->where('menu_order', '>', $this->menu_order)
+                ->where('status', '!=', 'irrelevant')
+                ->first();
+        } else {
+            $nextBusinessOption = BusinessOption::where('menu_order', '>', $this->menu_order)->first();
+        }
+
+        return $nextBusinessOption;
+    }
+
+    public function previous()
+    {
+        if ($currentUser = $this->getAuthUser()) {
+            $nextBusinessOption = $currentUser->business->businessOptions()
+                ->where('menu_order', '<', $this->menu_order)
+                ->where('status', '!=', 'irrelevant')
+                ->orderBy('menu_order', 'desc')
+                ->first();
+        } else {
+            $nextBusinessOption = BusinessOption::where('menu_order', '<', $this->menu_order)
+                ->orderBy('menu_order', 'desc')->first();
+        }
+
+        return $nextBusinessOption;
+    }
+
+    public function getStatus()
+    {
+        if ($currentUser = $this->getAuthUser()) {
+            if ($relatedBusiness = $this->business()->where('id', $currentUser->business->id)->first()) {
+                return $relatedBusiness->pivot->status;
+            }
+        }
+
+        return null;
     }
 
 }
