@@ -18,6 +18,7 @@ class BusinessOption extends Model
         'slug',
         'content',
         'element',
+	    'tooltip_title',
         'tooltip',
         'menu_order',
         'weight',

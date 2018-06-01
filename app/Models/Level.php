@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Level extends Model
 {
     public $uploadDirectory = 'images/levels/';
-    protected $fillable = ['name', 'slug', 'icon', 'badge_icon', 'badge_message', 'content', 'tooltip'];
+    protected $fillable = ['name', 'slug', 'icon', 'badge_icon', 'badge_message', 'content', 'tooltip_title', 'tooltip'];
 
     //Each level can have multiple sections
 

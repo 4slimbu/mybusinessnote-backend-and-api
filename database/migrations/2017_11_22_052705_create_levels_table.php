@@ -21,6 +21,7 @@ class CreateLevelsTable extends Migration
             $table->string('badge_icon', 191)->nullable();
             $table->text('badge_message')->nullable();
             $table->text('content', 65535)->nullable();
+	        $table->string('tooltip_title')->nullable();
             $table->text('tooltip', 65535)->nullable();
             $table->timestamps();
         });

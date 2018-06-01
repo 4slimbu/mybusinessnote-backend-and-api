@@ -19,6 +19,7 @@ class CreateSectionsTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('icon')->nullable();
+	        $table->string('tooltip_title')->nullable();
             $table->text('tooltip')->nullable();
             $table->timestamps();
         });

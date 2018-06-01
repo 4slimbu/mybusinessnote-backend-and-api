@@ -32,6 +32,7 @@ class BusinessOptionResource extends Resource
             'slug'           => $this->slug,
             'content'        => $this->content,
             'element'        => $this->element,
+            'tooltip_title' => $this->tooltip_title,
             'tooltip'        => $this->tooltip,
             'menu_order'     => $this->menu_order,
             'weight'         => $this->weight,

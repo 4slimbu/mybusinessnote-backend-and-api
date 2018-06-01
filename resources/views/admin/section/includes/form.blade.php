@@ -28,6 +28,15 @@
     @endif
 </div>
 
+{{--Tool Tip Title--}}
+<div class="form-group">
+    <label>Tool Tip Title:</label>
+    {{ Form::text('tooltip_title', null, ['class' => 'form-control']) }}
+    @if($errors->has('tooltip_title'))
+        <span class="text-danger">{{ $errors->first('tooltip_title') }}</span>
+    @endif
+</div>
+
 {{--Tool Tip--}}
 <div class="form-group">
     <label>Tool Tip:</label>
