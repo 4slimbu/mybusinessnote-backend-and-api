@@ -19,7 +19,7 @@
                     <a target="_blank"
                        href="{{ $react_app_url . '/?token=' . addslashes(htmlspecialchars($jwt_token)) }}"
                        class="nav-link" role="button" aria-expanded="false">
-                        My Business Journey <span class="caret"></span>
+                        <strong>Back to My Business Journey</strong> <span class="caret"></span>
                     </a>
                 </li>
 

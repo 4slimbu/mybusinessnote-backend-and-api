@@ -10,6 +10,9 @@
 
     <title>My Business Journey</title>
 
+    <!-- favicon -->
+    <link rel="icon" type="icon/png" href="{{ asset('images/fav-icons.png') }}">
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
