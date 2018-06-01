@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\LeadGenerateEvent;
 use App\Libraries\ResponseLibrary;
+use App\Models\AffiliateLink;
 use App\Models\AffiliateLinkTracker;
 use App\Traits\Authenticable;
 use Illuminate\Http\Request;
@@ -33,6 +35,8 @@ class AffiliateLinkTrackerController extends ApiBaseController
 
             AffiliateLinkTracker::create($data);
 
+	        $this->sendLead( $user, $request->get( 'aff_id' ) );
+
             return ResponseLibrary::success(
                 [
                     'successCode' => 'TRACKED',
@@ -40,4 +44,20 @@ class AffiliateLinkTrackerController extends ApiBaseController
             );
         }
     }
+
+	/**
+	 * Send lead to partner
+	 *
+	 * @param $user
+	 * @param $affId
+	 */
+	private function sendLead($user, $affId) {
+		$affiliateLink= AffiliateLink::find( $affId );
+		if ($affiliateLink) {
+			$partner = $affiliateLink->partner;
+			if ($partner) {
+				event(new LeadGenerateEvent($user, $partner));
+			}
+		}
+	}
 }

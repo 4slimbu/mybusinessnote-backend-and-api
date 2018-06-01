@@ -48,6 +48,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\NoActivityAfterCompletingLevelTwoForOneMonthEvent' => [
             'App\Listeners\SendNoActivityAfterCompletingLevelTwoForOneMonthReminderEmail',
         ],
+        'App\Events\LeadGenerateEvent' => [
+	        'App\Listeners\LeadGenerateListener',
+        ],
     ];
 
     /**

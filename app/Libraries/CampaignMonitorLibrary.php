@@ -64,7 +64,12 @@ class CampaignMonitorLibrary
      */
     protected $smartEmailIdForForgotPassword = 'c8219942-f704-4935-8353-569e3e5d274a';
 
-    /**
+	/**
+	 * Smart Email id for sending lead email
+	 */
+	protected $smartIdForSendingLead = '9b4389ab-e6c7-4612-aea6-03fa8fb11047';
+
+	/**
      * Auth Array to access Campaign Monitor
      */
     protected $auth = [];
@@ -258,7 +263,38 @@ class CampaignMonitorLibrary
         $this->sendSmartTransactionalMail($this->smartIdForLevelOneComplete, $messageData);
     }
 
-    /**
+	/**
+	 * Send an lead generated notification email to partner
+	 *
+	 * @param User $partner
+	 *
+	 * @internal param User $user
+	 */
+	public function sendLeadGenerateEmail(User $partner)
+	{
+		$userBusiness = $this->user->business;
+		$messageData = array(
+			"To" => array(
+				"{$partner->first_name} {$partner->last_name} <{$partner->email}>",
+			),
+			"Data" => array(
+				"first_name" => $this->user->first_name,
+				"last_name" => $this->user->last_name,
+				"phone_number" => $this->user->phone_number,
+				"email" => $this->user->email,
+				"business_name" => $userBusiness->business_name,
+				"website" => $userBusiness->website,
+				"business_email" => $userBusiness->business_email,
+				"business_mobile" => $userBusiness->business_mobile,
+				"business_general_phone" => $userBusiness->business_general_phone,
+				"address" => $userBusiness->address,
+			)
+		);
+
+		$this->sendSmartTransactionalMail($this->smartIdForSendingLead, $messageData);
+	}
+
+	/**
      * Send reminder email for level one not complete after one day
      *
      * @param User $user
