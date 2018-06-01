@@ -64,11 +64,11 @@
                                                                             aria-hidden="true"></i> Customers</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.partner') }}"><i class="fas fa-handshake"></i> Partners</a>
+                <a class="nav-link" href="{{ route('admin.partner') }}"><i class="fa fa-handshake"></i> Partners</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.setting') }}"><i class="fas fa-handshake"></i> Settings</a>
+                <a class="nav-link" href="{{ route('admin.setting') }}"><i class="fa fa-cog"></i> Settings</a>
             </li>
 
             <li class="nav-item">
