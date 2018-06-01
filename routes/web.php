@@ -272,6 +272,33 @@ Route::group([
         'uses' => 'SectionController@destroy',
     ]);
 
+
+	/* Setting */
+	Route::get('setting', [
+		'as' => 'setting',
+		'uses' => 'SettingController@index',
+	]);
+	Route::get('setting/create', [
+		'as' => 'setting.create',
+		'uses' => 'SettingController@create',
+	]);
+	Route::post('setting/store', [
+		'as' => 'setting.store',
+		'uses' => 'SettingController@store',
+	]);
+	Route::get('setting/edit/{setting}', [
+		'as' => 'setting.edit',
+		'uses' => 'SettingController@edit'
+	]);
+	Route::post('setting/update/{setting}', [
+		'as' => 'setting.update',
+		'uses' => 'SettingController@update',
+	]);
+	Route::delete('setting/destroy/{setting}', [
+		'as' => 'setting.destroy',
+		'uses' => 'SettingController@destroy'
+	]);
+
 });
 
 

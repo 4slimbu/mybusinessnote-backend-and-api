@@ -10311,3 +10311,9 @@ h6 {
   color: inherit;
 }
 
+.sub-field-group {
+  padding: 15px;
+  background: #EEEEEE;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}

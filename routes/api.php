@@ -70,6 +70,11 @@ Route::group(['namespace' => 'App\\Http\\Controllers\Api\\'], function () {
      * Track user click on partner's link
      */
     Route::get('/click', 'AffiliateLinkTrackerController@trackClick');
+
+	/*
+	 * Get Settings
+	 */
+	Route::get( '/settings', 'SettingController@index' );
 });
 
 

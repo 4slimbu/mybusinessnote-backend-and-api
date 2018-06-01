@@ -68,6 +68,10 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.setting') }}"><i class="fas fa-handshake"></i> Settings</a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('logout') }}"
                    onclick="event.preventDefault();
                        document.getElementById('side-logout-form').submit();">

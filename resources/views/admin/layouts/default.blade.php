@@ -102,6 +102,38 @@
                         }
                     });
             });
+
+
+            $(".target").on('change', function () {
+                let selectedOption = $('.target').val();
+
+                if (selectedOption == 'referrer') {
+                    $('.referrer-url').show();
+                } else {
+                    $('.referrer-url').hide();
+                }
+            });
+            $(".target").change();
+
+            $(".trigger-type").on('change', function () {
+                let selectedOption = $('.trigger-type').val();
+
+                if (selectedOption == 'delay') {
+                    $('.delay-time').show();
+                } else {
+                    $('.delay-time').hide();
+                }
+
+                if (selectedOption == 'after_rand_clicks') {
+                    $('.min-click-count').show();
+                    $('.max-click-count').show();
+                } else {
+                    $('.min-click-count').hide();
+                    $('.max-click-count').hide();
+                }
+
+            });
+            $(".trigger-type").change();
         });
 
 </script>
