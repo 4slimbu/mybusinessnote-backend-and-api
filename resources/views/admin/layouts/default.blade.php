@@ -45,23 +45,30 @@
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('admin-public/js/tinymce/jquery.tinymce.min.js') }}"></script>
-<script src="{{ asset('admin-public/js/tinymce/tinymce.min.js') }}"></script>
-<script>
-    // initialize tinymce
-    if (document.getElementsByClassName("myeditablediv")) {
-        tinymce.init({
-            selector: '.myeditablediv'
-        });
-    }
-
-    // Flash session message
-    $(window).on('load', function () {
-        if ($(".flash-message").length) {
-            setTimeout(function () {
-                $(".flash-message").fadeOut();
-            }, 5000);
+    <script src="{{ asset('admin-public/js/tinymce/tinymce.min.js') }}"></script>
+    <script>
+        if (document.getElementsByClassName("myeditablediv")) {
+            tinymce.init({
+                selector: '.myeditablediv',
+                theme: 'modern',
+                plugins: [
+                    'advlist autolink lists link image charmap print preview anchor textcolor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table contextmenu paste code help wordcount'
+                ],
+                toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | code | help',
+                branding: false
+            });
         }
-    });
+
+        // Flash session message
+        $(window).on('load', function () {
+            if ($(".flash-message").length) {
+                setTimeout(function () {
+                    $(".flash-message").fadeOut();
+                }, 5000);
+            }
+        });
 
     // toggle show categories checkbox and select options
     if ($("#show_everywhere").length && $("#business_categories").length) {
