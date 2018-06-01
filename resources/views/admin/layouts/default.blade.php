@@ -50,75 +50,59 @@
 <script src="{{ asset('admin-public/js/tinymce/jquery.tinymce.min.js') }}"></script>
     <script src="{{ asset('admin-public/js/tinymce/tinymce.min.js') }}"></script>
     <script>
-        if (document.getElementsByClassName("myeditablediv")) {
-            tinymce.init({
-                selector: '.myeditablediv',
-                theme: 'modern',
-                plugins: [
-                    'advlist autolink lists link image charmap print preview anchor textcolor',
-                    'searchreplace visualblocks code fullscreen',
-                    'insertdatetime media table contextmenu paste code help wordcount'
-                ],
-                toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | code | help',
-                branding: false
-            });
-        }
-
-        // Flash session message
-        $(window).on('load', function () {
-            if ($(".flash-message").length) {
-                setTimeout(function () {
-                    $(".flash-message").fadeOut();
-                }, 5000);
-            }
-        });
-
-    // toggle show categories checkbox and select options
-    if ($("#show_everywhere").length && $("#business_categories").length) {
-        $(window).on('load', function () {
-            // init
-            if ($('#show_everywhere').is(':checked')) {
-                $("#business_categories").hide();
-            } else {
-                $("#business_categories").show();
+        jQuery(function ($) {
+            if (document.getElementsByClassName("myeditablediv")) {
+                tinymce.init({
+                    selector: '.myeditablediv',
+                    theme: 'modern',
+                    plugins: [
+                        'advlist autolink lists link image charmap print preview anchor textcolor',
+                        'searchreplace visualblocks code fullscreen',
+                        'insertdatetime media table contextmenu paste code help wordcount'
+                    ],
+                    toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | code | help',
+                    branding: false
+                });
             }
 
-            // on click
-            $("#show_everywhere").on('click', function () {
-                if ($('#show_everywhere').is(':checked')) {
-                    $('#show_everywhere').val(1);
-                    $("#business_categories").slideUp();
-                } else {
-                    $('#show_everywhere').val(0);
-                    $("#business_categories").slideDown();
+            // Flash session message
+            $(window).on('load', function () {
+                if ($(".flash-message").length) {
+                    setTimeout(function () {
+                        $(".flash-message").fadeOut();
+                    }, 5000);
                 }
             });
-        });
-    }
 
-    // toggle physical address
-    // toggle show categories checkbox and select options
-    if ($("#show_physical_address").length && $(".physical_address").length) {
-        $(window).on('load', function () {
-            // init
-            if ($('#show_physical_address').is(':checked')) {
-                $(".physical_address").hide();
-            } else {
-                $(".physical_address").show();
+            // toggle show categories checkbox and select options
+            if ($("#show_everywhere").length && $("#business_categories").length) {
+                $(window).on('load', function () {
+                    // init
+                    if ($('#show_everywhere').is(':checked')) {
+                        $("#business_categories").hide();
+                    } else {
+                        $("#business_categories").show();
+                    }
+                });
             }
 
-            // on click
-            $("#show_physical_address").on('click', function () {
-                if ($('#show_physical_address').is(':checked')) {
-                    $('#show_physical_address').val(1);
-                    $(".physical_address").slideUp();
-                } else {
-                    $('#show_physical_address').val(0);
-                    $(".physical_address").slideDown();
-                }
+            $(".element-data-trigger").on('change', function () {
+                let element = $('.element-data-trigger').val();
+                let businessOptionId = $('.element-data-trigger').attr('data-bo-id');
+                let url = "{{ route('admin.business-option.element-data-view') }}?boid=" + businessOptionId + "&element=" + element;
+
+                $('.element-data').html('loading...');
+
+                $.get(url,
+                    function(data, status){
+                        if (data && status == 'success') {
+                            $('.element-data').html(data);
+                        } else {
+                            $('.element-data').html('--- no dymamic data for this element ---');
+                        }
+                    });
             });
         });
-    }
 
 </script>
 </body>

@@ -215,6 +215,11 @@ Route::group([
         'uses' => 'BusinessOptionController@movedown',
     ]);
 
+	Route::get('business-option/element-data-view', [
+		'as' => 'business-option.element-data-view',
+		'uses' => 'BusinessOptionController@getElementDataView'
+	]);
+
     /* Level */
     Route::get('level', [
         'as'   => 'level',

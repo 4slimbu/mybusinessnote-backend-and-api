@@ -52,10 +52,20 @@
 
 {{--Elements--}}
 <div class="form-group">
-    <label class="display-block text-semibold">Element:</label>
-    {{ Form::select('element', $data['elements'], $data['selectedElement'], ['placeholder' => '-- Choose Element --', 'class' => 'form-control']) }}
+    <label  class="display-block text-semibold">Element:</label>
+    {{ Form::select('element', $data['elements'], $data['selectedElement'], ['placeholder' => '-- Choose Element --', 'class' => 'form-control element-data-trigger', 'data-bo-id' => isset($data['row']) ? $data['row']->id : '']) }}
     @if($errors->has('element'))
         <span class="text-danger">{{ $errors->first('element') }}</span>
+    @endif
+</div>
+
+{{--Elements Data--}}
+<div class="element-data">
+    @if($data['selectedElement'] && view()->exists('admin.business-option.includes.elements.' . $data['selectedElement']))
+        <div class="form-group">
+            <label  class="display-block text-semibold">Element Settings:</label>
+            @include('admin.business-option.includes.elements.' . $data['selectedElement'])
+        </div>
     @endif
 </div>
 

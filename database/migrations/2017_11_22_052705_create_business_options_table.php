@@ -22,6 +22,7 @@ class CreateBusinessOptionsTable extends Migration {
 			$table->string('slug', 191);
             $table->text('content', 65535)->nullable();
             $table->string('element', 191)->nullable();
+			$table->text('element_data')->nullable();
 			$table->string('tooltip_title')->nullable();
             $table->text('tooltip', 65535)->nullable();
             $table->integer('menu_order')->unique()->nullable();
