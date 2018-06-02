@@ -14,7 +14,7 @@ class AffiliateLinkTrackerController extends ApiBaseController
     use Authenticable;
 
     /**
-     * This tracks the user click on Partner Link
+     * Track user's click on partner's link
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse

@@ -22,8 +22,6 @@ class BusinessOptionResource extends Resource
      */
     public function toArray($request)
     {
-        $next = $this->next();
-        $previous = $this->previous();
         $returnData = [
             'id'             => $this->id,
             'level_id'       => $this->level_id,
@@ -36,33 +34,15 @@ class BusinessOptionResource extends Resource
             'tooltip'        => $this->tooltip,
             'menu_order'     => $this->menu_order,
             'weight'         => $this->weight,
+            'status'         => $this->getStatus(),
             'affiliateLinks' => new AffiliateLinkResourceCollection($this->affiliateLinks),
+            'children'      => new BusinessOptionResourceCollection($this->children)
         ];
 
 
         if ($this->getAuthUser()) {
             $returnData['businessMetas']  = new BusinessMetaResourceCollection($this->businessMetas);
-            $returnData['status'] = $this->pivot['status'];
-        }
-
-        if ($next) {
-            $returnData['next'] = [
-                'id' => $next->id,
-                'level_id' => $next->level_id,
-                'section_id' => $next->section_id,
-                'name' => $next->name,
-                'slug' => $next->slug,
-            ];
-        }
-
-        if ($previous) {
-            $returnData['next'] = [
-                'id' => $previous->id,
-                'level_id' => $previous->level_id,
-                'section_id' => $previous->section_id,
-                'name' => $previous->name,
-                'slug' => $previous->slug,
-            ];
+            $returnData['status'] = $this->getStatus();
         }
 
         return $returnData;

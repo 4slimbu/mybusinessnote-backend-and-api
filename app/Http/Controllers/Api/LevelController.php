@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 
 class LevelController extends ApiBaseController
 {
+    protected  $levelFields = ['id', 'name', 'slug', 'badge_icon', 'badge_message', 'content', 'tooltip'];
+    protected  $sectionFields = ['id', 'level_id', 'name', 'slug', 'icon', 'tooltip'];
+
     /**
      * Get levels along with related sections
      * @param Request $request
@@ -20,7 +23,7 @@ class LevelController extends ApiBaseController
     public function index(Request $request)
     {
         //get data
-        $levels = Level::all();
+        $levels = Level::all($this->levelFields);
 
         $data = [];
         $data['levels'] = new LevelResourceCollection($levels);
@@ -29,7 +32,7 @@ class LevelController extends ApiBaseController
         $relations = explode(',', $request->get('with'));
 
         if (in_array('sections', $relations)) {
-            $sections = Section::whereIn('level_id', $levels->pluck('id'))->get();
+            $sections = Section::whereIn('level_id', $levels->pluck('id'))->get($this->sectionFields);
             $data['sections'] = new SectionResourceCollection($sections);
         }
 
@@ -48,7 +51,7 @@ class LevelController extends ApiBaseController
         $relations = explode(',', $request->get('with'));
 
         if (in_array('sections', $relations)) {
-            $sections = Section::where('level_id', $level->id)->get();
+            $sections = Section::where('level_id', $level->id)->get($this->sectionFields);
             $data['sections'] = new SectionResourceCollection($sections);
         }
 

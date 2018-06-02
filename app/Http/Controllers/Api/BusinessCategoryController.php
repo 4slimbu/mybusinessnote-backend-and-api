@@ -12,6 +12,13 @@ class BusinessCategoryController extends ApiBaseController
 {
     use BusinessOptionable;
 
+    protected $businessCategory;
+
+    public function __construct()
+    {
+        $this->businessCategory = new BusinessCategory();
+    }
+
     /**
      * Get all the business categories
      *
@@ -19,9 +26,7 @@ class BusinessCategoryController extends ApiBaseController
      */
     public function index()
     {
-        $this->refreshBusinessBusinessOptions(Business::find(13));
-
-        $business_categories = BusinessCategory::get();
+        $business_categories = $this->businessCategory->getActive();
 
         return ResponseLibrary::success([
             'successCode'        => 'FETCHED',

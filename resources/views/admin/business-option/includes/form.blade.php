@@ -33,13 +33,13 @@
 </div>
 
 {{--Parent Business Option--}}
-{{--<div class="form-group">--}}
-{{--<label  class="display-block text-semibold">Parent Business Option:</label>--}}
-{{--{{ Form::select('parent_id', $data['businessOptions'], null, ['placeholder' => '-- Choose Parent Busines Option --', 'class' => 'form-control']) }}--}}
-{{--@if($errors->has('parent_id'))--}}
-{{--<span class="text-danger">{{ $errors->first('parent_id') }}</span>--}}
-{{--@endif--}}
-{{--</div>--}}
+<div class="form-group">
+    <label class="display-block text-semibold">Parent Business Option:</label>
+    {{ Form::select('parent_id', $data['businessOptions'], null, ['placeholder' => '-- Choose Parent Busines Option --', 'class' => 'form-control']) }}
+    @if($errors->has('parent_id'))
+        <span class="text-danger">{{ $errors->first('parent_id') }}</span>
+    @endif
+</div>
 
 {{--Content--}}
 <div class="form-group">

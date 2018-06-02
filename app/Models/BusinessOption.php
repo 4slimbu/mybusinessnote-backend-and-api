@@ -144,7 +144,11 @@ class BusinessOption extends Model
             }
         }
 
-        return null;
+        if (in_array($this->id, config('mbj.unlocked_business_option'))) {
+            return 'unlocked';
+        }
+
+        return 'locked';
     }
 
 }

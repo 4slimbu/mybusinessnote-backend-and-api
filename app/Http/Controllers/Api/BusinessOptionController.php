@@ -16,53 +16,25 @@ class BusinessOptionController extends ApiBaseController
 {
     use BusinessOptionable, Authenticable;
 
+    protected $businessOptionFields = ['id', 'level_id', 'section_id', 'name', 'slug', 'element', 'element_data', 'tooltip_title', 'tooltip', 'menu_order'];
+
     public function index(Request $request)
     {
-        $data = [];
-        $authUser = $this->getAuthUser();
+        // get only unlocked by default business options
+        $query = BusinessOption::select($this->businessOptionFields);
 
-        if ($authUser && $authUser->verified) {
-            $business = $authUser->business;
-            $query = $business->businessOptions();
-
-            // if level
-            if ($request->get('level')) {
-                $query->where('level_id', $request->get('level'));
-            }
-
-            // if section
-            if ($request->get('section')) {
-                $query->where('section_id', $request->get('section'));
-            }
-
-            // not with status irrelevant and locked
-            // order by menu_order
-            $business_options = $query->where('status', '!=', 'irrelevant')
-                ->where('status', '!=', 'locked')
-                ->orderBy('menu_order')->get();
-
-            // load business meta
-            $business_options->load(['businessMetas' => function ($query) use($business) {
-                $query->where('business_id', $business->id);
-            }]);
-
-        } else {
-            // get only unlocked by default business options
-            $query = BusinessOption::whereIn('id', config('mbj.unlocked_business_option'));
-
-            // if level
-            if ($request->get('level')) {
-                $query->where('level_id', $request->get('level'));
-            }
-
-            // if section, get only business option with section_id
-            if ($request->get('section')) {
-                $query->where('section_id', $request->get('section'));
-            }
-
-            // order by menu order
-            $business_options = $query->orderBy('menu_order')->get();
+        // if level
+        if ($request->get('level')) {
+            $query->where('level_id', $request->get('level'));
         }
+
+        // if section, get only business option with section_id
+        if ($request->get('section')) {
+            $query->where('section_id', $request->get('section'));
+        }
+
+        // order by menu order
+        $business_options = $query->orderBy('menu_order')->get();
 
         //get affiliate links
         $business_options->load('affiliateLinks');

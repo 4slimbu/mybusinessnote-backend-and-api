@@ -8,6 +8,7 @@ class BusinessCategory extends Model
 {
     public $uploadDirectory = 'images/business-categories/';
     protected $fillable = ['name', 'icon', 'hover_icon', 'tooltip'];
+    protected $returnFields = ['id', 'name', 'icon', 'hover_icon', 'tooltip'];
 
     public function businesses()
     {
@@ -17,5 +18,15 @@ class BusinessCategory extends Model
     public function businessOptions()
     {
         return $this->belongsToMany(BusinessOption::class);
+    }
+
+    /**
+     * Get active business categories
+     *
+     * @return mixed
+     */
+    public function getActive()
+    {
+        return $this->get($this->returnFields);
     }
 }
