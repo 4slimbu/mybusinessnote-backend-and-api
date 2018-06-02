@@ -105,7 +105,7 @@ class ApiAuthController extends Controller
     }
 
     /**
-     * Generate and save forgot password token and trigger ForgotPasswordEvent
+     * Sends email for password recovery
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -129,7 +129,7 @@ class ApiAuthController extends Controller
     }
 
     /**
-     * Generate and save email verification token and trigger UnVerifiedUserEvent
+     * Sends email for user verification
      *
      * @return \Illuminate\Http\JsonResponse
      */
