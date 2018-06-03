@@ -20,4 +20,9 @@ class Level extends Model
     {
         return $this->belongsToMany(Business::class)->withPivot("completed_percent");
     }
+
+    public function sectionsIdentifierData()
+    {
+        return $this->sections()->get(['id', 'name', 'slug']);
+    }
 }

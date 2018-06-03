@@ -76,6 +76,11 @@ class BusinessOption extends Model
         return $this->hasMany(BusinessOption::class, 'parent_id');
     }
 
+    public function childrenIdentifierData()
+    {
+        return $this->children()->get(['id', 'name', 'slug']);
+    }
+
     public function business()
     {
         return $this->belongsToMany(Business::class)->withPivot("status");

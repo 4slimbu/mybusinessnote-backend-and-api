@@ -21,4 +21,9 @@ class Section extends Model
     {
         return $this->hasMany(BusinessOption::class);
     }
+
+    public function businessOptionsIdentifierData()
+    {
+        return $this->businessOptions()->get(['id', 'name', 'slug']);
+    }
 }

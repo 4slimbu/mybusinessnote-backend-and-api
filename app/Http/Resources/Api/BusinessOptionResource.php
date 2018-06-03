@@ -30,21 +30,22 @@ class BusinessOptionResource extends Resource
             'slug'           => $this->slug,
             'content'        => $this->content,
             'element'        => $this->element,
-            'tooltip_title' => $this->tooltip_title,
+            'element_data'   => $this->element_data,
+            'tooltip_title'  => $this->tooltip_title,
             'tooltip'        => $this->tooltip,
             'menu_order'     => $this->menu_order,
             'weight'         => $this->weight,
-            'status'         => $this->getStatus(),
+//            'status'         => $this->getStatus(),
             'affiliateLinks' => new AffiliateLinkResourceCollection($this->affiliateLinks),
-            'children'      => new BusinessOptionResourceCollection($this->children)
+            'children'       => $this->childrenIdentifierData()
         ];
 
 
         if ($this->getAuthUser()) {
-            $returnData['businessMetas']  = new BusinessMetaResourceCollection($this->businessMetas);
-            $returnData['status'] = $this->getStatus();
+            $returnData['businessMetas'] = new BusinessMetaResourceCollection($this->businessMetas);
         }
 
         return $returnData;
     }
+
 }

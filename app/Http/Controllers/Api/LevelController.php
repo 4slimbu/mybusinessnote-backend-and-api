@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Resources\Api\BusinessOptionResourceCollection;
 use App\Http\Resources\Api\LevelResource;
 use App\Http\Resources\Api\LevelResourceCollection;
 use App\Http\Resources\Api\SectionResourceCollection;
 use App\Libraries\ResponseLibrary;
+use App\Models\BusinessOption;
 use App\Models\Level;
 use App\Models\Section;
 use Illuminate\Http\Request;
 
 class LevelController extends ApiBaseController
 {
-    protected  $levelFields = ['id', 'name', 'slug', 'badge_icon', 'badge_message', 'content', 'tooltip'];
-    protected  $sectionFields = ['id', 'level_id', 'name', 'slug', 'icon', 'tooltip'];
+    protected  $levelFields = ['id', 'name', 'slug', 'icon', 'badge_icon', 'badge_message', 'content', 'tooltip_title', 'tooltip'];
+    protected  $sectionFields = ['id', 'level_id', 'name', 'slug', 'icon', 'tooltip_title', 'tooltip'];
 
     /**
      * Get levels along with related sections
@@ -22,6 +24,14 @@ class LevelController extends ApiBaseController
      */
     public function index(Request $request)
     {
+        $apiSession = resolve('ApiSession');
+
+        $events = $apiSession->get('events') ? $apiSession->get('events') : [];
+        $events[] = [
+            'type' => 'sectionCompleted',
+            'section_id' => 1,
+        ];;
+        $apiSession->attach('events', $events);
         //get data
         $levels = Level::all($this->levelFields);
 
@@ -34,6 +44,11 @@ class LevelController extends ApiBaseController
         if (in_array('sections', $relations)) {
             $sections = Section::whereIn('level_id', $levels->pluck('id'))->get($this->sectionFields);
             $data['sections'] = new SectionResourceCollection($sections);
+        }
+
+        if (in_array('business-options', $relations)) {
+            $businessOptions = BusinessOption::whereIn('level_id', $levels->pluck('id'))->get();
+            $data['businessOptions'] = new BusinessOptionResourceCollection($businessOptions);
         }
 
         return ResponseLibrary::success(['successCode' => 'FETCHED'] + $data, 200);

@@ -328,10 +328,14 @@ trait BusinessOptionable
 
         // Add event object to response if section has completed just now
         if (($initialSectionCompletedPercent < 100 && $currentSectionCompletedPercent >= 100)) {
-            $response['event'][] = [
+            $apiSession = resolve('ApiSession');
+
+            $events = $apiSession->get('events') ? $apiSession->get('events') : [];
+            $events[] = [
                 'type' => 'sectionCompleted',
                 'section_id' => $business_option->section->id,
-            ];
+            ];;
+            $apiSession->attach('events', $events);
         }
 
         //-------------------------
@@ -354,10 +358,14 @@ trait BusinessOptionable
 
         // Add event object to response if section has completed just now
         if (($initialSectionCompletedPercent < 100 && $currentSectionCompletedPercent >= 100)) {
-            $response['event'][] = [
+            $apiSession = resolve('ApiSession');
+
+            $events = $apiSession->get('events') ? $apiSession->get('events') : [];
+            $events[] = [
                 'type' => 'levelCompleted',
                 'level_id' => $business_option->level->id,
-            ];
+            ];;
+            $apiSession->attach('events', $events);
         }
 
         //fire event

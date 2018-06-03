@@ -54,20 +54,6 @@ class BusinessOptionController extends ApiBaseController
      */
     public function show(BusinessOption $business_option)
     {
-        $data = [];
-        $authUser = $this->getAuthUser();
-
-        if ($authUser) {
-            $business = $authUser->business;
-            $business_option = $business->businessOptions()
-                ->where('business_business_option.business_option_id', $business_option->id)->first();
-
-            // load business meta
-            $business_option->load(['businessMetas' => function ($query) use($business) {
-                $query->where('business_id', $business->id);
-            }]);
-        }
-
         //get affiliate links
         $business_option->load('affiliateLinks');
 
@@ -124,11 +110,6 @@ class BusinessOptionController extends ApiBaseController
         // prepare data
         $business_option = $business->businessOptions()
             ->where('business_business_option.business_option_id', $business_option->id)->first();
-
-        // load business meta
-        $business_option->load(['businessMetas' => function ($query) use($business) {
-            $query->where('business_id', $business->id);
-        }]);
 
         $businessStatus = $this->refreshAllRelatedStatusForCurrentBusinessOption($business, $business_option);
 

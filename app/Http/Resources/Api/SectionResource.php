@@ -17,16 +17,15 @@ class SectionResource extends Resource
      */
     public function toArray($request)
     {
-        $businessOptions = $this->businessOptions()->whereIn('id', $this->unlockedBusinessOptionIds())->pluck('id');
-
         return [
             'id'              => $this->id,
             'level_id'        => $this->level_id,
             'name'            => $this->name,
             'slug'            => $this->slug,
             'icon'            => asset($this->uploadDirectory . $this->icon),
+            'tooltip_title'   => $this->tooltip_title,
             'tooltip'         => $this->tooltip,
-            'businessOptions' => $businessOptions,
+            'businessOptions' => $this->businessOptionsIdentifierData(),
         ];
     }
 }

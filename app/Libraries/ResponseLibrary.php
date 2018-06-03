@@ -35,6 +35,15 @@ class ResponseLibrary
 
     public static function success($data, $statusCode)
     {
+        $apiSession = resolve('ApiSession');
+
+        $events = $apiSession->get('events') ? $apiSession->get('events') : [];
+
+        // Attach any events if exist
+        if ($events) {
+            $data = $data + ['events' => $events];
+        }
+
         return response()->json($data, $statusCode);
     }
 }

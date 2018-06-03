@@ -32,8 +32,9 @@ class LevelResource extends Resource
         if (in_array('badge_icon', $fields) || !$fieldString) $data['badge_icon'] = asset($this->uploadDirectory . $this->badge_icon);
         if (in_array('badge_message', $fields) || !$fieldString) $data['badge_message'] = $this->badge_message;
         if (in_array('content', $fields) || !$fieldString) $data['content'] = $this->content;
+        if (in_array('tooltip_title', $fields) || !$fieldString) $data['tooltip_title'] = $this->tooltip_title;
         if (in_array('tooltip', $fields) || !$fieldString) $data['tooltip'] = $this->tooltip;
-        if (in_array('sections', $fields) || !$fieldString) $data['sections'] = $this->sections->pluck('id');
+        if (in_array('sections', $fields) || !$fieldString) $data['sections'] = $this->sectionsIdentifierData();
 
         // return data
         return $data;
