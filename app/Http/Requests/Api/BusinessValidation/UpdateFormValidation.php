@@ -27,7 +27,8 @@ class UpdateFormValidation extends FormRequest
             'business_name'        => '',
             'sell_goods'           => 'boolean',
             'business_category_id' => 'numeric',
-            'website'              => 'url',
+	        //todo: this validates full url. Need validation with or without http
+            //'website'              => 'url',
             'abn'                  => '',
         ];
     }

@@ -2,8 +2,10 @@
 
 namespace App\Listeners;
 
+use App\Events\AddToEmailNotificationTrackerEvent;
 use App\Events\BrontoSubscriptionUpdated;
 use App\Events\CampaignMonitorSubscriptionUpdated;
+use App\Events\UnVerifiedUserEvent;
 use App\Models\Business;
 use App\Traits\Authenticable;
 use App\Traits\BusinessOptionable;
@@ -20,10 +22,10 @@ class UserEventSubscriber
     {
         (new Business)->setUp($event->user);
 
-//        event(new BrontoSubscriptionUpdated($event->user));
-//        event(new CampaignMonitorSubscriptionUpdated($event->user));
-//        event(new UnVerifiedUserEvent($event->user));
-//        event(new AddToEmailNotificationTrackerEvent($business));
+        event(new BrontoSubscriptionUpdated($event->user));
+        event(new CampaignMonitorSubscriptionUpdated($event->user));
+        event(new UnVerifiedUserEvent($event->user));
+        event(new AddToEmailNotificationTrackerEvent($event->user->business));
     }
 
     /**
