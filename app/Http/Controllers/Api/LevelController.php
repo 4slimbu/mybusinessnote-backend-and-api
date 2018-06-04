@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 class LevelController extends ApiBaseController
 {
     protected  $levelFields = ['id', 'name', 'slug', 'icon', 'badge_icon', 'badge_message', 'content', 'tooltip_title', 'tooltip'];
-    protected  $sectionFields = ['id', 'level_id', 'name', 'slug', 'icon', 'tooltip_title', 'tooltip'];
+    protected  $sectionFields = ['id', 'level_id', 'name', 'slug', 'icon', 'tooltip_title', 'tooltip', 'show_landing_page'];
 
     /**
      * Get levels along with related sections
@@ -24,14 +24,6 @@ class LevelController extends ApiBaseController
      */
     public function index(Request $request)
     {
-        $apiSession = resolve('ApiSession');
-
-        $events = $apiSession->get('events') ? $apiSession->get('events') : [];
-        $events[] = [
-            'type' => 'sectionCompleted',
-            'section_id' => 1,
-        ];;
-        $apiSession->attach('events', $events);
         //get data
         $levels = Level::all($this->levelFields);
 
