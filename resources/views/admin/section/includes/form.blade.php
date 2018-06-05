@@ -28,6 +28,18 @@
     @endif
 </div>
 
+{{--Hover Icon--}}
+<div class="form-group">
+    <label class="display-block text-semibold">Hover Icon:</label>
+    {{ Form::file('hover_icon', null, ['class' => 'form-control']) }}
+    @if(isset($data['row']) && $data['row']->hover_icon)
+        <img width="150" src="{{ asset($upload_directory . $data['row']->hover_icon) }}" alt="">
+    @endif
+    @if($errors->has('hover_icon'))
+        <span class="text-danger">{{ $errors->first('hover_icon') }}</span>
+    @endif
+</div>
+
 {{--Tool Tip Title--}}
 <div class="form-group">
     <label>Tool Tip Title:</label>

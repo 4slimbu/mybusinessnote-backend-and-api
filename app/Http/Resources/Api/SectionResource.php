@@ -23,6 +23,7 @@ class SectionResource extends Resource {
 			'name'              => $this->name,
 			'slug'              => $this->slug,
 			'icon'              => asset( $this->uploadDirectory . $this->icon ),
+			'hover_icon'        => asset( $this->uploadDirectory . $this->hover_icon ),
 			'tooltip_title'     => $this->tooltip_title,
 			'tooltip'           => $this->tooltip,
 			'show_landing_page' => $this->show_landing_page,

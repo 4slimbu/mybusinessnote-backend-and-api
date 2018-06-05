@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Admin\SectionValidation\CreateFormValidation;
 use App\Http\Requests\Admin\SectionValidation\UpdateFormValidation;
+use App\Libraries\ImageLibrary;
 use App\Models\Level;
 use App\Models\Section;
 use AppHelper;
@@ -90,15 +91,20 @@ class SectionController extends AdminBaseController
      */
     public function store(CreateFormValidation $request)
     {
-        //Image Upload
+        // Image Upload
         $input = $request->all();
-        if ($request->file('icon') && $request->file('icon')->isValid()) {
-            $file = $request->file('icon');
-            $destinationPath = public_path($this->upload_directory);
-            $fileName = str_random('32') . '.' . $file->getClientOriginalExtension();
-            $file->move($destinationPath, $fileName);
-            $input['icon'] = $fileName;
-        }
+
+        // Handle Icon
+	    $icon = ImageLibrary::saveImage( 'icon', $this->upload_directory );
+	    if ($icon) {
+		    $input['icon'] = $icon;
+	    }
+
+	    // Handle Hover Icon
+	    $hover_icon = ImageLibrary::saveImage( 'hover_icon', $this->upload_directory );
+	    if ($hover_icon) {
+		    $input['hover_icon'] = $hover_icon;
+	    }
 
         $input['slug'] = str_slug($request->get('name'));
         Section::create($input);
@@ -149,19 +155,23 @@ class SectionController extends AdminBaseController
     {
         $input = $request->all();
 
-        //Icon Upload
-        if ($request->file('icon') && $request->file('icon')->isValid()) {
-            $file = $request->file('icon');
-            $destinationPath = public_path($this->upload_directory);
-            $fileName = str_random('32') . '.' . $file->getClientOriginalExtension();
-            $file->move($destinationPath, $fileName);
-            $input['icon'] = $fileName;
+	    // Handle Icon
+	    $icon = ImageLibrary::saveImage( 'icon', $this->upload_directory );
+	    if ($icon) {
+		    $input['icon'] = $icon;
 
-            //Remove old image
-            if (!empty($section->icon) && file_exists(public_path($this->upload_directory . $section->icon))) {
-                unlink(public_path($this->upload_directory . $section->icon));
-            }
-        }
+		    //Remove old image
+		    ImageLibrary::removeImage( $section->icon, $this->upload_directory );
+	    }
+
+	    // Handle Hover Icon
+	    $hover_icon = ImageLibrary::saveImage( 'hover_icon', $this->upload_directory );
+	    if ($hover_icon) {
+		    $input['hover_icon'] = $hover_icon;
+
+		    //Remove old image
+		    ImageLibrary::removeImage( $section->hover_icon, $this->upload_directory );
+	    }
 
         $section->fill($input)->save();
 
@@ -178,9 +188,7 @@ class SectionController extends AdminBaseController
      */
     public function destroy(Section $section)
     {
-        if (file_exists(public_path($this->upload_directory . $section->icon))) {
-            unlink(public_path($this->upload_directory . $section->icon));
-        }
+	    ImageLibrary::removeImage( $section->icon, $this->upload_directory );
 
         $section->delete();
 

@@ -31,4 +31,34 @@ class ImageLibrary
 
         throw new InvalidImageException();
     }
+
+	public static function saveImage($imageKey, $directory) {
+		try {
+			$request = request();
+			if ($request->file($imageKey) && $request->file($imageKey)->isValid()) {
+				$file = $request->file($imageKey);
+				$destinationPath = public_path($directory);
+				$fileName = str_random('32') . '.' . $file->getClientOriginalExtension();
+				$file->move($destinationPath, $fileName);
+
+				return $fileName;
+			}
+		} catch (\Exception $exception) {
+		}
+
+		return false;
+	}
+
+	public static function removeImage($filename, $directory) {
+		try {
+			if (!empty($filename) && file_exists(public_path($directory . $filename))) {
+				unlink(public_path($directory . $filename));
+
+				return true;
+			}
+		} catch (\Exception $exception) {
+		}
+
+		return false;
+	}
 }

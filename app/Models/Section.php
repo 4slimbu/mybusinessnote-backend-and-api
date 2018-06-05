@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Section extends Model
 {
     public $uploadDirectory = 'images/sections/';
-    protected $fillable = ['name', 'slug', 'level_id', 'icon', 'tooltip_title', 'tooltip'];
+    protected $fillable = ['name', 'slug', 'level_id', 'icon', 'hover_icon', 'tooltip_title', 'tooltip'];
 
     //Each section belong to a level
 

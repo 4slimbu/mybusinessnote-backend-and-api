@@ -7,7 +7,7 @@
         </h2>
 
         <div class="col-md-10">
-            {{ Form::open(['method' => 'POST', 'route' => [$base_route.'.store']]) }}
+            {{ Form::open(['method' => 'POST', 'files' => true, 'route' => [$base_route.'.store']]) }}
             <div class="panel panel-flat">
 
                 <div class="panel-body">

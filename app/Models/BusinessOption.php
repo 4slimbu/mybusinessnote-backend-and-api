@@ -16,12 +16,19 @@ class BusinessOption extends Model
         'parent_id',
         'name',
         'slug',
+	    'icon',
+	    'hover_icon',
         'content',
         'element',
+	    'element_data',
 	    'tooltip_title',
         'tooltip',
         'menu_order',
         'weight',
+    ];
+
+    protected $casts = [
+    	'element_data' => 'array'
     ];
 
     //each can have a parent
