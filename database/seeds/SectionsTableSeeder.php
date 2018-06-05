@@ -78,7 +78,7 @@ class SectionsTableSeeder extends Seeder
 					'icon' => 'T32YluDbcTeIZBSZhpvSBbQrRUYt5R9u.png',
 					'tooltip' => '<p><span style="font-weight: 400;">Marketing success is about finding the right customers and making repeat sales for your business. Thanks to available digital tools, small businesses now have access to reach new audiences, especially using online platforms.</span></p>
 <p><span style="font-weight: 400;">Below are some basics on how to implement your branding strategy using social media, business website and the old-school business card.</span></p>',
-					'show_landing_page' => false,
+					'show_landing_page' => true,
 					'created_at' => NULL,
 					'updated_at' => '2018-05-25 02:31:50',
 					'tooltip_title' => 'Marketing',
