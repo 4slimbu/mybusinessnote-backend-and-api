@@ -16,17 +16,19 @@
     @endif
 </div>
 
-{{--Show Everywhere--}}
-<div class="form-group">
-    {{ Form::checkbox('show_everywhere', $data['showEveryWhere'], $data['showEveryWhere'], ['id' => 'show_everywhere']) }}
-    <label class="display-block text-semibold">Show Everywhere</label>
-    <p>If ticked, this will show this business option on each and every business category.</p>
-</div>
-
 {{--Business Category--}}
 <div id="business_categories" class="form-group more-inputs">
-    <label class="display-block text-semibold">Business Category:</label>
-    {{ Form::select('business_category_id[]', $data['businessCategories'], $data['selectedBusinessCategories'], ['placeholder' => '-- Choose Business Category --', 'class' => 'form-control', 'multiple' => 'multiple', 'height' => 200]) }}
+    <label  class="display-block text-semibold">Select categories where this option should be visible:</label>
+    @if($data['businessCategories'])
+        @foreach($data['businessCategories'] as $key => $item)
+            <div class="row">
+                <div class="col-md-12">
+                    {{ Form::checkbox('business_category_id[]', $key, isset($data['selectedBusinessCategories']) && in_array($key, $data['selectedBusinessCategories'])) }}
+                    {{ $item }}
+                </div>
+            </div>
+        @endforeach
+    @endif
     @if($errors->has('business_category_id'))
         <span class="text-danger">{{ $errors->first('business_category_id') }}</span>
     @endif
@@ -46,7 +48,7 @@
     <label class="display-block text-semibold">Icon:</label>
     {{ Form::file('icon', null, ['class' => 'form-control']) }}
     @if(isset($data['row']) && $data['row']->icon)
-        <img width="150" src="{{ asset($upload_directory . $data['row']->icon) }}" alt="">
+        <img width="50" src="{{ asset($upload_directory . $data['row']->icon) }}" alt="">
     @endif
     @if($errors->has('icon'))
         <span class="text-danger">{{ $errors->first('icon') }}</span>
@@ -58,7 +60,7 @@
     <label class="display-block text-semibold">Hover Icon:</label>
     {{ Form::file('hover_icon', null, ['class' => 'form-control']) }}
     @if(isset($data['row']) && $data['row']->hover_icon)
-        <img width="150" src="{{ asset($upload_directory . $data['row']->hover_icon) }}" alt="">
+        <img width="50" src="{{ asset($upload_directory . $data['row']->hover_icon) }}" alt="">
     @endif
     @if($errors->has('hover_icon'))
         <span class="text-danger">{{ $errors->first('hover_icon') }}</span>
@@ -85,7 +87,7 @@
 </div>
 
 {{--Elements Data--}}
-<div class="element-data">
+<div class="element-data sub-field-group">
     @if($data['selectedElement'] && view()->exists('admin.business-option.includes.elements.' . $data['selectedElement']))
         <div class="form-group">
             <label  class="display-block text-semibold">Element Settings:</label>
@@ -137,5 +139,29 @@
     {{ Form::text('weight', null, ['class' => 'form-control']) }}
     @if($errors->has('weight'))
         <span class="text-danger">{{ $errors->first('weight') }}</span>
+    @endif
+</div>
+
+{{--Template--}}
+<div class="form-group">
+    <label class="display-block text-semibold">Template:</label>
+    {{ Form::select('template', ['default' => 'Default', 'modal_box' => 'Modal Box'], null, ['class' => 'form-control']) }}
+    @if($errors->has('template'))
+        <span class="text-danger">{{ $errors->first('template') }}</span>
+    @endif
+</div>
+
+{{--Is Active--}}
+<div class="form-group">
+    <label class="display-block text-semibold">Is Active:</label>
+    <label class="radio-inline">
+        {{ Form::radio('is_active', '1', true,  ['class' => 'styled']) }} Active
+    </label>
+    <label class="radio-inline">
+        {{ Form::radio('is_active', '0', false, ['class' => 'styled']) }} In-Active
+    </label>
+    @if($errors->has('is_active'))
+
+        <span class="text-danger-800">{{ $errors->first('is_active') }}</span>
     @endif
 </div>

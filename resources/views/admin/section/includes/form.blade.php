@@ -57,3 +57,27 @@
         <span class="text-danger">{{ $errors->first('tooltip') }}</span>
     @endif
 </div>
+
+{{--Template--}}
+<div class="form-group">
+    <label class="display-block text-semibold">Template:</label>
+    {{ Form::select('template', ['default' => 'Default'], null, ['class' => 'form-control']) }}
+    @if($errors->has('template'))
+        <span class="text-danger">{{ $errors->first('template') }}</span>
+    @endif
+</div>
+
+{{--Is Active--}}
+<div class="form-group">
+    <label class="display-block text-semibold">Is Active:</label>
+    <label class="radio-inline">
+        {{ Form::radio('is_active', '1', true,  ['class' => 'styled']) }} Active
+    </label>
+    <label class="radio-inline">
+        {{ Form::radio('is_active', '0', false, ['class' => 'styled']) }} In-Active
+    </label>
+    @if($errors->has('is_active'))
+
+        <span class="text-danger-800">{{ $errors->first('is_active') }}</span>
+    @endif
+</div>

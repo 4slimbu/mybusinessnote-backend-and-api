@@ -23,6 +23,8 @@ class CreateSectionsTable extends Migration
 	        $table->string('tooltip_title')->nullable();
             $table->text('tooltip')->nullable();
 	        $table->boolean( 'show_landing_page' )->default( true );
+	        $table->string( 'template' )->default('default');
+	        $table->boolean( 'is_active' )->default( true );
             $table->timestamps();
         });
     }

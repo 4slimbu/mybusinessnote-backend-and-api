@@ -34,6 +34,10 @@ class LevelResource extends Resource
         if (in_array('content', $fields) || !$fieldString) $data['content'] = $this->content;
         if (in_array('tooltip_title', $fields) || !$fieldString) $data['tooltip_title'] = $this->tooltip_title;
         if (in_array('tooltip', $fields) || !$fieldString) $data['tooltip'] = $this->tooltip;
+        if (in_array('template', $fields) || !$fieldString) $data['template'] = $this->template;
+        if (in_array('is_active', $fields) || !$fieldString) $data['is_active'] = $this->is_active;
+        if (in_array('is_down', $fields) || !$fieldString) $data['is_down'] = $this->is_down;
+        if (in_array('down_message', $fields) || !$fieldString) $data['down_message'] = $this->down_message;
         if (in_array('sections', $fields) || !$fieldString) $data['sections'] = $this->sectionsIdentifierData();
 
         // return data

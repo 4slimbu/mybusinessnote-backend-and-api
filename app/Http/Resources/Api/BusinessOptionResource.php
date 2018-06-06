@@ -36,6 +36,8 @@ class BusinessOptionResource extends Resource {
 			'tooltip'        => $this->tooltip,
 			'menu_order'     => $this->menu_order,
 			'weight'         => $this->weight,
+			'template'       => $this->template,
+			'is_active'      => $this->is_active,
 //            'status'         => $this->getStatus(),
 			'affiliateLinks' => new AffiliateLinkResourceCollection( $this->affiliateLinks ),
 			'children'       => $this->childrenIdentifierData(),

@@ -16,7 +16,7 @@ class BusinessOptionController extends ApiBaseController
 {
     use BusinessOptionable, Authenticable;
 
-    protected $businessOptionFields = ['id', 'level_id', 'section_id', 'name', 'slug', 'icon', 'hover_icon', 'element', 'element_data', 'tooltip_title', 'tooltip', 'menu_order'];
+    protected $businessOptionFields = ['id', 'level_id', 'section_id', 'name', 'slug', 'icon', 'hover_icon', 'element', 'element_data', 'tooltip_title', 'tooltip', 'template', 'menu_order', 'is_active'];
 
     public function index(Request $request)
     {

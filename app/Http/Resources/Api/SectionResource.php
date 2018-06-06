@@ -26,7 +26,9 @@ class SectionResource extends Resource {
 			'hover_icon'        => asset( $this->uploadDirectory . $this->hover_icon ),
 			'tooltip_title'     => $this->tooltip_title,
 			'tooltip'           => $this->tooltip,
+			'template'          => $this->template,
 			'show_landing_page' => $this->show_landing_page,
+			'is_active'         => $this->is_active,
 			'businessOptions'   => $this->businessOptionsIdentifierData(),
 		];
 	}

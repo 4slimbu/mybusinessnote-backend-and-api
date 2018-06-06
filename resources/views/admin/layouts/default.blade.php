@@ -76,15 +76,24 @@
 
             // toggle show categories checkbox and select options
             if ($("#show_everywhere").length && $("#business_categories").length) {
-                $(window).on('load', function () {
+                function toggleBusinessCategories() {
                     // init
                     if ($('#show_everywhere').is(':checked')) {
                         $("#business_categories").hide();
                     } else {
                         $("#business_categories").show();
                     }
+                }
+                $(window).on('load', function () {
+                    toggleBusinessCategories();
+                });
+
+                $("#show_everywhere").on('change', function () {
+                   toggleBusinessCategories();
                 });
             }
+
+
 
             $(".element-data-trigger").on('change', function () {
                 let element = $('.element-data-trigger').val();

@@ -23,6 +23,10 @@ class CreateLevelsTable extends Migration
             $table->text('content', 65535)->nullable();
 	        $table->string('tooltip_title')->nullable();
             $table->text('tooltip', 65535)->nullable();
+	        $table->string( 'template' )->default( 'default' );
+	        $table->boolean( 'is_active' )->default( true );
+	        $table->boolean( 'is_down' )->default( false );
+	        $table->text( 'down_message' )->nullable();
             $table->timestamps();
         });
     }

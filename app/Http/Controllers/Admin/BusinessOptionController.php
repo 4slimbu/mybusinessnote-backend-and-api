@@ -120,7 +120,6 @@ class BusinessOptionController extends AdminBaseController {
 		$input                    = $request->all();
 		$input['slug']            = str_slug( $request->get( 'name' ) );
 		$input['level_id']        = Section::findOrFail( $input['section_id'] )->level_id;
-		$input['show_everywhere'] = isset( $input['show_everywhere'] ) ? 1 : 0;
 
 		// Handle Icon
 		$icon = ImageLibrary::saveImage( 'icon', $this->upload_directory );
@@ -153,13 +152,7 @@ class BusinessOptionController extends AdminBaseController {
 			$businessOption->affiliateLinks()->sync( $syncData );
 		}
 
-		if ( $input['show_everywhere'] ) {
-			$businessOption->businessCategories()->sync( BusinessCategory::all()->pluck( 'id' ) );
-		} else {
-			if ( isset( $input['business_category_id'] ) && $input['business_category_id'] ) {
-				$businessOption->businessCategories()->sync( array_filter( $input['business_category_id'] ) );
-			}
-		}
+		$businessOption->businessCategories()->sync( array_filter( $input['business_category_id'] ) );
 
 		Session::flash( 'success', $this->panel_name . ' created successfully.' );
 
@@ -191,7 +184,7 @@ class BusinessOptionController extends AdminBaseController {
 
 		//get data
 		$data['row']                        = $businessOption;
-		$data['selectedBusinessCategories'] = $businessOption->businessCategories->pluck( 'id' );
+		$data['selectedBusinessCategories'] = $businessOption->businessCategories->pluck( 'id' )->toArray();
 		$labels                             = $businessOption->affiliateLinks()->pluck( 'label' );
 		$data['selectedAffiliateLinkLabel'] = count( $labels ) > 0 ? $labels[0] : '';
 		$data['selectedAffiliateLinks']     = $businessOption->affiliateLinks->pluck( 'id' );
@@ -207,7 +200,7 @@ class BusinessOptionController extends AdminBaseController {
 		} );
 
 		$data['businessOptions']    = BusinessOption::where( 'id', '!=', $businessOption->id )->pluck( 'name', 'id' );
-		$data['businessCategories'] = BusinessCategory::pluck( 'name', 'id' );
+		$data['businessCategories'] = BusinessCategory::pluck( 'name', 'id' )->toArray();
 		$data['elements']           = BusinessOption::elements();
 		$data['showEveryWhere']     = ( $businessOption->businessCategories->count() === BusinessCategory::count() ) ? 1 : 0;
 
@@ -230,7 +223,6 @@ class BusinessOptionController extends AdminBaseController {
 	public function update( UpdateFormValidation $request, BusinessOption $businessOption ) {
 
 		$input                    = $request->all();
-		$input['show_everywhere'] = isset( $input['show_everywhere'] ) ? 1 : 0;
 
 		// Handle Icon
 		$icon = ImageLibrary::saveImage( 'icon', $this->upload_directory );
@@ -276,13 +268,7 @@ class BusinessOptionController extends AdminBaseController {
 			$businessOption->affiliateLinks()->sync( $syncData );
 		}
 
-		if ( $input['show_everywhere'] ) {
-			$businessOption->businessCategories()->sync( BusinessCategory::all()->pluck( 'id' ) );
-		} else {
-			if ( isset( $input['business_category_id'] ) && $input['business_category_id'] ) {
-				$businessOption->businessCategories()->sync( array_filter( $input['business_category_id'] ) );
-			}
-		}
+		$businessOption->businessCategories()->sync( array_filter( $input['business_category_id'] ) );
 
 		Session::flash( 'success', $this->panel_name . ' updated successfully.' );
 
@@ -493,14 +479,18 @@ class BusinessOptionController extends AdminBaseController {
 
 			if ( $element && view()->exists( $viewPath ) ) {
 				$businessOption = BusinessOption::find( $businessOptionId );
+				$data['businessCategories'] = BusinessCategory::pluck( 'name', 'id' );
 
 				if ($businessOption) {
 					$data['selectedElementData'] = $businessOption->element_data;
-
-					return view(parent::loadViewData( $viewPath ), compact( 'data' ) )->render();
+				} else {
+					$data['selectedElementData'] = [];
 				}
+
+				return view(parent::loadViewData( $viewPath ), compact( 'data' ) )->render();
 			}
 		} catch (\Exception $exception) {
+			dd( $exception );
 			return 'Something went wrong..';
 		}
 	}

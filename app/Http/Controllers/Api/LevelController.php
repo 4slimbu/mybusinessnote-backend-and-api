@@ -14,8 +14,8 @@ use Illuminate\Http\Request;
 
 class LevelController extends ApiBaseController
 {
-    protected  $levelFields = ['id', 'name', 'slug', 'icon', 'badge_icon', 'badge_message', 'content', 'tooltip_title', 'tooltip'];
-    protected  $sectionFields = ['id', 'level_id', 'name', 'slug', 'icon', 'hover_icon', 'tooltip_title', 'tooltip', 'show_landing_page'];
+    protected  $levelFields = ['id', 'name', 'slug', 'icon', 'badge_icon', 'badge_message', 'content', 'tooltip_title', 'tooltip', 'template', 'is_active', 'is_down', 'down_message'];
+    protected  $sectionFields = ['id', 'level_id', 'name', 'slug', 'icon', 'hover_icon', 'tooltip_title', 'tooltip', 'show_landing_page', 'template', 'is_active'];
 
     /**
      * Get levels along with related sections

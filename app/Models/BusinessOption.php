@@ -25,6 +25,8 @@ class BusinessOption extends Model
         'tooltip',
         'menu_order',
         'weight',
+	    'template',
+	    'is_active'
     ];
 
     protected $casts = [
@@ -36,8 +38,12 @@ class BusinessOption extends Model
     public static function elements()
     {
         return [
-            'GettingStartedHome'      => 'GettingStartedHome',
-            'BusinessCategories'      => 'BusinessCategories',
+	        'BusinessCategoryList'      => 'BusinessCategoryList',
+	        'UserFormFields'            => 'UserFormFields',
+	        'BusinessFormFields'      => 'BusinessFormFields',
+	        'SingleFormField'            => 'SingleFormField',
+	        'QuestionAnswer'            => 'QuestionAnswer',
+	        'GettingStartedHome'      => 'GettingStartedHome',
             'SellGoods'               => 'SellGoods',
             'RegisterUser'            => 'RegisterUser',
             'CreateBusiness'          => 'CreateBusiness',
