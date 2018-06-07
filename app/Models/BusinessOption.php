@@ -38,16 +38,16 @@ class BusinessOption extends Model
     public static function elements()
     {
         return [
-	        'BusinessCategoryList'      => 'BusinessCategoryList',
-	        'UserFormFields'            => 'UserFormFields',
-	        'BusinessFormFields'      => 'BusinessFormFields',
-	        'SingleFormField'            => 'SingleFormField',
-	        'QuestionAnswer'            => 'QuestionAnswer',
-	        'GettingStartedHome'      => 'GettingStartedHome',
+//	        'BusinessCategoryList'      => 'BusinessCategoryList',
+//	        'UserFormFields'            => 'UserFormFields',
+//	        'BusinessFormFields'      => 'BusinessFormFields',
+	        'BusinessCategories'      => 'BusinessCategories',
             'SellGoods'               => 'SellGoods',
             'RegisterUser'            => 'RegisterUser',
             'CreateBusiness'          => 'CreateBusiness',
             'RegisterBusiness'        => 'RegisterBusiness',
+	        'SingleFormField'            => 'SingleFormField',
+	        'QuestionAnswer'            => 'QuestionAnswer',
             'Logo'                    => 'Logo',
             'Tagline'                 => 'Tagline',
             'BrandColor'              => 'BrandColor',
