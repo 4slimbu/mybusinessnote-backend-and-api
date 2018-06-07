@@ -314,14 +314,14 @@ trait BusinessOptionable
 
         // Get initial section completed_percent
         $initialSectionCompletedPercent = BusinessSection::where('business_id', $business->id)
-            ->where('section_id', $business_option->section->id)->first()->completed_percent;
+            ->where('section_id', $business_option->section_id)->first()->completed_percent;
 
         // Get current section completed percent
         $currentSectionCompletedPercent = $this->getSectionCompletedPercent($business, $business_option);
 
         // Update section completed percent with new value
-        $business->sections()->detach($business_option->section->id);
-        $business->sections()->attach([$business_option->section->id => [
+        $business->sections()->detach($business_option->section_id);
+        $business->sections()->attach([$business_option->section_id => [
             'completed_percent' => $currentSectionCompletedPercent,
             'updated_at'        => Carbon::now(),
         ]]);
@@ -333,7 +333,7 @@ trait BusinessOptionable
             $events = $apiSession->get('events') ? $apiSession->get('events') : [];
             $events[] = [
                 'type' => 'sectionCompleted',
-                'section_id' => $business_option->section->id,
+                'section_id' => $business_option->section_id,
             ];;
             $apiSession->attach('events', $events);
         }
@@ -342,35 +342,35 @@ trait BusinessOptionable
         //sync business_level table
         //-------------------------
 
-        // Get initial section completed_percent
-        $level_current_completed_percent = BusinessLevel::where('business_id', $business->id)
-            ->where('level_id', $business_option->level->id)->first()->completed_percent;
+	    // Get initial level completed_percent
+	    $initialLevelCompletedPercent = BusinessLevel::where('business_id', $business->id)
+	                                                     ->where('level_id', $business_option->level_id)->first()->completed_percent;
 
-        // Get current section completed percent
-        $level_completed_percent = $this->getLevelCompletedPercent($business, $business_option);
+	    // Get current level completed percent
+	    $currentLevelCompletedPercent = $this->getLevelCompletedPercent($business, $business_option);
 
         // Update section completed percent with new value
-        $business->levels()->detach($business_option->level->id);
-        $business->levels()->attach([$business_option->level->id => [
-            'completed_percent' => $level_completed_percent,
+        $business->levels()->detach($business_option->level_id);
+        $business->levels()->attach([$business_option->level_id => [
+            'completed_percent' => $currentLevelCompletedPercent,
             'updated_at'        => Carbon::now(),
         ]]);
 
         // Add event object to response if section has completed just now
-        if (($initialSectionCompletedPercent < 100 && $currentSectionCompletedPercent >= 100)) {
+        if (($initialLevelCompletedPercent < 100 && $currentLevelCompletedPercent >= 100)) {
             $apiSession = resolve('ApiSession');
 
             $events = $apiSession->get('events') ? $apiSession->get('events') : [];
             $events[] = [
                 'type' => 'levelCompleted',
-                'level_id' => $business_option->level->id,
+                'level_id' => $business_option->level_id,
             ];;
             $apiSession->attach('events', $events);
         }
 
         //fire event
         //Todo: Improve this part
-        if ($business_option->level->id === 1 && $level_current_completed_percent < 100 && $level_completed_percent >= 100) {
+        if ($business_option->level_id === 1 && $initialLevelCompletedPercent < 100 && $currentLevelCompletedPercent >= 100) {
             event(new LevelOneCompleteEvent($business->user));
         }
 
@@ -391,12 +391,12 @@ trait BusinessOptionable
     {
         //get total weight of  business options under given business
         $business_options_total_weight = $business->businessOptions()
-            ->where('section_id', $business_option->section->id)
+            ->where('section_id', $business_option->section_id)
             ->where('status', '!=', 'irrelevant')->sum('weight');
 
         //get total weight of completed business options under given section
         $completed_business_options_weight = $business->businessOptions()
-            ->where('section_id', $business_option->section->id)
+            ->where('section_id', $business_option->section_id)
             ->where('status', 'done')->sum('weight');
 
         //calculate percent

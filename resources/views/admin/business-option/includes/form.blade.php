@@ -7,6 +7,17 @@
     @endif
 </div>
 
+{{--Short Name--}}
+<div class="form-group">
+    <label>Short Name:</label>
+    <div><small>This name will be used on modal box layout where there is less space</small></div>
+    {{ Form::text('short_name', null, ['class' => 'form-control']) }}
+    @if($errors->has('short_name'))
+        <span class="text-danger">{{ $errors->first('short_name') }}</span>
+    @endif
+</div>
+
+
 {{--Section--}}
 <div class="form-group">
     <label class="display-block text-semibold">Section:</label>

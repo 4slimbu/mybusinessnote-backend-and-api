@@ -19,6 +19,7 @@ class CreateBusinessOptionsTable extends Migration {
 			$table->integer('section_id');
 			$table->integer('parent_id')->nullable();
 			$table->string('name', 191);
+			$table->string('short_name', 191);
 			$table->string('slug', 191);
 			$table->string('icon')->nullable();
 			$table->string('hover_icon')->nullable();
