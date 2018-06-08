@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Exceptions\InvalidRequestException;
 use App\Http\Requests\Api\BusinessValidation\UpdateFormValidation;
+use App\Http\Resources\Api\BusinessOptionResource;
 use App\Http\Resources\Api\BusinessResource;
 use App\Http\Resources\Api\BusinessStatusResource;
 use App\Libraries\ResponseLibrary;
@@ -87,19 +88,12 @@ class BusinessController extends ApiBaseController
 
         // Refresh the statuses tables with new data
         $businessStatus = $this->refreshAllRelatedStatusForCurrentBusinessOption($business, $business_option);
-        $business_option_status = BusinessBusinessOption::where('business_id', $business->id)
-            ->where('business_option_id', $business_option->id)->first()->status;
 
         // Return response
         return ResponseLibrary::success([
             'successCode'    => 'SAVED',
             'business'       => new BusinessResource($business->refresh()),
-            'businessOption' => [
-                'id'         => $business_option->id,
-                'level_id'   => $business_option->level_id,
-                'section_id' => $business_option->section_id,
-                'status'     => $business_option_status,
-            ],
+            'businessOption' => new BusinessOptionResource($business_option),
             'businessStatus' => $businessStatus,
             'token'          => $this->getTokenFromUser($user),
         ] + $syncResponse, 200);
