@@ -490,7 +490,6 @@ class BusinessOptionController extends AdminBaseController {
 				return view(parent::loadViewData( $viewPath ), compact( 'data' ) )->render();
 			}
 		} catch (\Exception $exception) {
-			dd( $exception );
 			return 'Something went wrong..';
 		}
 	}
