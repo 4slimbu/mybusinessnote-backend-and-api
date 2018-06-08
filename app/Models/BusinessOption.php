@@ -41,7 +41,7 @@ class BusinessOption extends Model {
 			'RegisterUser'            => 'RegisterUser',
 			'CreateBusiness'          => 'CreateBusiness',
 			'RegisterBusiness'        => 'RegisterBusiness',
-			'SingleImageFiled'        => 'SingleTextField',
+			'SingleImageField'        => 'SingleImageField',
 			'SingleTextField'         => 'SingleTextField',
 			'BrandColor'              => 'BrandColor',
 			'SocialMediaField'        => 'SocialMediaField',
