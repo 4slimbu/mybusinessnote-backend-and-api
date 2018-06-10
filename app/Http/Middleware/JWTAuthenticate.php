@@ -24,6 +24,7 @@ class JWTAuthenticate
             ($path === 'api/business-option/1') ||
             ($path === 'api/business-option/2') ||
             ($path === 'api/business-option/3') ||
+            ($path === 'api/business-option/4') ||
             ($path === 'api/business-options')
         ) {
             //pass without authentication

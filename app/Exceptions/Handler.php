@@ -59,7 +59,6 @@ class Handler extends ExceptionHandler
     {
         // Response For Api
         if ($request->expectsJson()) {
-
             if ($exception instanceof MultipleBusinessException) {
                 return ResponseLibrary::error('ERR_MULTIPLE_BUSINESS', 400, $exception);
             }

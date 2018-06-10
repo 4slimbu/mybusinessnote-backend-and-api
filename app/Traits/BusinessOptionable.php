@@ -265,8 +265,12 @@ trait BusinessOptionable
             if ($nextBusinessOption->pivot['status'] === 'locked') {
                 BusinessBusinessOption::where('business_id', $business->id)
                     ->where('business_option_id', $nextBusinessOption->id)->update(['status' => 'unlocked']);
+
+                return $nextBusinessOption;
             }
         }
+
+        return null;
     }
 
     /**
@@ -276,11 +280,30 @@ trait BusinessOptionable
      * @param $currentBusinessOption
      * @return BusinessStatusResource
      */
-    public function refreshAllRelatedStatusForCurrentBusinessOption($business, $currentBusinessOption)
+    public function refreshAllRelatedStatusForCurrentBusinessOption(Business $business, BusinessOption $currentBusinessOption)
     {
         $data['levelStatus'] = $business->levels()->where('id', $currentBusinessOption->level_id)->get();
         $data['sectionStatus'] = $business->sections()->where('id', $currentBusinessOption->section_id)->get();
         $data['businessOptionStatus'] = $business->businessOptions()->where('id', $currentBusinessOption->id)->get();
+
+        return new BusinessStatusResource($business, $data);
+    }
+
+    /**
+     * This will get level, section and business option statuses for current business option
+     *
+     * @param $business
+     * @param $currentBusinessOption
+     * @return BusinessStatusResource
+     */
+    public function refreshAllRelatedStatusForCurrentAndNextBusinessOption(Business $business, BusinessOption $currentBusinessOption)
+    {
+        $nextBusinessOption = $business->businessOptions()
+            ->where('menu_order', '>', $currentBusinessOption->menu_order)->first();
+
+        $data['levelStatus'] = $business->levels()->where('id', $currentBusinessOption->level_id)->orWhere('id', $nextBusinessOption->level_id)->get();
+        $data['sectionStatus'] = $business->sections()->where('id', $currentBusinessOption->section_id)->orWhere('id', $nextBusinessOption->section_id)->get();
+        $data['businessOptionStatus'] = $business->businessOptions()->where('id', $currentBusinessOption->id)->orWhere('id', $currentBusinessOption->parent_id)->orWhere('id', $nextBusinessOption->id)->get();
 
         return new BusinessStatusResource($business, $data);
     }

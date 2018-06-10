@@ -40,7 +40,7 @@ class BusinessOptionController extends ApiBaseController
         $business_options->load('affiliateLinks');
 
         return ResponseLibrary::success([
-            'successCode'    => 'FETCHED',
+            'successCode'     => 'FETCHED',
             'businessOptions' => new BusinessOptionResourceCollection($business_options),
         ], 200);
     }
@@ -80,6 +80,15 @@ class BusinessOptionController extends ApiBaseController
         $business = $authUser->business;
         $business_meta = $request->get('business_meta') ? $request->get('business_meta') : [];
 
+        if ($business_option->parent_id) {
+            $parent_business_option = BusinessOption::find($business_option->parent_id);
+            $data = [
+                'business_category_id'   => $business->business_category_id,
+                'business_option_status' => 'done',
+            ];
+            $syncResponse = $this->syncBusinessPivotTables($business, $parent_business_option, $data);
+        }
+
         if ($business_meta) {
             // save business metas
             $this->saveBusinessMetas($business, $business_option, $business_meta);
@@ -102,6 +111,7 @@ class BusinessOptionController extends ApiBaseController
                     'business_category_id'   => $business->business_category_id,
                     'business_option_status' => $business_option_status,
                 ];
+
                 $this->unlockNextBusinessOption($business, $business_option);
                 $syncResponse = $this->syncBusinessPivotTables($business, $business_option, $data);
             }
@@ -111,15 +121,15 @@ class BusinessOptionController extends ApiBaseController
         $business_option = $business->businessOptions()
             ->where('business_business_option.business_option_id', $business_option->id)->first();
 
-        $businessStatus = $this->refreshAllRelatedStatusForCurrentBusinessOption($business, $business_option);
+        $businessStatus = $this->refreshAllRelatedStatusForCurrentAndNextBusinessOption($business, $business_option);
 
         //return response
         return ResponseLibrary::success([
-            'successCode'    => 'SAVED',
-            'businessOption' => new BusinessOptionResource($business_option),
-            'businessStatus' => $businessStatus,
-            'token'          => $this->getTokenFromUser($authUser),
-        ] + $syncResponse, 200);
+                'successCode'    => 'SAVED',
+                'businessOption' => new BusinessOptionResource($business_option),
+                'businessStatus' => $businessStatus,
+                'token'          => $this->getTokenFromUser($authUser),
+            ] + $syncResponse, 200);
     }
 
     /**

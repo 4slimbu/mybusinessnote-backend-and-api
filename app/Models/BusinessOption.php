@@ -86,6 +86,18 @@ class BusinessOption extends Model {
 		return $this->hasMany( BusinessMeta::class );
 	}
 
+    public function currentUserBusinessMetas()
+    {
+        $currentUserBusinessMetas = [];
+        if ( $currentUser = $this->getAuthUser() ) {
+            $currentUserBusinessMetas = $currentUser->business->businessMetas()
+                ->where('business_option_id', $this->id)
+                ->get();
+        }
+
+        return $currentUserBusinessMetas;
+    }
+
 	public function next() {
 		if ( $currentUser = $this->getAuthUser() ) {
 			$nextBusinessOption = $currentUser->business->businessOptions()

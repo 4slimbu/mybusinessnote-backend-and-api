@@ -8,7 +8,6 @@ use App\Http\Resources\Api\BusinessOptionResource;
 use App\Http\Resources\Api\BusinessResource;
 use App\Http\Resources\Api\BusinessStatusResource;
 use App\Libraries\ResponseLibrary;
-use App\Models\BusinessBusinessOption;
 use App\Models\BusinessOption;
 use App\Traits\Authenticable;
 use App\Traits\BusinessOptionable;
@@ -87,7 +86,8 @@ class BusinessController extends ApiBaseController
         ]);
 
         // Refresh the statuses tables with new data
-        $businessStatus = $this->refreshAllRelatedStatusForCurrentBusinessOption($business, $business_option);
+        $this->unlockNextBusinessOption($business, $business_option);
+        $businessStatus = $this->refreshAllRelatedStatusForCurrentAndNextBusinessOption($business, $business_option);
 
         // Return response
         return ResponseLibrary::success([

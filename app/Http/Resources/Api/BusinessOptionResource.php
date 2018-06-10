@@ -47,7 +47,7 @@ class BusinessOptionResource extends Resource {
 
 
 		if ( $this->getAuthUser() ) {
-			$returnData['businessMetas'] = new BusinessMetaResourceCollection( $this->businessMetas );
+			$returnData['businessMetas'] = new BusinessMetaResourceCollection( $this->currentUserBusinessMetas() );
 		}
 
 		return $returnData;
