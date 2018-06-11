@@ -22,10 +22,10 @@ class UserEventSubscriber
     {
         (new Business)->setUp($event->user);
 
-//        event(new BrontoSubscriptionUpdated($event->user));
-//        event(new CampaignMonitorSubscriptionUpdated($event->user));
-//        event(new UnVerifiedUserEvent($event->user));
-//        event(new AddToEmailNotificationTrackerEvent($event->user->business));
+        event(new BrontoSubscriptionUpdated($event->user));
+        event(new CampaignMonitorSubscriptionUpdated($event->user));
+        event(new UnVerifiedUserEvent($event->user));
+        event(new AddToEmailNotificationTrackerEvent($event->user->business));
     }
 
     /**
