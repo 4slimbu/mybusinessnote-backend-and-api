@@ -74,7 +74,7 @@ Route::group(['namespace' => 'App\\Http\\Controllers\Api\\'], function () {
 	/*
 	 * Get Settings
 	 */
-	Route::get( '/settings', 'SettingController@index' );
+	Route::get( '/app-settings', 'SettingController@index' );
 });
 
 

@@ -9,4 +9,8 @@ class Setting extends Model
     protected $fillable = [
         'name', 'key', 'value', 'status',
     ];
+
+    protected $casts = [
+    	'value' => 'array'
+    ];
 }
