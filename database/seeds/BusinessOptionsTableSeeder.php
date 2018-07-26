@@ -28,10 +28,11 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'what-industry-is-your-business-idea-in',
                 'icon' => 'general.png',
                 'hover_icon' => 'general.png',
-                'content' => '<p>Select the best fit below. Don\'t worry you can always change your selection later.</p>',
+                'content' => '<p>Select the best fit below. Don\'t worry you can always change your selection later.</p>
+<p>[BusinessCategories]</p>',
                 'element' => 'BusinessCategories',
-                'element_data' => NULL,
-                'tooltip_title' => '',
+                'element_data' => '{"meta_key":null}',
+                'tooltip_title' => NULL,
                 'tooltip' => NULL,
                 'menu_order' => 1,
                 'weight' => 1,
@@ -39,7 +40,7 @@ class BusinessOptionsTableSeeder extends Seeder
                 'show_everywhere' => 1,
                 'is_active' => 1,
                 'created_at' => NULL,
-                'updated_at' => '2018-05-25 03:15:32',
+                'updated_at' => '2018-07-26 09:30:07',
             ),
             1 => 
             array (
@@ -52,18 +53,18 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'will-you-also-be-selling-goods-online',
                 'icon' => 'general.png',
                 'hover_icon' => 'general.png',
-                'content' => NULL,
+                'content' => '<p>[SellGoods]</p>',
                 'element' => 'SellGoods',
-                'element_data' => NULL,
-                'tooltip_title' => '',
+                'element_data' => '{"meta_key":null}',
+                'tooltip_title' => NULL,
                 'tooltip' => NULL,
                 'menu_order' => 2,
                 'weight' => 1,
                 'template' => 'default',
                 'show_everywhere' => 0,
                 'is_active' => 1,
-                'created_at' => '2018-01-07 10:43:38',
-                'updated_at' => '2018-05-25 03:11:14',
+                'created_at' => '2018-01-07 16:28:38',
+                'updated_at' => '2018-07-26 09:30:17',
             ),
             2 => 
             array (
@@ -76,18 +77,18 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'great-now-lets-create-your-account',
                 'icon' => 'general.png',
                 'hover_icon' => 'general.png',
-                'content' => NULL,
+                'content' => '<p>[RegisterUser]</p>',
                 'element' => 'RegisterUser',
-                'element_data' => NULL,
-                'tooltip_title' => '',
+                'element_data' => '{"meta_key":null}',
+                'tooltip_title' => NULL,
                 'tooltip' => NULL,
                 'menu_order' => 3,
                 'weight' => 1,
                 'template' => 'default',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2017-11-23 01:28:17',
-                'updated_at' => '2018-05-25 03:11:34',
+                'created_at' => '2017-11-23 07:13:17',
+                'updated_at' => '2018-07-26 09:30:28',
             ),
             3 => 
             array (
@@ -100,10 +101,10 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'so-tell-us-about-your-business',
                 'icon' => 'general.png',
                 'hover_icon' => 'general.png',
-                'content' => NULL,
+                'content' => '<p>[CreateBusiness]</p>',
                 'element' => 'CreateBusiness',
-                'element_data' => NULL,
-                'tooltip_title' => '',
+                'element_data' => '{"meta_key":null}',
+                'tooltip_title' => NULL,
                 'tooltip' => '<h5>Business Website</h5>
 <p><span style="font-weight: 400;">Your business website is a fundamental component of your online presence (and can even extend as your online store). As an extension of your brand identity, it needs to be consistent in conveying your brand message. Here are a few things to consider for your website:</span></p>
 <ul>
@@ -126,8 +127,8 @@ class BusinessOptionsTableSeeder extends Seeder
                 'template' => 'default',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2017-11-23 01:29:09',
-                'updated_at' => '2018-05-25 04:09:07',
+                'created_at' => '2017-11-23 07:14:09',
+                'updated_at' => '2018-07-26 09:30:38',
             ),
             4 => 
             array (
@@ -140,18 +141,18 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'register-your-business',
                 'icon' => 'general.png',
                 'hover_icon' => 'general.png',
-                'content' => NULL,
+                'content' => '<p>[RegisterBusiness]</p>',
                 'element' => 'RegisterBusiness',
-                'element_data' => NULL,
-                'tooltip_title' => '',
+                'element_data' => '{"meta_key":null}',
+                'tooltip_title' => NULL,
                 'tooltip' => NULL,
                 'menu_order' => 5,
                 'weight' => 1,
                 'template' => 'default',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2017-11-23 01:30:17',
-                'updated_at' => '2018-05-25 03:12:10',
+                'created_at' => '2017-11-23 07:15:17',
+                'updated_at' => '2018-07-26 09:30:52',
             ),
             5 => 
             array (
@@ -164,7 +165,8 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'do-you-have-a-logo',
                 'icon' => 'logo.png',
                 'hover_icon' => 'logo.png',
-                'content' => '<p>Do you have a logo?</p>',
+                'content' => '<p>Do you have a logo?</p>
+<p>[SingleImageField]</p>',
                 'element' => 'SingleImageField',
                 'element_data' => NULL,
                 'tooltip_title' => 'Logo',
@@ -180,8 +182,8 @@ class BusinessOptionsTableSeeder extends Seeder
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2017-11-23 01:49:28',
-                'updated_at' => '2018-06-08 08:09:35',
+                'created_at' => '2017-11-23 07:34:28',
+                'updated_at' => '2018-07-26 09:31:05',
             ),
             6 => 
             array (
@@ -194,7 +196,8 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'enter-your-tagline-or-create-one-now',
                 'icon' => 'tagline.png',
                 'hover_icon' => 'tagline.png',
-                'content' => '<p>Enter your tagline or create one now</p>',
+                'content' => '<p>Enter your tagline or create one now</p>
+<p>[SingleTextField]</p>',
                 'element' => 'SingleTextField',
                 'element_data' => NULL,
                 'tooltip_title' => NULL,
@@ -210,8 +213,8 @@ class BusinessOptionsTableSeeder extends Seeder
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2017-11-23 01:49:28',
-                'updated_at' => '2018-06-08 08:12:36',
+                'created_at' => '2017-11-23 07:34:28',
+                'updated_at' => '2018-07-26 09:31:21',
             ),
             7 => 
             array (
@@ -224,7 +227,8 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'select-your-brand-color',
                 'icon' => 'brandcolor.png',
                 'hover_icon' => 'brandcolor.png',
-                'content' => '<p>Select Your Brand Colour</p>',
+                'content' => '<p>Select Your Brand Colour</p>
+<p>[BrandColor]</p>',
                 'element' => 'BrandColor',
                 'element_data' => NULL,
                 'tooltip_title' => 'Brand Colour',
@@ -243,8 +247,8 @@ class BusinessOptionsTableSeeder extends Seeder
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2017-11-23 01:51:54',
-                'updated_at' => '2018-06-08 08:14:14',
+                'created_at' => '2017-11-23 07:36:54',
+                'updated_at' => '2018-07-26 09:31:31',
             ),
             8 => 
             array (
@@ -273,8 +277,8 @@ class BusinessOptionsTableSeeder extends Seeder
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2017-11-23 01:52:43',
-                'updated_at' => '2018-06-08 09:02:50',
+                'created_at' => '2017-11-23 07:37:43',
+                'updated_at' => '2018-06-08 14:47:50',
             ),
             9 => 
             array (
@@ -282,12 +286,13 @@ class BusinessOptionsTableSeeder extends Seeder
                 'level_id' => 2,
                 'section_id' => 6,
                 'parent_id' => NULL,
-                'name' => 'Financing Option?',
-                'short_name' => 'Financing Option',
+                'name' => 'Financing Options?',
+                'short_name' => 'Financing Options',
                 'slug' => 'financing-option',
-                'icon' => 'general.png',
-                'hover_icon' => 'general.png',
-                'content' => '<p>Financing Option?</p>',
+                'icon' => 'fW0an6Z5piGcijwDjYL7uFg57YdcVR52.png',
+                'hover_icon' => '7COPWZnzum9M2Xh619PyOXAFetyrRfDm.png',
+                'content' => '<p>Have you considered different financing options?</p>
+<p>[YesAndLinkField]</p>',
                 'element' => 'YesAndLinkField',
                 'element_data' => NULL,
                 'tooltip_title' => 'Financing Options',
@@ -304,8 +309,8 @@ class BusinessOptionsTableSeeder extends Seeder
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2017-11-23 01:55:03',
-                'updated_at' => '2018-06-08 08:57:02',
+                'created_at' => '2017-11-23 07:40:03',
+                'updated_at' => '2018-07-26 09:32:58',
             ),
             10 => 
             array (
@@ -316,9 +321,10 @@ class BusinessOptionsTableSeeder extends Seeder
                 'name' => 'Initial accounting software?',
                 'short_name' => 'Initial accounting software',
                 'slug' => 'initial-account-software',
-                'icon' => 'general.png',
-                'hover_icon' => 'general.png',
-                'content' => '<p>Initial accounting software?</p>',
+                'icon' => 'xVG7gdu9o6CO0l2Y1Xbf2enLtArMLKqO.png',
+                'hover_icon' => 'wAi4bh7ICXOxilS0BB9znQ1Mr6O7B85Q.png',
+                'content' => '<p>Initial accounting software?</p>
+<p>[YesAndLinkField]</p>',
                 'element' => 'YesAndLinkField',
                 'element_data' => NULL,
                 'tooltip_title' => 'Initial accounting software',
@@ -330,13 +336,13 @@ class BusinessOptionsTableSeeder extends Seeder
 <li><strong>Regular reporting</strong><span style="font-weight: 400;">: Make sure to sign up for PAYG options for your taxation payments</span></li>
 <li><strong>Quality user support</strong><span style="font-weight: 400;">: Review the after-sales support and 24/7 customer service</span></li>
 </ul>',
-                'menu_order' => 15,
+                'menu_order' => 16,
                 'weight' => 1,
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2017-11-23 01:55:03',
-                'updated_at' => '2018-06-08 08:57:02',
+                'created_at' => '2017-11-23 07:40:03',
+                'updated_at' => '2018-07-26 09:33:13',
             ),
             11 => 
             array (
@@ -347,9 +353,10 @@ class BusinessOptionsTableSeeder extends Seeder
                 'name' => 'Business Banking?',
                 'short_name' => 'Business Banking',
                 'slug' => 'business-banking',
-                'icon' => 'general.png',
-                'hover_icon' => 'general.png',
-                'content' => '<p>Business Banking?</p>',
+                'icon' => 'RR9rA0GqY8GkE5PeJPfOqrTLdB7hhqUA.png',
+                'hover_icon' => 'fIPXPD3Xa8THJHTGc2FHcPlETWl3Zrnp.png',
+                'content' => '<p>Business Banking?</p>
+<p>[YesAndLinkField]</p>',
                 'element' => 'YesAndLinkField',
                 'element_data' => NULL,
                 'tooltip_title' => 'Business Banking',
@@ -360,13 +367,13 @@ class BusinessOptionsTableSeeder extends Seeder
 <li><strong>Features</strong><span style="font-weight: 400;">: Features such as credit line and e-statements can benefit your small business</span></li>
 <li><strong>Accessibility</strong><span style="font-weight: 400;">: Standard features include online banking, telephone banking, debit card and chequebook. Consider if you also need easy access to your business savings</span></li>
 </ul>',
-                'menu_order' => 16,
+                'menu_order' => 17,
                 'weight' => 1,
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2017-11-23 01:55:03',
-                'updated_at' => '2018-06-08 08:57:02',
+                'created_at' => '2017-11-23 07:40:03',
+                'updated_at' => '2018-07-26 09:33:19',
             ),
             12 => 
             array (
@@ -377,9 +384,10 @@ class BusinessOptionsTableSeeder extends Seeder
                 'name' => 'Merchant Facilities?',
                 'short_name' => 'Merchant Facilities',
                 'slug' => 'merchant-facilities',
-                'icon' => 'general.png',
-                'hover_icon' => 'general.png',
-                'content' => '<p>Merchant Facilities?</p>',
+                'icon' => 'syBToCVanBCTcV5Q3n4xW2yuTpkQsJQ9.png',
+                'hover_icon' => 'AHE670AQZWoUqnnECHSxFeLIcmvO20Eq.png',
+                'content' => '<p>Merchant Facilities?</p>
+<p>[YesAndLinkField]</p>',
                 'element' => 'YesAndLinkField',
                 'element_data' => NULL,
                 'tooltip_title' => 'Merchant facilities',
@@ -389,13 +397,13 @@ class BusinessOptionsTableSeeder extends Seeder
 <li><strong>Contactless payments</strong><span style="font-weight: 400;">: Some POS terminals allow you to swipe or insert a chip card, including extra options for tipping</span></li>
 <li><strong>Smartphone app</strong><span style="font-weight: 400;">: Customers can install their own app to process shopping as they enter your physical store and you can guide them better with your latest product offerings</span></li>
 </ul>',
-                'menu_order' => 17,
+                'menu_order' => 18,
                 'weight' => 1,
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2017-11-23 01:56:30',
-                'updated_at' => '2018-06-08 08:57:02',
+                'created_at' => '2017-11-23 07:41:30',
+                'updated_at' => '2018-07-26 09:33:26',
             ),
             13 => 
             array (
@@ -406,9 +414,10 @@ class BusinessOptionsTableSeeder extends Seeder
                 'name' => 'Have you set up your business email address?',
                 'short_name' => 'Business Email',
                 'slug' => 'have-you-set-up-your-business-email-address',
-                'icon' => 'general.png',
-                'hover_icon' => 'general.png',
-                'content' => '<p>Have you set up your business email address?</p>',
+                'icon' => 'wGMbNlI7DppRZH49cm3bAOJ0IJHqLeSI.png',
+                'hover_icon' => 'D1OTtMesWejwBtxQdgvOzWqf1TCmL2yg.png',
+                'content' => '<p>Have you set up your business email address?</p>
+<p>[YesAndLinkField]</p>',
                 'element' => 'YesAndLinkField',
                 'element_data' => NULL,
                 'tooltip_title' => 'Email Setup',
@@ -418,13 +427,13 @@ class BusinessOptionsTableSeeder extends Seeder
 <li><strong>User policies</strong><span style="font-weight: 400;">: Make sure the administrator provides the right access and tools for each user type</span></li>
 <li><strong>Suite of apps</strong><span style="font-weight: 400;">: Calendar for tasking schedules, Documents (for working collaboration) and an online Office equivalent are essential to productivity</span></li>
 </ul>',
-                'menu_order' => 18,
+                'menu_order' => 19,
                 'weight' => 1,
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2017-11-23 01:46:02',
-                'updated_at' => '2018-06-08 08:57:02',
+                'created_at' => '2017-11-23 07:31:02',
+                'updated_at' => '2018-07-26 09:34:56',
             ),
             14 => 
             array (
@@ -435,9 +444,10 @@ class BusinessOptionsTableSeeder extends Seeder
                 'name' => 'Do you have your phone set up?',
                 'short_name' => 'Phone Set Up',
                 'slug' => 'do-you-have-your-phone-setup',
-                'icon' => 'general.png',
-                'hover_icon' => 'general.png',
-                'content' => '<p>Do you have your phone set up?</p>',
+                'icon' => 'iVpwwBpUTyPiGWeO3s4SxW735KLqlokl.png',
+                'hover_icon' => 'u7gunKirDwTEKNkpN4Vh6pyZch8YXZZj.png',
+                'content' => '<p>Do you have your phone set up?</p>
+<p>[YesAndLinkField]</p>',
                 'element' => 'YesAndLinkField',
                 'element_data' => NULL,
                 'tooltip_title' => 'Phone Setup',
@@ -447,13 +457,13 @@ class BusinessOptionsTableSeeder extends Seeder
 <li><span style="font-weight: 400;">Record your main message, stating your business name and a customary greeting</span></li>
 <li><span style="font-weight: 400;">If you have a team, add extensions for your customer service operations</span></li>
 </ul>',
-                'menu_order' => 19,
+                'menu_order' => 20,
                 'weight' => 1,
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2017-11-23 01:46:02',
-                'updated_at' => '2018-06-08 08:57:02',
+                'created_at' => '2017-11-23 07:31:02',
+                'updated_at' => '2018-07-26 09:35:03',
             ),
             15 => 
             array (
@@ -464,8 +474,8 @@ class BusinessOptionsTableSeeder extends Seeder
                 'name' => 'Do you need a quick office setup?',
                 'short_name' => 'Quick Office Setup',
                 'slug' => 'do-you-need-a-quick-office-setup',
-                'icon' => 'general.png',
-                'hover_icon' => 'general.png',
+                'icon' => 'PwMM7zKqYU6TDpMvbuOp7ISNJ3Q6W3Lx.png',
+                'hover_icon' => 'hkM0Ko6bna1TefelaLjNnJ6px0V60axL.png',
                 'content' => NULL,
                 'element' => 'YesAndLinkField',
                 'element_data' => '{"question_1":"Do you want a prestigious city office address for postage purposes?","question_2":"Do you require a dedicated receptionist only to answer calls on your behalf?","question_3":"Do you require ad hoc team support?"}',
@@ -476,13 +486,13 @@ class BusinessOptionsTableSeeder extends Seeder
 <li><strong>Security</strong><span style="font-weight: 400;">: Boost your network security using firewall, VPN and antivitus software and install good policies to protect your data</span></li>
 <li><strong>Cloud</strong><span style="font-weight: 400;">: Being able to access your documents online and on any device gives you productivity anytime, anywhere</span></li>
 </ul>',
-                'menu_order' => 20,
+                'menu_order' => 21,
                 'weight' => NULL,
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2017-11-23 01:46:02',
-                'updated_at' => '2018-06-08 09:24:57',
+                'created_at' => '2017-11-23 07:31:02',
+                'updated_at' => '2018-07-17 08:48:13',
             ),
             16 => 
             array (
@@ -493,9 +503,10 @@ class BusinessOptionsTableSeeder extends Seeder
                 'name' => 'Have you set up your internet?',
                 'short_name' => 'Internet Set Up',
                 'slug' => 'have-you-set-up-your-internet',
-                'icon' => 'general.png',
-                'hover_icon' => 'general.png',
-                'content' => '<p>Have you set up your internet?</p>',
+                'icon' => 'TdEbxNbuqqUtkn6Kxa2Npq7igjxmg9r6.png',
+                'hover_icon' => 'QOagCNggDVnbZsPXYJPt7dWfDfS5JKP6.png',
+                'content' => '<p>Have you set up your internet?</p>
+<p>[YesAndLinkField]</p>',
                 'element' => 'YesAndLinkField',
                 'element_data' => NULL,
                 'tooltip_title' => 'Business Internet',
@@ -505,13 +516,13 @@ class BusinessOptionsTableSeeder extends Seeder
 <li><strong>Cloud-based apps</strong><span style="font-weight: 400;">: Cloud based solutions and apps for subscription offer both flexibility and function, and are often accessible on your tablets and mobile</span></li>
 <li><strong>Operations without internet</strong><span style="font-weight: 400;">: Run tests to help ensure your business can operate even without the Internet</span></li>
 </ul>',
-                'menu_order' => 21,
+                'menu_order' => 22,
                 'weight' => 1,
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2017-11-23 01:57:34',
-                'updated_at' => '2018-06-08 08:57:02',
+                'created_at' => '2017-11-23 07:42:34',
+                'updated_at' => '2018-07-26 09:36:03',
             ),
             17 => 
             array (
@@ -522,9 +533,10 @@ class BusinessOptionsTableSeeder extends Seeder
                 'name' => 'Do you have office accessories?',
                 'short_name' => 'Office Accessories',
                 'slug' => 'do-you-have-office-accessories',
-                'icon' => 'general.png',
-                'hover_icon' => 'general.png',
-                'content' => '<p>Do you have office accessories?</p>',
+                'icon' => 'os2HNqH342Q8tfsMUQA8sEczIo4Cldaz.png',
+                'hover_icon' => 'TWUloPtu1SyIvrPjjw4NBw0b7eIzrrPX.png',
+                'content' => '<p>Do you have office accessories?</p>
+<p>[YesAndLinkField]</p>',
                 'element' => 'YesAndLinkField',
                 'element_data' => NULL,
                 'tooltip_title' => 'Office Accessories',
@@ -535,13 +547,13 @@ class BusinessOptionsTableSeeder extends Seeder
 <li><span style="font-weight: 400;">This includes your computer, keep files organised, here is a great article to take you through it, step by step: </span><a href="http://www.asianefficiency.com/organization/organizing-files-folders-documents/"><span style="font-weight: 400;">http://www.asianefficiency.com/organization/organizing-files-folders-documents/</span></a></li>
 <li><span style="font-weight: 400;">Project management software like Asana, is free, and makes keeping projects on track easier. &nbsp;At the end of the day you still need to do the work!</span></li>
 </ul>',
-                'menu_order' => 22,
+                'menu_order' => 23,
                 'weight' => 1,
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2017-11-23 01:57:34',
-                'updated_at' => '2018-06-08 08:57:02',
+                'created_at' => '2017-11-23 07:42:34',
+                'updated_at' => '2018-07-26 09:36:08',
             ),
             18 => 
             array (
@@ -552,20 +564,21 @@ class BusinessOptionsTableSeeder extends Seeder
                 'name' => 'Join a business community',
                 'short_name' => 'Join a business community',
                 'slug' => 'join-a-business-community',
-                'icon' => 'general.png',
-                'hover_icon' => 'general.png',
-                'content' => '<p>Join a business community</p>',
+                'icon' => 'dBzPZoVL2vaqLyb8xeKxkjLhmCajn9C3.png',
+                'hover_icon' => 'cIEJ1sLbgdDba8Dc75GRPGYhkb46yvWG.png',
+                'content' => '<p>Join a business community</p>
+<p>[YesAndLinkField]</p>',
                 'element' => 'YesAndLinkField',
                 'element_data' => NULL,
                 'tooltip_title' => 'Join a business community',
                 'tooltip' => '<p>Joining a business community allows you to bounce ideas off others, and learn from the mistakes and experiences of those that have gone through it all. Have you considered joining one today?</p>',
-                'menu_order' => 23,
+                'menu_order' => 24,
                 'weight' => 1,
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2017-11-23 01:57:34',
-                'updated_at' => '2018-06-08 08:57:02',
+                'created_at' => '2017-11-23 07:42:34',
+                'updated_at' => '2018-07-26 09:36:15',
             ),
             19 => 
             array (
@@ -578,18 +591,18 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'swot',
                 'icon' => 'general.png',
                 'hover_icon' => 'general.png',
-                'content' => NULL,
+                'content' => '<p>[YesAndLinkField]</p>',
                 'element' => 'YesAndLinkField',
                 'element_data' => NULL,
-                'tooltip_title' => '',
+                'tooltip_title' => NULL,
                 'tooltip' => '<p>SWOT</p>',
-                'menu_order' => 27,
+                'menu_order' => 28,
                 'weight' => 1,
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2017-11-23 02:04:19',
-                'updated_at' => '2018-06-08 09:24:08',
+                'created_at' => '2017-11-23 07:49:19',
+                'updated_at' => '2018-07-26 09:36:25',
             ),
             20 => 
             array (
@@ -602,18 +615,18 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'customer-analysis',
                 'icon' => 'general.png',
                 'hover_icon' => 'general.png',
-                'content' => NULL,
+                'content' => '<p>[YesAndLinkField]</p>',
                 'element' => 'YesAndLinkField',
                 'element_data' => NULL,
-                'tooltip_title' => '',
+                'tooltip_title' => NULL,
                 'tooltip' => '<p>Customer Analysis?</p>',
-                'menu_order' => 28,
+                'menu_order' => 29,
                 'weight' => 1,
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2018-01-07 11:07:02',
-                'updated_at' => '2018-06-08 09:24:08',
+                'created_at' => '2018-01-07 16:52:02',
+                'updated_at' => '2018-07-26 09:36:41',
             ),
             21 => 
             array (
@@ -626,18 +639,18 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'demographic-catchment-area',
                 'icon' => 'general.png',
                 'hover_icon' => 'general.png',
-                'content' => NULL,
+                'content' => '<p>[YesAndLinkField]</p>',
                 'element' => 'YesAndLinkField',
                 'element_data' => NULL,
-                'tooltip_title' => '',
+                'tooltip_title' => NULL,
                 'tooltip' => '<p>Demographic catchment area</p>',
-                'menu_order' => 29,
+                'menu_order' => 30,
                 'weight' => 1,
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2018-01-07 11:07:02',
-                'updated_at' => '2018-06-08 09:24:08',
+                'created_at' => '2018-01-07 16:52:02',
+                'updated_at' => '2018-07-26 09:36:49',
             ),
             22 => 
             array (
@@ -650,18 +663,18 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'social-media-execution',
                 'icon' => 'general.png',
                 'hover_icon' => 'general.png',
-                'content' => NULL,
+                'content' => '<p>[YesAndLinkField]</p>',
                 'element' => 'YesAndLinkField',
                 'element_data' => NULL,
-                'tooltip_title' => '',
+                'tooltip_title' => NULL,
                 'tooltip' => '<p>Social media execution</p>',
-                'menu_order' => 30,
+                'menu_order' => 31,
                 'weight' => 1,
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2018-01-07 11:07:02',
-                'updated_at' => '2018-06-08 09:24:08',
+                'created_at' => '2018-01-07 16:52:02',
+                'updated_at' => '2018-07-26 09:36:59',
             ),
             23 => 
             array (
@@ -674,18 +687,18 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'budget',
                 'icon' => 'general.png',
                 'hover_icon' => 'general.png',
-                'content' => NULL,
+                'content' => '<p>[YesAndLinkField]</p>',
                 'element' => 'YesAndLinkField',
                 'element_data' => NULL,
-                'tooltip_title' => '',
+                'tooltip_title' => NULL,
                 'tooltip' => '<p>Budget</p>',
-                'menu_order' => 31,
+                'menu_order' => 32,
                 'weight' => 1,
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2018-01-07 11:07:02',
-                'updated_at' => '2018-06-08 09:24:08',
+                'created_at' => '2018-01-07 16:52:02',
+                'updated_at' => '2018-07-26 09:37:05',
             ),
             24 => 
             array (
@@ -698,18 +711,18 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'have-you-kept-a-legal-adviser',
                 'icon' => 'general.png',
                 'hover_icon' => 'general.png',
-                'content' => NULL,
+                'content' => '<p>[YesAndLinkField]</p>',
                 'element' => 'YesAndLinkField',
                 'element_data' => NULL,
-                'tooltip_title' => '',
+                'tooltip_title' => NULL,
                 'tooltip' => '<p>Have you kept a legal adviser?</p>',
-                'menu_order' => 32,
+                'menu_order' => 33,
                 'weight' => 1,
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2018-01-07 11:07:02',
-                'updated_at' => '2018-06-08 09:24:08',
+                'created_at' => '2018-01-07 16:52:02',
+                'updated_at' => '2018-07-26 09:37:12',
             ),
             25 => 
             array (
@@ -722,10 +735,10 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'do-you-have-employment-contracts-already',
                 'icon' => 'general.png',
                 'hover_icon' => 'general.png',
-                'content' => NULL,
+                'content' => '<p>[YesAndLinkField]</p>',
                 'element' => 'YesAndLinkField',
                 'element_data' => NULL,
-                'tooltip_title' => '',
+                'tooltip_title' => NULL,
             'tooltip' => '<p>A written employment contract is an important legal document, which serves as an agreement between an employer and employee (casual, fixed-term, part-time and full-time). It should provide the legal minimums set under the National Employment Standards (NES) and other applicable registered awards. Some key points to answer:</p>
 <p>1. Is the contract in the name of the proper employing entity and filed with the right legal jurisdiction?</p>
 <p>2. Is there a probation period and for how long?</p>
@@ -734,13 +747,13 @@ class BusinessOptionsTableSeeder extends Seeder
 <p>5. Is your confidential information sufficiently defined and protected?</p>
 <p>6. Does the written contract contain the entire agreement or it has additional related documents?</p>
 <p>&nbsp;</p>',
-                'menu_order' => 33,
+                'menu_order' => 34,
                 'weight' => 1,
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2018-01-07 11:03:57',
-                'updated_at' => '2018-06-08 09:24:08',
+                'created_at' => '2018-01-07 16:48:57',
+                'updated_at' => '2018-07-26 09:37:17',
             ),
             26 => 
             array (
@@ -753,22 +766,22 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'award-wages',
                 'icon' => 'general.png',
                 'hover_icon' => 'general.png',
-                'content' => NULL,
+                'content' => '<p>[YesAndLinkField]</p>',
                 'element' => 'YesAndLinkField',
                 'element_data' => NULL,
-                'tooltip_title' => '',
+                'tooltip_title' => NULL,
             'tooltip' => '<p>Awards (modern awards) outline the minimum pay rates and legal conditions of employment for your business. There are 122 industry or occupation awards for Australian workers. The pay guides have minimum pay rates for full-time, part-time and casual employees in an award, including monetary allowances and penalty rates. Take note:</p>
 <p>&middot; Calculate minimum wages with Fair Work&rsquo;s Pay Calculator or use the Pay guides.</p>
 <p>&middot; A small business can have two different awards based on job classifications. For example, a construction company should follow the Building and Construction Award and Clerks Award schemes for its carpenters and administration staff, respectively.</p>
 <p>&middot; Comply with recent policies such as the superannuation guarantee (SG) compliance by employers, whilst calling for more frequent employer payslip reporting</p>
 <p><span style="font-family: Arial; font-size: 13px; white-space: pre-wrap;">&nbsp;</span></p>',
-                'menu_order' => 34,
+                'menu_order' => 35,
                 'weight' => 1,
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2018-01-07 11:03:57',
-                'updated_at' => '2018-06-08 09:24:08',
+                'created_at' => '2018-01-07 16:48:57',
+                'updated_at' => '2018-07-26 09:37:23',
             ),
             27 => 
             array (
@@ -781,10 +794,10 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'hr-policy',
                 'icon' => 'general.png',
                 'hover_icon' => 'general.png',
-                'content' => NULL,
+                'content' => '<p>[YesAndLinkField]</p>',
                 'element' => 'YesAndLinkField',
                 'element_data' => NULL,
-                'tooltip_title' => '',
+                'tooltip_title' => NULL,
             'tooltip' => '<p>Business owners have an important responsibility to ensure Workplace Health and Safety (WHS) Act guidelines are met. (You may refer to the Safe Work Australia website).</p>
 <p>A safe working environment maximizes productivity and reduces associated costs with injuries and illnesses among your team members. Providing a safe environment for work is more than having a first aid kit readily available. Here are seven common hazards at work and how to manage them:</p>
 <p>&middot; Manual handling of heavy items &ndash; use a trolley to cart items</p>
@@ -795,13 +808,13 @@ class BusinessOptionsTableSeeder extends Seeder
 <p>&middot; Visibility &ndash; give high-visibility wear for your staff and site visitors</p>
 <p>&middot; First aid &ndash; restock items that are already expired</p>
 <p><span style="font-family: Arial; font-size: 13px; white-space: pre-wrap;">&nbsp;</span></p>',
-                'menu_order' => 35,
+                'menu_order' => 36,
                 'weight' => 1,
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2018-01-07 11:03:57',
-                'updated_at' => '2018-06-08 09:24:08',
+                'created_at' => '2018-01-07 16:48:57',
+                'updated_at' => '2018-07-26 09:37:29',
             ),
             28 => 
             array (
@@ -814,18 +827,18 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'book-keeping',
                 'icon' => 'general.png',
                 'hover_icon' => 'general.png',
-                'content' => NULL,
+                'content' => '<p>[YesAndLinkField]</p>',
                 'element' => 'YesAndLinkField',
                 'element_data' => NULL,
-                'tooltip_title' => '',
+                'tooltip_title' => NULL,
                 'tooltip' => '<p>Book keeping?</p>',
-                'menu_order' => 36,
+                'menu_order' => 37,
                 'weight' => 1,
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2018-01-07 11:03:22',
-                'updated_at' => '2018-06-08 09:24:08',
+                'created_at' => '2018-01-07 16:48:22',
+                'updated_at' => '2018-07-26 09:37:38',
             ),
             29 => 
             array (
@@ -838,18 +851,18 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'cash-flow-forecasting',
                 'icon' => 'general.png',
                 'hover_icon' => 'general.png',
-                'content' => NULL,
+                'content' => '<p>[YesAndLinkField]</p>',
                 'element' => 'YesAndLinkField',
                 'element_data' => NULL,
-                'tooltip_title' => '',
+                'tooltip_title' => NULL,
                 'tooltip' => '<p>Cash Flow Forecasting</p>',
-                'menu_order' => 37,
+                'menu_order' => 38,
                 'weight' => 1,
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2018-01-07 11:03:22',
-                'updated_at' => '2018-06-08 09:24:07',
+                'created_at' => '2018-01-07 16:48:22',
+                'updated_at' => '2018-07-26 09:38:13',
             ),
             30 => 
             array (
@@ -862,23 +875,23 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'office-space',
                 'icon' => 'general.png',
                 'hover_icon' => 'general.png',
-                'content' => NULL,
+                'content' => '<p>[YesAndLinkField]</p>',
                 'element' => 'YesAndLinkField',
                 'element_data' => NULL,
-                'tooltip_title' => '',
+                'tooltip_title' => NULL,
                 'tooltip' => '<p>For SMEs, office space costs is undoubtedly the second largest expense next to wages. A few tips to help you make the right decision:</p>
 <p>1. Check cheaper alternatives. If renting a physical office is pricey, consider a virtual office or share co-working spaces.</p>
 <p>2. Negotiate a lease. If a deal does not suit you, walk away and check another property.</p>
 <p>3. Research current market prices. Go online, speak to agents and ask around for prices and incentives in your chosen location.</p>
 <p>4. Get a heads of agreement in writing. A Heads of Agreement (aka Commercial Terms) is a short two- to five-page document that lists of all of the key things you want the lease to stipulate. Seek legal advice or commercial advice before you sign the heads of agreement.</p>
 <p><span style="font-family: Arial; font-size: 13px; white-space: pre-wrap;">&nbsp;</span></p>',
-                'menu_order' => 38,
+                'menu_order' => 39,
                 'weight' => 1,
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2018-01-07 11:05:23',
-                'updated_at' => '2018-06-08 09:24:07',
+                'created_at' => '2018-01-07 16:50:23',
+                'updated_at' => '2018-07-26 09:38:18',
             ),
             31 => 
             array (
@@ -891,10 +904,10 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'store-lease',
                 'icon' => 'general.png',
                 'hover_icon' => 'general.png',
-                'content' => NULL,
+                'content' => '<p>[YesAndLinkField]</p>',
                 'element' => 'YesAndLinkField',
                 'element_data' => NULL,
-                'tooltip_title' => '',
+                'tooltip_title' => NULL,
                 'tooltip' => '<p>Retail Store</p>
 <p>Leasing On the legal side, Australian retail shop leases must comply with the Retail Shop Leases Act of 1994. Some basic rules to follow:</p>
 <p>&middot; Set aside no more than 10% of gross monthly sales for your lease</p>
@@ -912,13 +925,13 @@ class BusinessOptionsTableSeeder extends Seeder
 <p>&middot; Create a smart layout: A logical warehouse layout lets you access your items easily and tick them off the inventory file</p>
 <p>&middot; Digitise. Off-the-shelf warehouse management software let you maximise your floor space, especially in terms of where to place your bestsellers and items you need less often</p>
 <p>&middot; Quick delivery time. Proximity to your store and to roads/ports is essential to makesure your item is delivered on time. Rent. Balance your lease costs with above criteria</p>',
-                'menu_order' => 39,
+                'menu_order' => 40,
                 'weight' => 1,
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2018-01-07 11:05:23',
-                'updated_at' => '2018-06-08 09:24:07',
+                'created_at' => '2018-01-07 16:50:23',
+                'updated_at' => '2018-07-26 09:38:25',
             ),
             32 => 
             array (
@@ -931,18 +944,18 @@ class BusinessOptionsTableSeeder extends Seeder
                 'slug' => 'do-you-need-a-hardware',
                 'icon' => 'general.png',
                 'hover_icon' => 'general.png',
-                'content' => NULL,
+                'content' => '<p>[YesAndLinkField]</p>',
                 'element' => 'YesAndLinkField',
                 'element_data' => NULL,
-                'tooltip_title' => '',
+                'tooltip_title' => NULL,
                 'tooltip' => '<p>Do you need a hardware?</p>',
-                'menu_order' => 40,
+                'menu_order' => 41,
                 'weight' => 1,
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2018-01-07 11:05:23',
-                'updated_at' => '2018-06-08 09:24:07',
+                'created_at' => '2018-01-07 16:50:23',
+                'updated_at' => '2018-07-26 09:38:30',
             ),
             33 => 
             array (
@@ -959,7 +972,8 @@ class BusinessOptionsTableSeeder extends Seeder
 <p>&nbsp;</p>
 <p><a class="btn btn-default btn-lg btn-alert m-20" href="https://www.facebook.com/pages/creation/" target="_blank" rel="noopener">Register</a></p>
 <p>&nbsp;</p>
-<p class="content-p">Already have a Facebook business profile? Enter your Facebook profile URL here</p>',
+<p class="content-p">Already have a Facebook business profile? Enter your Facebook profile URL here</p>
+<p class="content-p">[SocialMediaField]</p>',
                 'element' => 'SocialMediaField',
                 'element_data' => NULL,
                 'tooltip_title' => 'Facebook',
@@ -975,8 +989,8 @@ class BusinessOptionsTableSeeder extends Seeder
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2018-06-08 08:50:18',
-                'updated_at' => '2018-06-08 10:33:48',
+                'created_at' => '2018-06-08 14:35:18',
+                'updated_at' => '2018-07-26 09:32:06',
             ),
             34 => 
             array (
@@ -993,7 +1007,8 @@ class BusinessOptionsTableSeeder extends Seeder
 <p>&nbsp;</p>
 <p><a class="btn btn-default btn-lg btn-alert m-20" href="https://twitter.com/signup" target="_blank" rel="noopener">Register</a></p>
 <p>&nbsp;</p>
-<p class="content-p">Already have a twitter account? Enter your twitter account URL here</p>',
+<p class="content-p">Already have a twitter account? Enter your twitter account URL here</p>
+<p class="content-p">[SocialMediaField]</p>',
                 'element' => 'SocialMediaField',
                 'element_data' => NULL,
                 'tooltip_title' => 'Twitter',
@@ -1008,8 +1023,8 @@ class BusinessOptionsTableSeeder extends Seeder
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2018-06-08 08:53:46',
-                'updated_at' => '2018-06-08 10:33:27',
+                'created_at' => '2018-06-08 14:38:46',
+                'updated_at' => '2018-07-26 09:32:23',
             ),
             35 => 
             array (
@@ -1026,7 +1041,8 @@ class BusinessOptionsTableSeeder extends Seeder
 <p>&nbsp;</p>
 <p><a class="btn btn-default btn-lg btn-alert m-20" href="https://www.linkedin.com/start/join" target="_blank" rel="noopener">Register</a></p>
 <p>&nbsp;</p>
-<p class="content-p">Already have a LinkedIn company page? Enter your company page URL here</p>',
+<p class="content-p">Already have a LinkedIn company page? Enter your company page URL here</p>
+<p class="content-p">[SocialMediaField]</p>',
                 'element' => 'SocialMediaField',
                 'element_data' => NULL,
                 'tooltip_title' => 'Linkedin',
@@ -1041,8 +1057,8 @@ class BusinessOptionsTableSeeder extends Seeder
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2018-06-08 08:55:22',
-                'updated_at' => '2018-06-08 10:33:35',
+                'created_at' => '2018-06-08 14:40:22',
+                'updated_at' => '2018-07-26 09:32:33',
             ),
             36 => 
             array (
@@ -1059,7 +1075,8 @@ class BusinessOptionsTableSeeder extends Seeder
 <p>&nbsp;</p>
 <p><a class="btn btn-default btn-lg btn-alert m-20" href="https://business.instagram.com/getting-started" target="_blank" rel="noopener">Register</a></p>
 <p>&nbsp;</p>
-<p class="content-p">Already have an instagram business profile? Enter your instagram profile URL here</p>',
+<p class="content-p">Already have an instagram business profile? Enter your instagram profile URL here</p>
+<p class="content-p">[SocialMediaField]</p>',
                 'element' => 'SocialMediaField',
                 'element_data' => NULL,
                 'tooltip_title' => 'Instagram',
@@ -1076,8 +1093,8 @@ class BusinessOptionsTableSeeder extends Seeder
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2018-06-08 08:57:01',
-                'updated_at' => '2018-06-08 10:33:41',
+                'created_at' => '2018-06-08 14:42:01',
+                'updated_at' => '2018-07-26 09:32:41',
             ),
             37 => 
             array (
@@ -1088,20 +1105,35 @@ class BusinessOptionsTableSeeder extends Seeder
                 'name' => 'Do you want a prestigious city office address for postage purposes?',
                 'short_name' => 'Prestigious City Office',
                 'slug' => 'do-you-want-a-prestigious-city-office-address-for-postage-purposes',
-                'icon' => 'general.png',
-                'hover_icon' => 'general.png',
-                'content' => '<p>Do you want a prestigious city office address for postage purposes?</p>',
+                'icon' => '2zXMlIALJK5KNuhbabZiNnDBCDwknkNN.png',
+                'hover_icon' => '9fO35J21RZkzbBk8HunDF8X6iWXRARoe.png',
+                'content' => '<p>Do you want a prestigious city office address for postage purposes?</p>
+<p>[YesAndLinkField]</p>',
                 'element' => 'YesAndLinkField',
                 'element_data' => NULL,
-                'tooltip_title' => NULL,
-                'tooltip' => NULL,
-                'menu_order' => 24,
+                'tooltip_title' => 'Why an Office Address is Important for Reputation',
+                'tooltip' => '<p>Your businesses address is an important part of your reputation, don\'t take the risk with a PO box or home address. Servcorp&rsquo;s Address Package provides you an address in a landmark building for use on all your company communications.</p>
+<p>Businesses like&nbsp;to know where their suppliers are based. &nbsp;Don\'t risk your first impression&nbsp;with a PO box or a home address. &nbsp;Our Address Package allows you to grow your business with:</p>
+<ul>
+<li>A prestigious address for your business cards and company correspondence</li>
+<li>Mail and courier management services to ensure you can receive your mail, no matter where you are</li>
+<li>Worldwide complimentary access to any executive coworking lounge for up to 1 hour per day</li>
+<li>Secure high speed Wi-Fi in coworking lounge and private offices</li>
+</ul>
+<p>Including&nbsp;the standard Servcorp 5-star benefits:</p>
+<ul>
+<li>Membership flexibility with easy month-by-month contracts</li>
+<li>No security deposit when paying with a credit card</li>
+<li>Access to a personal assistant for regular or last-minute tasks</li>
+<li>First month free, with no further obligation</li>
+</ul>',
+                'menu_order' => 25,
                 'weight' => 1,
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2018-06-08 09:10:13',
-                'updated_at' => '2018-06-08 09:10:13',
+                'created_at' => '2018-06-08 14:55:13',
+                'updated_at' => '2018-07-26 09:35:45',
             ),
             38 => 
             array (
@@ -1112,20 +1144,21 @@ class BusinessOptionsTableSeeder extends Seeder
                 'name' => 'Do you require a dedicated receptionist only to answer calls on your behalf?',
                 'short_name' => 'Dedicated Receptionist',
                 'slug' => 'do-you-require-a-dedicated-receptionist-only-to-answer-calls-on-your-behalf',
-                'icon' => 'general.png',
-                'hover_icon' => 'general.png',
-                'content' => '<p>Do you require a dedicated receptionist only to answer calls on your behalf?</p>',
+                'icon' => 'Urd23z4lqZp3E0i4WIWpIGJLYTwuu3Ag.png',
+                'hover_icon' => 'DbWzRSO7hZQg5HeFUw0jMsSEVCgIFwYX.png',
+                'content' => '<p>Do you require a dedicated receptionist only to answer calls on your behalf?</p>
+<p>[YesAndLinkField]</p>',
                 'element' => 'YesAndLinkField',
                 'element_data' => NULL,
                 'tooltip_title' => NULL,
                 'tooltip' => NULL,
-                'menu_order' => 25,
+                'menu_order' => 26,
                 'weight' => 1,
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2018-06-08 09:13:55',
-                'updated_at' => '2018-06-08 09:13:55',
+                'created_at' => '2018-06-08 14:58:55',
+                'updated_at' => '2018-07-26 09:35:50',
             ),
             39 => 
             array (
@@ -1136,20 +1169,46 @@ class BusinessOptionsTableSeeder extends Seeder
                 'name' => 'Do you require ad hoc team support?',
                 'short_name' => 'Ad Hoc Team Support',
                 'slug' => 'do-you-require-ad-hoc-team-support',
-                'icon' => 'general.png',
-                'hover_icon' => 'general.png',
-                'content' => '<p>Do you require ad hoc team support?</p>',
+                'icon' => 'rOpx8X06JXixgitZXjLMvHOj7k0p4KK3.png',
+                'hover_icon' => 'p2L3Oz5ftRmx3K9qzfgefUCxk0mQAGMQ.png',
+                'content' => '<p>Do you require ad hoc team support?</p>
+<p>[YesAndLinkField]</p>',
                 'element' => 'YesAndLinkField',
                 'element_data' => NULL,
                 'tooltip_title' => NULL,
                 'tooltip' => NULL,
-                'menu_order' => 26,
+                'menu_order' => 27,
                 'weight' => 1,
                 'template' => 'modal_box',
                 'show_everywhere' => 1,
                 'is_active' => 1,
-                'created_at' => '2018-06-08 09:24:07',
-                'updated_at' => '2018-06-08 09:25:23',
+                'created_at' => '2018-06-08 15:09:07',
+                'updated_at' => '2018-07-26 09:35:55',
+            ),
+            40 => 
+            array (
+                'id' => 41,
+                'level_id' => 3,
+                'section_id' => 5,
+                'parent_id' => NULL,
+                'name' => 'Initial Website Setup',
+                'short_name' => 'Website Setup',
+                'slug' => 'initial-website-setup',
+                'icon' => 'rJIGXGQ7SaTevZyMNBBKsUx3xQuv0l9g.png',
+                'hover_icon' => 'GpXuFNdcMlYvgeTfhwWTle4MRECYONLV.png',
+                'content' => '<p>Do you require an initial website setup?</p>
+<p>[YesAndLinkField]</p>',
+                'element' => 'YesAndLinkField',
+                'element_data' => NULL,
+                'tooltip_title' => 'Initial Website',
+                'tooltip' => '<p>Not having a website means you&rsquo;re losing out on potential customers. The excuse of websites being too complicated or too expensive to create is no longer valid.&nbsp; There are many tools to get you up and running quickly.&nbsp; Have A Look specialise in ultra affordable, responsive mobile optimised sites to get you up and running <em>fast</em>.</p>',
+                'menu_order' => 15,
+                'weight' => 1,
+                'template' => 'modal_box',
+                'show_everywhere' => 1,
+                'is_active' => 1,
+                'created_at' => '2018-06-21 07:17:28',
+                'updated_at' => '2018-07-26 09:33:06',
             ),
         ));
         

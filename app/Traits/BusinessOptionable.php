@@ -250,12 +250,14 @@ trait BusinessOptionable
         }
     }
 
-    /**
-     * Unlock next relevant business option for given business
-     *
-     * @param Business $business
-     * @param BusinessOption $currentBusinessOption
-     */
+	/**
+	 * Unlock next relevant business option for given business
+	 *
+	 * @param Business $business
+	 * @param BusinessOption $currentBusinessOption
+	 *
+	 * @return null
+	 */
     public function unlockNextBusinessOption(Business $business, BusinessOption $currentBusinessOption)
     {
         $nextBusinessOption = $business->businessOptions()
