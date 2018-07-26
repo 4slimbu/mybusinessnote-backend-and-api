@@ -34,7 +34,11 @@
         @foreach($data['businessCategories'] as $key => $item)
             <div class="row">
                 <div class="col-md-12">
+                    @if(isset($data['row']))
                     {{ Form::checkbox('business_category_id[]', $key, isset($data['selectedBusinessCategories']) && in_array($key, $data['selectedBusinessCategories'])) }}
+                    @else
+                    {{ Form::checkbox('business_category_id[]', $key, true) }}
+                    @endif
                     {{ $item }}
                 </div>
             </div>
