@@ -17,57 +17,57 @@ class CampaignMonitorLibrary
      * Campaign Monitor list id for Marketing
      * @var string
      */
-    protected $marketingListId = '1aa9558140c83c195c98ce5d73f8b8e5';
+    protected $marketingListId = '71a5efb85ade597c3f90bc5c752d31ad';
 
     /**
      * Smart Email id for sending email verification
      */
-    protected $smartEmailIdForEmailVerification = 'a1193040-c047-412b-8bc0-635db87e49e9';
+    protected $smartEmailIdForEmailVerification = '700cf054-bee0-498f-a7a8-93318f6c5f9d';
 
     /**
      * Smart Email id for sending reminder email for level one not complete after one day
      */
-    protected $smartIdForLevelOneComplete = '962c4028-b389-4e39-b973-c6b99c6b066d';
+    protected $smartIdForLevelOneComplete = '3b4cd25d-d373-46f1-97a6-c300b0769a9b';
 
     /**
      * Smart Email id for sending reminder email for level one not complete after one day
      */
-    protected $smartIdForLevelOneNotCompleteAfterOneDay = '69de2b48-d9e6-4c77-9ba4-eeccb510c6f9';
+    protected $smartIdForLevelOneNotCompleteAfterOneDay = 'abb4f611-1396-40b3-90f0-9a6106c9b36f';
 
     /**
      * Smart Email id for sending reminder email for level one not complete after one month
      */
-    protected $smartIdForLevelOneNotCompleteAfterOneMonth = '9b98b509-94a5-4947-bfac-cea8188bdb2f';
+    protected $smartIdForLevelOneNotCompleteAfterOneMonth = '3b7c09a2-77d0-4853-8c0e-a942c5c5b9f2';
 
     /**
      * Smart Email id : no activity after completing level one for one month
      */
-    protected $smartIdForNoActivityAfterCompletingLevelOneForOneMonth = '971ed0ed-6064-44b5-b42a-3e414f31306f';
+    protected $smartIdForNoActivityAfterCompletingLevelOneForOneMonth = 'a576375d-74b4-4399-89f9-f052cea48502';
 
     /**
      * Smart Email id : no activity after completing level two for one week
      */
-    protected $smartIdForNoActivityAfterCompletingLevelTwoForOneWeek = '4d3b4f22-b19f-4f29-a259-417d3d938a50';
+    protected $smartIdForNoActivityAfterCompletingLevelTwoForOneWeek = '1f2f606c-8211-4781-a9b6-7060ecc1bddc';
 
     /**
      * Smart Email id : no activity after completing level two for one month
      */
-    protected $smartIdForNoActivityAfterCompletingLevelTwoForOneMonth = 'a029a12a-e4e7-45bc-964c-520758273638';
+    protected $smartIdForNoActivityAfterCompletingLevelTwoForOneMonth = '8af90114-c4fe-4acc-8dc5-81b841776c1b';
 
     /**
      * Smart Email id for sending reminder email for level two not complete after one week
      */
-    protected $smartIdForLevelTwoNotCompleteAfterOneWeek = 'cafec9fd-133f-42fd-982a-10de1c7b2e18';
+    protected $smartIdForLevelTwoNotCompleteAfterOneWeek = 'ad3b6ca5-c07b-449f-99b4-5a90e198b645';
 
     /**
      * Smart Email id for sending forgot password email
      */
-    protected $smartEmailIdForForgotPassword = 'c8219942-f704-4935-8353-569e3e5d274a';
+    protected $smartEmailIdForForgotPassword = 'b7a2131b-76a9-48ab-a429-cb1cb3071c26';
 
 	/**
 	 * Smart Email id for sending lead email
 	 */
-	protected $smartIdForSendingLead = '9b4389ab-e6c7-4612-aea6-03fa8fb11047';
+	protected $smartIdForSendingLead = '14000b9d-ae87-460b-9c2f-7a3becdb0b04';
 
 	/**
      * Auth Array to access Campaign Monitor
