@@ -52,6 +52,15 @@
     @endif
 </div>
 
+{{--If user cancel, days to disable popup--}}
+<div class="form-group days-to-disable-when-cancelled">
+    <label>If user cancel, days to disable popup:</label>
+    {{ Form::text('value[days_to_disable_when_cancelled]', null, ['class' => 'form-control']) }}
+    @if($errors->has('value[days_to_disable_when_cancelled]'))
+        <span class="text-danger">{{ $errors->first('value[days_to_disable_when_cancelled]') }}</span>
+    @endif
+</div>
+
 {{--Content--}}
 <div class="form-group">
     <label>Content:</label>
