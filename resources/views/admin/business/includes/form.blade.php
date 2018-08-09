@@ -10,10 +10,10 @@
 {{--Owner Name--}}
 <div class="form-group">
     <label class="display-block text-semibold">Owner:</label>
-    {{ Form::select('user_id', $data['users'], null, ['class' => 'form-control']) }}
-    @if($errors->has('user_id'))
-        <span class="text-danger">{{ $errors->first('user_id') }}</span>
+    @if(isset($data['row']))
+        <strong>{{ $data['row']->user->first_name }} {{ $data['row']->user->last_name }}</strong>
     @endif
+    <div><small>Cannot change user once associated with one business</small></div>
 </div>
 
 {{--Business Category--}}
@@ -37,18 +37,10 @@
 {{--ABN--}}
 <div class="form-group">
     <label>ABN:</label>
+    <div><small>Write your Australian Business Number </small></div>
     {{ Form::text('abn', null, ['class' => 'form-control']) }}
     @if($errors->has('abn'))
         <span class="text-danger">{{ $errors->first('abn') }}</span>
-    @endif
-</div>
-
-{{--ACN--}}
-<div class="form-group">
-    <label>ACN:</label>
-    {{ Form::text('acn', null, ['class' => 'form-control']) }}
-    @if($errors->has('acn'))
-        <span class="text-danger">{{ $errors->first('acn') }}</span>
     @endif
 </div>
 

@@ -19,7 +19,6 @@ class Business extends Model
         'logo',
         'website',
         'abn',
-        'acn',
         'business_email',
         'business_mobile',
         'business_general_phone',
