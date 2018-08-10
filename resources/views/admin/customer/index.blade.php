@@ -36,7 +36,7 @@
                                           action="{{ route('admin.customer.destroy', $item->id) }}">
                                         {{ csrf_field() }}
                                         {{ method_field('DELETE') }}
-                                        <button onclick="javascript: return confirm('Are you sure?');" type="submit"
+                                        <button onclick="javascript: return confirm('Are you sure? Deleting customer will delete associated business as well.');" type="submit"
                                                 class="btn btn-sm btn-danger">Delete
                                         </button>
                                     </form>

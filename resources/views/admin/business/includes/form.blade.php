@@ -11,7 +11,7 @@
 <div class="form-group">
     <label class="display-block text-semibold">Owner:</label>
     @if(isset($data['row']))
-        <strong>{{ $data['row']->user->first_name }} {{ $data['row']->user->last_name }}</strong>
+        <strong>{{ isset($data['row']->user) ? $data['row']->user->first_name : '' }} {{ isset($data['row']->user) ? $data['row']->user->last_name : '' }}</strong>
     @endif
     <div><small>Cannot change user once associated with one business</small></div>
 </div>

@@ -24,6 +24,9 @@ class CreateFormValidation extends FormRequest
     public function rules()
     {
         return [
+        	'name' => 'required',
+	        'level_id' => 'required',
+	        'icon' => 'required',
         ];
     }
 }

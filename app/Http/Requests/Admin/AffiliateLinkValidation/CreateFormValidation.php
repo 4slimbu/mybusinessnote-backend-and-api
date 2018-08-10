@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\LevelValidation;
+namespace App\Http\Requests\Admin\AffiliateLinkValidation;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateFormValidation extends FormRequest
+class CreateFormValidation extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,11 +23,10 @@ class UpdateFormValidation extends FormRequest
      */
     public function rules()
     {
-	    return [
-		    'name'          => 'required',
-		    'icon'          => 'required',
-		    'badge_icon'    => 'required',
-		    'badge_message' => 'required',
-	    ];
+        return [
+            'name'       => 'required',
+            'link' => 'required|url',
+            'user_id' => 'required',
+        ];
     }
 }

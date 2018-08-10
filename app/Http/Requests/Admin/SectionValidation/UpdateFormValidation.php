@@ -23,7 +23,10 @@ class UpdateFormValidation extends FormRequest
      */
     public function rules()
     {
-        return [
-        ];
+	    return [
+		    'name' => 'required',
+		    'level_id' => 'required',
+		    'icon' => 'required',
+	    ];
     }
 }

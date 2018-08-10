@@ -23,9 +23,12 @@
                     <!-- Top Business Option -->
                     @foreach ($data['rows'] as $businessOption)
                         <tr>
+                            <?php
+//                            dd( $businessOption->section->name );
+                            ?>
                             <td>{{ $businessOption->name }}</td>
-                            <td>{{ $businessOption->section->level->name }}</td>
-                            <td>{{ $businessOption->section->name }}</td>
+                            <td>{{ isset($businessOption->section) &&isset($businessOption->section->level) ? $businessOption->section->level->name : '' }}</td>
+                            <td>{{ isset($businessOption->section) ? $businessOption->section->name : '' }}</td>
                             <td>{{ ViewHelper::generateList($businessOption->businessCategories, $data['businessCategoriesCount']) }}</td>
                             <td>
                                 <div class="">
@@ -51,8 +54,8 @@
                             @foreach($businessOption->children as $BO)
                                 <tr>
                                     <td style="padding-left: 100px;">{{ $BO->name }}</td>
-                                    <td>{{ $BO->section->level->name }}</td>
-                                    <td>{{ $BO->section->name }}</td>
+                                    <td>{{ isset($BO->section) && isset($BO->section->level) ? $BO->section->level->name : '' }}</td>
+                                    <td>{{ isset($BO->section) ? $BO->section->name : ''}}</td>
                                     <td>{{ ViewHelper::generateList($BO->businessCategories, $data['businessCategoriesCount']) }}</td>
                                     <td>
                                         <div class="">
@@ -74,8 +77,8 @@
                                     @foreach($BO->children as $childBO)
                                         <tr>
                                             <td style="padding-left: 150px;">{{ $childBO->name }}</td>
-                                            <td>{{ $childBO->section->level->name }}</td>
-                                            <td>{{ $childBO->section->name }}</td>
+                                            <td>{{ isset($childBO->section) && isset($childBO->section->level) ? $childBO->section->level->name : '' }}</td>
+                                            <td>{{ isset($childBO->section) ? $childBO->section->name : '' }}</td>
                                             <td>{{ ViewHelper::generateList($childBO->businessCategories, $data['businessCategoriesCount']) }}</td>
                                             <td>
                                                 <div class="">
@@ -97,8 +100,8 @@
                                             @foreach($childBO->children as $grandChildBO)
                                                 <tr>
                                                     <td style="padding-left: 200px;">{{ $grandChildBO->name }}</td>
-                                                    <td>{{ $grandChildBO->section->level->name }}</td>
-                                                    <td>{{ $grandChildBO->section->name }}</td>
+                                                    <td>{{ isset($grandChildBO->section) && isset($grandChildBO->section->level) ? $grandChildBO->section->level->name: '' }}</td>
+                                                    <td>{{ isset($grandChildBO->section) ? $grandChildBO->section->name : '' }}</td>
                                                     <td>{{ ViewHelper::generateList($grandChildBO->businessCategories, $data['businessCategoriesCount']) }}</td>
                                                     <td>
                                                         <div class="">

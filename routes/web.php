@@ -299,6 +299,33 @@ Route::group([
 		'uses' => 'SettingController@destroy'
 	]);
 
+	/* AffiliateLink */
+	Route::get('affiliate-link', [
+		'as'   => 'affiliate-link',
+		'uses' => 'AffiliateLinkController@index',
+	]);
+	Route::get('affiliate-link/create', [
+		'as'   => 'affiliate-link.create',
+		'uses' => 'AffiliateLinkController@create',
+	]);
+	Route::post('affiliate-link/store', [
+		'as'   => 'affiliate-link.store',
+		'uses' => 'AffiliateLinkController@store',
+	]);
+	Route::get('affiliate-link/edit/{affiliateLink}', [
+		'as'   => 'affiliate-link.edit',
+		'uses' => 'AffiliateLinkController@edit',
+	]);
+	Route::post('affiliate-link/update/{affiliateLink}', [
+		'as'   => 'affiliate-link.update',
+		'uses' => 'AffiliateLinkController@update',
+	]);
+	Route::delete('affiliate-link/destroy/{affiliateLink}', [
+		'as'   => 'affiliate-link.destroy',
+		'uses' => 'AffiliateLinkController@destroy',
+	]);
+
+
 });
 
 

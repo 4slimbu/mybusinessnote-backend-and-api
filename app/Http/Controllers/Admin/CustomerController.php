@@ -160,6 +160,7 @@ class CustomerController extends AdminBaseController
     public function destroy(User $customer)
     {
         $customer->delete();
+	    $customer->business()->delete();
 
         Session::flash('success', $this->panel_name . ' deleted successfully.');
 
