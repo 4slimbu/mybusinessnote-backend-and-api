@@ -52,150 +52,120 @@
     @endif
 </div>
 
+<h5>Billing Addresss:</h5>
+<div class="sub-field-group">
+    {{--Billing Street 1--}}
+    <div class="form-group">
+        <label>Billing Street 1:</label>
+        {{ Form::text('billing_street1', isset($data['userProfile']->billing_street1)?$data['userProfile']->billing_street1 : '', ['class' => 'form-control']) }}
+        @if($errors->has('billing_street1'))
+            <span class="text-danger">{{ $errors->first('billing_street1') }}</span>
+        @endif
+    </div>
 
-{{--Affiliate Link Label--}}
-<div class="form-group">
+    {{--Billing Street 2--}}
+    <div class="form-group">
+        <label>Billing Street 2:</label>
+        {{ Form::text('billing_street2', isset( $data['userProfile']->billing_street2 )?$data['userProfile']->billing_street2 : '', ['class' => 'form-control']) }}
+        @if($errors->has('billing_street2'))
+            <span class="text-danger">{{ $errors->first('billing_street2') }}</span>
+        @endif
+    </div>
 
-    <label>Affiliate Link Label:</label>
+    {{--Billing Post Code--}}
+    <div class="form-group">
+        <label>Billing Post Code:</label>
+        {{ Form::text('billing_postcode', isset( $data['userProfile']->billing_postcode ) ? $data['userProfile']->billing_postcode : '', ['class' => 'form-control']) }}
+        @if($errors->has('billing_postcode'))
+            <span class="text-danger">{{ $errors->first('billing_postcode') }}</span>
+        @endif
+    </div>
 
-    {{ Form::text('affiliate_link_label', (isset($data['affiliateLink']))  ? $data['affiliateLink']->name : '', ['class' => 'form-control']) }}
+    {{--Billing State--}}
+    <div class="form-group">
+        <label>Billing State:</label>
+        {{ Form::text('billing_state', isset( $data['userProfile']->billing_state ) ? $data['userProfile']->billing_state : '', ['class' => 'form-control']) }}
+        @if($errors->has('billing_state'))
+            <span class="text-danger">{{ $errors->first('billing_state') }}</span>
+        @endif
+    </div>
 
-    @if($errors->has('affiliate_link_label'))
+    {{--Billing Sub Urb--}}
+    <div class="form-group">
+        <label>Billing Sub Urb:</label>
+        {{ Form::text('billing_suburb', isset( $data['userProfile']->billing_suburb ) ? $data['userProfile']->billing_suburb : '', ['class' => 'form-control']) }}
+        @if($errors->has('billing_suburb'))
+            <span class="text-danger">{{ $errors->first('billing_suburb') }}</span>
+        @endif
+    </div>
 
-        <span class="text-danger">{{ $errors->first('affiliate_link_label') }}</span>
-
-    @endif
+    {{--Billing Country--}}
+    <div class="form-group">
+        <label>Billing Country:</label>
+        {{ Form::text('billing_country', isset( $data['userProfile']->billing_country ) ? $data['userProfile']->billing_country : '', ['class' => 'form-control']) }}
+        @if($errors->has('billing_country'))
+            <span class="text-danger">{{ $errors->first('billing_country') }}</span>
+        @endif
+    </div>
 
 </div>
 
-{{--Affiliate Link--}}
-<div class="form-group">
+<h5>Physical Address:</h5>
+<div class="sub-field-group">
+    {{--Street 1--}}
+    <div class="form-group physical_address">
+        <label>Street 1:</label>
+        {{ Form::text('residential_street1', isset( $data['userProfile']->residential_street1 ) ? $data['userProfile']->residential_street1 : '' , ['class' => 'form-control']) }}
+        @if($errors->has('residential_street1'))
+            <span class="text-danger">{{ $errors->first('residential_street1') }}</span>
+        @endif
+    </div>
 
-    <label>Affiliate Link:</label>
+    {{--Street 2--}}
+    <div class="form-group physical_address">
+        <label>Street 2:</label>
+        {{ Form::text('residential_street2', isset( $data['userProfile']->residential_street2 ) ? $data['userProfile']->residential_street2 : '' , ['class' => 'form-control']) }}
+        @if($errors->has('residential_street2'))
+            <span class="text-danger">{{ $errors->first('residential_street2') }}</span>
+        @endif
+    </div>
 
-    {{ Form::text('affiliate_link', (isset($data['affiliateLink']))  ? $data['affiliateLink']->link : '', ['class' => 'form-control']) }}
+    {{--Post Code--}}
+    <div class="form-group physical_address">
+        <label>Post Code:</label>
+        {{ Form::text('residential_postcode', isset( $data['userProfile']->residential_postcode ) ? $data['userProfile']->residential_postcode : '' , ['class' => 'form-control']) }}
+        @if($errors->has('residential_postcode'))
+            <span class="text-danger">{{ $errors->first('residential_postcode') }}</span>
+        @endif
+    </div>
 
-    @if($errors->has('affiliate_link'))
+    {{--State--}}
+    <div class="form-group physical_address">
+        <label>State:</label>
+        {{ Form::text('residential_state', isset( $data['userProfile']->residential_state ) ? $data['userProfile']->residential_state : '', ['class' => 'form-control']) }}
+        @if($errors->has('residential_state'))
+            <span class="text-danger">{{ $errors->first('residential_state') }}</span>
+        @endif
+    </div>
 
-        <span class="text-danger">{{ $errors->first('affiliate_link') }}</span>
+    {{--Sub Urb--}}
+    <div class="form-group physical_address">
+        <label>Sub Urb:</label>
+        {{ Form::text('residential_suburb', isset( $data['userProfile']->residential_suburb ) ? $data['userProfile']->residential_suburb : '', ['class' => 'form-control']) }}
+        @if($errors->has('residential_suburb'))
+            <span class="text-danger">{{ $errors->first('residential_suburb') }}</span>
+        @endif
+    </div>
 
-    @endif
+    {{--Country--}}
+    <div class="form-group physical_address">
+        <label>Country:</label>
+        {{ Form::text('residential_country', isset( $data['userProfile']->residential_country ) ? $data['userProfile']->residential_country : '' , ['class' => 'form-control']) }}
+        @if($errors->has('residential_country'))
+            <span class="text-danger">{{ $errors->first('residential_country') }}</span>
+        @endif
+    </div>
 
-</div>
-
-
-{{--Billing Street 1--}}
-<div class="form-group">
-    <label>Billing Street 1:</label>
-    {{ Form::text('billing_street1', isset($data['userProfile']->billing_street1)?$data['userProfile']->billing_street1 : '', ['class' => 'form-control']) }}
-    @if($errors->has('billing_street1'))
-        <span class="text-danger">{{ $errors->first('billing_street1') }}</span>
-    @endif
-</div>
-
-{{--Billing Street 2--}}
-<div class="form-group">
-    <label>Billing Street 2:</label>
-    {{ Form::text('billing_street2', isset( $data['userProfile']->billing_street2 )?$data['userProfile']->billing_street2 : '', ['class' => 'form-control']) }}
-    @if($errors->has('billing_street2'))
-        <span class="text-danger">{{ $errors->first('billing_street2') }}</span>
-    @endif
-</div>
-
-{{--Billing Post Code--}}
-<div class="form-group">
-    <label>Billing Post Code:</label>
-    {{ Form::text('billing_postcode', isset( $data['userProfile']->billing_postcode ) ? $data['userProfile']->billing_postcode : '', ['class' => 'form-control']) }}
-    @if($errors->has('billing_postcode'))
-        <span class="text-danger">{{ $errors->first('billing_postcode') }}</span>
-    @endif
-</div>
-
-{{--Billing State--}}
-<div class="form-group">
-    <label>Billing State:</label>
-    {{ Form::text('billing_state', isset( $data['userProfile']->billing_state ) ? $data['userProfile']->billing_state : '', ['class' => 'form-control']) }}
-    @if($errors->has('billing_state'))
-        <span class="text-danger">{{ $errors->first('billing_state') }}</span>
-    @endif
-</div>
-
-{{--Billing Sub Urb--}}
-<div class="form-group">
-    <label>Billing Sub Urb:</label>
-    {{ Form::text('billing_suburb', isset( $data['userProfile']->billing_suburb ) ? $data['userProfile']->billing_suburb : '', ['class' => 'form-control']) }}
-    @if($errors->has('billing_suburb'))
-        <span class="text-danger">{{ $errors->first('billing_suburb') }}</span>
-    @endif
-</div>
-
-{{--Billing Country--}}
-<div class="form-group">
-    <label>Billing Country:</label>
-    {{ Form::text('billing_country', isset( $data['userProfile']->billing_country ) ? $data['userProfile']->billing_country : '', ['class' => 'form-control']) }}
-    @if($errors->has('billing_country'))
-        <span class="text-danger">{{ $errors->first('billing_country') }}</span>
-    @endif
-</div>
-@if(! isset($data['row']))
-<p>
-    {{ Form::checkbox('same_address', 0, false, ['id' => 'show_physical_address']) }}
-    Is Physical Address same as Business Address?
-</p>
-@endif
-
-{{--Street 1--}}
-<div class="form-group physical_address">
-    <label>Street 1:</label>
-    {{ Form::text('residential_street1', isset( $data['userProfile']->residential_street1 ) ? $data['userProfile']->residential_street1 : '' , ['class' => 'form-control']) }}
-    @if($errors->has('residential_street1'))
-        <span class="text-danger">{{ $errors->first('residential_street1') }}</span>
-    @endif
-</div>
-
-{{--Street 2--}}
-<div class="form-group physical_address">
-    <label>Street 2:</label>
-    {{ Form::text('residential_street2', isset( $data['userProfile']->residential_street2 ) ? $data['userProfile']->residential_street2 : '' , ['class' => 'form-control']) }}
-    @if($errors->has('residential_street2'))
-        <span class="text-danger">{{ $errors->first('residential_street2') }}</span>
-    @endif
-</div>
-
-{{--Post Code--}}
-<div class="form-group physical_address">
-    <label>Post Code:</label>
-    {{ Form::text('residential_postcode', isset( $data['userProfile']->residential_postcode ) ? $data['userProfile']->residential_postcode : '' , ['class' => 'form-control']) }}
-    @if($errors->has('residential_postcode'))
-        <span class="text-danger">{{ $errors->first('residential_postcode') }}</span>
-    @endif
-</div>
-
-{{--State--}}
-<div class="form-group physical_address">
-    <label>State:</label>
-    {{ Form::text('residential_state', isset( $data['userProfile']->residential_state ) ? $data['userProfile']->residential_state : '', ['class' => 'form-control']) }}
-    @if($errors->has('residential_state'))
-        <span class="text-danger">{{ $errors->first('residential_state') }}</span>
-    @endif
-</div>
-
-{{--Sub Urb--}}
-<div class="form-group physical_address">
-    <label>Sub Urb:</label>
-    {{ Form::text('residential_suburb', isset( $data['userProfile']->residential_suburb ) ? $data['userProfile']->residential_suburb : '', ['class' => 'form-control']) }}
-    @if($errors->has('residential_suburb'))
-        <span class="text-danger">{{ $errors->first('residential_suburb') }}</span>
-    @endif
-</div>
-
-{{--Country--}}
-<div class="form-group physical_address">
-    <label>Country:</label>
-    {{ Form::text('residential_country', isset( $data['userProfile']->residential_country ) ? $data['userProfile']->residential_country : '' , ['class' => 'form-control']) }}
-    @if($errors->has('residential_country'))
-        <span class="text-danger">{{ $errors->first('residential_country') }}</span>
-    @endif
 </div>
 
 {{--Website--}}

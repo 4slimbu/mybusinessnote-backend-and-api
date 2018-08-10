@@ -24,7 +24,11 @@
                         <tr>
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->business_name }}</td>
-                            <td>{{ isset($item->user) ? $item->user->first_name : '' }}</td>
+                            <td>
+                                <a href="{{ route('admin.customer.edit', isset($item->user) ? $item->user->id : '') }}">
+                                    {{ isset($item->user) ? $item->user->first_name : '' }}
+                                </a>
+                            </td>
                             <td>{{ isset($item->businessCategory) ? $item->businessCategory->name : '' }}</td>
                             <td>
 

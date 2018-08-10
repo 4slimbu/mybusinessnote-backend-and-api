@@ -24,7 +24,9 @@
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->name }}</td>
                             <td>
-                                {{ $item->level->name }}
+                                <a href="{{ route('admin.level.edit', isset($item->level) ? $item->level->id : '') }}">
+                                    {{ isset($item->level) ? $item->level->name : ''}}
+                                </a>
                             </td>
                             <td>
                                 <div class="">

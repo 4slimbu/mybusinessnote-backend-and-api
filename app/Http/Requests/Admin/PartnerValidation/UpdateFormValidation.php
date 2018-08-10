@@ -24,6 +24,7 @@ class UpdateFormValidation extends FormRequest
     public function rules()
     {
         return [
+        	'email' => 'unique:users,email,' . request()->route( 'partner' )->id
         ];
     }
 }

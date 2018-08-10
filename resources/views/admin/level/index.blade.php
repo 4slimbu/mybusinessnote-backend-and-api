@@ -27,7 +27,11 @@
                             <td>
                                 @if($item->sections)
                                     @foreach($item->sections as $section)
-                                        <div>{{ $section->name }} </div>
+                                        <div>
+                                            <a href="{{ route('admin.section.edit', $section->id) }}">
+                                                {{ $section->name }}
+                                            </a>
+                                        </div>
                                     @endforeach
                                 @endif
                             </td>

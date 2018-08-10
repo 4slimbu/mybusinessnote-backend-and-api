@@ -23,7 +23,8 @@ class UpdateFormValidation extends FormRequest
      */
     public function rules()
     {
-        return [
-        ];
+	    return [
+		    'email' => 'unique:users,email,' . request()->route( 'customer' )->id
+	    ];
     }
 }
