@@ -6,10 +6,8 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="panel panel-default">
-                        <h1 class="head text-center">Register</div>
+                        <h1 class="head text-center">Register</h1></div>
                     <p class="lead text-center">
-                        Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non
-                        commodo luctus.
                     </p>
                     <div class="panel-body">
                         <form class="form-horizontal" method="POST" action="{{ route('register') }}">

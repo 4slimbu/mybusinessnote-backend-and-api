@@ -9,8 +9,7 @@
                     <div class="panel panel-default">
                         <h1 class="text-center">Reset Password</h1>
                         <p class="lead text-center">
-                            Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non
-                            commodo luctus.
+                            Enter your email address to reset your password.
                         </p>
                         <div class="panel-body">
                             @if (session('status'))

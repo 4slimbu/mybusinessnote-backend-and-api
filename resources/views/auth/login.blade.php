@@ -9,8 +9,6 @@
                     <div class="panel panel-default">
                         <h1 class="head text-center">Login</h1>
                         <p class="lead text-center">
-                            Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non
-                            commodo luctus.
                         </p>
                         <div class="panel-body">
                             <form class="form-horizontal" method="POST" action="{{ route('login') }}">
