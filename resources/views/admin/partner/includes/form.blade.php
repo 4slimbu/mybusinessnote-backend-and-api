@@ -52,7 +52,7 @@
     @endif
 </div>
 
-<h5>Billing Addresss:</h5>
+<h5>Billing Address:</h5>
 <div class="sub-field-group">
     {{--Billing Street 1--}}
     <div class="form-group">

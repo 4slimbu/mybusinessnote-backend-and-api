@@ -23,10 +23,10 @@
                     @foreach ($data['rows'] as $item)
                         <tr>
                             <td></td>
-                            <td>{{ $item->user->first_name }}</td>
-                            <td>{{ $item->user->last_name }}</td>
-                            <td>{{ $item->user->phone_number }}</td>
-                            <td>{{ $item->user->email }}</td>
+                            <td>{{ isset($item->user) ? $item->user->first_name : '' }}</td>
+                            <td>{{ isset($item->user) ? $item->user->last_name : ''}}</td>
+                            <td>{{ isset($item->user) ? $item->user->phone_number : ''}}</td>
+                            <td>{{ isset($item->user) ? $item->user->email : ''}}</td>
                             <td>{{ $item->created_at }}</td>
                         </tr>
 

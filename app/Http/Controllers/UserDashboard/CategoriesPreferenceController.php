@@ -109,7 +109,7 @@ class CategoriesPreferenceController extends BaseController
 
         if ($section && $businessOptions) {
             foreach ($businessOptions as $businessOption) {
-                if ($businessOption->section->slug === $section->slug) {
+                if (isset($businessOption->section) && $businessOption->section->slug === $section->slug) {
                     //status
                     //show only ones that are already viewed by user
                     $status = ($businessOption->status) ? $businessOption->status : '';
