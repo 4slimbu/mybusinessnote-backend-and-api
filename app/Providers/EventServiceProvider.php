@@ -24,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\ForgotPasswordEvent'                               => [
             'App\Listeners\SendForgotPasswordEmail',
         ],
+        'App\Events\CommonForgotPasswordEvent'                               => [
+	        'App\Listeners\SendCommonForgotPasswordEmail',
+        ],
         'App\Events\AddToEmailNotificationTrackerEvent'                => [
             'App\Listeners\AddToEmailNotificationTrackerList',
         ],

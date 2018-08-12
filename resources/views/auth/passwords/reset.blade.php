@@ -9,6 +9,12 @@
                         <h1 class="head text-center">Reset Password</h1>
 
                         <div class="panel-body">
+                            @if (session('status'))
+                                <div class="alert alert-success">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
+
                             <form class="form-horizontal" method="POST" action="{{ route('password.request') }}">
                                 {{ csrf_field() }}
 

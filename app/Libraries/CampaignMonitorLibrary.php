@@ -229,7 +229,7 @@ class CampaignMonitorLibrary
     }
 
     /**
-     * Send Forgot Password Email using Smart Transactional Email
+     * Send Forgot Password Email for customers using Smart Transactional Email
      */
     public function sendForgotPasswordEmail()
     {
@@ -245,6 +245,23 @@ class CampaignMonitorLibrary
 
         $this->sendSmartTransactionalMail($this->smartEmailIdForForgotPassword, $messageData);
     }
+
+	/**
+	 * Send Forgot Password Email for all type of users ( admin, partner, customer) using Smart Transactional Email
+	 */
+	public function sendCommonForgotPasswordEmail()
+	{
+		$messageData = [
+			"To"   => [
+				"{$this->userName} <{$this->user->email}>",
+			],
+			"Data" => [
+				"reset_password_link"     => url('/') . '/password/reset/' . $this->user->forgot_password_token,
+			],
+		];
+
+		$this->sendSmartTransactionalMail($this->smartEmailIdForForgotPassword, $messageData);
+	}
 
     /**
      * Send an achievement email to user when user completes level one
