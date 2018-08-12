@@ -25,9 +25,6 @@ class UpdateFormValidation extends FormRequest
     {
 	    return [
 		    'name'          => 'required',
-		    'icon'          => 'required',
-		    'badge_icon'    => 'required',
-		    'badge_message' => 'required',
 	    ];
     }
 }

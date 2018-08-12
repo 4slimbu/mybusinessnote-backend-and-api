@@ -7,6 +7,24 @@
     @endif
 </div>
 
+{{--Meta Title--}}
+<div class="form-group">
+    <label>Meta Title:</label>
+    {{ Form::text('meta_title', null, ['class' => 'form-control']) }}
+    @if($errors->has('meta_title'))
+        <span class="text-danger">{{ $errors->first('meta_title') }}</span>
+    @endif
+</div>
+
+{{--Meta Description--}}
+<div class="form-group">
+    <label>Meta Description:</label>
+    {{ Form::textarea('meta_description', null, ['class' => 'form-control', 'rows' => 3]) }}
+    @if($errors->has('meta_description'))
+        <span class="text-danger">{{ $errors->first('meta_description') }}</span>
+    @endif
+</div>
+
 {{--Icon--}}
 <div class="form-group">
     <label class="display-block text-semibold">Icon:</label>

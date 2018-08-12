@@ -22,6 +22,8 @@ class SectionResource extends Resource {
 			'level_id'          => $this->level_id,
 			'name'              => $this->name,
 			'slug'              => $this->slug,
+			'meta_title'        => $this->meta_title,
+			'meta_description'  => $this->meta_description,
 			'icon'              => asset( $this->uploadDirectory . $this->icon ),
 			'hover_icon'        => asset( $this->uploadDirectory . $this->hover_icon ),
 			'tooltip_title'     => $this->tooltip_title,

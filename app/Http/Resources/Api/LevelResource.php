@@ -28,6 +28,8 @@ class LevelResource extends Resource
 
         // extra data returned if corresponding query params exist
         if (in_array('slug', $fields) || !$fieldString) $data['slug'] = $this->slug;
+        if (in_array('meta_title', $fields) || !$fieldString) $data['meta_title'] = $this->meta_title;
+        if (in_array('meta_description', $fields) || !$fieldString) $data['meta_description'] = $this->meta_description;
         if (in_array('icon', $fields) || !$fieldString) $data['icon'] = asset($this->uploadDirectory . $this->icon);
         if (in_array('badge_icon', $fields) || !$fieldString) $data['badge_icon'] = asset($this->uploadDirectory . $this->badge_icon);
         if (in_array('badge_message', $fields) || !$fieldString) $data['badge_message'] = $this->badge_message;

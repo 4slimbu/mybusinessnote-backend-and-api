@@ -16,6 +16,8 @@ class BusinessOption extends Model {
 		'name',
 		'short_name',
 		'slug',
+		'meta_title',
+		'meta_description',
 		'icon',
 		'hover_icon',
 		'content',
