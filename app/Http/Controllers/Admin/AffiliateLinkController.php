@@ -8,7 +8,6 @@ use App\Http\Requests\Admin\AffiliateLinkValidation\UpdateFormValidation;
 use App\Libraries\ImageLibrary;
 use App\Models\AffiliateLink;
 use App\Models\BusinessCategory;
-use App\Models\Section;
 use App\Models\User;
 use AppHelper;
 use Illuminate\Http\Request;

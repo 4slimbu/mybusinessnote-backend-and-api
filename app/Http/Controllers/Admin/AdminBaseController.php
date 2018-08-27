@@ -22,7 +22,6 @@ class AdminBaseController extends Controller
             if (property_exists($this, 'upload_directory')) {
                 $view->with('upload_directory', $this->upload_directory);
             }
-
         });
 
         return $path;

@@ -54,6 +54,15 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\LeadGenerateEvent' => [
 	        'App\Listeners\LeadGenerateListener',
         ],
+        'App\Events\SyncUserData' => [
+	        'App\Listeners\SyncUserDataListener',
+        ],
+        'App\Events\SystemChanged' => [
+	        'App\Listeners\SystemChangedListener',
+        ],
+        'App\Events\SectionDeleted' => [
+	        'App\Listeners\SectionDeletedListener',
+        ],
     ];
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Events\SectionDeleted;
 use App\Http\Requests\Admin\SectionValidation\CreateFormValidation;
 use App\Http\Requests\Admin\SectionValidation\UpdateFormValidation;
 use App\Libraries\ImageLibrary;
@@ -191,6 +192,8 @@ class SectionController extends AdminBaseController
 	    ImageLibrary::removeImage( $section->icon, $this->upload_directory );
 
         $section->delete();
+
+	    event( new SectionDeleted() );
 
         Session::flash('success', $this->panel_name . ' deleted successfully.');
 
