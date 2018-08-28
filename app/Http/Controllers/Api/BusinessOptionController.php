@@ -96,7 +96,6 @@ class BusinessOptionController extends ApiBaseController
                 'business_category_id'   => $business->business_category_id,
                 'business_option_status' => 'done',
             ];
-            $this->unlockNextBusinessOption($business, $business_option);
             $syncResponse = $this->syncBusinessPivotTables($business, $business_option, $data);
 
         } else {
@@ -112,7 +111,6 @@ class BusinessOptionController extends ApiBaseController
                     'business_option_status' => $business_option_status,
                 ];
 
-                $this->unlockNextBusinessOption($business, $business_option);
                 $syncResponse = $this->syncBusinessPivotTables($business, $business_option, $data);
             }
         }
@@ -121,7 +119,7 @@ class BusinessOptionController extends ApiBaseController
         $business_option = $business->businessOptions()
             ->where('business_business_option.business_option_id', $business_option->id)->first();
 
-        $businessStatus = $this->refreshAllRelatedStatusForCurrentAndNextBusinessOption($business, $business_option);
+        $businessStatus = $this->refreshAllRelatedStatusForCurrentBusinessOption($business, $business_option);
 
         //return response
         return ResponseLibrary::success([

@@ -112,6 +112,35 @@ trait BusinessOptionable
         $this->refreshBusinessBusinessOptions($business);
         $this->refreshBusinessLevels($business);
         $this->refreshBusinessSections($business);
+
+        // Sync sections completed percent
+	    $sections = $business->sections()->get();
+	    foreach ( $sections as $section ) {
+		    // Get current section completed percent
+		    $currentSectionCompletedPercent = $this->getSectionCompletedPercent($business, $section->id);
+
+		    // Update section completed percent with new value
+		    $business->sections()->detach($section->id);
+		    $business->sections()->attach([$section->id => [
+			    'completed_percent' => $currentSectionCompletedPercent,
+			    'updated_at'        => Carbon::now(),
+		    ]]);
+	    }
+
+	    // Sync level completed percent
+	    $levels = $business->levels()->get();
+	    foreach ( $levels as $level ) {
+		    // Get current level completed percent
+		    $currentSectionCompletedPercent = $this->getSectionCompletedPercent($business, $level->id);
+
+		    // Update level completed percent with new value
+		    $business->levels()->detach($level->id);
+		    $business->levels()->attach([$level->id => [
+			    'completed_percent' => $currentSectionCompletedPercent,
+			    'updated_at'        => Carbon::now(),
+		    ]]);
+	    }
+
     }
 
     /**
@@ -275,6 +304,33 @@ trait BusinessOptionable
         return null;
     }
 
+	/**
+	 * Unlock next relevant business option for given business
+	 *
+	 * @param Business $business
+	 * @param $level_id
+	 *
+	 * @return bool
+	 * @internal param Level $level
+	 *
+	 */
+	public function unlockBusinessOptions(Business $business, $level_id)
+	{
+		$businessOptionIds = $business->businessOptions()
+		                               ->where('level_id', $level_id)->pluck('id');
+
+		if ($businessOptionIds) {
+				BusinessBusinessOption::where( 'business_id', $business->id )
+				                      ->where( 'status', 'locked' )
+				                      ->whereIn('business_option_id', $businessOptionIds)
+				                      ->update(['status' => 'unlocked']);
+
+				return true;
+		}
+
+		return false;
+	}
+
     /**
      * This will get level, section and business option statuses for current business option
      *
@@ -305,7 +361,9 @@ trait BusinessOptionable
 
         $data['levelStatus'] = $business->levels()->where('id', $currentBusinessOption->level_id)->orWhere('id', $nextBusinessOption->level_id)->get();
         $data['sectionStatus'] = $business->sections()->where('id', $currentBusinessOption->section_id)->orWhere('id', $nextBusinessOption->section_id)->get();
-        $data['businessOptionStatus'] = $business->businessOptions()->where('id', $currentBusinessOption->id)->orWhere('id', $currentBusinessOption->parent_id)->orWhere('id', $nextBusinessOption->id)->get();
+        $data['businessOptionStatus'] = $business->businessOptions()->where('id', $currentBusinessOption->id)
+                                                                    ->orWhere('id', $currentBusinessOption->parent_id)
+                                                                    ->orWhere('id', $nextBusinessOption->id)->get();
 
         return new BusinessStatusResource($business, $data);
     }
@@ -342,7 +400,7 @@ trait BusinessOptionable
             ->where('section_id', $business_option->section_id)->first()->completed_percent;
 
         // Get current section completed percent
-        $currentSectionCompletedPercent = $this->getSectionCompletedPercent($business, $business_option);
+        $currentSectionCompletedPercent = $this->getSectionCompletedPercent($business, $business_option->section_id);
 
         // Update section completed percent with new value
         $business->sections()->detach($business_option->section_id);
@@ -372,7 +430,7 @@ trait BusinessOptionable
 	                                                     ->where('level_id', $business_option->level_id)->first()->completed_percent;
 
 	    // Get current level completed percent
-	    $currentLevelCompletedPercent = $this->getLevelCompletedPercent($business, $business_option);
+	    $currentLevelCompletedPercent = $this->getLevelCompletedPercent($business, $business_option->level_id);
 
         // Update section completed percent with new value
         $business->levels()->detach($business_option->level_id);
@@ -391,6 +449,12 @@ trait BusinessOptionable
                 'level_id' => $business_option->level_id,
             ];;
             $apiSession->attach('events', $events);
+
+            // Unlock business options from next level
+	        $nextLevel = Level::where( 'id', '>', $business_option->level_id )->where( 'is_active', 1 )->first();
+	        if ($nextLevel) {
+		        $this->unlockBusinessOptions( $business, $nextLevel->id );
+	        }
         }
 
         //fire event
@@ -402,46 +466,63 @@ trait BusinessOptionable
         return $response;
     }
 
-    /**
-     * This calculate section completed percent from the weight of its business options
-     *
-     * If business_category_id is provided it filters its business_option and calculate the completed percent
-     * accordingly
-     *
-     * @param Business $business
-     * @param BusinessOption $business_option
-     * @return float|int
-     */
-    private function getSectionCompletedPercent(Business $business, BusinessOption $business_option)
+	/**
+	 * This calculate section completed percent from the weight of its business options
+	 *
+	 * If business_category_id is provided it filters its business_option and calculate the completed percent
+	 * accordingly
+	 *
+	 * @param Business $business
+	 * @param $section_id
+	 *
+	 * @return float|int
+	 * @internal param Section $section
+	 *
+	 * @internal param BusinessOption $business_option
+	 */
+    private function getSectionCompletedPercent(Business $business, $section_id)
     {
         //get total weight of  business options under given business
         $business_options_total_weight = $business->businessOptions()
-            ->where('section_id', $business_option->section_id)
+            ->where('section_id', $section_id)
             ->where('status', '!=', 'irrelevant')->sum('weight');
+
+	    if (! ($business_options_total_weight > 0 )) {
+	    	return 0;
+	    }
 
         //get total weight of completed business options under given section
         $completed_business_options_weight = $business->businessOptions()
-            ->where('section_id', $business_option->section_id)
+            ->where('section_id', $section_id)
             ->where('status', 'done')->sum('weight');
 
         //calculate percent
         return ($completed_business_options_weight / $business_options_total_weight) * 100;
     }
 
-    /**
-     * This function calculate level completed_percent from its section completed_percent
-     *
-     * @param Business $business
-     * @param BusinessOption $businessOption
-     * @return float|int
-     */
-    private function getLevelCompletedPercent(Business $business, BusinessOption $businessOption)
+	/**
+	 * This function calculate level completed_percent from its section completed_percent
+	 *
+	 * @param Business $business
+	 * @param $level_id
+	 *
+	 * @return float|int
+	 * @internal param Level $level
+	 *
+	 * @internal param BusinessOption $businessOption
+	 */
+    private function getLevelCompletedPercent(Business $business, $level_id)
     {
         //get total sections count
-        $total_sections = $businessOption->level->sections()->count();
+        $total_sections = Section::where('level_id', $level_id)->where('is_active', 1)->count();
+
+	    if (! ($total_sections > 0)) {
+	    	return 0;
+	    }
 
         //get completed sections count
-        $completed_sections = $business->sections()->where('level_id', $businessOption->level_id)->where('completed_percent', 100)->count();
+        $completed_sections = $business->sections()->where('level_id', $level_id)
+                                                   ->where('completed_percent', 100)->count();
 
         //calculate percent
         return ($completed_sections / $total_sections) * 100;

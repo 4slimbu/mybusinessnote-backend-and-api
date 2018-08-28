@@ -28,7 +28,7 @@ class SyncBusiness implements ShouldQueue
 	 */
     public function __construct(Business $business)
     {
-        //
+        $this->business = $business;
     }
 
     /**

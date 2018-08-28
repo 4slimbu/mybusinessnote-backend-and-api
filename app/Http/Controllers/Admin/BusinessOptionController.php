@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Events\BusinessOptionCreated;
+use App\Events\BusinessOptionDeleted;
 use App\Http\Requests\Admin\BusinessOptionValidation\CreateFormValidation;
 use App\Http\Requests\Admin\BusinessOptionValidation\UpdateFormValidation;
+use App\Jobs\SyncBusiness;
 use App\Libraries\ImageLibrary;
 use App\Models\AffiliateLink;
 use App\Models\BusinessCategory;
@@ -154,6 +157,8 @@ class BusinessOptionController extends AdminBaseController {
 
 		$businessOption->businessCategories()->sync( array_filter( $input['business_category_id'] ) );
 
+		event( new BusinessOptionCreated($businessOption) );
+
 		Session::flash( 'success', $this->panel_name . ' created successfully.' );
 
 		return redirect()->route( $this->base_route );
@@ -289,6 +294,8 @@ class BusinessOptionController extends AdminBaseController {
 		ImageLibrary::removeImage( $businessOption->hover_icon, $this->upload_directory );
 
 		$businessOption->delete();
+
+		event( new BusinessOptionDeleted() );
 
 		Session::flash( 'success', $this->panel_name . ' deleted successfully.' );
 

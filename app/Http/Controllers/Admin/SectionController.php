@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Events\SectionCreated;
 use App\Events\SectionDeleted;
 use App\Http\Requests\Admin\SectionValidation\CreateFormValidation;
 use App\Http\Requests\Admin\SectionValidation\UpdateFormValidation;
@@ -109,6 +110,8 @@ class SectionController extends AdminBaseController
 
         $input['slug'] = str_slug($request->get('name'));
         Section::create($input);
+
+	    event( new SectionCreated() );
 
         Session::flash('success', $this->panel_name . ' created successfully.');
 

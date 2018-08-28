@@ -100,6 +100,6 @@ class Business extends Model
         $this->syncBusinessPivotTables($business, BusinessOption::find(3), $data);
 
         // Unlock next business option
-        $this->unlockNextBusinessOption($business, BusinessOption::find(3));
+        $this->unlockBusinessOptions($business, 1);
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Events\LevelCreated;
+use App\Events\LevelDeleted;
 use App\Http\Requests\Admin\LevelValidation\CreateFormValidation;
 use App\Http\Requests\Admin\LevelValidation\UpdateFormValidation;
 use App\Models\Level;
@@ -107,6 +109,8 @@ class LevelController extends AdminBaseController
         $input['slug'] = str_slug($request->get('name'));
         Level::create($input);
 
+	    event( new LevelCreated() );
+
         Session::flash('success', $this->panel_name . ' created successfully.');
 
         return redirect()->route($this->base_route);
@@ -206,6 +210,8 @@ class LevelController extends AdminBaseController
         }
 
         $level->delete();
+
+	    event( new LevelDeleted() );
 
         Session::flash('success', $this->panel_name . ' deleted successfully.');
 

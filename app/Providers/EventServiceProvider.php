@@ -60,8 +60,23 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\SystemChanged' => [
 	        'App\Listeners\SystemChangedListener',
         ],
+        'App\Events\LevelCreated' => [
+	        'App\Listeners\LevelCreatedListener',
+        ],
+        'App\Events\LevelDeleted' => [
+	        'App\Listeners\LevelDeletedListener',
+        ],
+        'App\Events\SectionCreated' => [
+	        'App\Listeners\SectionCreatedListener',
+        ],
         'App\Events\SectionDeleted' => [
 	        'App\Listeners\SectionDeletedListener',
+        ],
+        'App\Events\BusinessOptionCreated' => [
+	        'App\Listeners\BusinessOptionCreatedListener',
+        ],
+        'App\Events\BusinessOptionDeleted' => [
+	        'App\Listeners\BusinessOptionDeletedListener',
         ],
     ];
 

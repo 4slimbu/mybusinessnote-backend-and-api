@@ -21,13 +21,25 @@ class UpdateBusinessesNeedRefreshStatus implements ShouldQueue
     protected $status;
 
 	/**
+	 * Business
+	 *
+	 * @var Business
+	 */
+    protected $business;
+
+	/**
 	 * Create a new job instance.
 	 *
 	 * @param bool $status
+	 * @param Business $business
 	 */
-    public function __construct($status = false)
+    public function __construct($status = false, Business $business = null)
     {
         $this->status = $status;
+
+	    if ($business) {
+	    	$this->business = $business;
+	    }
     }
 
     /**
@@ -37,6 +49,10 @@ class UpdateBusinessesNeedRefreshStatus implements ShouldQueue
      */
     public function handle()
     {
-	    Business::where('id', '!=', 'null')->update( ['need_refresh' => $this->status] );
+	    if ($this->business) {
+	    	Business::where('id', '=', $this->business->id)->update( ['need_refresh' => $this->status]);
+	    } else {
+		    Business::where('id', '!=', 'null')->update( ['need_refresh' => $this->status] );
+	    }
     }
 }
