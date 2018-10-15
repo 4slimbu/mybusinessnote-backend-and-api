@@ -2,6 +2,9 @@
 /public/hot
 /public/storage
 /public/start
+/public/mbjtest
+/public/images
+/public/html
 /public/mix-manifest.json
 /storage/*.key
 /vendor
