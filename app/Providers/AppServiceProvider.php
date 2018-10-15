@@ -7,6 +7,7 @@ use App\Utilities\ApiSession;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
+use URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,6 +18,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+	    if(config('app.env') === 'production') {
+		    URL::forceScheme('https');
+	    }
+
         $apiSession = new ApiSession();
         $this->app->instance('ApiSession', $apiSession);
 
