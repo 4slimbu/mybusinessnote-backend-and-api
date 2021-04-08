@@ -29,7 +29,7 @@ class ResponseLibrary
         return response()->json([
             'errorId'      => uniqid(),
             'errorCode'    => $errorCode,
-            'errorMessage' => $exception->getMessage(),
+            'errorMessage' => $exception,
         ], $statusCode);
     }
 
