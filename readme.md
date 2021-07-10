@@ -23,7 +23,7 @@ php artisan key:generate
 Create a new database and reference its username, password, database name and host within the project's '.env' file. See the example below for database name mbj.
 
 DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
+DB_HOST=127.0.0.1  //for docker use: mysql container name like 'db'
 DB_PORT=3306
 DB_DATABASE=mbj
 DB_USERNAME=root
@@ -49,6 +49,19 @@ php artisan queue:listen
 if you don't always want to run queue while developing, then update queue driver on .env file  
 from QUEUE_DRIVER=database to  
 QUEUE_DRIVER=sync
+- note: bronto and campain are disabled in eventlistener
+    so no need to follow this step unless you want to enable it.
+
+### Step 5
+- you won't be able to use seeded data to login from frontend because business is created only when user is created properly. 
+TODO: fix this
+- you need to login as admin and create normal user from there or register new user
+
+### Step 5
+- link google and facebook app for social login
+- link google recaptcha as well
+- link google smtp for email.
+
 ## Other Details
 
 Hosting: AWS
@@ -56,5 +69,5 @@ Hosting: AWS
 
 ### Staging API
 
-http://api.mybusinessjourney.com.au
-http://api.mybusinessjourney.com.au/admin
+http://api.mybusinessnote.com
+http://api.mybusinessnote.com/admin

@@ -22,8 +22,8 @@ class UserEventSubscriber
     {
         (new Business)->setUp($event->user);
 
-        event(new BrontoSubscriptionUpdated($event->user));
-        event(new CampaignMonitorSubscriptionUpdated($event->user));
+        //event(new BrontoSubscriptionUpdated($event->user));
+        //event(new CampaignMonitorSubscriptionUpdated($event->user));
         event(new UnVerifiedUserEvent($event->user));
         event(new AddToEmailNotificationTrackerEvent($event->user->business));
     }
@@ -35,11 +35,11 @@ class UserEventSubscriber
     public function onUserUpdate($event)
     {
         if ($event->oldUser->is_free_isb_subscription !== $event->user->is_free_isb_subscription) {
-            event(new BrontoSubscriptionUpdated($event->user));
+            //event(new BrontoSubscriptionUpdated($event->user));
         }
 
         if ($event->oldUser->is_marketing_emails !== $event->user->is_marketing_emails) {
-            event(new CampaignMonitorSubscriptionUpdated($event->user));
+            //event(new CampaignMonitorSubscriptionUpdated($event->user));
         }
     }
 

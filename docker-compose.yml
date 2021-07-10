@@ -1,12 +1,11 @@
-version: '3'
+version: "3"
 services:
-
   #PHP Service
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    image: digitalocean.com/php
+    #image: digitalocean.com/php
     container_name: app
     restart: unless-stopped
     tty: true
@@ -44,10 +43,10 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_DATABASE: mbj_db
-      MYSQL_USER: mbj_user
-      MYSQL_PASSWORD: mbj_user_pass
-      MYSQL_ROOT_PASSWORD: mbj_root_pass
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:

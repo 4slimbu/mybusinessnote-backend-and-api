@@ -57,6 +57,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        //dd($exception);
         // Response For Api
         if ($request->expectsJson()) {
             if ($exception instanceof MultipleBusinessException) {
