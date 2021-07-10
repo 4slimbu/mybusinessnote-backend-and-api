@@ -1,6 +1,6 @@
 <div class="navbar navbar-dark bg-dark sticky-top">
     <div class="container-fluid d-flex justify-content-between">
-        <a href="/" class="navbar-brand"><img src="{{ asset('images/MBJ_logo@4x.png')}}"/></a>
+        <a href="/" class="navbar-brand"><img src="{{ asset('images/logo-white.png')}}"/></a>
 
 
         <nav class="nav user-nav">

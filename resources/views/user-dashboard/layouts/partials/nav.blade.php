@@ -1,6 +1,6 @@
 <div class="navbar navbar-dark bg-dark sticky-top">
     <div class="container-fluid d-flex justify-content-between">
-        <a href="/" class="navbar-brand"><img src="{{ asset('images/MBJ_logo@4x.png')}}"/></a>
+        <a href="/" class="navbar-brand"><img src="{{ asset('images/logo-white.png')}}"/></a>
 
 
         <nav class="nav user-nav">
@@ -19,7 +19,7 @@
                     <a target="_blank"
                        href="{{ $react_app_url . '/?token=' . addslashes(htmlspecialchars($jwt_token)) }}"
                        class="nav-link" role="button" aria-expanded="false">
-                        <strong>Back to My Business Journey</strong> <span class="caret"></span>
+                        <strong>Back to My Business Note</strong> <span class="caret"></span>
                     </a>
                 </li>
 

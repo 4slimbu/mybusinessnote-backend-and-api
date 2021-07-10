@@ -28,7 +28,7 @@ class LevelsTableSeeder extends Seeder
 <p>Level 1 complete!</p>',
                 'content' => '<p>Let\'s get you started by setting up your account. Click on continue to go through the steps to register as well as to set up your business.</p>',
                 'tooltip_title' => 'Information',
-                'tooltip' => '<p><span style="font-weight: 400;">Getting Started will ask you for basic information about you and your business idea. This will set you up and allow us to tailor the later parts of your journey.</span></p>',
+                'tooltip' => '<p><span style="font-weight: 400;">Getting Started will ask you for basic information about you and your business idea. This will set you up and allow us to tailor the later parts of your note.</span></p>',
                 'template' => 'default',
                 'is_active' => 1,
                 'is_down' => 0,

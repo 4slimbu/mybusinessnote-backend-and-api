@@ -9,7 +9,7 @@
                     <div class="panel panel-default">
                         <h1 class="head text-center">Login</h1>
                         <p class="lead text-center">
-                            Welcome to My Business Journey. Please login to continue.
+                            Welcome to My Business Note. Please login to continue.
                         </p>
                         <div class="panel-body">
                             <form class="form-horizontal" method="POST" action="{{ route('login') }}">

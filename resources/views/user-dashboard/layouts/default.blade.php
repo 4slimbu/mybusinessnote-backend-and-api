@@ -8,10 +8,10 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>My Business Journey</title>
+    <title>My Business Note</title>
 
     <!-- favicon -->
-    <link rel="icon" type="icon/png" href="{{ asset('images/fav-icons.png') }}">
+    <link rel="icon" type="icon/png" href="{{ asset('images/favicon.png') }}">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">

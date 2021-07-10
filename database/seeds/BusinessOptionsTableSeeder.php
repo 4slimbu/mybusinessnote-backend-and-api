@@ -266,7 +266,7 @@ class BusinessOptionsTableSeeder extends Seeder
                 'element_data' => NULL,
                 'tooltip_title' => 'Social Media Registration',
                 'tooltip' => '<p><span style="font-weight: 400;">Using social media to boost your marketing and eventually, your sales strategy relies on understanding how to better serve your customers. Social media marketing allows you to reinforce your brand value and proposition while promoting constant connections with your customers.</span></p>
-<p><span style="font-weight: 400;">To start your social media marketing journey, it pays to know the following:</span></p>
+<p><span style="font-weight: 400;">To start your social media marketing note, it pays to know the following:</span></p>
 <ul>
 <li><strong>Ready your information for registration</strong><span style="font-weight: 400;">: Have an email for registration and a list of your business name, website or physical location and contact number.</span></li>
 <li><strong>Identify channels to use</strong><span style="font-weight: 400;">: Listen to your audience to better identify what social media channels they use.</span></li>

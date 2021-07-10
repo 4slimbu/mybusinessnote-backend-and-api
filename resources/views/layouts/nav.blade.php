@@ -1,6 +1,6 @@
 <div class="navbar navbar-dark bg-dark sticky-top">
     <div class="container-fluid d-flex justify-content-between">
-        <a href="/" class="navbar-brand"><img src="{{ asset('images/MBJ_logo@4x.png')}}"/></a>
+        <a href="/" class="navbar-brand"><img src="{{ asset('images/logo-white.png')}}"/></a>
 
 
         <nav class="nav user-nav">
@@ -11,7 +11,7 @@
             @else
                 <li class="nav-item"><a class="nav-link" href="{{ url('home') }}">My Account</a></li>
             @endif
-            <li class="nav-item"><a class="nav-link" href="{{ config('mbj.main_app_url') }}">My Business Journey</a>
+            <li class="nav-item"><a class="nav-link" href="{{ config('mbj.main_app_url') }}">My Business Note</a>
             </li>
         </nav>
 

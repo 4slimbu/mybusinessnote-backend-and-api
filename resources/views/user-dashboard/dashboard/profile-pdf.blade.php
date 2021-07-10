@@ -3,7 +3,7 @@
 @section('content')
     <div class="content-wrapper">
         <div style="padding: 50px 200px; background-color: #4b384b;">
-            <img style="width: 100%" src="{{ asset('images/MBJ_logo@4x.png')}}"/>
+            <img style="width: 100%" src="{{ asset('images/logo-white.png')}}"/>
         </div>
         <div class="card">
             <div class="card-header">

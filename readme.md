@@ -1,4 +1,4 @@
-# My Business Journey - Laravel
+# My Business Note - Laravel
 
 API and Backend for MBJ main application(https://bitbucket.org/octomedia/mbj_app). MBJ main application is one page app built on REACT/REDUX. To clone MBJ main app go to 
 https://bitbucket.org/octomedia/mbj_app and follow the readme instruction.

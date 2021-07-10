@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title>My Business Journey</title>
+    <title>My Business Note</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" media="all" rel="stylesheet">
