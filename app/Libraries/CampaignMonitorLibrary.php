@@ -10,6 +10,7 @@ use CS_REST_Subscribers;
 use CS_REST_Transactional_SmartEmail;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendVerificationEmail;
+use App\Mail\SendForgotPasswordEmail;
 
 /**
 */
@@ -244,12 +245,16 @@ class CampaignMonitorLibrary
                 "{$this->userName} <{$this->user->email}>",
             ],
             "Data" => [
+                "first_name"              => $this->user->first_name,
+                "username"                => $this->user->email,
                 "continue_where_you_left" => $this->reactAppUrl . '?token=' . $this->getTokenFromUser($this->user) . '&email_verification_token=' . $this->user->email_verification_token,
                 "reset_password_link"     => $this->reactAppUrl . '/login/forgot-password?forgot_password_token=' . $this->user->forgot_password_token,
             ],
         ];
 
-        $this->sendSmartTransactionalMail($this->smartEmailIdForForgotPassword, $messageData);
+        /* $this->sendSmartTransactionalMail($this->smartEmailIdForForgotPassword, $messageData); */
+
+        Mail::to($this->user)->send(new SendForgotPasswordEmail($messageData));
     }
 
 	/**
