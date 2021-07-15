@@ -16,8 +16,6 @@ services:
     volumes:
       - ./:/var/www
       - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
-    networks:
-      - app-network
 
   #Nginx Service
   webserver:
@@ -25,14 +23,14 @@ services:
     container_name: webserver
     restart: unless-stopped
     tty: true
-    ports:
-      - "80:80"
-      - "443:443"
+    # ports:
+    #   - "80:80"
+    #   - "443:443"
+    environment:
+      - VIRTUAL_HOST=dash.mybusinessnote.local
     volumes:
       - ./:/var/www
       - ./nginx/conf.d/:/etc/nginx/conf.d/
-    networks:
-      - app-network
 
   #MySQL Service
   db:
@@ -52,13 +50,12 @@ services:
     volumes:
       - dbdata:/var/lib/mysql/
       - ./mysql/my.cnf:/etc/mysql/my.cnf
-    networks:
-      - app-network
 
-#Docker Networks
 networks:
-  app-network:
-    driver: bridge
+  default:
+    external:
+      name: projects_virtual-network
+
 #Volumes
 volumes:
   dbdata:

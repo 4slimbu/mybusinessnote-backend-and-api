@@ -8,12 +8,8 @@ use App\Models\User;
 use App\Traits\Authenticable;
 use CS_REST_Subscribers;
 use CS_REST_Transactional_SmartEmail;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\SendVerificationEmail;
 
-/**
-*/
-class CampaignMonitorLibrary
+class CampaignMonitorLibraryOriginal
 {
     use Authenticable;
 
@@ -217,9 +213,7 @@ class CampaignMonitorLibrary
             ],
         ];
 
-        
-        /* $this->sendSmartTransactionalMail($this->smartEmailIdForEmailVerification, $messageData); */
-        Mail::to($this->user)->send(new SendVerificationEmail($messageData));
+        $this->sendSmartTransactionalMail($this->smartEmailIdForEmailVerification, $messageData);
     }
 
     /**
