@@ -2,10 +2,7 @@ version: "3"
 services:
   #PHP Service
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    #image: digitalocean.com/php
+    image: limvus/php-fpm-with-composer
     container_name: app
     restart: unless-stopped
     tty: true
