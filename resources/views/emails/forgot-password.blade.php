@@ -6,7 +6,7 @@ request, then ignore this email. Otherwise, follow this link to reset your passw
 
 
 @component('mail::button', ['url' => $data['Data']['reset_password_link']])
-    Verify Now
+    Reset Password
 @endcomponent
 
 Thanks,<br>
