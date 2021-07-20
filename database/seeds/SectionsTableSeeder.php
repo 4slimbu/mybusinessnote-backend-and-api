@@ -74,7 +74,7 @@ class SectionsTableSeeder extends Seeder
             3 => 
             array (
                 'id' => 4,
-                'level_id' => 1,
+                'level_id' => 3,
                 'name' => 'Register Your Business',
                 'slug' => 'register-your-business',
                 'meta_title' => NULL,
