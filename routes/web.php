@@ -1,5 +1,26 @@
 <?php
 
+// Test mail rendering
+// dash.mybusinessnote.local/demo
+/*Route::get('/mail-render', function () {
+        $messageData = [
+            "To"   => [
+                "Sudip Limbu <4slimbu@gmail.com>",
+            ],
+            "Data" => [
+                "first_name"              => "Sudip", 
+                "username"                => "Sudip Limbu",
+                "continue_where_you_left" => "http://example.com",
+                "reset_password_link"    => "http://example.com/forgot"
+            ],
+        ];
+
+    return new App\Mail\SendVerificationEmail($messageData);
+    //return new App\Mail\SendForgotPasswordEmail($messageData);
+});
+ */
+
+
 /*
 |--------------------------------------------------------------------------
 | Authentication Routes
