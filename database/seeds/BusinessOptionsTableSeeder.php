@@ -687,7 +687,7 @@ class BusinessOptionsTableSeeder extends Seeder
 <ul>
 <li><span style="font-weight: 400;">Get some noise cancelling headphones to remove any distractions and stay focussed. &nbsp;This is especially true if working from home or in a shared office space.</span></li>
 <li><span style="font-weight: 400;">Stay organised, plan from the outset to keep organised, it&rsquo;s easy to maintain but hard to back track. &nbsp;Folio&rsquo;s, clear tabs and markings will make your life a lot easier later - get into the habit now! </span></li>
-<li><span style="font-weight: 400;">This includes your computer, keep files organised, here is a great article to take you through it, step by step: </span><a href="http://www.asianefficiency.com/organization/organizing-files-folders-documents/"><span style="font-weight: 400;">http://www.asianefficiency.com/organization/organizing-files-folders-documents/</span></a></li>
+<li><span style="font-weight: 400;">This includes your computer, keep files organised, here is a great article to take you through it, step by step: </span><a href="https://www.asianefficiency.com/organization/organizing-files-folders-documents/"><span style="font-weight: 400;">https://www.asianefficiency.com/organization/organizing-files-folders-documents/</span></a></li>
 <li><span style="font-weight: 400;">Project management software like Asana, is free, and makes keeping projects on track easier. &nbsp;At the end of the day you still need to do the work!</span></li>
 </ul>
 <div id="i4c-dialogs-container">&nbsp;</div>',

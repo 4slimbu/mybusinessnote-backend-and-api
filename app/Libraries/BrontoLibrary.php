@@ -19,7 +19,7 @@ class BrontoLibrary
     /**
      * Bronto Api Url
      */
-    protected $url = 'http://api.bronto.com/v4';
+    protected $url = 'https://api.bronto.com/v4';
 
     /**
      * Bronto list id for MBJ

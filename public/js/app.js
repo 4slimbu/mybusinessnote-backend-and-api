@@ -599,7 +599,7 @@ var Sizzle =
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license
- * http://jquery.org/license
+ * https://jquery.org/license
  *
  * Date: 2016-08-08
  */
@@ -666,13 +666,13 @@ var i,
 
 	// Regular expressions
 
-	// http://www.w3.org/TR/css3-selectors/#whitespace
+	// https://www.w3.org/TR/css3-selectors/#whitespace
 	whitespace = "[\\x20\\t\\r\\n\\f]",
 
-	// http://www.w3.org/TR/CSS21/syndata.html#value-def-identifier
+	// https://www.w3.org/TR/CSS21/syndata.html#value-def-identifier
 	identifier = "(?:\\\\.|[\\w-]|[^\0-\\xa0])+",
 
-	// Attribute selectors: http://www.w3.org/TR/selectors/#attribute-selectors
+	// Attribute selectors: https://www.w3.org/TR/selectors/#attribute-selectors
 	attributes = "\\[" + whitespace + "*(" + identifier + ")(?:" + whitespace +
 		// Operator (capture 2)
 		"*([*^$|!~]?=)" + whitespace +
@@ -729,7 +729,7 @@ var i,
 	rsibling = /[+~]/,
 
 	// CSS escapes
-	// http://www.w3.org/TR/CSS21/syndata.html#escaped-characters
+	// https://www.w3.org/TR/CSS21/syndata.html#escaped-characters
 	runescape = new RegExp( "\\\\([\\da-f]{1,6}" + whitespace + "?|(" + whitespace + ")|.)", "ig" ),
 	funescape = function( _, escaped, escapedWhitespace ) {
 		var high = "0x" + escaped - 0x10000;
@@ -1365,7 +1365,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			}
 
 			// Webkit/Opera - :checked should return selected option elements
-			// http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
+			// https://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
 			// IE8 throws error here and will not see later tests
 			if ( !el.querySelectorAll(":checked").length ) {
 				rbuggyQSA.push(":checked");
@@ -1976,7 +1976,7 @@ Expr = Sizzle.selectors = {
 
 		"PSEUDO": function( pseudo, argument ) {
 			// pseudo-class names are case-insensitive
-			// http://www.w3.org/TR/selectors/#pseudo-classes
+			// https://www.w3.org/TR/selectors/#pseudo-classes
 			// Prioritize by case sensitivity in case custom pseudos are added with uppercase letters
 			// Remember that setFilters inherits from pseudos
 			var args,
@@ -2063,7 +2063,7 @@ Expr = Sizzle.selectors = {
 		// or beginning with the identifier C immediately followed by "-".
 		// The matching of C against the element's language value is performed case-insensitively.
 		// The identifier C does not have to be a valid language name."
-		// http://www.w3.org/TR/selectors/#lang-pseudo
+		// https://www.w3.org/TR/selectors/#lang-pseudo
 		"lang": markFunction( function( lang ) {
 			// lang value must be a valid identifier
 			if ( !ridentifier.test(lang || "") ) {
@@ -2105,7 +2105,7 @@ Expr = Sizzle.selectors = {
 
 		"checked": function( elem ) {
 			// In CSS3, :checked should return both checked and selected elements
-			// http://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
+			// https://www.w3.org/TR/2011/REC-css3-selectors-20110929/#checked
 			var nodeName = elem.nodeName.toLowerCase();
 			return (nodeName === "input" && !!elem.checked) || (nodeName === "option" && !!elem.selected);
 		},
@@ -2122,7 +2122,7 @@ Expr = Sizzle.selectors = {
 
 		// Contents
 		"empty": function( elem ) {
-			// http://www.w3.org/TR/selectors/#empty-pseudo
+			// https://www.w3.org/TR/selectors/#empty-pseudo
 			// :empty is negated by element (1) or content nodes (text: 3; cdata: 4; entity ref: 5),
 			//   but not by others (comment: 8; processing instruction: 7; etc.)
 			// nodeType < 6 works because attributes (2) do not appear as children
@@ -7569,7 +7569,7 @@ jQuery.fx.speeds = {
 
 
 // Based off of the plugin by Clint Helfers, with permission.
-// https://web.archive.org/web/20100324014747/http://blindsignals.com/index.php/2009/07/jquery-delay/
+// https://web.archive.org/web/20100324014747/https://blindsignals.com/index.php/2009/07/jquery-delay/
 jQuery.fn.delay = function( time, type ) {
 	time = jQuery.fx ? jQuery.fx.speeds[ time ] || time : time;
 	type = type || "fx";
@@ -7794,7 +7794,7 @@ jQuery.extend( {
 				// Support: IE <=9 - 11 only
 				// elem.tabIndex doesn't always return the
 				// correct value when it hasn't been explicitly set
-				// https://web.archive.org/web/20141116233347/http://fluidproject.org/blog/2008/01/09/getting-setting-and-removing-tabindex-values-with-javascript/
+				// https://web.archive.org/web/20141116233347/https://fluidproject.org/blog/2008/01/09/getting-setting-and-removing-tabindex-values-with-javascript/
 				// Use proper attribute retrieval(#12072)
 				var tabindex = jQuery.find.attr( elem, "tabindex" );
 
@@ -8438,7 +8438,7 @@ jQuery.fn.extend( {
 //
 // Support: Chrome <=48 - 49, Safari <=9.0 - 9.1
 // focus(in | out) events fire after focus & blur events,
-// which is spec violation - http://www.w3.org/TR/DOM-Level-3-Events/#events-focusevent-event-order
+// which is spec violation - https://www.w3.org/TR/DOM-Level-3-Events/#events-focusevent-event-order
 // Related ticket - https://bugs.chromium.org/p/chromium/issues/detail?id=449857
 if ( !support.focusin ) {
 	jQuery.each( { focus: "focusin", blur: "focusout" }, function( orig, fix ) {
@@ -9147,7 +9147,7 @@ jQuery.extend( {
 
 			// Support: IE <=8 - 11, Edge 12 - 15
 			// IE throws exception on accessing the href property if url is malformed,
-			// e.g. http://example.com:80x/
+			// e.g. https://example.com:80x/
 			try {
 				urlAnchor.href = s.url;
 
@@ -21908,7 +21908,7 @@ var isBooleanAttr = makeMap(
   'truespeed,typemustmatch,visible'
 );
 
-var xlinkNS = 'http://www.w3.org/1999/xlink';
+var xlinkNS = 'https://www.w3.org/1999/xlink';
 
 var isXlink = function (name) {
   return name.charAt(5) === ':' && name.slice(0, 5) === 'xlink'
@@ -22006,8 +22006,8 @@ function stringifyObject (value) {
 /*  */
 
 var namespaceMap = {
-  svg: 'http://www.w3.org/2000/svg',
-  math: 'http://www.w3.org/1998/Math/MathML'
+  svg: 'https://www.w3.org/2000/svg',
+  math: 'https://www.w3.org/1998/Math/MathML'
 };
 
 var isHTMLTag = makeMap(
@@ -22066,7 +22066,7 @@ function isUnknownElement (tag) {
   }
   var el = document.createElement(tag);
   if (tag.indexOf('-') > -1) {
-    // http://stackoverflow.com/a/28210364/1070244
+    // https://stackoverflow.com/a/28210364/1070244
     return (unknownElementCache[tag] = (
       el.constructor === window.HTMLUnknownElement ||
       el.constructor === window.HTMLElement
@@ -24705,7 +24705,7 @@ var patch = createPatchFunction({ nodeOps: nodeOps, modules: modules });
 
 /* istanbul ignore if */
 if (isIE9) {
-  // http://www.matts411.com/post/internet-explorer-9-oninput/
+  // https://www.matts411.com/post/internet-explorer-9-oninput/
   document.addEventListener('selectionchange', function () {
     var el = document.activeElement;
     if (el && el.vmodel) {
@@ -25498,7 +25498,7 @@ var isNonPhrasingTag = makeMap(
  * HTML Parser By John Resig (ejohn.org)
  * Modified by Juriy "kangax" Zaytsev
  * Original code by Erik Arvidsson, Mozilla Public License
- * http://erik.eae.net/simplehtmlparser/simplehtmlparser.js
+ * https://erik.eae.net/simplehtmlparser/simplehtmlparser.js
  */
 
 // Regular Expressions for parsing tags and attributes
@@ -25569,7 +25569,7 @@ function parseHTML (html, options) {
           }
         }
 
-        // http://en.wikipedia.org/wiki/Conditional_comment#Downlevel-revealed_conditional_comment
+        // https://en.wikipedia.org/wiki/Conditional_comment#Downlevel-revealed_conditional_comment
         if (conditionalComment.test(html)) {
           var conditionalEnd = html.indexOf(']>');
 
@@ -27849,7 +27849,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     function installPostMessageImplementation() {
         // Installs an event handler on `global` for the `message` event: see
         // * https://developer.mozilla.org/en/DOM/window.postMessage
-        // * http://www.whatwg.org/specs/web-apps/current-work/multipage/comms.html#crossDocumentMessages
+        // * https://www.whatwg.org/specs/web-apps/current-work/multipage/comms.html#crossDocumentMessages
 
         var messagePrefix = "setImmediate$" + Math.random() + "$";
         var onGlobalMessage = function(event) {

@@ -24,7 +24,8 @@ services:
     #   - "80:80"
     #   - "443:443"
     environment:
-      - VIRTUAL_HOST=dash.mybusinessnote.local
+      - VIRTUAL_HOST=dash.mybusinessnote.com
+      - LETSENCRYPT_HOST=dash.mybusinessnote.com
     volumes:
       - ./:/var/www
       - ./nginx/conf.d/:/etc/nginx/conf.d/
@@ -51,7 +52,7 @@ services:
 networks:
   default:
     external:
-      name: projects_virtual-network
+      name: ubuntu_default
 
 #Volumes
 volumes:
