@@ -20,12 +20,12 @@ services:
     container_name: webserver
     restart: unless-stopped
     tty: true
-    # ports:
-    #   - "80:80"
-    #   - "443:443"
-    environment:
-      - VIRTUAL_HOST=dash.mybusinessnote.com
-      - LETSENCRYPT_HOST=dash.mybusinessnote.com
+    ports:
+      - "8080:80"
+      # - "443:443"
+    # environment:
+    #   - VIRTUAL_HOST=dash.mybusinessnote.local
+    #   - LETSENCRYPT_HOST=dash.mybusinessnote.local
     volumes:
       - ./:/var/www
       - ./nginx/conf.d/:/etc/nginx/conf.d/
@@ -48,11 +48,6 @@ services:
     volumes:
       - dbdata:/var/lib/mysql/
       - ./mysql/my.cnf:/etc/mysql/my.cnf
-
-networks:
-  default:
-    external:
-      name: ubuntu_default
 
 #Volumes
 volumes:

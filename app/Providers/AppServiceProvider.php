@@ -18,9 +18,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-	    if(config('app.env') === 'production') {
-		    URL::forceScheme('https');
-	    }
+	    // URL::forceScheme('https');
+	    // if(config('app.env') === 'production') {
+		    // URL::forceScheme('https');
+	    // }
 
         $apiSession = new ApiSession();
         $this->app->instance('ApiSession', $apiSession);
